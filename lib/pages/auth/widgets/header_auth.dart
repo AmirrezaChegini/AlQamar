@@ -9,7 +9,7 @@ class HeaderAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 5,
+      height: MediaQuery.of(context).size.height / 6,
       child: Stack(
         children: [
           Container(

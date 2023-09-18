@@ -27,6 +27,8 @@ flutter:
   fonts:
     - family: iranyekanmed
       fonts:
+        - asset: assets/fonts/IRANYekanBold.ttf
+          weight: 900
         - asset: assets/fonts/IRANYekanMedium.ttf
           weight: 500
         - asset: assets/fonts/IRANYekanRegular.ttf

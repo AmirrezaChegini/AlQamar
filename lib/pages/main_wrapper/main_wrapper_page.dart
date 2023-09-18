@@ -1,3 +1,5 @@
+import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 class MainWrapperPage extends StatefulWidget {
@@ -11,6 +13,8 @@ class _MainWrapperPageState extends State<MainWrapperPage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabCtrl;
 
+  int selectedIndex = -1;
+
   @override
   void initState() {
     super.initState();
@@ -21,26 +25,8 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: TabBar(
-        controller: _tabCtrl,
-        tabs: const [
-          Tab(
-            text: '1',
-          ),
-          Tab(
-            text: '2',
-          ),
-          Tab(
-            text: '3',
-          ),
-          Tab(
-            text: '4',
-          ),
-          Tab(
-            text: '5',
-          ),
-        ],
-      ),
+      backgroundColor: Colors.red,
+      bottomNavigationBar: BottomNavbar(tabCtrl: _tabCtrl),
       body: TabBarView(
         controller: _tabCtrl,
         children: const [

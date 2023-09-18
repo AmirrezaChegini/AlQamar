@@ -1,4 +1,4 @@
-import 'package:al_qamar/pages/splash/splash_page.dart';
+import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashPage(),
+      home: MainWrapperPage(),
     );
   }
 }

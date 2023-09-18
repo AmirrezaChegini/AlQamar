@@ -20,6 +20,8 @@ class TabbarAuth extends StatelessWidget {
       labelColor: AppColors.blue,
       unselectedLabelColor: AppColors.grey,
       indicatorColor: AppColors.blue,
+      labelStyle:
+          Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
       tabs: List.generate(
         texts.length,
         (index) => Tab(

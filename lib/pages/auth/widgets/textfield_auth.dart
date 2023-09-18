@@ -21,18 +21,16 @@ class TextFieldAuth extends StatelessWidget {
       textInputAction: inputAction,
       validator: (value) => validate(value!),
       cursorColor: AppColors.blue,
-      cursorHeight: 20,
+      textAlignVertical: TextAlignVertical.bottom,
+      style: Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 12),
       decoration: InputDecoration(
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColors.grey,
-          ),
-        ),
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.blue,
           ),
         ),
+        hintStyle:
+            Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
         hintText: hint,
       ),
     );

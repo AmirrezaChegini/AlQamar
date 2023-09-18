@@ -21,6 +21,10 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: AppColors.white,
       ),
+      displayMedium: TextStyle(
+        fontWeight: FontWeight.w500,
+        color: AppColors.blue,
+      ),
     ),
   );
 }

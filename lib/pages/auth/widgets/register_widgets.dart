@@ -13,7 +13,6 @@ class RegisterWidgets extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Spacer(),
         TextFieldAuth(
           validate: (p0) {},
           hint: 'اسم',

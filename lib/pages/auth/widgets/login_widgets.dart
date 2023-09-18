@@ -10,10 +10,8 @@ class LoginWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Spacer(),
         TextFieldAuth(
           validate: (p0) {},
           hint: 'بريد إلكتروني',

@@ -13,8 +13,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MainWrapperPage(),
       theme: AppTheme.lightTheme,
+      home: const MainWrapperPage(),
     );
   }
 }

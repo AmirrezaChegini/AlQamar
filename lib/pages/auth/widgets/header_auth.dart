@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/images.dart';
 import 'package:flutter/material.dart';
 
 class HeaderAuth extends StatelessWidget {
@@ -16,7 +17,7 @@ class HeaderAuth extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: const DecorationImage(
-                image: AssetImage('assets/images/Splash-Auth-Color.png'),
+                image: AssetImage(AppImages.authColorBackground),
                 fit: BoxFit.fill,
               ),
             ),

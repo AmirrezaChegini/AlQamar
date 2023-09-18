@@ -1,5 +1,4 @@
 import 'package:al_qamar/constants/images.dart';
-import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +57,9 @@ class _MainWrapperPageState extends State<MainWrapperPage>
             Center(
               child: Text('3'),
             ),
-            AuthPage(),
+            Center(
+              child: Text('4'),
+            ),
             Center(
               child: Text('5'),
             ),

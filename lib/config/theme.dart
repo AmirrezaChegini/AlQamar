@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     fontFamily: 'iranyekanmed',
+    scaffoldBackgroundColor: AppColors.grey300,
     textTheme: const TextTheme(
       labelLarge: TextStyle(
         fontWeight: FontWeight.w900,

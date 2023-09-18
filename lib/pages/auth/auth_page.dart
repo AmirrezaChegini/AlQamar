@@ -1,3 +1,4 @@
+import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/pages/auth/widgets/header_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/login_widgets.dart';
@@ -46,6 +47,7 @@ class _AuthPageState extends State<AuthPage>
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
+                color: AppColors.white,
                 image: const DecorationImage(
                   alignment: Alignment.bottomCenter,
                   image: AssetImage(AppImages.authBackground),

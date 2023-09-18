@@ -33,7 +33,6 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavbar(tabCtrl: _tabCtrl),
       resizeToAvoidBottomInset: false,
       extendBody: true,

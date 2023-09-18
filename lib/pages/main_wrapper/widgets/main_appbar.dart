@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,8 +17,8 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
         padding: const EdgeInsets.only(top: 6),
         child: SvgPicture.asset(
-          'assets/icons/AlQamar_Logo.svg',
-          color: AppColors.red,
+          AppIcons.logo,
+          colorFilter: const ColorFilter.mode(AppColors.red, BlendMode.srcIn),
         ),
       ),
       actions: [
@@ -34,14 +35,14 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         const SizedBox(width: 4),
         Image.asset(
-          'assets/icons/Live.png',
+          AppIcons.live,
           height: 30,
           width: 30,
           color: AppColors.red,
         ),
         const SizedBox(width: 4),
         Image.asset(
-          'assets/icons/Menu.png',
+          AppIcons.menu,
           height: 30,
           width: 30,
           color: AppColors.red,

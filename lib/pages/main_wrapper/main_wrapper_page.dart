@@ -1,5 +1,7 @@
-import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
+import 'package:al_qamar/pages/main_wrapper/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 
 class MainWrapperPage extends StatefulWidget {
@@ -23,29 +25,45 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _tabCtrl.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavbar(tabCtrl: _tabCtrl),
-      body: TabBarView(
-        controller: _tabCtrl,
-        children: const [
-          Center(
-            child: Text('1'),
+      resizeToAvoidBottomInset: false,
+      extendBody: true,
+      appBar: const MainAppbar(),
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            alignment: Alignment.bottomCenter,
+            image: AssetImage(AppImages.scaffoldBackground),
           ),
-          Center(
-            child: Text('2'),
-          ),
-          Center(
-            child: Text('3'),
-          ),
-          Center(
-            child: Text('4'),
-          ),
-          Center(
-            child: Text('5'),
-          ),
-        ],
+        ),
+        child: TabBarView(
+          controller: _tabCtrl,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            Center(
+              child: Text('1'),
+            ),
+            Center(
+              child: Text('2'),
+            ),
+            Center(
+              child: Text('3'),
+            ),
+            AuthPage(),
+            Center(
+              child: Text('5'),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/icons.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -23,11 +24,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
   ];
 
   final List<String> bottomIcons = const [
-    'assets/icons/Home.png',
-    'assets/icons/Topics.png',
-    'assets/icons/Search.png',
-    'assets/icons/Profile.png',
-    'assets/icons/Calender.png',
+    AppIcons.home,
+    AppIcons.topics,
+    AppIcons.search,
+    AppIcons.profile,
+    AppIcons.calender,
   ];
 
   int selectedIndex = 0;

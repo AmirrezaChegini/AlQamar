@@ -1,3 +1,4 @@
+import 'package:al_qamar/constants/images.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatelessWidget {
@@ -9,7 +10,7 @@ class SplashPage extends StatelessWidget {
       body: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/Splash.png'),
+            image: AssetImage(AppImages.splashBackground),
             fit: BoxFit.cover,
           ),
         ),

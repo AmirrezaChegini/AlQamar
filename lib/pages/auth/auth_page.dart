@@ -61,7 +61,6 @@ class _AuthPageState extends State<AuthPage>
                   Expanded(
                     child: TabBarView(
                       controller: _tabCtrl,
-                      physics: const NeverScrollableScrollPhysics(),
                       children: const [
                         Padding(
                           padding: EdgeInsets.all(20),

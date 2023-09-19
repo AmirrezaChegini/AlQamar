@@ -1,9 +1,9 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
-import 'package:al_qamar/pages/auth/widgets/header_auth.dart';
-import 'package:al_qamar/pages/auth/widgets/login_widgets.dart';
-import 'package:al_qamar/pages/auth/widgets/register_widgets.dart';
-import 'package:al_qamar/pages/auth/widgets/tabbar_auth.dart';
+import 'package:al_qamar/pages/account/widgets/header_auth.dart';
+import 'package:al_qamar/pages/account/widgets/login_widgets.dart';
+import 'package:al_qamar/pages/account/widgets/register_widgets.dart';
+import 'package:al_qamar/pages/account/widgets/tabbar_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {

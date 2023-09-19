@@ -1,25 +1,17 @@
-import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
-import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
+import 'package:al_qamar/pages/account/widgets/btn_auth.dart';
+import 'package:al_qamar/pages/account/widgets/textfield_auth.dart';
 import 'package:flutter/material.dart';
 
-class RegisterWidgets extends StatelessWidget {
-  const RegisterWidgets({
+class LoginWidgets extends StatelessWidget {
+  const LoginWidgets({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        TextFieldAuth(
-          validate: (p0) {},
-          hint: 'اسم',
-          inputAction: TextInputAction.next,
-          inputType: TextInputType.name,
-        ),
-        const SizedBox(height: 15),
         TextFieldAuth(
           validate: (p0) {},
           hint: 'بريد إلكتروني',

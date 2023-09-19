@@ -15,4 +15,5 @@ class AppIcons {
   static const String arrow = '$root/Arrow_light.png';
   static const String pen = '$root/Pen.png';
   static const String edit = '$root/Edit.png';
+  static const String bookmark = '$root/Bookmark.png';
 }

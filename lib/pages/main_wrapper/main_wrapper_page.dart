@@ -41,7 +41,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
         decoration: const BoxDecoration(
           image: DecorationImage(
             alignment: Alignment.bottomCenter,
-            image: AssetImage(AppImages.scaffoldBackground),
+            image: AssetImage(AppImages.authBackground),
           ),
         ),
         child: TabBarView(

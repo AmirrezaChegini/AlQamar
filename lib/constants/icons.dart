@@ -14,4 +14,5 @@ class AppIcons {
   static const String logo = '$root/AlQamar_Logo.svg';
   static const String arrow = '$root/Arrow_light.png';
   static const String pen = '$root/Pen.png';
+  static const String edit = '$root/Edit.png';
 }

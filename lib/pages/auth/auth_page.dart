@@ -43,12 +43,14 @@ class _AuthPageState extends State<AuthPage>
             bottom: 100,
             left: 0,
             right: 0,
-            top: MediaQuery.of(context).size.height / 6 - 10,
+            top: MediaQuery.of(context).size.height / 6 - 20,
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(20),
+                ),
                 color: AppColors.white,
-                image: const DecorationImage(
+                image: DecorationImage(
                   alignment: Alignment.bottomCenter,
                   image: AssetImage(AppImages.authBackground),
                   fit: BoxFit.fill,

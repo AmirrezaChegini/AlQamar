@@ -20,7 +20,20 @@ class ArticleWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const MaskImage(image: AppImages.img2),
+          Stack(
+            children: [
+              const MaskImage(image: AppImages.img2),
+              Positioned(
+                right: 20,
+                child: Image.asset(
+                  AppIcons.bookmark,
+                  width: 20,
+                  height: 20,
+                  color: AppColors.white,
+                ),
+              ),
+            ],
+          ),
           Expanded(
             flex: 7,
             child: Column(

@@ -1,4 +1,4 @@
-import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/main_appbar.dart';
@@ -39,9 +39,17 @@ class _MainWrapperPageState extends State<MainWrapperPage>
       appBar: const MainAppbar(),
       body: DecoratedBox(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            alignment: Alignment.bottomCenter,
-            image: AssetImage(AppImages.scaffoldBackground),
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              AppColors.grey600,
+              AppColors.grey300,
+              AppColors.grey300,
+              AppColors.grey300,
+              AppColors.grey300,
+              AppColors.grey300,
+            ],
           ),
         ),
         child: TabBarView(

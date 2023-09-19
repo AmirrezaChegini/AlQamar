@@ -8,8 +8,10 @@ class AppIcons {
   static const String search = '$root/Search.png';
   static const String profile = '$root/Profile.png';
   static const String calender = '$root/Calender.png';
+  static const String calendar = '$root/Calendar.png';
   static const String live = '$root/Live.png';
   static const String menu = '$root/Menu.png';
   static const String logo = '$root/AlQamar_Logo.svg';
   static const String arrow = '$root/Arrow_light.png';
+  static const String pen = '$root/Pen.png';
 }

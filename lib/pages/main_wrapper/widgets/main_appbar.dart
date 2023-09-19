@@ -14,7 +14,7 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: AppBar(
-        backgroundColor: AppColors.transparent,
+        backgroundColor: AppColors.grey200,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(top: 6),

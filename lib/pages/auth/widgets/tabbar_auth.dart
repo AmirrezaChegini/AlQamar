@@ -9,8 +9,8 @@ class TabbarAuth extends StatelessWidget {
 
   final TabController tabCtrl;
   final List<String> texts = const [
-    'تسجیل الدخول',
     'إنشاء ملف تحریف',
+    'تسجیل الدخول',
   ];
 
   @override

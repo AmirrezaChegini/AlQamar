@@ -10,7 +10,7 @@ class LoginWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         TextFieldAuth(
           validate: (p0) {},

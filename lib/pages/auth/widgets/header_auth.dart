@@ -27,7 +27,7 @@ class HeaderAuth extends StatelessWidget {
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
@@ -43,7 +43,7 @@ class HeaderAuth extends StatelessWidget {
               Divider(
                 thickness: 2,
                 color: AppColors.white,
-                indent: MediaQuery.of(context).size.width / 1.4,
+                endIndent: MediaQuery.of(context).size.width / 1.4,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),

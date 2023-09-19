@@ -68,11 +68,11 @@ class _AuthPageState extends State<AuthPage>
                       children: const [
                         Padding(
                           padding: EdgeInsets.all(20),
-                          child: LoginWidgets(),
+                          child: RegisterWidgets(),
                         ),
                         Padding(
                           padding: EdgeInsets.all(20),
-                          child: RegisterWidgets(),
+                          child: LoginWidgets(),
                         ),
                       ],
                     ),

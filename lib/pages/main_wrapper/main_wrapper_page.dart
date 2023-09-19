@@ -21,7 +21,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   void initState() {
     super.initState();
 
-    _tabCtrl = TabController(length: 5, vsync: this);
+    _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
   }
 
   @override
@@ -51,13 +51,13 @@ class _MainWrapperPageState extends State<MainWrapperPage>
             Center(
               child: Text('1'),
             ),
-            Center(
-              child: Text('2'),
-            ),
+            AuthPage(),
             Center(
               child: Text('3'),
             ),
-            AuthPage(),
+            Center(
+              child: Text('4'),
+            ),
             Center(
               child: Text('5'),
             ),

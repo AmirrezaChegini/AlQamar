@@ -16,19 +16,19 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   final List<String> bottomTexts = const [
-    'بیت',
-    'المواضیع',
-    'یبحث',
-    'حساب',
     'اعمال',
+    'حساب',
+    'یبحث',
+    'المواضیع',
+    'بیت',
   ];
 
   final List<String> bottomIcons = const [
-    AppIcons.home,
-    AppIcons.topics,
-    AppIcons.search,
-    AppIcons.profile,
     AppIcons.calender,
+    AppIcons.profile,
+    AppIcons.search,
+    AppIcons.topics,
+    AppIcons.home,
   ];
 
   int selectedIndex = 0;

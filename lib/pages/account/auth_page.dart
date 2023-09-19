@@ -14,7 +14,7 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage>
-    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+    with SingleTickerProviderStateMixin {
   late final TabController _tabCtrl;
 
   @override
@@ -32,7 +32,6 @@ class _AuthPageState extends State<AuthPage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Stack(
@@ -86,7 +85,4 @@ class _AuthPageState extends State<AuthPage>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

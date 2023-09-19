@@ -12,7 +12,8 @@ class AccountPage extends StatefulWidget {
   State<AccountPage> createState() => _AccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _AccountPageState extends State<AccountPage>
+    with AutomaticKeepAliveClientMixin {
   late Timer time;
   bool state = true;
 
@@ -24,15 +25,19 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return const Stack(
       fit: StackFit.expand,
       children: [
         BookmarkPage(),
         SlideUpAnim(
-          state: false,
+          state: true,
           child: AuthPage(),
         ),
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

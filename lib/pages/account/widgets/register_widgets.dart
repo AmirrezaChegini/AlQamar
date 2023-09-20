@@ -34,7 +34,9 @@ class RegisterWidgets extends StatelessWidget {
           inputType: TextInputType.name,
         ),
         const Spacer(),
-        const BtnAuth(),
+        const BtnAuth(
+          title: 'المرحلة التالیة',
+        ),
       ],
     );
   }

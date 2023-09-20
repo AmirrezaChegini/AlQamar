@@ -26,7 +26,9 @@ class LoginWidgets extends StatelessWidget {
           inputType: TextInputType.name,
         ),
         const Spacer(),
-        const BtnAuth(),
+        const BtnAuth(
+          title: 'تسجیل الدخول',
+        ),
       ],
     );
   }

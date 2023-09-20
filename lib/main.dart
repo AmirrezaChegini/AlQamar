@@ -1,14 +1,14 @@
 import 'package:al_qamar/config/theme.dart';
 import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
-import 'package:al_qamar/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MainApp());
+  initializeDateFormatting().then((value) => runApp(const MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -29,7 +29,7 @@ class MainApp extends StatelessWidget {
         Locale('ar'),
       ],
       locale: const Locale('ar'),
-      home: const Test(),
+      home: const MainWrapperPage(),
     );
   }
 }

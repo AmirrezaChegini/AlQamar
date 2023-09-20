@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:al_qamar/pages/account/auth_page.dart';
 import 'package:al_qamar/pages/account/bookmark_page.dart';
 import 'package:al_qamar/utils/anim/slide_up.dart';
@@ -14,28 +12,15 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage>
     with AutomaticKeepAliveClientMixin {
-  late Timer time;
-  bool state = true;
-
-  @override
-  void initState() {
-    super.initState();
-    time = Timer.periodic(const Duration(seconds: 3), (timer) {
-      setState(() {
-        state = !state;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Stack(
+    return const Stack(
       fit: StackFit.expand,
       children: [
         BookmarkPage(),
         SlideUpAnim(
-          state: state,
+          state: false,
           child: AuthPage(),
         ),
       ],

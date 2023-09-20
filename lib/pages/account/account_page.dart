@@ -20,18 +20,22 @@ class _AccountPageState extends State<AccountPage>
   @override
   void initState() {
     super.initState();
-    time = Timer.periodic(const Duration(seconds: 3), (timer) {});
+    time = Timer.periodic(const Duration(seconds: 3), (timer) {
+      setState(() {
+        state = !state;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return const Stack(
+    return Stack(
       fit: StackFit.expand,
       children: [
         BookmarkPage(),
         SlideUpAnim(
-          state: true,
+          state: state,
           child: AuthPage(),
         ),
       ],

@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.7
+  table_calendar: ^3.0.9
   widget_mask: ^1.0.0+0
 
 dev_dependencies:

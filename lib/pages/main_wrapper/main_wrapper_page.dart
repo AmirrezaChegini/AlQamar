@@ -1,4 +1,3 @@
-import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/main_appbar.dart';
@@ -38,12 +37,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
       extendBody: true,
       appBar: const MainAppbar(),
       body: DecoratedBox(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            alignment: Alignment.bottomCenter,
-            image: AssetImage(AppImages.authBackground),
-          ),
-        ),
+        decoration: const BoxDecoration(),
         child: TabBarView(
           controller: _tabCtrl,
           physics: const NeverScrollableScrollPhysics(),

@@ -1,6 +1,3 @@
-import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
 import 'package:al_qamar/pages/home/widgets/txt_btn_more.dart';

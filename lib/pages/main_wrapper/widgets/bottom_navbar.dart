@@ -31,7 +31,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     AppIcons.home,
   ];
 
-  int selectedIndex = 0;
+  int selectedIndex = 4;
 
   @override
   Widget build(BuildContext context) {

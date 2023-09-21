@@ -1,5 +1,5 @@
-import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
+import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class NewsPage extends StatefulWidget {
@@ -16,31 +16,13 @@ class _NewsPageState extends State<NewsPage>
     super.build(context);
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
-          child: Row(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    FittedBox(
-                      child: Text(
-                        'قايمة الاخبار',
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      endIndent: 0,
-                      indent: 0,
-                      color: AppColors.blue,
-                    )
-                  ],
-                ),
-              )
-            ],
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: TitleWidget(
+              title: 'قايمة الاخبار',
+              showDivider: true,
+            ),
           ),
         ),
         SliverPadding(

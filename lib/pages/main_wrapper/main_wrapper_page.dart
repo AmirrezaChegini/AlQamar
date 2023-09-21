@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/account/account_page.dart';
+import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/main_appbar.dart';
 import 'package:al_qamar/pages/news/news_page.dart';
@@ -21,7 +22,6 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   void initState() {
     super.initState();
-
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
   }
 
@@ -65,9 +65,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
               child: Text('3'),
             ),
             NewsPage(),
-            Center(
-              child: Text('5'),
-            ),
+            HomePage(),
           ],
         ),
       ),

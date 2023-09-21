@@ -35,7 +35,7 @@ class RegisterWidgets extends StatelessWidget {
         ),
         const Spacer(),
         const BtnAuth(
-          title: '',
+          title: 'المرحلة التالیة',
         ),
       ],
     );

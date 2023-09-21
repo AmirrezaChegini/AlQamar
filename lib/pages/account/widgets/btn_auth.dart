@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 class BtnAuth extends StatelessWidget {
   const BtnAuth({
     super.key,
-    this.onTap,
     required this.title,
+    this.onTap,
   });
 
-  final Function()? onTap;
   final String title;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        fixedSize: const Size(150, 46),
+        fixedSize: const Size(150, 40),
         backgroundColor: AppColors.blue,
         foregroundColor: AppColors.white,
         textStyle: Theme.of(context).textTheme.labelMedium,
@@ -28,7 +28,7 @@ class BtnAuth extends StatelessWidget {
           Text(title),
           const VerticalDivider(
             color: AppColors.white,
-            thickness: 0.5,
+            thickness: 1,
             indent: 8,
             endIndent: 8,
           ),

@@ -45,6 +45,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
         labelColor: AppColors.blue,
         indicatorColor: AppColors.blue,
         indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.all(0),
+        labelPadding: const EdgeInsets.all(0),
         splashBorderRadius: BorderRadius.circular(20),
         onTap: (value) {
           setState(() {});
@@ -67,9 +69,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 const SizedBox(height: 4),
                 Text(
                   bottomTexts[index],
-                  style: const TextStyle(
-                    fontSize: 10,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontSize: 11),
                 ),
               ],
             ),

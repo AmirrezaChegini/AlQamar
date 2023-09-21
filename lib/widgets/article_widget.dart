@@ -77,7 +77,7 @@ class ArticleWidget extends StatelessWidget {
                           .titleMedium!
                           .copyWith(fontSize: 10),
                     ),
-                    const SizedBox(width: 20),
+                    const Spacer(),
                     Image.asset(
                       AppIcons.pen,
                       width: 10,

@@ -2,7 +2,6 @@ import 'package:al_qamar/config/theme.dart';
 import 'package:al_qamar/cubit/auth_cubit.dart';
 import 'package:al_qamar/cubit/register_cubit.dart';
 import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

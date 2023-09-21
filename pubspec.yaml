@@ -14,7 +14,6 @@ dependencies:
   flutter_svg: ^2.0.7
   hijri: ^3.0.0
   intl: ^0.18.1
-  jhijri_picker: ^1.0.1
   table_calendar: ^3.0.9
   widget_mask: ^1.0.0+0
 

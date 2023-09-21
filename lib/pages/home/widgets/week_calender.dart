@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -20,23 +21,50 @@ class WeekCalender extends StatelessWidget {
       headerVisible: false,
       daysOfWeekHeight: 30,
       weekendDays: const [DateTime.friday, DateTime.saturday],
-      calendarStyle: CalendarStyle(
-        canMarkersOverflow: true,
-        todayDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: AppColors.blue.withOpacity(0.2),
+      calendarBuilders: CalendarBuilders(
+        outsideBuilder: (context, day, focusedDay) => Container(
+          alignment: Alignment.center,
+          child: Text(
+            '${day.getHijriDate()}',
+            style: TextStyle(
+              color: day.weekday == DateTime.friday ||
+                      day.weekday == DateTime.saturday
+                  ? AppColors.red
+                  : AppColors.grey,
+              fontSize: 12,
+            ),
+          ),
         ),
-        defaultTextStyle: const TextStyle(
-          fontSize: 12,
-          color: AppColors.grey,
+        defaultBuilder: (context, day, focusedDay) => Container(
+          alignment: Alignment.center,
+          child: Text(
+            '${day.getHijriDate()}',
+            style: TextStyle(
+              fontSize: 12,
+              color: day.weekday == DateTime.friday ||
+                      day.weekday == DateTime.saturday
+                  ? AppColors.red
+                  : AppColors.grey,
+            ),
+          ),
         ),
-        todayTextStyle: const TextStyle(
-          fontSize: 12,
-          color: AppColors.blue,
-        ),
-        weekendTextStyle: const TextStyle(
-          fontSize: 12,
-          color: AppColors.red,
+        todayBuilder: (context, day, focusedDay) => Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: AppColors.blue.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Text(
+            '${focusedDay.getHijriDate()}',
+            style: TextStyle(
+              color: day.weekday == DateTime.friday ||
+                      day.weekday == DateTime.saturday
+                  ? AppColors.red
+                  : AppColors.blue,
+              fontSize: 12,
+            ),
+          ),
         ),
       ),
       daysOfWeekStyle: const DaysOfWeekStyle(

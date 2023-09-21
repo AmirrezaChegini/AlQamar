@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({
     super.key,
-    required TabController tabCtrl,
-  }) : _tabCtrl = tabCtrl;
+    required this.tabCtrl,
+  });
 
-  final TabController _tabCtrl;
+  final TabController tabCtrl;
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
@@ -31,8 +31,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
     AppIcons.home,
   ];
 
-  int selectedIndex = 4;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,19 +40,17 @@ class _BottomNavbarState extends State<BottomNavbar> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TabBar(
-        controller: widget._tabCtrl,
+        controller: widget.tabCtrl,
         unselectedLabelColor: AppColors.grey,
         labelColor: AppColors.blue,
         indicatorColor: AppColors.blue,
         indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
         splashBorderRadius: BorderRadius.circular(20),
         onTap: (value) {
-          setState(() {
-            selectedIndex = value;
-          });
+          setState(() {});
         },
         tabs: List.generate(
-          widget._tabCtrl.length,
+          widget.tabCtrl.length,
           (index) => Tab(
             height: 80,
             child: Column(
@@ -64,8 +60,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   bottomIcons[index],
                   width: 30,
                   height: 30,
-                  color:
-                      selectedIndex == index ? AppColors.blue : AppColors.grey,
+                  color: widget.tabCtrl.index == index
+                      ? AppColors.blue
+                      : AppColors.grey,
                 ),
                 const SizedBox(height: 4),
                 Text(

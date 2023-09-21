@@ -12,27 +12,36 @@ class AccountPage extends StatefulWidget {
   State<AccountPage> createState() => _AccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _AccountPageState extends State<AccountPage>
+    with AutomaticKeepAliveClientMixin {
   late Timer time;
   bool state = true;
 
   @override
   void initState() {
     super.initState();
-    time = Timer.periodic(const Duration(seconds: 3), (timer) {});
+    time = Timer.periodic(const Duration(seconds: 3), (timer) {
+      setState(() {
+        state = !state;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
+    super.build(context);
+    return Stack(
       fit: StackFit.expand,
       children: [
         BookmarkPage(),
         SlideUpAnim(
-          state: false,
+          state: state,
           child: AuthPage(),
         ),
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -3,7 +3,6 @@ class AppImages {
 
   static const String root = 'assets/images';
 
-  static const String scaffoldBackground = '$root/gradient.png';
   static const String splashBackground = '$root/splash.png';
   static const String authBackground = '$root/auth_background.png';
   static const String authColorBackground = '$root/auth_color_background.png';
@@ -11,4 +10,6 @@ class AppImages {
   static const String img2 = '$root/img02.jpg';
   static const String img3 = '$root/img03.jpg';
   static const String img4 = '$root/img04.jpg';
+  static const String imageHolder1 = '$root/image_holder1.png';
+  static const String imageHolder2 = '$root/image_holder2.png';
 }

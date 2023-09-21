@@ -1,4 +1,5 @@
-import 'package:al_qamar/pages/auth/auth_page.dart';
+import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/pages/account/account_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,20 @@ class _MainWrapperPageState extends State<MainWrapperPage>
       extendBody: true,
       appBar: const MainAppbar(),
       body: DecoratedBox(
-        decoration: const BoxDecoration(),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              AppColors.grey600,
+              AppColors.grey200,
+              AppColors.grey200,
+              AppColors.grey200,
+              AppColors.grey200,
+              AppColors.grey200,
+            ],
+          ),
+        ),
         child: TabBarView(
           controller: _tabCtrl,
           physics: const NeverScrollableScrollPhysics(),
@@ -45,7 +59,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
             Center(
               child: Text('1'),
             ),
-            AuthPage(),
+            AccountPage(),
             Center(
               child: Text('3'),
             ),

@@ -65,7 +65,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
             widget.tabCtrl.animateTo(index);
           } else {
             BlocProvider.of<BottomnavCubit>(context).saveIndex(value);
-            widget.animCtrl.reverse();
+            if (widget.animCtrl.isCompleted) {
+              Navigator.pop(context);
+            }
           }
           setState(() {});
         },

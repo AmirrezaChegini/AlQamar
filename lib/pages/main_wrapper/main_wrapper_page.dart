@@ -14,27 +14,35 @@ class MainWrapperPage extends StatefulWidget {
 }
 
 class _MainWrapperPageState extends State<MainWrapperPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final TabController _tabCtrl;
-
-  int selectedIndex = -1;
+  late final AnimationController _animCtrl;
 
   @override
   void initState() {
     super.initState();
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
+    _animCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      reverseDuration: const Duration(milliseconds: 300),
+    );
   }
 
   @override
   void dispose() {
     super.dispose();
     _tabCtrl.dispose();
+    _animCtrl.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavbar(tabCtrl: _tabCtrl),
+      bottomNavigationBar: BottomNavbar(
+        tabCtrl: _tabCtrl,
+        animCtrl: _animCtrl,
+      ),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       appBar: const MainAppbar(),
@@ -61,9 +69,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
               child: Text('1'),
             ),
             AccountPage(),
-            Center(
-              child: Text('3'),
-            ),
+            SizedBox(),
             NewsPage(),
             HomePage(),
           ],

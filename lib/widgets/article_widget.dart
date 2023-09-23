@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 class ArticleWidget extends StatelessWidget {
   const ArticleWidget({
     super.key,
+    this.backgroundColor = AppColors.white,
   });
+
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class ArticleWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: AppColors.white,
+        color: backgroundColor,
       ),
       child: Row(
         children: [

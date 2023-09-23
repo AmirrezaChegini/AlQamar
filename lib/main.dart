@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/theme.dart';
 import 'package:al_qamar/cubit/auth_cubit.dart';
+import 'package:al_qamar/cubit/bottom_nav_cubit.dart';
 import 'package:al_qamar/cubit/register_cubit.dart';
 import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AuthCubit()),
         BlocProvider(create: (context) => RegisterCubit()),
+        BlocProvider(create: (context) => BottomnavCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

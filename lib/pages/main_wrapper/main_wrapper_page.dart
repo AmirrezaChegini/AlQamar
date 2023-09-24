@@ -4,6 +4,7 @@ import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/main_appbar.dart';
 import 'package:al_qamar/pages/news/news_page.dart';
+import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class MainWrapperPage extends StatefulWidget {
@@ -57,9 +58,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
           controller: _tabCtrl,
           physics: const NeverScrollableScrollPhysics(),
           children: const [
-            Center(
-              child: Text('1'),
-            ),
+            ProfilePage(),
             AccountPage(),
             Center(
               child: Text('3'),

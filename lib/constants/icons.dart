@@ -16,4 +16,7 @@ class AppIcons {
   static const String pen = '$root/Pen.png';
   static const String edit = '$root/Edit.png';
   static const String bookmark = '$root/Bookmark.png';
+  static const String youTube = '$root/Play.png';
+  static const String salavat = '$root/Salavat.png';
+  static const String setting = '$root/Setting.png';
 }

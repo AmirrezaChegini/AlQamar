@@ -34,7 +34,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(20),
@@ -69,10 +69,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 const SizedBox(height: 4),
                 Text(
                   bottomTexts[index],
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(fontSize: 11),
+                  style: const TextStyle(
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),

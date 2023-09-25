@@ -16,8 +16,10 @@ extension DateTimeEx on String {
       'ذیحجه',
     ];
 
-    String year = date.substring(4, date.length);
-    String month = hijriMonth[int.parse(date.substring(2, 3))];
+    List<String> parts = date.split('/');
+
+    String year = parts[2];
+    String month = hijriMonth[int.parse(parts[1])];
 
     return '$month $year';
   }

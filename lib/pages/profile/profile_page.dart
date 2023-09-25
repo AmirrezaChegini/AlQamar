@@ -4,6 +4,7 @@ import 'package:al_qamar/pages/profile/widgets/azan_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
+import 'package:al_qamar/pages/salavat/salavat_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -22,9 +23,9 @@ class ProfilePage extends StatelessWidget {
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height / 4,
-          child: const Row(
+          child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: ItemWidget(
                   image: AppIcons.youTube,
                   color: AppColors.red,
@@ -34,7 +35,7 @@ class ProfilePage extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Row(
                         children: [
                           Expanded(
@@ -55,7 +56,7 @@ class ProfilePage extends StatelessWidget {
                     Expanded(
                       child: Row(
                         children: [
-                          Expanded(
+                          const Expanded(
                             child: ItemWidget(
                               image: AppIcons.profile,
                               title: 'معلومات عنا',
@@ -65,6 +66,14 @@ class ProfilePage extends StatelessWidget {
                             child: ItemWidget(
                               image: AppIcons.salavat,
                               title: 'صلوات',
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SalavatPage()),
+                                );
+                              },
                             ),
                           ),
                         ],

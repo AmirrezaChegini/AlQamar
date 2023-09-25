@@ -56,9 +56,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
           controller: _tabCtrl,
           physics: const NeverScrollableScrollPhysics(),
           children: const [
-            Center(
-              child: Text('1'),
-            ),
+            ProfilePage(),
             AccountPage(),
             SearchPage(),
             NewsPage(),

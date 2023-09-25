@@ -25,9 +25,13 @@ class BookmarkPage extends StatelessWidget {
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
               childCount: 5,
-              (context, index) => const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                child: ArticleWidget(),
+              (context, index) => Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                child: Dismissible(
+                  key: UniqueKey(),
+                  child: const ArticleWidget(),
+                ),
               ),
             ),
           ),

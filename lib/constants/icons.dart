@@ -19,4 +19,5 @@ class AppIcons {
   static const String youTube = '$root/Play.png';
   static const String salavat = '$root/Salavat.png';
   static const String setting = '$root/Setting.png';
+  static const String close = '$root/X.png';
 }

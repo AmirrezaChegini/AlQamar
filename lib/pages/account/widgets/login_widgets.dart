@@ -1,6 +1,8 @@
+import 'package:al_qamar/cubit/auth_cubit.dart';
 import 'package:al_qamar/pages/account/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/account/widgets/textfield_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginWidgets extends StatelessWidget {
   const LoginWidgets({
@@ -27,7 +29,9 @@ class LoginWidgets extends StatelessWidget {
         ),
         const Spacer(),
         BtnAuth(
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<AuthCubit>(context).signIn(true);
+          },
           title: 'تسجیل الدخول',
         ),
       ],

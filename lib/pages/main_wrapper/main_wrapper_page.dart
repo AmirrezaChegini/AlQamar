@@ -4,6 +4,7 @@ import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/pages/news/news_page.dart';
+import 'package:al_qamar/pages/search/search_page.dart';
 import 'package:flutter/material.dart';
 
 class MainWrapperPage extends StatefulWidget {
@@ -14,10 +15,8 @@ class MainWrapperPage extends StatefulWidget {
 }
 
 class _MainWrapperPageState extends State<MainWrapperPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final TabController _tabCtrl;
-
-  int selectedIndex = -1;
 
   @override
   void initState() {
@@ -61,9 +60,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
               child: Text('1'),
             ),
             AccountPage(),
-            Center(
-              child: Text('3'),
-            ),
+            SearchPage(),
             NewsPage(),
             HomePage(),
           ],

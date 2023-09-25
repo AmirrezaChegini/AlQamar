@@ -9,7 +9,11 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.only(
+        left: 10,
+        right: 10,
+        bottom: 100,
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -17,14 +21,6 @@ class SearchPage extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const SizedBox(height: 15),
-          Container(
-            height: 2,
-            width: MediaQuery.of(context).size.width / 3,
-            decoration: const BoxDecoration(
-              color: AppColors.grey600,
-            ),
-          ),
           const SizedBox(height: 15),
           const TextfielfSearch(),
           const SizedBox(height: 10),
@@ -60,6 +56,7 @@ class SearchPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 0),
               itemCount: 6,
               itemBuilder: (context, index) => const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),

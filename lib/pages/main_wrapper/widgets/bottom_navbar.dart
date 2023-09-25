@@ -1,19 +1,14 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/cubit/bottom_nav_cubit.dart';
-import 'package:al_qamar/pages/search/search_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({
     super.key,
     required this.tabCtrl,
-    required this.animCtrl,
   });
 
   final TabController tabCtrl;
-  final AnimationController animCtrl;
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
@@ -54,21 +49,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
         labelPadding: const EdgeInsets.all(0),
         splashBorderRadius: BorderRadius.circular(20),
         onTap: (value) {
-          if (value == 2) {
-            showBottomSheet(
-              context: context,
-              transitionAnimationController: widget.animCtrl,
-              builder: (context) => const SearchPage(),
-              backgroundColor: AppColors.transparent,
-            );
-            int index = BlocProvider.of<BottomnavCubit>(context).index;
-            widget.tabCtrl.animateTo(index);
-          } else {
-            BlocProvider.of<BottomnavCubit>(context).saveIndex(value);
-            if (widget.animCtrl.isCompleted) {
-              Navigator.pop(context);
-            }
-          }
           setState(() {});
         },
         tabs: List.generate(

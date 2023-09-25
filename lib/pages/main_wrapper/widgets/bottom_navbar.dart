@@ -24,7 +24,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   ];
 
   final List<String> bottomIcons = const [
-    AppIcons.calender,
+    AppIcons.calendar,
     AppIcons.profile,
     AppIcons.search,
     AppIcons.topics,

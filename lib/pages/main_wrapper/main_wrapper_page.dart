@@ -2,7 +2,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/account/account_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
-import 'package:al_qamar/pages/main_wrapper/widgets/main_appbar.dart';
+import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:flutter/material.dart';
 

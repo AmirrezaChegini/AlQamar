@@ -35,10 +35,7 @@ class BtnAuth extends StatelessWidget {
           ),
           const SvgIcon(
             icon: AppIcons.leftArrow,
-            colorFilter: ColorFilter.mode(
-              AppColors.white,
-              BlendMode.srcIn,
-            ),
+            color: AppColors.white,
             height: 10,
             width: 10,
           ),

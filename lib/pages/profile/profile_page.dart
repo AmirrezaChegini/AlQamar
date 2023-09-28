@@ -50,7 +50,8 @@ class ProfilePage extends StatelessWidget {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const CalenderPage()),
+                                  builder: (context) => const CalenderPage(),
+                                ),
                               ),
                               image: AppIcons.calendar,
                               title: 'تقویم',
@@ -76,8 +77,8 @@ class ProfilePage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SalavatPage()),
+                                    builder: (context) => const SalavatPage(),
+                                  ),
                                 );
                               },
                             ),

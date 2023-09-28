@@ -24,10 +24,7 @@ class TxtBtn extends StatelessWidget {
         onPressed: onTap,
         icon: SvgIcon(
           icon: icon,
-          colorFilter: const ColorFilter.mode(
-            AppColors.grey,
-            BlendMode.srcIn,
-          ),
+          color: AppColors.grey,
           height: 20,
           width: 20,
         ),

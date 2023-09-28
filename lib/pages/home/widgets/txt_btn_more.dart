@@ -28,10 +28,7 @@ class TxtBtnMore extends StatelessWidget {
           SizedBox(width: 5),
           SvgIcon(
             icon: AppIcons.leftArrow,
-            colorFilter: ColorFilter.mode(
-              AppColors.grey,
-              BlendMode.srcIn,
-            ),
+            color: AppColors.grey,
             height: 10,
             width: 10,
           ),

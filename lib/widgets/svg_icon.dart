@@ -5,14 +5,14 @@ class SvgIcon extends StatelessWidget {
   const SvgIcon({
     super.key,
     required this.icon,
-    this.colorFilter,
+    this.color,
     this.width,
     this.height,
-    this.matchDirection = true,
+    this.matchDirection = false,
   });
 
   final String icon;
-  final ColorFilter? colorFilter;
+  final Color? color;
   final double? width;
   final double? height;
   final bool matchDirection;
@@ -21,7 +21,8 @@ class SvgIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       icon,
-      colorFilter: colorFilter,
+      // ignore: deprecated_member_use
+      color: color,
       width: width,
       height: height,
       matchTextDirection: matchDirection,

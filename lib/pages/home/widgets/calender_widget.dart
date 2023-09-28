@@ -62,10 +62,7 @@ class CalenderWidget extends StatelessWidget {
                 ),
                 child: const SvgIcon(
                   icon: AppIcons.leftArrow,
-                  colorFilter: ColorFilter.mode(
-                    AppColors.grey,
-                    BlendMode.srcIn,
-                  ),
+                  color: AppColors.grey,
                   height: 10,
                   width: 10,
                 ),

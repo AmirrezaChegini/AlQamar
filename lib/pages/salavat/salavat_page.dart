@@ -157,7 +157,7 @@ class SalavatPage extends StatelessWidget {
                       const SizedBox(height: 5),
                       const CircleWidget(
                         padding: 8,
-                        backgroundColor: AppColors.red,
+                        backgroundColor: AppColors.blue,
                         shadows: [
                           BoxShadow(
                             color: AppColors.grey600,
@@ -167,13 +167,11 @@ class SalavatPage extends StatelessWidget {
                           ),
                         ],
                         child: SvgIcon(
-                          icon: AppIcons.leftArrow,
-                          colorFilter: ColorFilter.mode(
-                            AppColors.white,
-                            BlendMode.src,
-                          ),
-                          height: 10,
-                          width: 10,
+                          icon: AppIcons.rightArrow,
+                          height: 20,
+                          width: 20,
+                          matchDirection: true,
+                          color: AppColors.white,
                         ),
                       ),
                     ],

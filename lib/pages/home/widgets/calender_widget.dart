@@ -2,6 +2,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/home/widgets/week_calender.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -59,12 +60,14 @@ class CalenderWidget extends StatelessWidget {
                   color: AppColors.grey200,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Image.asset(
-                  AppIcons.arrow,
-                  width: 10,
+                child: const SvgIcon(
+                  icon: AppIcons.leftArrow,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.grey,
+                    BlendMode.srcIn,
+                  ),
                   height: 10,
-                  color: AppColors.grey,
-                  matchTextDirection: true,
+                  width: 10,
                 ),
               )
             ],

@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/pages/profile/widgets/azan_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
@@ -35,10 +36,10 @@ class ProfilePage extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Row(
                         children: [
-                          Expanded(
+                          const Expanded(
                             child: ItemWidget(
                               image: AppIcons.live,
                               title: 'برامج',
@@ -46,6 +47,11 @@ class ProfilePage extends StatelessWidget {
                           ),
                           Expanded(
                             child: ItemWidget(
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const CalenderPage()),
+                              ),
                               image: AppIcons.calendar,
                               title: 'تقویم',
                             ),

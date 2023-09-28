@@ -12,7 +12,8 @@ class AppIcons {
   static const String live = '$root/Live.png';
   static const String menu = '$root/Menu.png';
   static const String logo = '$root/AlQamar_Logo.svg';
-  static const String arrow = '$root/Arrow_light.png';
+  static const String leftArrow = '$root/left_arrow.svg';
+  static const String rightArrow = '$root/right_arrow.svg';
   static const String pen = '$root/Pen.png';
   static const String edit = '$root/Edit.png';
   static const String bookmark = '$root/Bookmark.png';

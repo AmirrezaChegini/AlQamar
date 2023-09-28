@@ -55,7 +55,7 @@ class CalenderWidget extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
                   color: AppColors.grey200,
                   borderRadius: BorderRadius.circular(4),
@@ -63,8 +63,8 @@ class CalenderWidget extends StatelessWidget {
                 child: const SvgIcon(
                   icon: AppIcons.leftArrow,
                   color: AppColors.grey,
-                  height: 10,
-                  width: 10,
+                  height: 20,
+                  width: 20,
                 ),
               )
             ],

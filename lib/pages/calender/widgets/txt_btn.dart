@@ -27,6 +27,7 @@ class TxtBtn extends StatelessWidget {
           color: AppColors.grey,
           height: 20,
           width: 20,
+          matchDirection: ltr,
         ),
         label: Text(title),
         style: TextButton.styleFrom(

@@ -2,6 +2,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/salavat/widgets/circle_widget.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class SalavatPage extends StatelessWidget {
@@ -154,10 +155,10 @@ class SalavatPage extends StatelessWidget {
                             ),
                       ),
                       const SizedBox(height: 5),
-                      CircleWidget(
+                      const CircleWidget(
                         padding: 8,
                         backgroundColor: AppColors.red,
-                        shadows: const [
+                        shadows: [
                           BoxShadow(
                             color: AppColors.grey600,
                             offset: Offset(5, 10),
@@ -165,12 +166,14 @@ class SalavatPage extends StatelessWidget {
                             spreadRadius: -4,
                           ),
                         ],
-                        child: Image.asset(
-                          AppIcons.arrow,
+                        child: SvgIcon(
+                          icon: AppIcons.leftArrow,
+                          colorFilter: ColorFilter.mode(
+                            AppColors.white,
+                            BlendMode.src,
+                          ),
                           height: 10,
                           width: 10,
-                          color: AppColors.white,
-                          matchTextDirection: true,
                         ),
                       ),
                     ],

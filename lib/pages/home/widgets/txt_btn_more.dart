@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class TxtBtnMore extends StatelessWidget {
@@ -20,17 +21,19 @@ class TxtBtnMore extends StatelessWidget {
           fontFamily: 'iranyekanmed',
         ),
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('اقرا اکثرا'),
-          const SizedBox(width: 5),
-          Image.asset(
-            AppIcons.arrow,
-            width: 10,
+          Text('اقرا اکثرا'),
+          SizedBox(width: 5),
+          SvgIcon(
+            icon: AppIcons.leftArrow,
+            colorFilter: ColorFilter.mode(
+              AppColors.grey,
+              BlendMode.srcIn,
+            ),
             height: 10,
-            color: AppColors.grey,
-            matchTextDirection: true,
+            width: 10,
           ),
         ],
       ),

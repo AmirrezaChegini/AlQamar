@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class BtnAuth extends StatelessWidget {
@@ -32,12 +33,14 @@ class BtnAuth extends StatelessWidget {
             indent: 8,
             endIndent: 8,
           ),
-          Image.asset(
-            AppIcons.arrow,
-            width: 10,
+          const SvgIcon(
+            icon: AppIcons.leftArrow,
+            colorFilter: ColorFilter.mode(
+              AppColors.white,
+              BlendMode.srcIn,
+            ),
             height: 10,
-            color: AppColors.white,
-            matchTextDirection: true,
+            width: 10,
           ),
         ],
       ),

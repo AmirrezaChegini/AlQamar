@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CircleWidget extends StatelessWidget {
   const CircleWidget({
     super.key,
+    this.onTap,
     required this.child,
     this.width,
     this.height,
@@ -11,6 +12,8 @@ class CircleWidget extends StatelessWidget {
     this.shadows,
     this.backgroundColor = AppColors.white,
   });
+
+  final Function()? onTap;
   final Widget child;
   final double? width;
   final double? height;
@@ -20,17 +23,20 @@ class CircleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      padding: EdgeInsets.all(padding),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: backgroundColor,
-        boxShadow: shadows,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: width,
+        height: height,
+        padding: EdgeInsets.all(padding),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: backgroundColor,
+          boxShadow: shadows,
+        ),
+        child: child,
       ),
-      child: child,
     );
   }
 }

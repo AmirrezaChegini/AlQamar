@@ -1,11 +1,12 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
-import 'package:al_qamar/pages/profile/widgets/azan_widget.dart';
+import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
 import 'package:al_qamar/pages/salavat/salavat_page.dart';
+import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -50,9 +51,7 @@ class ProfilePage extends StatelessWidget {
                             child: ItemWidget(
                               onTap: () => Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) => const CalenderPage(),
-                                ),
+                                fadePageTran(child: const CalenderPage()),
                               ),
                               image: AppIcons.calender,
                               color: AppColors.grey,
@@ -75,14 +74,10 @@ class ProfilePage extends StatelessWidget {
                             child: ItemWidget(
                               image: AppIcons.salavat,
                               title: 'صلوات',
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const SalavatPage(),
-                                  ),
-                                );
-                              },
+                              onTap: () => Navigator.push(
+                                context,
+                                fadePageTran(child: const SalavatPage()),
+                              ),
                             ),
                           ),
                         ],

@@ -1,7 +1,7 @@
-extension DateTimeEx on String {
-  String formatToArabicMonthYear() {
-    String date = this;
-    final hijriMonth = [
+extension IntExt on int {
+  String getHijriMonth() {
+    int month = this - 1;
+    const List<String> hijriMonth = [
       'محرم',
       'صفر',
       'ربیع الاول',
@@ -16,11 +16,26 @@ extension DateTimeEx on String {
       'ذیحجه',
     ];
 
-    List<String> parts = date.split('/');
+    return month == 12 ? hijriMonth[0] : hijriMonth[month];
+  }
 
-    String year = parts[2];
-    String month = hijriMonth[int.parse(parts[1])];
+  String getGeorgiaMonth() {
+    int month = this - 1;
+    const List<String> georgiaMonth = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
 
-    return '$month $year';
+    return month == 12 ? georgiaMonth[0] : georgiaMonth[month];
   }
 }

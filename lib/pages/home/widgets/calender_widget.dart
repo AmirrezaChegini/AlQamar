@@ -23,7 +23,8 @@ class CalenderWidget extends StatelessWidget {
       child: Column(
         children: [
           TitleWidget(
-            title: '${HijriCalendar.now()}'.formatToArabicMonthYear(),
+            title:
+                '${HijriCalendar.now().hMonth.getHijriMonth()} ${HijriCalendar.now().hYear}',
             showDivider: true,
           ),
           const WeekCalender(),

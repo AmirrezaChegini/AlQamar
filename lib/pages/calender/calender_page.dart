@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/calender/widgets/four_actions.dart';
 import 'package:al_qamar/pages/calender/widgets/monthly_calender.dart';
-import 'package:al_qamar/pages/profile/widgets/azan_widget.dart';
+import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +15,9 @@ class CalenderPage extends StatelessWidget {
       appBar: const MainAppbar(),
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
               child: MonthlyCalender(),
             ),
           ),

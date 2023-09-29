@@ -51,8 +51,8 @@ class AzanWidget extends StatelessWidget {
                           : index == 0
                               ? AppIcons.moon
                               : AppIcons.sun,
-                      width: 30,
-                      height: 30,
+                      width: 20,
+                      height: 20,
                     ),
                     const SizedBox(height: 6),
                     Text(

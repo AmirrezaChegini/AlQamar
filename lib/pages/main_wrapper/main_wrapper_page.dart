@@ -1,5 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/pages/account/account_page.dart';
+import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
@@ -58,7 +58,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
           physics: const NeverScrollableScrollPhysics(),
           children: const [
             ProfilePage(),
-            AccountPage(),
+            BookmarkPage(),
             SearchPage(),
             NewsPage(),
             HomePage(),

@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,21 @@ class _BottomNavbarState extends State<BottomNavbar> {
         labelPadding: const EdgeInsets.all(0),
         splashBorderRadius: BorderRadius.circular(20),
         onTap: (value) {
+          if (value == 1) {
+            showBottomSheet(
+              context: context,
+              elevation: 30,
+              backgroundColor: AppColors.transparent,
+              builder: (context) => const Padding(
+                padding: EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                  top: 10,
+                ),
+                child: AuthPage(),
+              ),
+            );
+          }
           setState(() {});
         },
         tabs: List.generate(

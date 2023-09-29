@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class AzanWidget extends StatelessWidget {
@@ -30,6 +31,7 @@ class AzanWidget extends StatelessWidget {
                       .bodyMedium!
                       .copyWith(fontSize: 12),
                 ),
+                const SizedBox(height: 3),
                 Container(
                   height: 1,
                   color: AppColors.grey,
@@ -43,12 +45,16 @@ class AzanWidget extends StatelessWidget {
               (index) => Expanded(
                 child: Column(
                   children: [
-                    Image.asset(
-                      AppIcons.salavat,
+                    SvgIcon(
+                      icon: index % 2 != 0
+                          ? AppIcons.azan
+                          : index == 0
+                              ? AppIcons.moon
+                              : AppIcons.sun,
                       width: 30,
                       height: 30,
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 6),
                     Text(
                       '23:32',
                       style: Theme.of(context)

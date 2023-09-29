@@ -1,6 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class HeaderProfile extends StatelessWidget {
@@ -49,13 +50,13 @@ class HeaderProfile extends StatelessWidget {
                   child: Container(
                     width: 80,
                     height: 80,
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: AppColors.white,
                     ),
-                    child: Image.asset(
-                      AppIcons.profile,
+                    child: const SvgIcon(
+                      icon: AppIcons.profile,
                       color: AppColors.blue,
                     ),
                   ),

@@ -1,5 +1,4 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/pages/account/widgets/header_auth.dart';
 import 'package:al_qamar/pages/account/widgets/login_widgets.dart';
 import 'package:al_qamar/pages/account/widgets/register_widgets.dart';
@@ -49,11 +48,11 @@ class _AuthPageState extends State<AuthPage>
                   bottom: Radius.circular(20),
                 ),
                 color: AppColors.white,
-                image: DecorationImage(
-                  alignment: Alignment.bottomCenter,
-                  image: AssetImage(AppImages.authBackground),
-                  fit: BoxFit.fill,
-                ),
+                // image: DecorationImage(
+                //   alignment: Alignment.bottomCenter,
+                //   image: AssetImage(AppImages.authBackground),
+                //   fit: BoxFit.fill,
+                // ),
               ),
               child: Column(
                 children: [

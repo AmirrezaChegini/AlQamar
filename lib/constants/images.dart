@@ -4,8 +4,6 @@ class AppImages {
   static const String root = 'assets/images';
 
   static const String splashBackground = '$root/splash.png';
-  static const String authBackground = '$root/Auth_Background.png';
-  static const String authColorBackground = '$root/Auth_Color_Background.png';
   static const String img1 = '$root/img01.jpg';
   static const String img2 = '$root/img02.jpg';
   static const String img3 = '$root/img03.jpg';

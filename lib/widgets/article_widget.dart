@@ -2,6 +2,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/widgets/image_mask.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class ArticleWidget extends StatelessWidget {
@@ -23,13 +24,13 @@ class ArticleWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Stack(
+          const Stack(
             children: [
-              const MaskImage(image: AppImages.img2),
+              MaskImage(image: AppImages.img2),
               Positioned(
                 right: 20,
-                child: Image.asset(
-                  AppIcons.bookmark,
+                child: SvgIcon(
+                  icon: AppIcons.bookmark,
                   width: 20,
                   height: 20,
                   color: AppColors.white,
@@ -67,8 +68,8 @@ class ArticleWidget extends StatelessWidget {
                 Row(
                   children: [
                     const Spacer(),
-                    Image.asset(
-                      AppIcons.calendar,
+                    const SvgIcon(
+                      icon: AppIcons.calender,
                       width: 10,
                       height: 10,
                       color: AppColors.grey,
@@ -81,8 +82,8 @@ class ArticleWidget extends StatelessWidget {
                           .copyWith(fontSize: 10),
                     ),
                     const Spacer(),
-                    Image.asset(
-                      AppIcons.pen,
+                    const SvgIcon(
+                      icon: AppIcons.pen,
                       width: 10,
                       height: 10,
                       color: AppColors.grey,

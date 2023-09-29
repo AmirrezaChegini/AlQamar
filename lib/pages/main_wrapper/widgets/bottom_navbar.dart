@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -17,15 +18,15 @@ class BottomNavbar extends StatefulWidget {
 class _BottomNavbarState extends State<BottomNavbar> {
   final List<String> bottomTexts = const [
     'اعمال',
-    'حساب',
+    'الاشتراک',
     'یبحث',
     'المواضیع',
     'بیت',
   ];
 
   final List<String> bottomIcons = const [
-    AppIcons.calendar,
-    AppIcons.profile,
+    AppIcons.calender,
+    AppIcons.money,
     AppIcons.search,
     AppIcons.topics,
     AppIcons.home,
@@ -58,15 +59,15 @@ class _BottomNavbarState extends State<BottomNavbar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  bottomIcons[index],
-                  width: 30,
-                  height: 30,
+                SvgIcon(
+                  icon: bottomIcons[index],
+                  width: 25,
+                  height: 25,
                   color: widget.tabCtrl.index == index
                       ? AppColors.blue
                       : AppColors.grey,
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 6),
                 Text(
                   bottomTexts[index],
                   style: const TextStyle(

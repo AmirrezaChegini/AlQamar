@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class ItemWidget extends StatelessWidget {
@@ -28,12 +29,13 @@ class ItemWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              image,
+            SvgIcon(
+              icon: image,
               color: color,
-              width: 40,
-              height: 40,
+              height: 30,
+              width: 30,
             ),
+            const SizedBox(height: 6),
             Text(
               title,
               style: Theme.of(context)

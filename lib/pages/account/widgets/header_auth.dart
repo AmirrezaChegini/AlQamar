@@ -1,5 +1,4 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/images.dart';
 import 'package:flutter/material.dart';
 
 class HeaderAuth extends StatelessWidget {
@@ -16,10 +15,10 @@ class HeaderAuth extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              image: const DecorationImage(
-                image: AssetImage(AppImages.authColorBackground),
-                fit: BoxFit.fill,
-              ),
+              // image: const DecorationImage(
+              //   image: AssetImage(AppImages.authColorBackground),
+              //   fit: BoxFit.fill,
+              // ),
             ),
             foregroundDecoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

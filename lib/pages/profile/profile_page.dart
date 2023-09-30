@@ -3,6 +3,7 @@ import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/models/azan_time.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
@@ -22,6 +23,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  List<AzanTime> azanTimeList = [];
+
   @override
   void initState() {
     super.initState();
@@ -67,7 +70,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: ItemWidget(
                               onTap: () => Navigator.push(
                                 context,
-                                fadePageTran(child: const CalenderPage()),
+                                fadePageTran(
+                                  child: CalenderPage(
+                                    azanTimeList: azanTimeList,
+                                  ),
+                                ),
                               ),
                               image: AppIcons.calender,
                               color: AppColors.grey,
@@ -108,6 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
         BlocBuilder<AzanBloc, AzanState>(
           builder: (context, state) {
             if (state is CompletedAzanState) {
+              azanTimeList = state.azanTimeList;
               return Column(
                 children: List.generate(
                   state.azanTimeList.length,
@@ -116,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                     child: AzanWidget(
                       city: index == 0 ? 'نجف' : 'لندن',
-                      azanTime: state.azanTimeList[0],
+                      azanTime: state.azanTimeList[index],
                     ),
                   ),
                 ),
@@ -125,10 +133,10 @@ class _ProfilePageState extends State<ProfilePage> {
             return const SizedBox();
           },
         ),
-        const Align(
+        Align(
           alignment: AlignmentDirectional.centerStart,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: MiniCalender(),
           ),
         ),

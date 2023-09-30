@@ -7,7 +7,12 @@ import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 
 class CalenderPage extends StatelessWidget {
-  const CalenderPage({super.key});
+  const CalenderPage({
+    super.key,
+    required this.azanTimeList,
+  });
+
+  final List<AzanTime> azanTimeList;
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +29,12 @@ class CalenderPage extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              childCount: 2,
+              childCount: azanTimeList.length,
               (context, index) => Padding(
                 padding: const EdgeInsets.all(10),
                 child: AzanWidget(
-                  city: 'نجف',
-                  azanTime: AzanTime(
-                    '0',
-                    '0',
-                    '0',
-                    '0',
-                    '0',
-                    '0',
-                    '0',
-                    '0',
-                  ),
+                  city: index == 0 ? 'نجف' : 'لندن',
+                  azanTime: azanTimeList[index],
                 ),
               ),
             ),

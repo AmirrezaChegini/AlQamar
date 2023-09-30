@@ -54,6 +54,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           if (value == 1) {
             showBottomSheet(
               context: context,
+              enableDrag: false,
               elevation: 30,
               backgroundColor: AppColors.transparent,
               builder: (context) => const Padding(
@@ -65,7 +66,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 child: AuthPage(),
               ),
             );
+          } else {
+            Navigator.maybePop(context);
           }
+
           setState(() {});
         },
         tabs: List.generate(

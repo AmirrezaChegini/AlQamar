@@ -1,3 +1,6 @@
+import 'package:al_qamar/bloc/azan/azan_bloc.dart';
+import 'package:al_qamar/bloc/azan/azan_event.dart';
+import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
@@ -9,9 +12,22 @@ import 'package:al_qamar/pages/salavat/salavat_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,12 +105,25 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
         ),
-        ...List.generate(
-          2,
-          (index) => const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: AzanWidget(),
-          ),
+        BlocBuilder<AzanBloc, AzanState>(
+          builder: (context, state) {
+            if (state is CompletedAzanState) {
+              return Column(
+                children: List.generate(
+                  state.azanTimeList.length,
+                  (index) => Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    child: AzanWidget(
+                      city: index == 0 ? 'نجف' : 'لندن',
+                      azanTime: state.azanTimeList[0],
+                    ),
+                  ),
+                ),
+              );
+            }
+            return const SizedBox();
+          },
         ),
         const Align(
           alignment: AlignmentDirectional.centerStart,

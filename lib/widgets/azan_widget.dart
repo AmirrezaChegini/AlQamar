@@ -1,12 +1,18 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/models/azan_time.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class AzanWidget extends StatelessWidget {
   const AzanWidget({
     super.key,
+    required this.city,
+    required this.azanTime,
   });
+
+  final String city;
+  final AzanTime azanTime;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class AzanWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'نجف',
+                  city,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
@@ -46,9 +52,9 @@ class AzanWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     SvgIcon(
-                      icon: index % 2 != 0
+                      icon: index % 2 == 0
                           ? AppIcons.azan
-                          : index == 0
+                          : index == 5
                               ? AppIcons.moon
                               : AppIcons.sun,
                       width: 20,
@@ -56,7 +62,17 @@ class AzanWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      '23:32',
+                      index == 0
+                          ? azanTime.fajr
+                          : index == 1
+                              ? azanTime.sunrise
+                              : index == 2
+                                  ? azanTime.dhuhr
+                                  : index == 3
+                                      ? azanTime.sunset
+                                      : index == 4
+                                          ? azanTime.maghrib
+                                          : azanTime.isha,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

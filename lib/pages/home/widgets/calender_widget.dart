@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/home/widgets/week_calender.dart';
-import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/utils/extensions/int.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';

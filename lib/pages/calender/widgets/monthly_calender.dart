@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
-import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/utils/extensions/int.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';

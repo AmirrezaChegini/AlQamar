@@ -38,4 +38,19 @@ extension IntExt on int {
 
     return month == 12 ? georgiaMonth[0] : georgiaMonth[month];
   }
+
+  String getWeekDay() {
+    int day = this - 1;
+    const List<String> weeks = [
+      'الاثنین',
+      'الثلاثاء',
+      'الأربعاء',
+      'الخمیس',
+      'الجمعة',
+      'السبت',
+      'الأحد',
+    ];
+
+    return weeks[day];
+  }
 }

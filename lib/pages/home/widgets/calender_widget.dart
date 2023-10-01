@@ -1,7 +1,8 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/home/widgets/week_calender.dart';
-import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -22,7 +23,8 @@ class CalenderWidget extends StatelessWidget {
       child: Column(
         children: [
           TitleWidget(
-            title: '${HijriCalendar.now()}'.formatToArabicMonthYear(),
+            title:
+                '${HijriCalendar.now().hMonth.getHijriMonth()} ${HijriCalendar.now().hYear}',
             showDivider: true,
           ),
           const WeekCalender(),
@@ -54,17 +56,16 @@ class CalenderWidget extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
                   color: AppColors.grey200,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Image.asset(
-                  AppIcons.arrow,
-                  width: 10,
-                  height: 10,
+                child: const SvgIcon(
+                  icon: AppIcons.leftArrow,
                   color: AppColors.grey,
-                  matchTextDirection: true,
+                  height: 20,
+                  width: 20,
                 ),
               )
             ],

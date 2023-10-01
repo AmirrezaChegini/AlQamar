@@ -1,5 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/pages/auth/auth_page.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -17,16 +19,16 @@ class BottomNavbar extends StatefulWidget {
 class _BottomNavbarState extends State<BottomNavbar> {
   final List<String> bottomTexts = const [
     'اعمال',
-    'حساب',
-    'یبحث',
+    'الاشتراک',
+    'الحساب',
     'المواضیع',
     'بیت',
   ];
 
   final List<String> bottomIcons = const [
-    AppIcons.calendar,
+    AppIcons.calender,
+    AppIcons.money,
     AppIcons.profile,
-    AppIcons.search,
     AppIcons.topics,
     AppIcons.home,
   ];
@@ -49,6 +51,25 @@ class _BottomNavbarState extends State<BottomNavbar> {
         labelPadding: const EdgeInsets.all(0),
         splashBorderRadius: BorderRadius.circular(20),
         onTap: (value) {
+          if (value == 2) {
+            showBottomSheet(
+              context: context,
+              enableDrag: false,
+              elevation: 30,
+              backgroundColor: AppColors.transparent,
+              builder: (context) => const Padding(
+                padding: EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                  top: 10,
+                ),
+                child: AuthPage(),
+              ),
+            );
+          } else {
+            Navigator.maybePop(context);
+          }
+
           setState(() {});
         },
         tabs: List.generate(
@@ -58,15 +79,15 @@ class _BottomNavbarState extends State<BottomNavbar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  bottomIcons[index],
-                  width: 30,
-                  height: 30,
+                SvgIcon(
+                  icon: bottomIcons[index],
+                  width: 25,
+                  height: 25,
                   color: widget.tabCtrl.index == index
                       ? AppColors.blue
                       : AppColors.grey,
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 6),
                 Text(
                   bottomTexts[index],
                   style: const TextStyle(

@@ -1,14 +1,36 @@
+import 'package:al_qamar/bloc/azan/azan_bloc.dart';
+import 'package:al_qamar/bloc/azan/azan_event.dart';
+import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/pages/profile/widgets/azan_widget.dart';
+import 'package:al_qamar/models/azan_time.dart';
+import 'package:al_qamar/pages/calender/calender_page.dart';
+import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
 import 'package:al_qamar/pages/salavat/salavat_page.dart';
+import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  List<AzanTime> azanTimeList = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +49,7 @@ class ProfilePage extends StatelessWidget {
             children: [
               const Expanded(
                 child: ItemWidget(
-                  image: AppIcons.youTube,
+                  image: AppIcons.play,
                   color: AppColors.red,
                   title: 'بعیش',
                 ),
@@ -35,18 +57,27 @@ class ProfilePage extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Row(
                         children: [
-                          Expanded(
+                          const Expanded(
                             child: ItemWidget(
-                              image: AppIcons.live,
+                              image: AppIcons.tv,
                               title: 'برامج',
                             ),
                           ),
                           Expanded(
                             child: ItemWidget(
-                              image: AppIcons.calendar,
+                              onTap: () => Navigator.push(
+                                context,
+                                fadePageTran(
+                                  child: CalenderPage(
+                                    azanTimeList: azanTimeList,
+                                  ),
+                                ),
+                              ),
+                              image: AppIcons.calender,
+                              color: AppColors.grey,
                               title: 'تقویم',
                             ),
                           ),
@@ -58,7 +89,7 @@ class ProfilePage extends StatelessWidget {
                         children: [
                           const Expanded(
                             child: ItemWidget(
-                              image: AppIcons.profile,
+                              image: AppIcons.aboutUs,
                               title: 'معلومات عنا',
                             ),
                           ),
@@ -66,14 +97,10 @@ class ProfilePage extends StatelessWidget {
                             child: ItemWidget(
                               image: AppIcons.salavat,
                               title: 'صلوات',
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SalavatPage()),
-                                );
-                              },
+                              onTap: () => Navigator.push(
+                                context,
+                                fadePageTran(child: const SalavatPage()),
+                              ),
                             ),
                           ),
                         ],
@@ -85,17 +112,31 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
         ),
-        ...List.generate(
-          2,
-          (index) => const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: AzanWidget(),
-          ),
+        BlocBuilder<AzanBloc, AzanState>(
+          builder: (context, state) {
+            if (state is CompletedAzanState) {
+              azanTimeList = state.azanTimeList;
+              return Column(
+                children: List.generate(
+                  state.azanTimeList.length,
+                  (index) => Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    child: AzanWidget(
+                      city: index == 0 ? 'نجف' : 'لندن',
+                      azanTime: state.azanTimeList[index],
+                    ),
+                  ),
+                ),
+              );
+            }
+            return const SizedBox();
+          },
         ),
-        const Align(
+        Align(
           alignment: AlignmentDirectional.centerStart,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: MiniCalender(),
           ),
         ),
@@ -108,11 +149,10 @@ class ProfilePage extends StatelessWidget {
           alignment: AlignmentDirectional.centerEnd,
           child: IconButton(
             onPressed: () {},
-            icon: Image.asset(
-              AppIcons.setting,
+            icon: const SvgIcon(
+              icon: AppIcons.setting,
               width: 20,
               height: 20,
-              color: AppColors.grey600,
             ),
             padding: const EdgeInsets.all(0),
             splashRadius: 20,

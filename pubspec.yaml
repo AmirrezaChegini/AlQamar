@@ -25,6 +25,7 @@ dependencies:
   hive_flutter: ^1.1.0
   table_calendar: ^3.0.9
   syncfusion_flutter_datepicker: ^23.1.36
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

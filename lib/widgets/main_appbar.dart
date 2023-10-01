@@ -1,8 +1,8 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppbar({
@@ -16,48 +16,49 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         backgroundColor: AppColors.grey200,
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 6),
-          child: SvgPicture.asset(
-            AppIcons.logo,
-            colorFilter: const ColorFilter.mode(AppColors.red, BlendMode.srcIn),
+        leading: const Padding(
+          padding: EdgeInsets.all(5),
+          child: SvgIcon(
+            icon: AppIcons.logo,
+            height: 25,
+            width: 25,
+            color: AppColors.red,
           ),
         ),
         actions: [
           Container(
             alignment: Alignment.bottomCenter,
             padding: const EdgeInsets.only(bottom: 10),
-            child: const Text(
+            child: Text(
               'البت المباشر',
-              style: TextStyle(
-                color: AppColors.red,
-                fontSize: 10,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(fontSize: 12),
             ),
           ),
           const SizedBox(width: 4),
-          Image.asset(
-            AppIcons.live,
-            height: 30,
-            width: 30,
+          const SvgIcon(
+            icon: AppIcons.live,
+            height: 25,
+            width: 25,
             color: AppColors.red,
           ),
-          const SizedBox(width: 4),
-          Image.asset(
-            AppIcons.menu,
-            height: 30,
-            width: 30,
+          const SizedBox(width: 15),
+          const SvgIcon(
+            icon: AppIcons.menu,
+            height: 15,
+            width: 15,
             color: AppColors.red,
           ),
           const SizedBox(width: 10),
         ],
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(5),
-          child: Divider(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(5),
+          child: Container(
             color: AppColors.red,
-            thickness: 2,
-            indent: 10,
-            endIndent: 10,
+            height: 2,
+            margin: const EdgeInsets.symmetric(horizontal: 10),
           ),
         ),
         systemOverlayStyle: const SystemUiOverlayStyle(

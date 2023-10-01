@@ -1,11 +1,10 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/pages/account/account_page.dart';
+import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/pages/news/news_page.dart';
-import 'package:al_qamar/pages/search/search_page.dart';
 import 'package:flutter/material.dart';
 
 class MainWrapperPage extends StatefulWidget {
@@ -58,8 +57,10 @@ class _MainWrapperPageState extends State<MainWrapperPage>
           physics: const NeverScrollableScrollPhysics(),
           children: const [
             ProfilePage(),
-            AccountPage(),
-            SearchPage(),
+            Center(
+              child: Text('اشتراک'),
+            ),
+            BookmarkPage(),
             NewsPage(),
             HomePage(),
           ],

@@ -1,6 +1,7 @@
+import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
-import 'package:al_qamar/pages/home/widgets/txt_btn_more.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -42,17 +43,22 @@ class HomePage extends StatelessWidget {
             child: CalenderWidget(),
           ),
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TitleWidget(
+                const TitleWidget(
                   title: 'قايمة الاخبار',
                   showDivider: true,
                 ),
-                TxtBtnMore(),
+                TxtBtn(
+                  onTap: () {},
+                  title: 'اقرا اکثرا',
+                  icon: AppIcons.leftArrow,
+                  ltr: true,
+                ),
               ],
             ),
           ),

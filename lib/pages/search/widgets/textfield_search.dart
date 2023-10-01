@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class TextfielfSearch extends StatelessWidget {
@@ -27,16 +28,16 @@ class TextfielfSearch extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         suffixIconConstraints: const BoxConstraints(
           maxHeight: 20,
-          maxWidth: 40,
+          maxWidth: 100,
           minHeight: 20,
           minWidth: 0,
         ),
-        suffixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Image.asset(
-            AppIcons.close,
-            width: 20,
-            height: 20,
+        suffixIcon: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: SvgIcon(
+            icon: AppIcons.close,
+            width: 10,
+            height: 10,
             color: AppColors.red,
           ),
         ),

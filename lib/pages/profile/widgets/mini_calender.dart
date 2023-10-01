@@ -1,10 +1,14 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/utils/extensions/int.dart';
 import 'package:flutter/material.dart';
+import 'package:hijri/hijri_calendar.dart';
 
 class MiniCalender extends StatelessWidget {
-  const MiniCalender({
+  MiniCalender({
     super.key,
   });
+
+  final HijriCalendar _hijriCalendar = HijriCalendar.now();
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +22,19 @@ class MiniCalender extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'الخمیس',
-                style: TextStyle(
+                _hijriCalendar.weekDay().getWeekDay(),
+                style: const TextStyle(
                   color: AppColors.red,
                   fontSize: 12,
                 ),
               ),
               Text(
-                '18',
-                style: TextStyle(
+                '${_hijriCalendar.hDay}',
+                style: const TextStyle(
                   color: AppColors.red,
                   fontSize: 20,
                 ),
@@ -43,19 +47,19 @@ class MiniCalender extends StatelessWidget {
             color: AppColors.grey,
             margin: const EdgeInsets.symmetric(horizontal: 20),
           ),
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'ربیع الاول',
-                style: TextStyle(
+                _hijriCalendar.hMonth.getHijriMonth(),
+                style: const TextStyle(
                   color: AppColors.blue,
                   fontSize: 12,
                 ),
               ),
               Text(
-                '2023',
-                style: TextStyle(
+                '${_hijriCalendar.hYear}',
+                style: const TextStyle(
                   color: AppColors.blue,
                   fontSize: 20,
                 ),

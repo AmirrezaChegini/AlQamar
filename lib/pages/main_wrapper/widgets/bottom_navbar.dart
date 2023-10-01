@@ -20,7 +20,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final List<String> bottomTexts = const [
     'اعمال',
     'الاشتراک',
-    'یبحث',
+    'الحساب',
     'المواضیع',
     'بیت',
   ];
@@ -28,7 +28,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final List<String> bottomIcons = const [
     AppIcons.calender,
     AppIcons.money,
-    AppIcons.search,
+    AppIcons.profile,
     AppIcons.topics,
     AppIcons.home,
   ];
@@ -51,7 +51,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         labelPadding: const EdgeInsets.all(0),
         splashBorderRadius: BorderRadius.circular(20),
         onTap: (value) {
-          if (value == 1) {
+          if (value == 2) {
             showBottomSheet(
               context: context,
               enableDrag: false,

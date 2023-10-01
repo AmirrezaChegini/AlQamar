@@ -13,7 +13,6 @@ class SearchPage extends StatelessWidget {
         top: 10,
         left: 10,
         right: 10,
-        bottom: 100,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
@@ -57,7 +56,6 @@ class SearchPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 0),
               itemCount: 6,
               itemBuilder: (context, index) => const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),

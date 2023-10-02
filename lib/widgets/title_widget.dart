@@ -28,12 +28,10 @@ class TitleWidget extends StatelessWidget {
                 ),
               ),
               if (showDivider)
-                const Divider(
-                  thickness: 1,
-                  endIndent: 0,
-                  indent: 0,
+                Container(
+                  height: 1,
                   color: AppColors.blue,
-                )
+                ),
             ],
           ),
         )

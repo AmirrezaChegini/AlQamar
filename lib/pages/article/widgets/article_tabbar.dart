@@ -3,7 +3,7 @@ import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ArticleTabbar extends StatelessWidget {
+class ArticleTabbar extends StatefulWidget {
   const ArticleTabbar({
     super.key,
     required this.tabController,
@@ -15,6 +15,11 @@ class ArticleTabbar extends StatelessWidget {
   final List<String> tabsIcon;
   final List<String> tabsText;
 
+  @override
+  State<ArticleTabbar> createState() => _ArticleTabbarState();
+}
+
+class _ArticleTabbarState extends State<ArticleTabbar> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -29,7 +34,7 @@ class ArticleTabbar extends StatelessWidget {
         statusBarIconBrightness: Brightness.dark,
       ),
       title: TabBar(
-        controller: tabController,
+        controller: widget.tabController,
         labelStyle:
             Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
         labelColor: AppColors.blue,
@@ -39,16 +44,21 @@ class ArticleTabbar extends StatelessWidget {
         indicatorColor: AppColors.blue,
         indicatorWeight: 2,
         indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
+        onTap: (value) {
+          setState(() {});
+        },
         tabs: List.generate(
           5,
           (index) => Tab(
             icon: SvgIcon(
-              icon: tabsIcon[index],
+              icon: widget.tabsIcon[index],
               height: 20,
               width: 20,
-              color: AppColors.grey,
+              color: widget.tabController.index == index
+                  ? AppColors.blue
+                  : AppColors.grey,
             ),
-            text: tabsText[index],
+            text: widget.tabsText[index],
           ),
         ),
       ),

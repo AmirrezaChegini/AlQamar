@@ -2,6 +2,10 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
 import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
+import 'package:al_qamar/pages/article/widgets/image_widget.dart';
+import 'package:al_qamar/pages/article/widgets/pdf_widget.dart';
+import 'package:al_qamar/pages/article/widgets/video_widget.dart';
+import 'package:al_qamar/pages/article/widgets/youtube_widget.dart';
 import 'package:flutter/material.dart';
 
 class ArticlePage extends StatefulWidget {
@@ -58,8 +62,13 @@ class _ArticlePageState extends State<ArticlePage>
           ],
           body: TabBarView(
             controller: _tabController,
+            physics: const NeverScrollableScrollPhysics(),
             children: const [
+              ImageWidget(),
+              VideoWidget(),
+              YoutubeWidget(),
               AudioWidget(),
+              PdfWidget(),
             ],
           ),
         ),

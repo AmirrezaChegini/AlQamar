@@ -1,9 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
-import 'package:al_qamar/pages/article/widgets/image_widget.dart';
-import 'package:al_qamar/pages/article/widgets/video_widget.dart';
-import 'package:al_qamar/pages/article/widgets/youtube_widget.dart';
+import 'package:al_qamar/pages/article/widgets/pdf_widget.dart';
 import 'package:flutter/material.dart';
 
 class ArticlePage extends StatefulWidget {
@@ -30,7 +28,7 @@ class _ArticlePageState extends State<ArticlePage>
     AppIcons.video,
     AppIcons.youtube,
     AppIcons.audio,
-    AppIcons.pdf
+    AppIcons.doc
   ];
 
   @override
@@ -54,18 +52,15 @@ class _ArticlePageState extends State<ArticlePage>
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             ArticleTabbar(
-                tabController: _tabController,
-                tabsIcon: tabsIcon,
-                tabsText: tabsText),
+              tabController: _tabController,
+              tabsIcon: tabsIcon,
+              tabsText: tabsText,
+            ),
           ],
           body: TabBarView(
             controller: _tabController,
             children: const [
-              ImageWidget(),
-              VideoWidget(),
-              YoutubeWidget(),
-              ImageWidget(),
-              ImageWidget(),
+              PdfWidget(),
             ],
           ),
         ),

@@ -65,8 +65,10 @@ class _PdfWidgetState extends State<PdfWidget> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 20,
+                ),
                 leading: SizedBox(
                   width: MediaQuery.sizeOf(context).width / 2,
                   child: Row(
@@ -94,7 +96,7 @@ class _PdfWidgetState extends State<PdfWidget> {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(fontSize: 12),
+                                .copyWith(fontSize: 13),
                           ),
                         ],
                       )

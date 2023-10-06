@@ -25,7 +25,7 @@ class ArticleTabbar extends StatelessWidget {
       floating: true,
       snap: true,
       systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent,
+        statusBarColor: AppColors.grey200,
         statusBarIconBrightness: Brightness.dark,
       ),
       title: TabBar(

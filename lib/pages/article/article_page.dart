@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
-import 'package:al_qamar/pages/article/widgets/pdf_widget.dart';
+import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
 import 'package:flutter/material.dart';
 
 class ArticlePage extends StatefulWidget {
@@ -34,7 +34,6 @@ class _ArticlePageState extends State<ArticlePage>
   @override
   void initState() {
     super.initState();
-
     _tabController = TabController(length: 5, vsync: this);
   }
 
@@ -60,7 +59,7 @@ class _ArticlePageState extends State<ArticlePage>
           body: TabBarView(
             controller: _tabController,
             children: const [
-              PdfWidget(),
+              AudioWidget(),
             ],
           ),
         ),

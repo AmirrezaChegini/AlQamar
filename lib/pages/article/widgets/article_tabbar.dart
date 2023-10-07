@@ -29,6 +29,7 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
       elevation: 0,
       floating: true,
       snap: true,
+      automaticallyImplyLeading: false,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: AppColors.grey200,
         statusBarIconBrightness: Brightness.dark,

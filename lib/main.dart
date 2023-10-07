@@ -6,7 +6,6 @@ import 'package:al_qamar/cubit/register_cubit.dart';
 import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/db.dart';
 import 'package:al_qamar/di.dart';
-import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +47,7 @@ class MainApp extends StatelessWidget {
           Locale('ar'),
         ],
         locale: const Locale('ar'),
-        home: const ArticlePage(),
+        home: const MainWrapperPage(),
       ),
     );
   }

@@ -12,7 +12,7 @@ class AzanBloc extends Bloc<AzanEvent, AzanState> {
       List<AzanTime> azanTimeList = [];
       String errorMessage = '';
 
-      var londomEither = await _repository.getAzanTime(
+      var londonEither = await _repository.getAzanTime(
         city: 'London',
         country: 'United Kingdom',
       );
@@ -22,13 +22,13 @@ class AzanBloc extends Bloc<AzanEvent, AzanState> {
         country: 'Iraq',
       );
 
-      londomEither.fold((l) {
+      baghdadEither.fold((l) {
         errorMessage = l;
       }, (r) {
         azanTimeList.add(r);
       });
 
-      baghdadEither.fold((l) {
+      londonEither.fold((l) {
         errorMessage = l;
       }, (r) {
         azanTimeList.add(r);

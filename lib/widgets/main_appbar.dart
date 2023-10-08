@@ -45,11 +45,16 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
             color: AppColors.red,
           ),
           const SizedBox(width: 15),
-          const SvgIcon(
-            icon: AppIcons.menu,
-            height: 15,
-            width: 15,
-            color: AppColors.red,
+          GestureDetector(
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: const SvgIcon(
+              icon: AppIcons.menu,
+              height: 15,
+              width: 15,
+              color: AppColors.red,
+            ),
           ),
           const SizedBox(width: 10),
         ],

@@ -9,16 +9,18 @@ class AzanWidget extends StatelessWidget {
     super.key,
     required this.city,
     required this.azanTime,
+    this.backgroundColor = AppColors.white,
   });
 
   final String city;
   final AzanTime azanTime;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(

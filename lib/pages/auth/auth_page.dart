@@ -37,6 +37,7 @@ class _AuthPageState extends State<AuthPage>
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(15),

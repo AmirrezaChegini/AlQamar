@@ -1,11 +1,15 @@
+import 'package:al_qamar/bloc/azan/azan_bloc.dart';
+import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
+import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
+import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
-import 'package:al_qamar/pages/news/news_page.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainWrapperPage extends StatefulWidget {
   const MainWrapperPage({super.key});
@@ -21,6 +25,8 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
+
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
   }
 
@@ -33,38 +39,25 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavbar(tabCtrl: _tabCtrl),
+      bottomNavigationBar: BottomNavbar(tabController: _tabCtrl),
+      backgroundColor: AppColors.grey200,
       resizeToAvoidBottomInset: false,
       extendBody: true,
       appBar: const MainAppbar(),
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              AppColors.grey600,
-              AppColors.grey200,
-              AppColors.grey200,
-              AppColors.grey200,
-              AppColors.grey200,
-              AppColors.grey200,
-            ],
+      drawer: ProfilePage(tabController: _tabCtrl),
+      drawerDragStartBehavior: DragStartBehavior.down,
+      body: TabBarView(
+        controller: _tabCtrl,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          const CalenderPage(),
+          const Center(
+            child: Text('اشتراک'),
           ),
-        ),
-        child: TabBarView(
-          controller: _tabCtrl,
-          physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            ProfilePage(),
-            Center(
-              child: Text('اشتراک'),
-            ),
-            BookmarkPage(),
-            NewsPage(),
-            HomePage(),
-          ],
-        ),
+          const SizedBox(),
+          const NewsPage(),
+          HomePage(tabController: _tabCtrl),
+        ],
       ),
     );
   }

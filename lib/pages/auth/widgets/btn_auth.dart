@@ -18,10 +18,11 @@ class BtnAuth extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        fixedSize: const Size(150, 40),
+        fixedSize: const Size(160, 40),
         backgroundColor: AppColors.blue,
         foregroundColor: AppColors.white,
-        textStyle: Theme.of(context).textTheme.labelMedium,
+        textStyle:
+            Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: 11),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

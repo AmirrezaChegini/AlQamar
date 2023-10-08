@@ -6,37 +6,44 @@ class TitleWidget extends StatelessWidget {
     super.key,
     required this.title,
     this.showDivider = false,
+    this.crossAlignment = CrossAxisAlignment.center,
+    this.dividerWidth = 100,
   });
 
   final String title;
   final bool showDivider;
+  final CrossAxisAlignment crossAlignment;
+  final double dividerWidth;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width / 4,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+        SizedBox(
+          width: 100,
           child: Column(
+            crossAxisAlignment: crossAlignment,
             mainAxisSize: MainAxisSize.min,
             children: [
-              FittedBox(
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
+              Text(
+                title,
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium!
+                    .copyWith(fontSize: 14),
               ),
-              if (showDivider)
-                const Divider(
-                  thickness: 1,
-                  endIndent: 0,
-                  indent: 0,
+              if (showDivider) ...{
+                const SizedBox(height: 6),
+                Container(
+                  height: 1,
+                  width: dividerWidth,
                   color: AppColors.blue,
-                )
+                ),
+              }
             ],
           ),
-        )
+        ),
       ],
     );
   }

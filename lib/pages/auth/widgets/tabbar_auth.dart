@@ -15,19 +15,29 @@ class TabbarAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBar(
-      controller: tabCtrl,
-      labelColor: AppColors.blue,
-      unselectedLabelColor: AppColors.grey,
-      indicatorColor: AppColors.blue,
-      labelStyle:
-          Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
-      tabs: List.generate(
-        texts.length,
-        (index) => Tab(
-          text: texts[index],
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Container(
+          height: 1,
+          color: AppColors.grey600,
         ),
-      ),
+        TabBar(
+          controller: tabCtrl,
+          labelColor: AppColors.blue,
+          unselectedLabelColor: AppColors.grey,
+          indicatorColor: AppColors.blue,
+          dividerColor: AppColors.grey,
+          labelStyle:
+              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
+          tabs: List.generate(
+            texts.length,
+            (index) => Tab(
+              text: texts[index],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

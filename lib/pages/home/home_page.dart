@@ -1,27 +1,37 @@
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
+import 'package:al_qamar/pages/home/widgets/force_news.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({
+    super.key,
+    required this.tabController,
+  });
+
+  final TabController tabController;
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Text(
-              '●احدث الاخبار',
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium!
-                  .copyWith(fontSize: 14),
+            padding: EdgeInsets.all(10),
+            child: ForceNews(),
+          ),
+        ),
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: TitleWidget(
+              title: '●احدث الاخبار',
             ),
           ),
         ),
@@ -37,30 +47,31 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(10),
-            child: CalenderWidget(),
+            padding: const EdgeInsets.all(10),
+            child: CalenderWidget(tabController: tabController),
           ),
         ),
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const TitleWidget(
-                  title: 'قايمة الاخبار',
-                  showDivider: true,
-                ),
-                TxtBtn(
-                  onTap: () {},
-                  title: 'اقرا اکثرا',
-                  icon: AppIcons.leftArrow,
-                  ltr: true,
-                ),
-              ],
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const TitleWidget(
+                title: 'قايمة الاخبار',
+                showDivider: true,
+                dividerWidth: 75,
+              ),
+              TxtBtn(
+                onTap: () {
+                  tabController.animateTo(3);
+                  BlocProvider.of<BottomnavCubit>(context).changeIndex(3);
+                },
+                title: 'اقرا اکثرا',
+                icon: AppIcons.leftArrow,
+                ltr: true,
+              ),
+            ],
           ),
         ),
         SliverPadding(

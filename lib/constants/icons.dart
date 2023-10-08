@@ -22,6 +22,7 @@ class AppIcons {
   static const String menu = '$root/menu.svg';
   static const String money = '$root/money.svg';
   static const String moon = '$root/moon.svg';
+  static const String doc = '$root/doc.svg';
   static const String pdf = '$root/pdf.svg';
   static const String pen = '$root/pen.svg';
   static const String play = '$root/play.svg';

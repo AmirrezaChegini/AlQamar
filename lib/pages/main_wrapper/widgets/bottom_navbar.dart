@@ -1,16 +1,18 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/pages/auth/auth_page.dart';
+import 'package:al_qamar/cubit/bottomnav_cubit.dart';
+import 'package:al_qamar/pages/search/search_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({
     super.key,
-    required this.tabCtrl,
+    required this.tabController,
   });
 
-  final TabController tabCtrl;
+  final TabController tabController;
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
@@ -20,7 +22,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final List<String> bottomTexts = const [
     'اعمال',
     'الاشتراک',
-    'الحساب',
+    'یبحث',
     'المواضیع',
     'بیت',
   ];
@@ -28,10 +30,33 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final List<String> bottomIcons = const [
     AppIcons.calender,
     AppIcons.money,
-    AppIcons.profile,
+    AppIcons.search,
     AppIcons.topics,
     AppIcons.home,
   ];
+
+  void onTap(int value) {
+    if (value == 2) {
+      widget.tabController.animateTo(widget.tabController.previousIndex);
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: AppColors.transparent,
+        isDismissible: true,
+        builder: (context) => DraggableScrollableSheet(
+          minChildSize: 0.8,
+          maxChildSize: 1,
+          initialChildSize: 1,
+          builder: (context, scrollController) =>
+              SearchPage(scrollController: scrollController),
+        ),
+      );
+    } else {
+      Navigator.maybePop(context);
+    }
+
+    BlocProvider.of<BottomnavCubit>(context).changeIndex(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +65,16 @@ class _BottomNavbarState extends State<BottomNavbar> {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black.withOpacity(0.5),
+            blurRadius: 100,
+            spreadRadius: 0,
+          )
+        ],
       ),
       child: TabBar(
-        controller: widget.tabCtrl,
+        controller: widget.tabController,
         unselectedLabelColor: AppColors.grey,
         labelColor: AppColors.blue,
         indicatorColor: AppColors.blue,
@@ -50,42 +82,22 @@ class _BottomNavbarState extends State<BottomNavbar> {
         padding: const EdgeInsets.all(0),
         labelPadding: const EdgeInsets.all(0),
         splashBorderRadius: BorderRadius.circular(20),
-        onTap: (value) {
-          if (value == 2) {
-            showBottomSheet(
-              context: context,
-              enableDrag: false,
-              elevation: 30,
-              backgroundColor: AppColors.transparent,
-              builder: (context) => const Padding(
-                padding: EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                  top: 10,
-                ),
-                child: AuthPage(),
-              ),
-            );
-          } else {
-            Navigator.maybePop(context);
-          }
-
-          setState(() {});
-        },
+        onTap: (value) => onTap(value),
         tabs: List.generate(
-          widget.tabCtrl.length,
+          widget.tabController.length,
           (index) => Tab(
             height: 80,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgIcon(
-                  icon: bottomIcons[index],
-                  width: 25,
-                  height: 25,
-                  color: widget.tabCtrl.index == index
-                      ? AppColors.blue
-                      : AppColors.grey,
+                BlocBuilder<BottomnavCubit, int>(
+                  buildWhen: (previous, current) => current != 2,
+                  builder: (context, state) => SvgIcon(
+                    icon: bottomIcons[index],
+                    width: 25,
+                    height: 25,
+                    color: index == state ? AppColors.blue : AppColors.grey,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Text(

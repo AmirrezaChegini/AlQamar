@@ -14,9 +14,9 @@ class FadeRotateAnim extends StatefulWidget {
 
 class _FadeRotateAnimState extends State<FadeRotateAnim>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fadeAnim;
-  late Animation<double> _rotateAnim;
+  late final AnimationController _controller;
+  late final Animation<double> _fadeAnim;
+  late final Animation<double> _rotateAnim;
 
   @override
   void initState() {

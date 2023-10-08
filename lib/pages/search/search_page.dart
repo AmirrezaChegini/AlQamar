@@ -4,20 +4,19 @@ import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+  const SearchPage({
+    super.key,
+    required this.scrollController,
+  });
+
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        top: 10,
-        left: 10,
-        right: 10,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      decoration: const BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         children: [
@@ -57,6 +56,7 @@ class SearchPage extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: 6,
+              controller: scrollController,
               itemBuilder: (context, index) => const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: ArticleWidget(

@@ -18,6 +18,10 @@ class TabbarAuth extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
+        Container(
+          height: 1,
+          color: AppColors.grey600,
+        ),
         TabBar(
           controller: tabCtrl,
           labelColor: AppColors.blue,
@@ -33,10 +37,6 @@ class TabbarAuth extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          height: 1,
-          color: AppColors.grey600,
-        )
       ],
     );
   }

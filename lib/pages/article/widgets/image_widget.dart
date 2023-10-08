@@ -74,9 +74,8 @@ class _ImageWidgetState extends State<ImageWidget> {
             ),
           ),
         ),
-        SliverPersistentHeader(
-          delegate: ActionArticle(),
-          pinned: true,
+        const SliverToBoxAdapter(
+          child: ActionArticle(),
         ),
         SliverToBoxAdapter(
           child: Padding(

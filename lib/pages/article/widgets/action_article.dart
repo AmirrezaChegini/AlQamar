@@ -4,15 +4,16 @@ import 'package:al_qamar/pages/article/widgets/action_item.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
-class ActionArticle extends SliverPersistentHeaderDelegate {
+class ActionArticle extends StatelessWidget {
+  const ActionArticle({super.key});
+
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: AppColors.grey200,
-      padding: const EdgeInsets.all(10).copyWith(bottom: 0),
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
@@ -65,6 +66,7 @@ class ActionArticle extends SliverPersistentHeaderDelegate {
               )
             ],
           ),
+          const SizedBox(height: 15),
           Container(
             height: 1,
             color: AppColors.grey600,
@@ -72,16 +74,5 @@ class ActionArticle extends SliverPersistentHeaderDelegate {
         ],
       ),
     );
-  }
-
-  @override
-  double get maxExtent => 80;
-
-  @override
-  double get minExtent => 80;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
   }
 }

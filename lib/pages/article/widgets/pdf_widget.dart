@@ -1,9 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
-import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
-import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -35,9 +33,8 @@ class _PdfWidgetState extends State<PdfWidget> {
             ),
           ),
         ),
-        SliverPersistentHeader(
-          delegate: ActionArticle(),
-          pinned: true,
+        const SliverToBoxAdapter(
+          child: ActionArticle(),
         ),
         SliverToBoxAdapter(
           child: Padding(
@@ -104,24 +101,6 @@ class _PdfWidgetState extends State<PdfWidget> {
                   ),
                 ),
               ),
-            ),
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: TitleWidget(
-              title: 'الاخبار مماتلة',
-              showDivider: true,
-            ),
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            childCount: 5,
-            (context, index) => const Padding(
-              padding: EdgeInsets.all(10),
-              child: ArticleWidget(),
             ),
           ),
         ),

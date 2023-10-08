@@ -1,6 +1,4 @@
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
-import 'package:al_qamar/widgets/article_widget.dart';
-import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -43,9 +41,8 @@ class _YoutubeWidgetState extends State<YoutubeWidget> {
             child: YoutubePlayer(controller: _youtubePlayerController),
           ),
         ),
-        SliverPersistentHeader(
-          delegate: ActionArticle(),
-          pinned: true,
+        const SliverToBoxAdapter(
+          child: ActionArticle(),
         ),
         SliverToBoxAdapter(
           child: Padding(
@@ -69,24 +66,6 @@ class _YoutubeWidgetState extends State<YoutubeWidget> {
                   .textTheme
                   .bodyMedium!
                   .copyWith(fontSize: 14),
-            ),
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: TitleWidget(
-              title: 'الاخبار مماتلة',
-              showDivider: true,
-            ),
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            childCount: 5,
-            (context, index) => const Padding(
-              padding: EdgeInsets.all(10),
-              child: ArticleWidget(),
             ),
           ),
         ),

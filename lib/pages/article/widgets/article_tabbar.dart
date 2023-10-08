@@ -27,41 +27,49 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
       collapsedHeight: 80,
       backgroundColor: AppColors.grey200,
       elevation: 0,
-      floating: true,
-      snap: true,
+      pinned: true,
       automaticallyImplyLeading: false,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: AppColors.grey200,
         statusBarIconBrightness: Brightness.dark,
       ),
-      title: TabBar(
-        controller: widget.tabController,
-        labelStyle:
-            Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-        labelColor: AppColors.blue,
-        unselectedLabelStyle:
-            Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-        unselectedLabelColor: AppColors.grey,
-        indicatorColor: AppColors.blue,
-        indicatorWeight: 2,
-        indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
-        onTap: (value) {
-          setState(() {});
-        },
-        tabs: List.generate(
-          5,
-          (index) => Tab(
-            icon: SvgIcon(
-              icon: widget.tabsIcon[index],
-              height: 20,
-              width: 20,
-              color: widget.tabController.index == index
-                  ? AppColors.blue
-                  : AppColors.grey,
-            ),
-            text: widget.tabsText[index],
+      title: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            height: 1,
+            color: AppColors.grey600,
           ),
-        ),
+          TabBar(
+            controller: widget.tabController,
+            labelStyle:
+                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
+            labelColor: AppColors.blue,
+            unselectedLabelStyle:
+                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
+            unselectedLabelColor: AppColors.grey,
+            indicatorColor: AppColors.blue,
+            indicatorWeight: 2,
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
+            onTap: (value) {
+              setState(() {});
+            },
+            tabs: List.generate(
+              5,
+              (index) => Tab(
+                icon: SvgIcon(
+                  icon: widget.tabsIcon[index],
+                  height: 20,
+                  width: 20,
+                  color: widget.tabController.index == index
+                      ? AppColors.blue
+                      : AppColors.grey,
+                ),
+                text: widget.tabsText[index],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -40,10 +40,10 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(10),
-            child: CalenderWidget(),
+            padding: const EdgeInsets.all(10),
+            child: CalenderWidget(tabController: tabController),
           ),
         ),
         SliverToBoxAdapter(

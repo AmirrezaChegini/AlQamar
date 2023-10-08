@@ -1,5 +1,4 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
@@ -34,37 +33,22 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavbar(tabController: _tabCtrl),
+      backgroundColor: AppColors.grey200,
       resizeToAvoidBottomInset: false,
       extendBody: true,
       appBar: const MainAppbar(),
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              AppColors.grey600,
-              AppColors.grey200,
-              AppColors.grey200,
-              AppColors.grey200,
-              AppColors.grey200,
-              AppColors.grey200,
-            ],
+      body: TabBarView(
+        controller: _tabCtrl,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          const CalenderPage(),
+          const Center(
+            child: Text('اشتراک'),
           ),
-        ),
-        child: TabBarView(
-          controller: _tabCtrl,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const CalenderPage(),
-            const Center(
-              child: Text('اشتراک'),
-            ),
-            const BookmarkPage(),
-            const NewsPage(),
-            HomePage(tabController: _tabCtrl),
-          ],
-        ),
+          const SizedBox(),
+          const NewsPage(),
+          HomePage(tabController: _tabCtrl),
+        ],
       ),
     );
   }

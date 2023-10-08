@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/config/theme.dart';
+import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/counter_cubit.dart';
 import 'package:al_qamar/cubit/register_cubit.dart';
 import 'package:al_qamar/cubit/salavat_cubit.dart';
@@ -28,6 +29,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => locator.get<BottomnavCubit>()),
         BlocProvider(create: (context) => locator.get<RegisterCubit>()),
         BlocProvider(create: (context) => locator.get<CounterCubit>()),
         BlocProvider(create: (context) => locator.get<SalavatCubit>()),

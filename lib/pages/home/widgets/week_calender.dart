@@ -13,7 +13,7 @@ class WeekCalender extends StatelessWidget {
     return TableCalendar(
       locale: 'ar_IQ',
       focusedDay: DateTime.now(),
-      availableGestures: AvailableGestures.all,
+      availableGestures: AvailableGestures.none,
       firstDay: DateTime(2000, 1, 1),
       lastDay: DateTime(2100, 1, 1),
       calendarFormat: CalendarFormat.week,

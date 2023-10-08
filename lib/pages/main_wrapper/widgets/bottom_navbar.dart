@@ -1,16 +1,18 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({
     super.key,
-    required this.tabCtrl,
+    required this.tabController,
   });
 
-  final TabController tabCtrl;
+  final TabController tabController;
 
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
@@ -42,7 +44,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TabBar(
-        controller: widget.tabCtrl,
+        controller: widget.tabController,
         unselectedLabelColor: AppColors.grey,
         labelColor: AppColors.blue,
         indicatorColor: AppColors.blue,
@@ -70,22 +72,22 @@ class _BottomNavbarState extends State<BottomNavbar> {
             Navigator.maybePop(context);
           }
 
-          setState(() {});
+          BlocProvider.of<BottomnavCubit>(context).changeIndex(value);
         },
         tabs: List.generate(
-          widget.tabCtrl.length,
+          widget.tabController.length,
           (index) => Tab(
             height: 80,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgIcon(
-                  icon: bottomIcons[index],
-                  width: 25,
-                  height: 25,
-                  color: widget.tabCtrl.index == index
-                      ? AppColors.blue
-                      : AppColors.grey,
+                BlocBuilder<BottomnavCubit, int>(
+                  builder: (context, state) => SvgIcon(
+                    icon: bottomIcons[index],
+                    width: 25,
+                    height: 25,
+                    color: index == state ? AppColors.blue : AppColors.grey,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Text(

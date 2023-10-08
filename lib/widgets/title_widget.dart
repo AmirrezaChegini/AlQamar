@@ -31,15 +31,16 @@ class TitleWidget extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
-                    .copyWith(fontSize: 16),
+                    .copyWith(fontSize: 14),
               ),
-              const SizedBox(height: 6),
-              if (showDivider)
+              if (showDivider) ...{
+                const SizedBox(height: 6),
                 Container(
                   height: 1,
                   width: dividerWidth,
                   color: AppColors.blue,
                 ),
+              }
             ],
           ),
         ),

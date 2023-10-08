@@ -33,7 +33,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavbar(tabCtrl: _tabCtrl),
+      bottomNavigationBar: BottomNavbar(tabController: _tabCtrl),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       appBar: const MainAppbar(),
@@ -55,14 +55,14 @@ class _MainWrapperPageState extends State<MainWrapperPage>
         child: TabBarView(
           controller: _tabCtrl,
           physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            CalenderPage(),
-            Center(
+          children: [
+            const CalenderPage(),
+            const Center(
               child: Text('اشتراک'),
             ),
-            BookmarkPage(),
-            NewsPage(),
-            HomePage(),
+            const BookmarkPage(),
+            const NewsPage(),
+            HomePage(tabController: _tabCtrl),
           ],
         ),
       ),

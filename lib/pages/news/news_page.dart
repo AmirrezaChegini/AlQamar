@@ -18,11 +18,11 @@ class _NewsPageState extends State<NewsPage>
       slivers: [
         const SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            padding: EdgeInsets.symmetric(vertical: 10),
             child: TitleWidget(
               title: 'قايمة الأخبار',
               showDivider: true,
-              dividerWidth: 85,
+              dividerWidth: 75,
             ),
           ),
         ),

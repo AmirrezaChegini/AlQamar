@@ -15,7 +15,7 @@ class MiniCalender extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.grey200,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

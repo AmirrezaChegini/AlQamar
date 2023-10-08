@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class IconBtn extends StatelessWidget {
   const IconBtn({
     super.key,
-    required this.child,
     this.onTap,
+    required this.child,
+    this.padding = 5,
   });
-
-  final Widget child;
   final Function()? onTap;
+  final Widget child;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class IconBtn extends StatelessWidget {
       onPressed: onTap,
       minWidth: 0,
       height: 0,
-      padding: const EdgeInsets.all(5),
+      padding: EdgeInsets.all(padding),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),

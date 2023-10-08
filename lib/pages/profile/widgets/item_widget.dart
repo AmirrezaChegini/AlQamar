@@ -21,9 +21,9 @@ class ItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: AppColors.grey200,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(

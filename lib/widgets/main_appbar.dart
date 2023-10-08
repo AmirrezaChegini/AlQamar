@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,11 +46,28 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
             color: AppColors.red,
           ),
           const SizedBox(width: 15),
-          const SvgIcon(
-            icon: AppIcons.menu,
-            height: 15,
-            width: 15,
-            color: AppColors.red,
+          GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: AppColors.transparent,
+                builder: (context) => DraggableScrollableSheet(
+                  minChildSize: 0.8,
+                  maxChildSize: 1,
+                  initialChildSize: 1,
+                  builder: (context, scrollController) => ProfilePage(
+                    scrollController: scrollController,
+                  ),
+                ),
+              );
+            },
+            child: const SvgIcon(
+              icon: AppIcons.menu,
+              height: 15,
+              width: 15,
+              color: AppColors.red,
+            ),
           ),
           const SizedBox(width: 10),
         ],

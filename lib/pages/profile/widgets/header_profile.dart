@@ -1,6 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -42,6 +43,7 @@ class HeaderProfile extends StatelessWidget {
           ),
           Positioned.fill(
             top: 40,
+            right: 20,
             child: Row(
               children: [
                 Material(
@@ -73,15 +75,44 @@ class HeaderProfile extends StatelessWidget {
                           .displayMedium!
                           .copyWith(fontSize: 16),
                     ),
-                    Text(
-                      'لقد قمت یستجیل الدخول کمستخدم صیف',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(fontSize: 12),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: AppColors.transparent,
+                          builder: (context) => DraggableScrollableSheet(
+                            minChildSize: 0.8,
+                            maxChildSize: 1,
+                            initialChildSize: 1,
+                            builder: (context, scrollController) => ProfilePage(
+                              scrollController: scrollController,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text.rich(
+                        TextSpan(
+                          text: 'إنشاء ملف تعریف  |  ',
+                          children: [
+                            TextSpan(
+                              text: 'تسجیل الدخول',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .copyWith(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontSize: 12),
+                      ),
                     ),
+                    const SizedBox(),
                   ],
-                )
+                ),
               ],
             ),
           ),

@@ -1,16 +1,15 @@
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
-import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/azan_time.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
-import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
 import 'package:al_qamar/pages/salavat/salavat_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +27,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-
-    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
   }
 
   @override
@@ -71,9 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () => Navigator.push(
                                 context,
                                 fadePageTran(
-                                  child: CalenderPage(
-                                    azanTimeList: azanTimeList,
-                                  ),
+                                  child: const CalenderPage(),
                                 ),
                               ),
                               image: AppIcons.calender,

@@ -2,7 +2,6 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/utils/extensions/int.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -23,20 +22,17 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
   int georgiaYear = DateTime.now().year;
 
   late final HijriDatePickerController _hijriCtrl;
-  late final ExpandableController _expandableCtrl;
 
   @override
   void initState() {
     super.initState();
 
     _hijriCtrl = HijriDatePickerController();
-    _expandableCtrl = ExpandableController(initialExpanded: false);
   }
 
   @override
   void dispose() {
     _hijriCtrl.dispose();
-    _expandableCtrl.dispose();
     super.dispose();
   }
 
@@ -129,41 +125,14 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
             ),
           ),
           const SizedBox(height: 10),
-          ExpandablePanel(
-            controller: _expandableCtrl,
-            collapsed: const SizedBox(),
-            expanded: SfHijriDateRangePicker(
-              controller: _hijriCtrl,
-              navigationMode: DateRangePickerNavigationMode.none,
-              headerHeight: 0,
-              selectionColor: AppColors.blue,
-              todayHighlightColor: AppColors.blue,
-              selectionShape: DateRangePickerSelectionShape.rectangle,
-            ),
+          SfHijriDateRangePicker(
+            controller: _hijriCtrl,
+            navigationMode: DateRangePickerNavigationMode.none,
+            headerHeight: 0,
+            selectionColor: AppColors.blue,
+            todayHighlightColor: AppColors.blue,
+            selectionShape: DateRangePickerSelectionShape.rectangle,
           ),
-          Container(
-            height: 1,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            color: AppColors.grey200,
-          ),
-          InkWell(
-            onTap: () {
-              setState(() {
-                _expandableCtrl.toggle();
-              });
-            },
-            borderRadius: BorderRadius.circular(20),
-            child: Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              child: Icon(
-                _expandableCtrl.expanded
-                    ? Icons.keyboard_arrow_up
-                    : Icons.keyboard_arrow_down,
-                color: AppColors.grey600,
-              ),
-            ),
-          )
         ],
       ),
     );

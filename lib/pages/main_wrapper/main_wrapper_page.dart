@@ -3,7 +3,9 @@ import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/news/news_page.dart';
+import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class MainWrapperPage extends StatefulWidget {
@@ -37,6 +39,8 @@ class _MainWrapperPageState extends State<MainWrapperPage>
       resizeToAvoidBottomInset: false,
       extendBody: true,
       appBar: const MainAppbar(),
+      drawer: ProfilePage(tabController: _tabCtrl),
+      drawerDragStartBehavior: DragStartBehavior.down,
       body: TabBarView(
         controller: _tabCtrl,
         physics: const NeverScrollableScrollPhysics(),

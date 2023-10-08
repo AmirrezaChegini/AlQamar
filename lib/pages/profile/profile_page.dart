@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
@@ -16,10 +17,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
     super.key,
-    required this.scrollController,
+    required this.tabController,
   });
 
-  final ScrollController scrollController;
+  final TabController tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,6 @@ class ProfilePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30),
       color: AppColors.white,
       child: ListView(
-        controller: scrollController,
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -59,7 +59,12 @@ class ProfilePage extends StatelessWidget {
                             ),
                             Expanded(
                               child: ItemWidget(
-                                onTap: () => Navigator.pop(context),
+                                onTap: () {
+                                  BlocProvider.of<BottomnavCubit>(context)
+                                      .changeIndex(0);
+                                  tabController.animateTo(0);
+                                  Navigator.pop(context);
+                                },
                                 image: AppIcons.calender,
                                 color: AppColors.grey,
                                 title: 'تقویم',

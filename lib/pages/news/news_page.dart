@@ -1,8 +1,4 @@
-import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/pages/search/search_page.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -20,33 +16,13 @@ class _NewsPageState extends State<NewsPage>
     super.build(context);
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const TitleWidget(
-                  title: 'قايمة الاخبار',
-                  showDivider: true,
-                ),
-                IconButton(
-                  onPressed: () {
-                    showBottomSheet(
-                      context: context,
-                      elevation: 30,
-                      backgroundColor: AppColors.transparent,
-                      builder: (context) => const SearchPage(),
-                    );
-                  },
-                  icon: const SvgIcon(
-                    icon: AppIcons.search,
-                    color: AppColors.blue,
-                    height: 20,
-                    width: 20,
-                  ),
-                ),
-              ],
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: TitleWidget(
+              title: 'قايمة الأخبار',
+              showDivider: true,
+              dividerWidth: 85,
             ),
           ),
         ),

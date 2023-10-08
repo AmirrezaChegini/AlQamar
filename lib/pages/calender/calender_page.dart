@@ -1,5 +1,4 @@
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
-import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/pages/calender/widgets/four_actions.dart';
 import 'package:al_qamar/pages/calender/widgets/monthly_calender.dart';
@@ -7,22 +6,10 @@ import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CalenderPage extends StatefulWidget {
+class CalenderPage extends StatelessWidget {
   const CalenderPage({
     super.key,
   });
-
-  @override
-  State<CalenderPage> createState() => _CalenderPageState();
-}
-
-class _CalenderPageState extends State<CalenderPage> {
-  @override
-  void initState() {
-    super.initState();
-
-    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
-  }
 
   @override
   Widget build(BuildContext context) {

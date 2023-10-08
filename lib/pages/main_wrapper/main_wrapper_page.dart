@@ -1,3 +1,5 @@
+import 'package:al_qamar/bloc/azan/azan_bloc.dart';
+import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
@@ -7,6 +9,7 @@ import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainWrapperPage extends StatefulWidget {
   const MainWrapperPage({super.key});
@@ -22,6 +25,8 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
+
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
   }
 

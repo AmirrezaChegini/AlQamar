@@ -2,6 +2,7 @@ import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
+import 'package:al_qamar/pages/home/widgets/force_news.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
@@ -20,6 +21,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: ForceNews(),
+          ),
+        ),
         const SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 5),

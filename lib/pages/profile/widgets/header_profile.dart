@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
-import 'package:al_qamar/pages/profile/profile_page.dart';
+import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -80,14 +80,13 @@ class HeaderProfile extends StatelessWidget {
                         showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
-                          backgroundColor: AppColors.transparent,
+                          backgroundColor: AppColors.white,
                           builder: (context) => DraggableScrollableSheet(
                             minChildSize: 0.8,
                             maxChildSize: 1,
                             initialChildSize: 1,
-                            builder: (context, scrollController) => ProfilePage(
-                              scrollController: scrollController,
-                            ),
+                            builder: (context, scrollController) =>
+                                const AuthPage(),
                           ),
                         );
                       },

@@ -87,7 +87,7 @@ class _AuthPageState extends State<AuthPage>
 
                 if (state is CompleteAuthState) {
                   BlocProvider.of<TimerCubit>(context).cancel();
-                  Navigator.pop(context);
+                  Navigator.pop(context, _nameCtrl.text);
                 }
               },
               builder: (context, state) => Expanded(

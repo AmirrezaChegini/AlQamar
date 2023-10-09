@@ -1,14 +1,39 @@
+import 'package:al_qamar/bloc/auth/auth_bloc.dart';
+import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HeaderProfile extends StatelessWidget {
+class HeaderProfile extends StatefulWidget {
   const HeaderProfile({
     super.key,
   });
+
+  @override
+  State<HeaderProfile> createState() => _HeaderProfileState();
+}
+
+class _HeaderProfileState extends State<HeaderProfile> {
+  String username = '';
+
+  Future<void> authenticate() async {
+    username = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.white,
+      builder: (context) => DraggableScrollableSheet(
+        minChildSize: 0.3,
+        maxChildSize: 1,
+        initialChildSize: 1,
+        builder: (context, scrollController) => const AuthPage(),
+      ),
+    );
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,45 +94,42 @@ class HeaderProfile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'حساب تعریفی',
+                      username.isEmpty ? 'حساب تعریفی' : username,
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!
                           .copyWith(fontSize: 16),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: AppColors.white,
-                          builder: (context) => DraggableScrollableSheet(
-                            minChildSize: 0.3,
-                            maxChildSize: 1,
-                            initialChildSize: 1,
-                            builder: (context, scrollController) =>
-                                const AuthPage(),
-                          ),
-                        );
-                      },
-                      child: Text.rich(
-                        TextSpan(
-                          text: 'إنشاء ملف تعریف  |  ',
-                          children: [
-                            TextSpan(
-                              text: 'تسجیل الدخول',
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) => state is CompleteAuthState
+                          ? Text(
+                              'إنشاء ملف تعریف',
                               style: Theme.of(context)
                                   .textTheme
-                                  .displayMedium!
+                                  .titleMedium!
                                   .copyWith(fontSize: 12),
+                            )
+                          : GestureDetector(
+                              onTap: authenticate,
+                              child: Text.rich(
+                                TextSpan(
+                                  text: 'إنشاء ملف تعریف  |  ',
+                                  children: [
+                                    TextSpan(
+                                      text: 'تسجیل الدخول',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium!
+                                          .copyWith(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(fontSize: 12),
+                              ),
                             ),
-                          ],
-                        ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontSize: 12),
-                      ),
                     ),
                     const SizedBox(),
                   ],

@@ -82,7 +82,7 @@ class HeaderProfile extends StatelessWidget {
                           isScrollControlled: true,
                           backgroundColor: AppColors.white,
                           builder: (context) => DraggableScrollableSheet(
-                            minChildSize: 0.8,
+                            minChildSize: 0.3,
                             maxChildSize: 1,
                             initialChildSize: 1,
                             builder: (context, scrollController) =>

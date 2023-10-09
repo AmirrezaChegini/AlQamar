@@ -26,7 +26,6 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   void initState() {
     super.initState();
     BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
-
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
   }
 

@@ -21,7 +21,7 @@ dynamic showMessage({
       ),
       dismissDirection: DismissDirection.horizontal,
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-      margin: const EdgeInsets.all(20).copyWith(bottom: 100),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
       action: action,
     ),
   );

@@ -33,7 +33,7 @@ class TxtBtn extends StatelessWidget {
         style: TextButton.styleFrom(
           foregroundColor: AppColors.grey,
           textStyle:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
+              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 10),
         ),
       ),
     );

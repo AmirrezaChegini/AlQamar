@@ -21,7 +21,7 @@ class TitleWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          width: 100,
+          // width: 100,
           child: Column(
             crossAxisAlignment: crossAlignment,
             mainAxisSize: MainAxisSize.min,

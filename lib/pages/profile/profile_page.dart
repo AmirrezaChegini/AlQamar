@@ -25,7 +25,6 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 30),
       color: AppColors.white,
       child: ListView(
         children: [

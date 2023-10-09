@@ -52,7 +52,7 @@ class WeekCalender extends StatelessWidget {
           alignment: Alignment.center,
           margin: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: AppColors.blue.withOpacity(0.3),
+            color: AppColors.blue.withOpacity(0.1),
             borderRadius: BorderRadius.circular(5),
           ),
           child: Text(

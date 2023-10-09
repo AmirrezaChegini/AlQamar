@@ -33,6 +33,7 @@ class CalenderWidget extends StatelessWidget {
                 '${HijriCalendar.now().hMonth.getHijriMonth()} ${HijriCalendar.now().hYear}',
             showDivider: true,
             crossAlignment: CrossAxisAlignment.end,
+            dividerWidth: 130,
           ),
           const SizedBox(height: 8),
           const Padding(

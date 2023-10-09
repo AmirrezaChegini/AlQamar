@@ -87,6 +87,7 @@ class RegisterWidgets extends StatelessWidget {
             hint: 'كلمة المرور',
             inputAction: TextInputAction.next,
             inputType: TextInputType.name,
+            obsecure: true,
           ),
           const Spacer(),
           BtnAuth(

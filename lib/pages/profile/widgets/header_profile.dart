@@ -1,12 +1,9 @@
-import 'package:al_qamar/bloc/auth/auth_bloc.dart';
-import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HeaderProfile extends StatefulWidget {
   const HeaderProfile({
@@ -94,42 +91,40 @@ class _HeaderProfileState extends State<HeaderProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      username == null ? 'حساب تعریفی' : username!,
+                      username == null ? 'حساب تعریفی' : 'مرحباً',
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!
                           .copyWith(fontSize: 16),
                     ),
-                    BlocBuilder<AuthBloc, AuthState>(
-                      builder: (context, state) => state is CompleteAuthState
-                          ? Text(
-                              'إنشاء ملف تعریف',
+                    GestureDetector(
+                      onTap: authenticate,
+                      child: Text.rich(
+                        TextSpan(
+                          text: username == null
+                              ? 'إنشاء ملف تعریف  |  '
+                              : '$username  |  ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(fontSize: 14),
+                          children: [
+                            TextSpan(
+                              text: username == null
+                                  ? 'تسجیل الدخول'
+                                  : 'تعدیل ملف شخصی',
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleMedium!
+                                  .displayMedium!
                                   .copyWith(fontSize: 12),
-                            )
-                          : GestureDetector(
-                              onTap: authenticate,
-                              child: Text.rich(
-                                TextSpan(
-                                  text: 'إنشاء ملف تعریف  |  ',
-                                  children: [
-                                    TextSpan(
-                                      text: 'تسجیل الدخول',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium!
-                                          .copyWith(fontSize: 12),
-                                    ),
-                                  ],
-                                ),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(fontSize: 12),
-                              ),
                             ),
+                          ],
+                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontSize: 12),
+                      ),
                     ),
                     const SizedBox(),
                   ],

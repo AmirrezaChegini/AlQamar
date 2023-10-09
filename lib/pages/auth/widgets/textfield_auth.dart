@@ -9,6 +9,7 @@ class TextFieldAuth extends StatelessWidget {
     required this.inputType,
     required this.inputAction,
     required this.controller,
+    this.obsecure = false,
   });
 
   final Function(String) validate;
@@ -16,12 +17,14 @@ class TextFieldAuth extends StatelessWidget {
   final TextInputType inputType;
   final TextInputAction inputAction;
   final TextEditingController controller;
+  final bool obsecure;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       textInputAction: inputAction,
+      obscureText: obsecure,
       validator: (value) => validate(value!),
       cursorColor: AppColors.blue,
       textAlignVertical: TextAlignVertical.bottom,

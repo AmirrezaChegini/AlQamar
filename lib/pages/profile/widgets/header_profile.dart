@@ -18,7 +18,7 @@ class HeaderProfile extends StatefulWidget {
 }
 
 class _HeaderProfileState extends State<HeaderProfile> {
-  String username = '';
+  String? username;
 
   Future<void> authenticate() async {
     username = await showModalBottomSheet(
@@ -94,7 +94,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      username.isEmpty ? 'حساب تعریفی' : username,
+                      username == null ? 'حساب تعریفی' : username!,
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!

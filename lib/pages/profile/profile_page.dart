@@ -2,7 +2,7 @@ import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/cubit/bottomnav_cubit.dart';
+import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
@@ -58,15 +58,11 @@ class ProfilePage extends StatelessWidget {
                             ),
                             Expanded(
                               child: ItemWidget(
-                                onTap: () {
-                                  BlocProvider.of<BottomnavCubit>(context)
-                                      .changeIndex(0);
-                                  tabController.animateTo(0);
-                                  Navigator.pop(context);
-                                },
-                                image: AppIcons.calender,
+                                onTap: () => Navigator.push(context,
+                                    fadePageTran(child: const BookmarkPage())),
+                                image: AppIcons.bookmark,
                                 color: AppColors.grey,
-                                title: 'تقویم',
+                                title: 'المفضلة',
                               ),
                             ),
                           ],

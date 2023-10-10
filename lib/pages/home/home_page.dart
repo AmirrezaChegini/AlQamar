@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
         ),
         const SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 5),
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: TitleWidget(
               title: '●احدث الاخبار',
             ),
@@ -57,10 +57,13 @@ class HomePage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const TitleWidget(
-                title: 'قايمة الاخبار',
-                showDivider: true,
-                dividerWidth: 75,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: TitleWidget(
+                  title: 'قايمة الاخبار',
+                  showDivider: true,
+                  dividerWidth: 75,
+                ),
               ),
               TxtBtn(
                 onTap: () {

@@ -17,7 +17,7 @@ class BookmarkPage extends StatelessWidget {
           slivers: [
             const SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.all(10),
                 child: TitleWidget(
                   title: 'الاخبار المفضل',
                   showDivider: true,

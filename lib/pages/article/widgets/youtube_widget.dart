@@ -19,10 +19,11 @@ class _YoutubeWidgetState extends State<YoutubeWidget> {
     super.initState();
 
     _youtubePlayerController = YoutubePlayerController(
-        initialVideoId: 'trzBiLI4YgU',
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
-        ));
+      initialVideoId: 'trzBiLI4YgU',
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+      ),
+    );
   }
 
   @override
@@ -36,9 +37,15 @@ class _YoutubeWidgetState extends State<YoutubeWidget> {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
-          child: SizedBox(
+          child: Container(
             height: MediaQuery.sizeOf(context).height / 3,
-            child: YoutubePlayer(controller: _youtubePlayerController),
+            margin: const EdgeInsets.all(10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: YoutubePlayer(
+                controller: _youtubePlayerController,
+              ),
+            ),
           ),
         ),
         const SliverToBoxAdapter(

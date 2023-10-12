@@ -21,7 +21,7 @@ class _PdfWidgetState extends State<PdfWidget> {
       slivers: [
         SliverToBoxAdapter(
           child: Container(
-            height: MediaQuery.sizeOf(context).height / 2.5,
+            height: MediaQuery.sizeOf(context).height / 3,
             margin: const EdgeInsets.all(10),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),

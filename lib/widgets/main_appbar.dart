@@ -7,73 +7,114 @@ import 'package:flutter/services.dart';
 class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppbar({
     super.key,
+    this.showLeading = true,
+    this.title = '',
   });
+
+  final bool showLeading;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: AppBar(
-        backgroundColor: AppColors.grey200,
-        elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.all(5),
+    return AppBar(
+      backgroundColor: AppColors.grey200,
+      elevation: 0,
+      automaticallyImplyLeading: false,
+      leadingWidth: MediaQuery.sizeOf(context).width / 2,
+      title: Text(title),
+      titleTextStyle:
+          Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 20),
+      leading: showLeading
+          ? Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(width: 5),
+                IconBtn2(
+                  onTap: () => Scaffold.of(context).openDrawer(),
+                  child: const SvgIcon(
+                    icon: AppIcons.menu,
+                    height: 15,
+                    width: 15,
+                    color: AppColors.red,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconBtn2(
+                  onTap: () {},
+                  child: const SvgIcon(
+                    icon: AppIcons.live,
+                    height: 23,
+                    width: 23,
+                    color: AppColors.red,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      'البت المباشر',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : null,
+      actions: const [
+        Padding(
+          padding: EdgeInsets.all(3),
           child: SvgIcon(
             icon: AppIcons.logo,
-            height: 25,
-            width: 25,
+            height: 60,
+            width: 60,
             color: AppColors.red,
           ),
         ),
-        actions: [
-          Container(
-            alignment: Alignment.bottomCenter,
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              'البت المباشر',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(fontSize: 12),
-            ),
-          ),
-          const SizedBox(width: 4),
-          const SvgIcon(
-            icon: AppIcons.live,
-            height: 25,
-            width: 25,
-            color: AppColors.red,
-          ),
-          const SizedBox(width: 15),
-          GestureDetector(
-            onTap: () {
-              Scaffold.of(context).openDrawer();
-            },
-            child: const SvgIcon(
-              icon: AppIcons.menu,
-              height: 15,
-              width: 15,
-              color: AppColors.red,
-            ),
-          ),
-          const SizedBox(width: 10),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(5),
-          child: Container(
-            color: AppColors.red,
-            height: 2,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-          ),
+      ],
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(5),
+        child: Container(
+          color: AppColors.red,
+          height: 2,
+          margin: const EdgeInsets.symmetric(horizontal: 10),
         ),
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-        ),
+      ),
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
     );
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(56);
+}
+
+class IconBtn2 extends StatelessWidget {
+  const IconBtn2({
+    super.key,
+    required this.child,
+    this.onTap,
+  });
+
+  final Widget child;
+  final Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onTap,
+      splashRadius: 24,
+      padding: const EdgeInsets.all(0),
+      constraints: const BoxConstraints(
+        maxWidth: 30,
+        minWidth: 30,
+      ),
+      icon: child,
+    );
+  }
 }

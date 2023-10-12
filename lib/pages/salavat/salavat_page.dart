@@ -7,6 +7,7 @@ import 'package:al_qamar/cubit/counter_cubit.dart';
 import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/models/salavat.dart';
 import 'package:al_qamar/pages/salavat/widgets/circle_widget.dart';
+import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,7 @@ class _SalavatPageState extends State<SalavatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
+      appBar: const MainAppbar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -11,7 +11,7 @@ dynamic showMessage({
       content: Text(
         content,
         style:
-            Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 13),
+            Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 14),
       ),
       backgroundColor: AppColors.red100,
       behavior: SnackBarBehavior.floating,
@@ -21,7 +21,7 @@ dynamic showMessage({
       ),
       dismissDirection: DismissDirection.horizontal,
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
+      margin: const EdgeInsets.symmetric(horizontal: 46, vertical: 80),
       action: action,
     ),
   );

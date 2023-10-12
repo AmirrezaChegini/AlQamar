@@ -30,7 +30,10 @@ class _SalavatPageState extends State<SalavatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: const MainAppbar(),
+      appBar: const MainAppbar(
+        showLeading: false,
+        title: 'عد النعم',
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

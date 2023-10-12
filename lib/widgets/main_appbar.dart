@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/widgets/icon_btn_appbar.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,12 +25,13 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title),
       titleTextStyle:
           Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 20),
+      titleSpacing: 10,
       leading: showLeading
           ? Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(width: 5),
-                IconBtn2(
+                IconBtnAppbar(
                   onTap: () => Scaffold.of(context).openDrawer(),
                   child: const SvgIcon(
                     icon: AppIcons.menu,
@@ -39,7 +41,7 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                IconBtn2(
+                IconBtnAppbar(
                   onTap: () {},
                   child: const SvgIcon(
                     icon: AppIcons.live,
@@ -92,29 +94,4 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(56);
-}
-
-class IconBtn2 extends StatelessWidget {
-  const IconBtn2({
-    super.key,
-    required this.child,
-    this.onTap,
-  });
-
-  final Widget child;
-  final Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onTap,
-      splashRadius: 24,
-      padding: const EdgeInsets.all(0),
-      constraints: const BoxConstraints(
-        maxWidth: 30,
-        minWidth: 30,
-      ),
-      icon: child,
-    );
-  }
 }

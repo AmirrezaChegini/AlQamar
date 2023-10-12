@@ -31,13 +31,17 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(width: 5),
-                IconBtnAppbar(
-                  onTap: () => Scaffold.of(context).openDrawer(),
-                  child: const SvgIcon(
-                    icon: AppIcons.menu,
-                    height: 15,
-                    width: 15,
-                    color: AppColors.red,
+                Transform.flip(
+                  flipX: true,
+                  child: IconBtnAppbar(
+                    onTap: () => Scaffold.of(context).openDrawer(),
+                    child: const SvgIcon(
+                      icon: AppIcons.menu,
+                      height: 15,
+                      width: 15,
+                      color: AppColors.red,
+                      matchDirection: true,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),

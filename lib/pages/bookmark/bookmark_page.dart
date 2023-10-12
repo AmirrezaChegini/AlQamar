@@ -16,16 +16,6 @@ class BookmarkPage extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // const SliverToBoxAdapter(
-            //   child: Padding(
-            //     padding: EdgeInsets.all(10),
-            //     child: TitleWidget(
-            //       title: 'الاخبار المفضل',
-            //       showDivider: true,
-            //       dividerWidth: 85,
-            //     ),
-            //   ),
-            // ),
             SliverPadding(
               padding: const EdgeInsets.only(bottom: 100),
               sliver: SliverList(
@@ -33,6 +23,20 @@ class BookmarkPage extends StatelessWidget {
                   childCount: 5,
                   (context, index) => Dismissible(
                     key: UniqueKey(),
+                    direction: DismissDirection.endToStart,
+                    background: Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          'یمسح',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontSize: 20),
+                        ),
+                      ),
+                    ),
                     child: const Padding(
                       padding: EdgeInsets.all(10),
                       child: ArticleWidget(),

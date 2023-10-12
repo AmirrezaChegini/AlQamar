@@ -26,122 +26,136 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.white,
-      child: ListView(
+      child: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-            child: HeaderProfile(),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height / 4,
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            child: Row(
+          Expanded(
+            child: ListView(
               children: [
-                const Expanded(
-                  child: ItemWidget(
-                    image: AppIcons.play,
-                    color: AppColors.red,
-                    title: 'بعیش',
-                  ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                  child: HeaderProfile(),
                 ),
-                Expanded(
-                  child: Column(
+                Container(
+                  height: MediaQuery.of(context).size.height / 4,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Row(
                     children: [
+                      const Expanded(
+                        child: ItemWidget(
+                          image: AppIcons.play,
+                          color: AppColors.red,
+                          title: 'بعیش',
+                        ),
+                      ),
                       Expanded(
-                        child: Row(
+                        child: Column(
                           children: [
-                            const Expanded(
-                              child: ItemWidget(
-                                image: AppIcons.tv,
-                                title: 'برامج',
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  const Expanded(
+                                    child: ItemWidget(
+                                      image: AppIcons.tv,
+                                      title: 'برامج',
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ItemWidget(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          fadePageTran(
+                                              child: const BookmarkPage())),
+                                      image: AppIcons.save,
+                                      color: AppColors.grey,
+                                      title: 'المفضلة',
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             Expanded(
-                              child: ItemWidget(
-                                onTap: () => Navigator.push(context,
-                                    fadePageTran(child: const BookmarkPage())),
-                                image: AppIcons.bookmark,
-                                color: AppColors.grey,
-                                title: 'المفضلة',
+                              child: Row(
+                                children: [
+                                  const Expanded(
+                                    child: ItemWidget(
+                                      image: AppIcons.aboutUs,
+                                      title: 'معلومات عنا',
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ItemWidget(
+                                      image: AppIcons.salavat,
+                                      title: 'صلوات',
+                                      onTap: () => Navigator.push(
+                                        context,
+                                        fadePageTran(
+                                            child: const SalavatPage()),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            const Expanded(
-                              child: ItemWidget(
-                                image: AppIcons.aboutUs,
-                                title: 'معلومات عنا',
-                              ),
-                            ),
-                            Expanded(
-                              child: ItemWidget(
-                                image: AppIcons.salavat,
-                                title: 'صلوات',
-                                onTap: () => Navigator.push(
-                                  context,
-                                  fadePageTran(child: const SalavatPage()),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      )
                     ],
                   ),
-                )
+                ),
+                BlocBuilder<AzanBloc, AzanState>(
+                  builder: (context, state) {
+                    if (state is CompletedAzanState) {
+                      return Column(
+                        children: List.generate(
+                          state.azanTimeList.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            child: AzanWidget(
+                              city: index == 0 ? 'نجف' : 'لندن',
+                              azanTime: state.azanTimeList[index],
+                              backgroundColor: AppColors.grey200,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return const SizedBox();
+                  },
+                ),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10)
+                            .copyWith(bottom: 10),
+                    child: MiniCalender(),
+                  ),
+                ),
               ],
             ),
           ),
-          BlocBuilder<AzanBloc, AzanState>(
-            builder: (context, state) {
-              if (state is CompletedAzanState) {
-                return Column(
-                  children: List.generate(
-                    state.azanTimeList.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      child: AzanWidget(
-                        city: index == 0 ? 'نجف' : 'لندن',
-                        azanTime: state.azanTimeList[index],
-                        backgroundColor: AppColors.grey200,
-                      ),
-                    ),
-                  ),
-                );
-              }
-              return const SizedBox();
-            },
-          ),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10)
-                  .copyWith(bottom: 10),
-              child: MiniCalender(),
-            ),
-          ),
-          Container(
-            height: 1,
-            color: AppColors.grey200,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-          ),
-          Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: IconBtn(
-              onTap: () {},
-              padding: 10,
-              child: const SvgIcon(
-                icon: AppIcons.setting,
-                width: 20,
-                height: 20,
+          Column(
+            children: [
+              Container(
+                height: 1,
+                color: AppColors.grey200,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
               ),
-            ),
-          ),
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: IconBtn(
+                  onTap: () {},
+                  padding: 10,
+                  child: const SvgIcon(
+                    icon: AppIcons.setting,
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

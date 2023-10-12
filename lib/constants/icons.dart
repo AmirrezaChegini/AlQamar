@@ -38,4 +38,5 @@ class AppIcons {
   static const String video = '$root/video.svg';
   static const String vimeo = '$root/vimeo.svg';
   static const String youtube = '$root/youtube.svg';
+  static const String save = '$root/save.svg';
 }

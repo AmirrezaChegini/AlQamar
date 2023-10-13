@@ -92,10 +92,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
               children: [
                 BlocBuilder<BottomnavCubit, int>(
                   buildWhen: (previous, current) => current != 2,
-                  builder: (context, state) => SvgIcon(
+                  builder: (context, state) => AppIcon(
                     icon: bottomIcons[index],
-                    width: 25,
-                    height: 25,
+                    width: 30,
+                    height: 30,
                     color: index == state ? AppColors.blue : AppColors.grey,
                   ),
                 ),

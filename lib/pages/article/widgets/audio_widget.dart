@@ -60,7 +60,7 @@ class _AudioWidgetState extends State<AudioWidget> {
                           const SizedBox(height: 15),
                           Row(
                             children: [
-                              const SvgIcon(
+                              const AppIcon(
                                 icon: AppIcons.calender,
                                 width: 10,
                                 height: 10,
@@ -77,7 +77,7 @@ class _AudioWidgetState extends State<AudioWidget> {
                           ),
                           Row(
                             children: [
-                              const SvgIcon(
+                              const AppIcon(
                                 icon: AppIcons.pen,
                                 width: 10,
                                 height: 10,

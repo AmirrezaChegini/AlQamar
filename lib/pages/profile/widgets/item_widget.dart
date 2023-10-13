@@ -29,7 +29,7 @@ class ItemWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgIcon(
+            AppIcon(
               icon: image,
               color: color,
               height: 30,

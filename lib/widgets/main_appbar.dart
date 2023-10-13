@@ -35,10 +35,8 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
                   flipX: true,
                   child: IconBtnAppbar(
                     onTap: () => Scaffold.of(context).openDrawer(),
-                    child: const SvgIcon(
+                    child: const AppIcon(
                       icon: AppIcons.menu,
-                      height: 15,
-                      width: 15,
                       color: AppColors.red,
                       matchDirection: true,
                     ),
@@ -47,10 +45,8 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
                 const SizedBox(width: 8),
                 IconBtnAppbar(
                   onTap: () {},
-                  child: const SvgIcon(
+                  child: const AppIcon(
                     icon: AppIcons.live,
-                    height: 23,
-                    width: 23,
                     color: AppColors.red,
                   ),
                 ),
@@ -73,7 +69,7 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: const [
         Padding(
           padding: EdgeInsets.all(3),
-          child: SvgIcon(
+          child: AppIcon(
             icon: AppIcons.logo,
             height: 60,
             width: 60,

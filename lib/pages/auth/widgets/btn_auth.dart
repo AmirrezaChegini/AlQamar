@@ -34,7 +34,7 @@ class BtnAuth extends StatelessWidget {
             indent: 8,
             endIndent: 8,
           ),
-          const SvgIcon(
+          const AppIcon(
             icon: AppIcons.rightArrow,
             color: AppColors.white,
             height: 20,

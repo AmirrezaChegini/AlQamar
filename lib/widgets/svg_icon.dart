@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SvgIcon extends StatelessWidget {
-  const SvgIcon({
+class AppIcon extends StatelessWidget {
+  const AppIcon({
     super.key,
     required this.icon,
     this.color,
@@ -19,13 +19,21 @@ class SvgIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      icon,
-      // ignore: deprecated_member_use
-      color: color,
-      width: width,
-      height: height,
-      matchTextDirection: matchDirection,
-    );
+    return icon.contains('svg')
+        ? SvgPicture.asset(
+            icon,
+            // ignore: deprecated_member_use
+            color: color,
+            width: width,
+            height: height,
+            matchTextDirection: matchDirection,
+          )
+        : Image.asset(
+            icon,
+            color: color,
+            width: width,
+            height: height,
+            matchTextDirection: matchDirection,
+          );
   }
 }

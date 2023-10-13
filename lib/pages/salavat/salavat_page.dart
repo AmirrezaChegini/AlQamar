@@ -220,7 +220,7 @@ class _SalavatPageState extends State<SalavatPage> {
                                     spreadRadius: -4,
                                   ),
                                 ],
-                                child: SvgIcon(
+                                child: AppIcon(
                                   icon: AppIcons.rightArrow,
                                   height: 20,
                                   width: 20,

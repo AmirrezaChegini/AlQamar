@@ -22,7 +22,7 @@ class TxtBtn extends StatelessWidget {
       textDirection: ltr ? TextDirection.ltr : TextDirection.rtl,
       child: TextButton.icon(
         onPressed: onTap,
-        icon: SvgIcon(
+        icon: AppIcon(
           icon: icon,
           color: AppColors.grey,
           height: 20,

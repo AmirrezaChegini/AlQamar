@@ -82,7 +82,7 @@ class CalenderWidget extends StatelessWidget {
                       color: AppColors.grey200,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const SvgIcon(
+                    child: const AppIcon(
                       icon: AppIcons.leftArrow,
                       color: AppColors.grey,
                       height: 20,

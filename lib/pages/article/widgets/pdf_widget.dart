@@ -71,10 +71,10 @@ class _PdfWidgetState extends State<PdfWidget> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SvgIcon(
+                      const AppIcon(
                         icon: AppIcons.pdf,
-                        width: 40,
-                        height: 40,
+                        width: 30,
+                        height: 30,
                         color: AppColors.black,
                       ),
                       const SizedBox(width: 10),

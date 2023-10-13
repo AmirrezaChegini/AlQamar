@@ -79,7 +79,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
                       borderRadius: BorderRadius.circular(20),
                       color: AppColors.white,
                     ),
-                    child: const SvgIcon(
+                    child: const AppIcon(
                       icon: AppIcons.profile,
                       color: AppColors.blue,
                     ),

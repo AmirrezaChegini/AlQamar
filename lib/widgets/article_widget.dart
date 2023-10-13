@@ -60,7 +60,7 @@ class ArticleWidget extends StatelessWidget {
                   Row(
                     children: [
                       const Spacer(),
-                      const SvgIcon(
+                      const AppIcon(
                         icon: AppIcons.calender,
                         width: 10,
                         height: 10,
@@ -74,7 +74,7 @@ class ArticleWidget extends StatelessWidget {
                             .copyWith(fontSize: 10),
                       ),
                       const Spacer(),
-                      const SvgIcon(
+                      const AppIcon(
                         icon: AppIcons.pen,
                         width: 10,
                         height: 10,

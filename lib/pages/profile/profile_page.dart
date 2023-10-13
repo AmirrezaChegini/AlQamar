@@ -85,6 +85,7 @@ class ProfilePage extends StatelessWidget {
                                   Expanded(
                                     child: ItemWidget(
                                       image: AppIcons.salavat,
+                                      color: AppColors.grey,
                                       title: 'صلوات',
                                       onTap: () => Navigator.push(
                                         context,
@@ -147,10 +148,11 @@ class ProfilePage extends StatelessWidget {
                 child: IconBtn(
                   onTap: () {},
                   padding: 10,
-                  child: const SvgIcon(
+                  child: const AppIcon(
                     icon: AppIcons.setting,
                     width: 20,
                     height: 20,
+                    color: AppColors.grey600,
                   ),
                 ),
               ),

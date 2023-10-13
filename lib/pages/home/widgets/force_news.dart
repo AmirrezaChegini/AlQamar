@@ -77,7 +77,7 @@ class ForceNews extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4)
                     .copyWith(bottomRight: const Radius.circular(15)),
               ),
-              child: const SvgIcon(
+              child: const AppIcon(
                 icon: AppIcons.rightArrow,
                 color: AppColors.red,
                 matchDirection: true,

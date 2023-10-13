@@ -60,7 +60,7 @@ class PageViewItem extends StatelessWidget {
                 Row(
                   children: [
                     const Spacer(),
-                    const SvgIcon(
+                    const AppIcon(
                       icon: AppIcons.calender,
                       width: 12,
                       height: 12,
@@ -74,7 +74,7 @@ class PageViewItem extends StatelessWidget {
                           .copyWith(fontSize: 12),
                     ),
                     const SizedBox(width: 30),
-                    const SvgIcon(
+                    const AppIcon(
                       icon: AppIcons.pen,
                       width: 12,
                       height: 12,

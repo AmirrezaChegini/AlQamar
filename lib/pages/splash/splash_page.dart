@@ -43,7 +43,7 @@ class _SplashPageState extends State<SplashPage> {
         ),
         child: Center(
           child: FadeRotateAnim(
-            child: SvgIcon(
+            child: AppIcon(
               icon: AppIcons.logo,
               height: 120,
               width: 120,

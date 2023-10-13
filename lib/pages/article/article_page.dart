@@ -32,7 +32,7 @@ class _ArticlePageState extends State<ArticlePage>
     AppIcons.video,
     AppIcons.youtube,
     AppIcons.audio,
-    AppIcons.doc
+    AppIcons.pdf
   ];
 
   @override

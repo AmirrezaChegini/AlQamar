@@ -65,7 +65,7 @@ class ProfilePage extends StatelessWidget {
                                           context,
                                           fadePageTran(
                                               child: const BookmarkPage())),
-                                      image: AppIcons.save,
+                                      image: AppIcons.bookmark,
                                       color: AppColors.grey,
                                       title: 'المفضلة',
                                     ),

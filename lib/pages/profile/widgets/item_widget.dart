@@ -9,12 +9,16 @@ class ItemWidget extends StatelessWidget {
     required this.image,
     this.color = AppColors.black,
     this.onTap,
+    this.width = 30,
+    this.height = 30,
   });
 
   final String title;
   final String image;
   final Color color;
   final Function()? onTap;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +36,8 @@ class ItemWidget extends StatelessWidget {
             AppIcon(
               icon: image,
               color: color,
-              height: 30,
-              width: 30,
+              height: height,
+              width: width,
             ),
             const SizedBox(height: 6),
             Text(

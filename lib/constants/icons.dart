@@ -3,7 +3,7 @@ class AppIcons {
 
   static const String root = 'assets/icons';
 
-  static const String aboutUs = '$root/about_us.svg';
+  static const String aboutUs = '$root/about_us.png';
   static const String alarabi = '$root/alarabi.png';
   static const String audio = '$root/audio.png';
   static const String azan = '$root/azan.png';
@@ -20,7 +20,7 @@ class AppIcons {
   static const String live = '$root/live.png';
   static const String logo = '$root/logo.svg';
   static const String menu = '$root/menu.png';
-  static const String money = '$root/money.svg';
+  static const String money = '$root/money.png';
   static const String moon = '$root/moon.png';
   static const String pdf = '$root/pdf.png';
   static const String pen = '$root/pen.png';

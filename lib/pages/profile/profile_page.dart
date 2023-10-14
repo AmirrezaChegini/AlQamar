@@ -40,11 +40,13 @@ class ProfilePage extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   child: Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: ItemWidget(
                           image: AppIcons.play,
-                          color: AppColors.red,
+                          color: AppColors.red.withOpacity(0.4),
                           title: 'بعیش',
+                          height: 40,
+                          width: 40,
                         ),
                       ),
                       Expanded(
@@ -79,6 +81,7 @@ class ProfilePage extends StatelessWidget {
                                   const Expanded(
                                     child: ItemWidget(
                                       image: AppIcons.aboutUs,
+                                      color: AppColors.grey,
                                       title: 'معلومات عنا',
                                     ),
                                   ),

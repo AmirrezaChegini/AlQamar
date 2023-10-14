@@ -1,6 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +13,19 @@ class PageViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(20),
-        topRight: Radius.circular(8),
-        bottomLeft: Radius.circular(8),
-        bottomRight: Radius.circular(60),
-      ),
+      borderRadius: CheckDirect.isRTL(context)
+          ? const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(8),
+              bottomLeft: Radius.circular(8),
+              bottomRight: Radius.circular(60),
+            )
+          : const BorderRadius.only(
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(60),
+              bottomRight: Radius.circular(8),
+            ),
       child: Stack(
         fit: StackFit.expand,
         alignment: Alignment.bottomCenter,

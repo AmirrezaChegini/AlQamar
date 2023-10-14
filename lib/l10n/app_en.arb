@@ -1,3 +1,9 @@
 {
-    "liveBroadcast": "Live Broadcast"
+    "liveBroadcast": "Live Broadcast",
+    "latestNews": "Latest News",
+    "news": "News",
+    "instant": "Instant",
+    "readMore": "Read More",
+    "newsList": "News List",
+    "todayMention": "Today Mention"
 }

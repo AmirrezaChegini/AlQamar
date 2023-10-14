@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/utils/extensions/datetime.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -11,7 +12,7 @@ class WeekCalender extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      locale: 'ar_IQ',
+      locale: CheckDirect.isRTL(context) ? 'ar_IQ' : 'en_Uk',
       focusedDay: DateTime.now(),
       availableGestures: AvailableGestures.none,
       firstDay: DateTime(2000, 1, 1),
@@ -25,7 +26,7 @@ class WeekCalender extends StatelessWidget {
         outsideBuilder: (context, day, focusedDay) => Container(
           alignment: Alignment.center,
           child: Text(
-            '${day.getHijriDate()}',
+            '${CheckDirect.isRTL(context) ? day.getHijriDate() : day.day}',
             style: TextStyle(
               color: day.weekday == DateTime.friday ||
                       day.weekday == DateTime.saturday
@@ -38,7 +39,7 @@ class WeekCalender extends StatelessWidget {
         defaultBuilder: (context, day, focusedDay) => Container(
           alignment: Alignment.center,
           child: Text(
-            '${day.getHijriDate()}',
+            '${CheckDirect.isRTL(context) ? day.getHijriDate() : day.day}',
             style: TextStyle(
               fontSize: 12,
               color: day.weekday == DateTime.friday ||
@@ -56,7 +57,7 @@ class WeekCalender extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
           child: Text(
-            '${focusedDay.getHijriDate()}',
+            '${CheckDirect.isRTL(context) ? focusedDay.getHijriDate() : focusedDay.day}',
             style: TextStyle(
               color: day.weekday == DateTime.friday ||
                       day.weekday == DateTime.saturday

@@ -1,3 +1,9 @@
 {
-    "liveBroadcast": "البث المباشر"
+    "liveBroadcast": "البث المباشر",
+    "latestNews": "أحدث الأخبار",
+    "news": "خبر",
+    "instant": "فوری",
+    "readMore": "إقرأ اکثرا",
+    "newsList": "قایمة الأخبار",
+    "todayMention": "ذکر الیوم"
 }

@@ -8,18 +8,18 @@ class TxtBtn extends StatelessWidget {
     this.onTap,
     required this.title,
     required this.icon,
-    this.ltr = false,
   });
 
   final Function()? onTap;
   final String title;
   final String icon;
-  final bool ltr;
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: ltr ? TextDirection.ltr : TextDirection.rtl,
+      textDirection: TextDirection.rtl == Directionality.of(context)
+          ? TextDirection.ltr
+          : TextDirection.rtl,
       child: TextButton.icon(
         onPressed: onTap,
         icon: AppIcon(

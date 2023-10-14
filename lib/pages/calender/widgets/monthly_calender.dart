@@ -119,7 +119,6 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                   },
                   title: 'الشهر قادم',
                   icon: AppIcons.leftArrow,
-                  ltr: true,
                 ),
               ],
             ),

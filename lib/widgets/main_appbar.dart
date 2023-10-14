@@ -4,6 +4,7 @@ import 'package:al_qamar/widgets/icon_btn_appbar.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppbar({
@@ -55,7 +56,7 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
-                      'البت المباشر',
+                      AppLocalizations.of(context)!.liveBroadcast,
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!

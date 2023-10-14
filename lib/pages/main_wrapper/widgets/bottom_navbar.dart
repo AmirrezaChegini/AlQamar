@@ -5,6 +5,7 @@ import 'package:al_qamar/pages/search/search_page.dart';
 import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({
@@ -19,14 +20,7 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-  final List<String> bottomTexts = const [
-    'اعمال',
-    'الاشتراک',
-    'یبحث',
-    'المواضیع',
-    'بیت',
-  ];
-
+  List<String> bottomTexts = [];
   final List<String> bottomIcons = const [
     AppIcons.calender,
     AppIcons.money,
@@ -60,6 +54,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
+    bottomTexts = [
+      AppLocalizations.of(context)!.works,
+      AppLocalizations.of(context)!.subscribe,
+      AppLocalizations.of(context)!.search,
+      AppLocalizations.of(context)!.topics,
+      AppLocalizations.of(context)!.home,
+    ];
     return Container(
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(

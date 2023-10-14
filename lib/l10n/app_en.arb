@@ -7,5 +7,10 @@
     "newsList": "News List",
     "todayMention": "Today Mention",
     "about": "About",
-    "result": "Result"
+    "result": "Result",
+    "home": "Home",
+    "topics": "Topics",
+    "search": "Search",
+    "subscribe": "Sybscribe",
+    "works": "Works"
 }

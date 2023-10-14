@@ -2,6 +2,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/search/widgets/textfield_search.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({
@@ -32,7 +33,8 @@ class SearchPage extends StatelessWidget {
               ),
               Text.rich(
                 TextSpan(
-                    text: 'حوالی 1202 نتیجه',
+                    text:
+                        '${AppLocalizations.of(context)!.about} 1202 ${AppLocalizations.of(context)!.result}',
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!

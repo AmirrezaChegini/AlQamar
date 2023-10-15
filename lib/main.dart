@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
+import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/config/theme.dart';
@@ -44,6 +45,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<AuthBloc>()),
         BlocProvider(create: (context) => locator.get<UserBloc>()),
         BlocProvider(create: (context) => locator.get<HomeBloc>()),
+        BlocProvider(create: (context) => locator.get<NewsBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -12,5 +12,7 @@
     "topics": "Topics",
     "search": "Search",
     "subscribe": "Sybscribe",
-    "works": "Works"
+    "works": "Works",
+    "noInternetConnection": "No Internet Connection",
+    "tryagain": "Try Again"
 }

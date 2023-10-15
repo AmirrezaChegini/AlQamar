@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
+import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
@@ -74,4 +75,5 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<AuthBloc>(() => AuthBloc(locator.get()));
   locator.registerLazySingleton<UserBloc>(() => UserBloc(locator.get()));
   locator.registerLazySingleton<HomeBloc>(() => HomeBloc(locator.get()));
+  locator.registerLazySingleton<NewsBloc>(() => NewsBloc(locator.get()));
 }

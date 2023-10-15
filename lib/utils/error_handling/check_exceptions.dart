@@ -8,8 +8,6 @@ class CheckExceptions {
         return response;
       case 201:
         return response;
-      case 208:
-        return response;
       case 400:
         throw BadReqEx(message: response.statusMessage);
       case 401:

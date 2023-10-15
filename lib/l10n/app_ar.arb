@@ -12,5 +12,7 @@
     "topics": "مواضیع",
     "search": "یبحث",
     "subscribe": "إشتراک",
-    "works": "أعمال"
+    "works": "أعمال",
+    "noInternetConnection": "لا يوجد اتصال بالإنترنت",
+    "tryagain": "حاول ثانية"
 }

@@ -1,5 +1,5 @@
-import 'package:al_qamar/bloc/home/home_bloc.dart';
-import 'package:al_qamar/bloc/home/home_state.dart';
+import 'package:al_qamar/bloc/news/news_bloc.dart';
+import 'package:al_qamar/bloc/news/news_state.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/loading_anim.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
@@ -19,10 +19,9 @@ class _NewsPageState extends State<NewsPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {},
+    return BlocBuilder<NewsBloc, NewsState>(
       builder: (context, state) {
-        if (state is CompleteHomeState) {
+        if (state is CompleteNewsState) {
           return CustomScrollView(
             slivers: [
               SliverToBoxAdapter(

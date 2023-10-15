@@ -1,14 +1,18 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
+import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:flutter/material.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem({
     super.key,
+    required this.article,
   });
+
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +34,7 @@ class PageViewItem extends StatelessWidget {
         fit: StackFit.expand,
         alignment: Alignment.bottomCenter,
         children: [
-          Image.asset(
-            AppImages.img1,
-            fit: BoxFit.cover,
-          ),
+          CacheImage(imageUrl: article.images?[0]),
           Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -52,7 +53,7 @@ class PageViewItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  'ما الذی یجب مراقبة فی المناظرة التمهیدیة الأولی اللحزب الجمهوری فی الدورة الانتخابیة لعام 2024',
+                  article.content,
                   maxLines: 2,
                   style: Theme.of(context)
                       .textTheme
@@ -75,7 +76,7 @@ class PageViewItem extends StatelessWidget {
                       color: AppColors.white,
                     ),
                     Text(
-                      ' 1402/03/03',
+                      ' ${article.updateAt}',
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium!
@@ -89,7 +90,7 @@ class PageViewItem extends StatelessWidget {
                       color: AppColors.white,
                     ),
                     Text(
-                      ' بواسظ امیررضا چگینی',
+                      ' ${article.writer}',
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium!

@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/search/widgets/textfield_search.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class SearchPage extends StatelessWidget {
   });
 
   final ScrollController scrollController;
+  final List<Article> articleList = const [];
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +59,12 @@ class SearchPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 6,
+              itemCount: articleList.length,
               controller: scrollController,
-              itemBuilder: (context, index) => const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: ArticleWidget(
+                  article: articleList[index],
                   backgroundColor: AppColors.grey200,
                 ),
               ),

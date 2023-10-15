@@ -11,5 +11,10 @@ class Api {
   //user
   static const String profile = '/profile';
 
+  //articles
+  static const String articles = '/article';
+  static const String forceArticles = '/article/force-news';
+
+  //azan
   static const String azan = 'https://api.aladhan.com/v1/calendarByCity';
 }

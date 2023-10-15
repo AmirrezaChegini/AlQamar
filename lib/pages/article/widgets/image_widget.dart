@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
@@ -17,6 +18,7 @@ class ImageWidget extends StatefulWidget {
 
 class _ImageWidgetState extends State<ImageWidget> {
   late final PageController _pageController;
+  final List<Article> articleList = const [];
 
   @override
   void initState() {
@@ -113,10 +115,10 @@ class _ImageWidgetState extends State<ImageWidget> {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            childCount: 5,
-            (context, index) => const Padding(
-              padding: EdgeInsets.all(10),
-              child: ArticleWidget(),
+            childCount: articleList.length,
+            (context, index) => Padding(
+              padding: const EdgeInsets.all(10),
+              child: ArticleWidget(article: articleList[index]),
             ),
           ),
         ),

@@ -9,7 +9,7 @@ class AppImages {
   static const String img2 = '$root/img02.jpg';
   static const String img3 = '$root/img03.jpg';
   static const String img4 = '$root/img04.jpg';
-  static const String imageHolder1 = '$root/image_holder1.png';
-  static const String imageHolder2 = '$root/image_holder2.png';
+  static const String mask = '$root/image_holder1.png';
   static const String profileBackground = '$root/profile_background.png';
+  static const String transparent = '$root/transparent.png';
 }

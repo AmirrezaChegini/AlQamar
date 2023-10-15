@@ -1,6 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
@@ -12,9 +12,11 @@ class ArticleWidget extends StatelessWidget {
   const ArticleWidget({
     super.key,
     this.backgroundColor = AppColors.white,
+    required this.article,
   });
 
   final Color backgroundColor;
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,8 @@ class ArticleWidget extends StatelessWidget {
       onTap: () =>
           Navigator.push(context, fadePageTran(child: const ArticlePage())),
       child: Container(
-        height: MediaQuery.of(context).size.height / 7,
+        width: MediaQuery.sizeOf(context).width,
+        height: MediaQuery.sizeOf(context).height / 7,
         padding: CheckDirect.isRTL(context)
             ? const EdgeInsets.only(left: 10)
             : const EdgeInsets.only(right: 10),
@@ -32,15 +35,14 @@ class ArticleWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const MaskImage(image: AppImages.img2),
+            MaskImage(imageUrl: article.images?[0]),
             Expanded(
-              flex: 7,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'یقول المحافظ ان مستمسری العملات',
+                    article.title,
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
@@ -49,7 +51,7 @@ class ArticleWidget extends StatelessWidget {
                     overflow: TextOverflow.clip,
                   ),
                   Text(
-                    'شسیشسیییییییییییییییییییییییییییییییییییییییییییییییییییییییییییییییییییسسسسسسسسسییییی',
+                    article.content,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -69,7 +71,7 @@ class ArticleWidget extends StatelessWidget {
                         color: AppColors.grey,
                       ),
                       Text(
-                        ' 1402/03/03',
+                        ' ${article.updateAt}',
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
@@ -83,7 +85,7 @@ class ArticleWidget extends StatelessWidget {
                         color: AppColors.grey,
                       ),
                       Text(
-                        ' بواسظ امیررضا چگینی',
+                        ' ${article.writer}',
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!

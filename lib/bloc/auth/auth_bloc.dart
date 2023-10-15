@@ -8,7 +8,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(this._repository) : super(InitAuthState()) {
     on<RegisterAuthEvent>((event, emit) async {
-      // emit(LoadingAuthState());
+      emit(LoadingAuthState());
       await Future.delayed(const Duration(seconds: 2));
 
       var either = await _repository.register(
@@ -25,7 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<LoginAuthEvent>((event, emit) async {
-      // emit(LoadingAuthState());
+      emit(LoadingAuthState());
       await Future.delayed(const Duration(seconds: 2));
 
       var either = await _repository.login(
@@ -36,12 +36,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       either.fold((erroMessage) {
         emit(FailAuthState(erroMessage));
       }, (message) {
-        emit(CompleteAuthState(message));
+        emit(CompleteLoginState(message));
       });
     });
 
     on<VerifyAuthEvent>((event, emit) async {
-      // emit(LoadingAuthState());
+      emit(LoadingVerifyState());
+
       await Future.delayed(const Duration(seconds: 2));
 
       var either = await _repository.verify(
@@ -52,12 +53,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       either.fold((erroMessage) {
         emit(FailVerifyState(erroMessage));
       }, (message) {
-        emit(CompleteAuthState(message));
+        emit(CompleteVerifyState(message));
+      });
+    });
+
+    on<ResendCodeEvent>((event, emit) async {
+      emit(LoadingVerifyState());
+      await Future.delayed(const Duration(seconds: 2));
+
+      var either = await _repository.resendOtp(email: event.email);
+
+      either.fold((erroMessage) {
+        emit(FailVerifyState(erroMessage));
+      }, (message) {
+        emit(CompleteResendCodeState(message));
       });
     });
 
     on<LogoutAuthEvent>((event, emit) async {
-      // emit(LoadingAuthState());
+      emit(LoadingAuthState());
       await Future.delayed(const Duration(seconds: 2));
 
       var either = await _repository.logout(

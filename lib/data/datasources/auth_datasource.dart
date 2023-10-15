@@ -21,6 +21,8 @@ abstract class AuthDatasource {
     required String email,
     required String password,
   });
+
+  Future<String> resendOtp({required String email});
 }
 
 class AuthRemote implements AuthDatasource {
@@ -104,7 +106,26 @@ class AuthRemote implements AuthDatasource {
         },
       );
 
-      return response.data['data'];
+      String token = response.data['data']['token'];
+
+      return token;
+    } on DioException catch (e) {
+      e.response == null
+          ? throw FetchDataEx()
+          : throw CheckExceptions.validate(e.response!);
+    }
+  }
+
+  @override
+  Future<String> resendOtp({required String email}) async {
+    try {
+      Response response = await _dio.post(
+        Api.resendOtp,
+        data: {'email': email},
+      );
+
+      String message = response.data['message'];
+      return message;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

@@ -21,6 +21,8 @@ abstract class IAuthRepository {
     required String email,
     required String password,
   });
+
+  Future<Either<String, String>> resendOtp({required String email});
 }
 
 class AuthRepositoryImpl implements IAuthRepository {
@@ -77,6 +79,16 @@ class AuthRepositoryImpl implements IAuthRepository {
       await SharedPref.saveString(key: 'token', value: token);
 
       return right('Verify successfully');
+    } on AppExceptions catch (e) {
+      return left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> resendOtp({required String email}) async {
+    try {
+      String message = await _datasource.resendOtp(email: email);
+      return right(message);
     } on AppExceptions catch (e) {
       return left(e.message);
     }

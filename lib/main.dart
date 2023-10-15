@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
+import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/config/theme.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
@@ -40,6 +41,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<AzanBloc>()),
         BlocProvider(create: (context) => locator.get<SalavatBloc>()),
         BlocProvider(create: (context) => locator.get<AuthBloc>()),
+        BlocProvider(create: (context) => locator.get<UserBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -54,7 +56,7 @@ class MainApp extends StatelessWidget {
           Locale('en'),
           Locale('ar'),
         ],
-        locale: const Locale('en'),
+        locale: const Locale('ar'),
         home: const MainWrapperPage(),
       ),
     );

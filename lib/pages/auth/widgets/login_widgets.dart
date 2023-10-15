@@ -1,6 +1,9 @@
+import 'package:al_qamar/bloc/auth/auth_bloc.dart';
+import 'package:al_qamar/bloc/auth/auth_event.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginWidgets extends StatelessWidget {
   LoginWidgets({
@@ -39,9 +42,8 @@ class LoginWidgets extends StatelessWidget {
 
   void login(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      // BlocProvider.of<AuthBloc>(context)
-      //     .add(LoginAuthEvent(emailCtrl.text, passwordCtrl.text));
-      Navigator.pop(context, 'amirreza');
+      BlocProvider.of<AuthBloc>(context)
+          .add(LoginAuthEvent(emailCtrl.text, passwordCtrl.text));
     }
   }
 

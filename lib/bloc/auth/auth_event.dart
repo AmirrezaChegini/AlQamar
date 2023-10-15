@@ -22,6 +22,12 @@ class VerifyAuthEvent extends AuthEvent {
   VerifyAuthEvent(this.email, this.otp);
 }
 
+class ResendCodeEvent extends AuthEvent {
+  final String email;
+
+  ResendCodeEvent(this.email);
+}
+
 class LogoutAuthEvent extends AuthEvent {
   final String email;
   final String password;

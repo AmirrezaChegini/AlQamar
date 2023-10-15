@@ -79,7 +79,12 @@ class _OtpWidgetState extends State<OtpWidget> {
         ),
         const SizedBox(height: 20),
         BlocConsumer<TimerCubit, int>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state == 0) {
+              BlocProvider.of<AuthBloc>(context)
+                  .add(ResendCodeEvent(widget.emailCtrl.text));
+            }
+          },
           builder: (context, state) => Text(
             'اعادة ارسالة کلمة المرور بعد $state ثانیه',
             style:

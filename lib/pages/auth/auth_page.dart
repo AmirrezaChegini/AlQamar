@@ -1,5 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
+import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
@@ -24,7 +26,8 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabCtrl;
-  late final TextEditingController _nameCtrl;
+  late final TextEditingController _firstNameCtrl;
+  late final TextEditingController _lastNameCtrl;
   late final TextEditingController _emailCtrl;
   late final TextEditingController _passwordCtrl;
 
@@ -32,7 +35,8 @@ class _AuthPageState extends State<AuthPage>
   void initState() {
     super.initState();
     _tabCtrl = TabController(length: 2, vsync: this);
-    _nameCtrl = TextEditingController(text: 'amirreza');
+    _firstNameCtrl = TextEditingController(text: 'Amirreza');
+    _lastNameCtrl = TextEditingController(text: 'Chegini');
     _emailCtrl = TextEditingController(text: 'amirreza@gmail.com');
     _passwordCtrl = TextEditingController(text: 'amirreza1324');
   }
@@ -41,7 +45,8 @@ class _AuthPageState extends State<AuthPage>
   void dispose() {
     super.dispose();
     _tabCtrl.dispose();
-    _nameCtrl.dispose();
+    _firstNameCtrl.dispose();
+    _lastNameCtrl.dispose();
     _emailCtrl.dispose();
     _passwordCtrl.dispose();
   }
@@ -86,9 +91,20 @@ class _AuthPageState extends State<AuthPage>
                   showMessage(context: context, content: state.message);
                 }
 
-                if (state is CompleteAuthState) {
+                if (state is CompleteResendCodeState) {
+                  showMessage(context: context, content: state.message);
+                }
+
+                if (state is CompleteVerifyState) {
                   BlocProvider.of<TimerCubit>(context).cancel();
-                  Navigator.pop(context, _nameCtrl.text);
+                  BlocProvider.of<UserBloc>(context).add(
+                      CreateUserEvent(_firstNameCtrl.text, _lastNameCtrl.text));
+                  Navigator.pop(context);
+                }
+
+                if (state is CompleteLoginState) {
+                  BlocProvider.of<UserBloc>(context).add(GetUserEvent());
+                  Navigator.pop(context);
                 }
               },
               builder: (context, state) => Expanded(
@@ -99,10 +115,13 @@ class _AuthPageState extends State<AuthPage>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40, vertical: 15),
                       child: state is CompleteRegisterState ||
-                              state is FailVerifyState
+                              state is FailVerifyState ||
+                              state is CompleteResendCodeState ||
+                              state is LoadingVerifyState
                           ? OtpWidget(emailCtrl: _emailCtrl)
                           : RegisterWidgets(
-                              nameCtrl: _nameCtrl,
+                              firstNameCtrl: _firstNameCtrl,
+                              lastNameCtrl: _lastNameCtrl,
                               emailCtrl: _emailCtrl,
                               passwordCtrl: _passwordCtrl,
                             ),

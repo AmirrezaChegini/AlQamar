@@ -1,9 +1,13 @@
+import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HeaderProfile extends StatefulWidget {
   const HeaderProfile({
@@ -15,10 +19,10 @@ class HeaderProfile extends StatefulWidget {
 }
 
 class _HeaderProfileState extends State<HeaderProfile> {
-  String? username;
+  User? user;
 
   Future<void> authenticate() async {
-    username = await showModalBottomSheet(
+    showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: AppColors.white,
@@ -29,7 +33,6 @@ class _HeaderProfileState extends State<HeaderProfile> {
         builder: (context, scrollController) => const AuthPage(),
       ),
     );
-    setState(() {});
   }
 
   @override
@@ -86,48 +89,50 @@ class _HeaderProfileState extends State<HeaderProfile> {
                   ),
                 ),
                 const SizedBox(width: 15),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      username == null ? 'حساب تعریفی' : 'مرحباً',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(fontSize: 16),
-                    ),
-                    GestureDetector(
-                      onTap: authenticate,
-                      child: Text.rich(
-                        TextSpan(
-                          text: username == null
-                              ? 'إنشاء ملف تعریف  |  '
-                              : '$username  |  ',
+                BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) => Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        state is CompleteUserState ? 'مرحبا' : 'حساب تعریفی',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(fontSize: 16),
+                      ),
+                      GestureDetector(
+                        onTap: state is CompleteUserState ? null : authenticate,
+                        child: Text.rich(
+                          TextSpan(
+                            text: state is CompleteUserState
+                                ? '${state.user.firstName} | '
+                                : 'إنشاء ملف تعریف  |  ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontSize: 14),
+                            children: [
+                              TextSpan(
+                                text: state is CompleteUserState
+                                    ? 'تعدیل ملف الشخصی'
+                                    : 'تسجیل الدخول',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontSize: 12),
+                              ),
+                            ],
+                          ),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
-                              .copyWith(fontSize: 14),
-                          children: [
-                            TextSpan(
-                              text: username == null
-                                  ? 'تسجیل الدخول'
-                                  : 'تعدیل ملف شخصی',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium!
-                                  .copyWith(fontSize: 12),
-                            ),
-                          ],
+                              .copyWith(fontSize: 12),
                         ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontSize: 12),
                       ),
-                    ),
-                    const SizedBox(),
-                  ],
+                      const SizedBox(),
+                    ],
+                  ),
                 ),
               ],
             ),

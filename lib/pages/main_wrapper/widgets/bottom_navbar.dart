@@ -95,8 +95,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   buildWhen: (previous, current) => current != 2,
                   builder: (context, state) => AppIcon(
                     icon: bottomIcons[index],
-                    width: index == 1 ? 28 : 30,
-                    height: index == 1 ? 28 : 30,
+                    width: 30,
+                    height: 30,
                     color: index == state ? AppColors.blue : AppColors.grey,
                   ),
                 ),

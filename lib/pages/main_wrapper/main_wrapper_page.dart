@@ -13,7 +13,7 @@ import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
-import 'package:al_qamar/utils/localize_error.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/gestures.dart';
@@ -67,7 +67,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
           if (state is FailHomeState) {
             showMessage(
               context: context,
-              content: LocalizeError.getError(state.errorMessage, context),
+              content: state.errorMessage.localizeError(context),
               action: SnackBarAction(
                 label: AppLocalizations.of(context)!.tryagain,
                 onPressed: callApis,

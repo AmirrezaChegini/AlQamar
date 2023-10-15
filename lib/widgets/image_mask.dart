@@ -17,6 +17,7 @@ class MaskImage extends StatefulWidget {
 
 class _MaskImageState extends State<MaskImage> {
   late final Image _image;
+  late final Image _error;
   late final Image _placeHolder;
   late final Image _mask;
 
@@ -25,6 +26,7 @@ class _MaskImageState extends State<MaskImage> {
     super.initState();
 
     _image = Image.network(widget.imageUrl);
+    _error = Image.asset(AppImages.error);
     _placeHolder = Image.asset(AppImages.transparent);
     _mask = Image.asset(AppImages.mask);
   }
@@ -32,6 +34,7 @@ class _MaskImageState extends State<MaskImage> {
   @override
   void didChangeDependencies() {
     precacheImage(_image.image, context);
+    precacheImage(_error.image, context);
     precacheImage(_placeHolder.image, context);
     precacheImage(_mask.image, context);
     super.didChangeDependencies();
@@ -49,6 +52,7 @@ class _MaskImageState extends State<MaskImage> {
           alignment: Alignment.centerLeft,
           image: _image.image,
           placeholder: _placeHolder.image,
+          imageErrorBuilder: (context, error, stackTrace) => _error,
         ),
         child: _mask,
       ),

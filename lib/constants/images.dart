@@ -12,4 +12,5 @@ class AppImages {
   static const String mask = '$root/image_holder1.png';
   static const String profileBackground = '$root/profile_background.png';
   static const String transparent = '$root/transparent.png';
+  static const String error = '$root/placeholder.png';
 }

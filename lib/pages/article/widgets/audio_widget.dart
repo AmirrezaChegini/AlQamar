@@ -4,7 +4,7 @@ import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
 import 'package:al_qamar/utils/anim/animated_icon.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class AudioWidget extends StatefulWidget {
@@ -60,7 +60,7 @@ class _AudioWidgetState extends State<AudioWidget> {
                           const SizedBox(height: 15),
                           Row(
                             children: [
-                              const SvgIcon(
+                              const AppIcon(
                                 icon: AppIcons.calender,
                                 width: 10,
                                 height: 10,
@@ -77,7 +77,7 @@ class _AudioWidgetState extends State<AudioWidget> {
                           ),
                           Row(
                             children: [
-                              const SvgIcon(
+                              const AppIcon(
                                 icon: AppIcons.pen,
                                 width: 10,
                                 height: 10,

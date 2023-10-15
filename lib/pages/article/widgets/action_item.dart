@@ -1,5 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class ActionItem extends StatelessWidget {
@@ -7,10 +7,12 @@ class ActionItem extends StatelessWidget {
     super.key,
     this.onTap,
     required this.icon,
+    required this.color,
   });
 
   final Function()? onTap;
   final String icon;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,10 @@ class ActionItem extends StatelessWidget {
           color: AppColors.white,
           borderRadius: BorderRadius.circular(15),
         ),
-        child: SvgIcon(icon: icon),
+        child: AppIcon(
+          icon: icon,
+          color: color,
+        ),
       ),
     );
   }

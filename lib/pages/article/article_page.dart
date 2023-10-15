@@ -32,7 +32,7 @@ class _ArticlePageState extends State<ArticlePage>
     AppIcons.video,
     AppIcons.youtube,
     AppIcons.audio,
-    AppIcons.doc
+    AppIcons.pdf
   ];
 
   @override
@@ -52,24 +52,26 @@ class _ArticlePageState extends State<ArticlePage>
     return Scaffold(
       backgroundColor: AppColors.grey200,
       body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            ArticleTabbar(
-              tabController: _tabController,
-              tabsIcon: tabsIcon,
-              tabsText: tabsText,
-            ),
-          ],
-          body: TabBarView(
-            controller: _tabController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: const [
-              ImageWidget(),
-              VideoWidget(),
-              YoutubeWidget(),
-              AudioWidget(),
-              PdfWidget(),
+        child: PageView.builder(
+          itemBuilder: (context, index) => NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => [
+              ArticleTabbar(
+                tabController: _tabController,
+                tabsIcon: tabsIcon,
+                tabsText: tabsText,
+              ),
             ],
+            body: TabBarView(
+              controller: _tabController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                ImageWidget(),
+                VideoWidget(),
+                YoutubeWidget(),
+                AudioWidget(),
+                PdfWidget(),
+              ],
+            ),
           ),
         ),
       ),

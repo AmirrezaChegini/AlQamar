@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class ActionArticle extends StatelessWidget {
@@ -17,11 +17,11 @@ class ActionArticle extends StatelessWidget {
         children: [
           Row(
             children: [
-              const ActionItem(icon: AppIcons.favorite),
+              const ActionItem(icon: AppIcons.favorite, color: AppColors.red),
               const SizedBox(width: 8),
-              const ActionItem(icon: AppIcons.share),
+              const ActionItem(icon: AppIcons.share, color: AppColors.blue),
               const SizedBox(width: 8),
-              const ActionItem(icon: AppIcons.bookmark),
+              const ActionItem(icon: AppIcons.bookmark, color: AppColors.blue),
               const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -29,10 +29,10 @@ class ActionArticle extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const SvgIcon(
+                      const AppIcon(
                         icon: AppIcons.calender,
-                        width: 10,
-                        height: 10,
+                        width: 15,
+                        height: 15,
                         color: AppColors.black,
                       ),
                       Text(
@@ -47,10 +47,10 @@ class ActionArticle extends StatelessWidget {
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      const SvgIcon(
+                      const AppIcon(
                         icon: AppIcons.pen,
-                        width: 10,
-                        height: 10,
+                        width: 15,
+                        height: 15,
                         color: AppColors.black,
                       ),
                       Text(

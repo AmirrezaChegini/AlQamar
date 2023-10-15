@@ -19,7 +19,7 @@ class IconBtn extends StatelessWidget {
       height: 0,
       padding: EdgeInsets.all(padding),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(100),
       ),
       child: child,
     );

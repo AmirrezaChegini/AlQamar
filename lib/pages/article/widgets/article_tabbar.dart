@@ -1,5 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -57,10 +57,10 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
             tabs: List.generate(
               5,
               (index) => Tab(
-                icon: SvgIcon(
+                icon: AppIcon(
                   icon: widget.tabsIcon[index],
-                  height: 20,
-                  width: 20,
+                  height: 25,
+                  width: 25,
                   color: widget.tabController.index == index
                       ? AppColors.blue
                       : AppColors.grey,

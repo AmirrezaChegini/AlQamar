@@ -1,7 +1,9 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForceNews extends StatelessWidget {
   const ForceNews({
@@ -14,21 +16,18 @@ class ForceNews extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
         color: AppColors.red,
-        borderRadius: BorderRadius.circular(8).copyWith(
-          bottomLeft: TextDirection.rtl == Directionality.of(context)
-              ? const Radius.circular(50)
-              : const Radius.circular(8),
-          bottomRight: TextDirection.ltr == Directionality.of(context)
-              ? const Radius.circular(50)
-              : const Radius.circular(8),
-        ),
+        borderRadius: CheckDirect.isRTL(context)
+            ? BorderRadius.circular(8)
+                .copyWith(bottomLeft: const Radius.circular(50))
+            : BorderRadius.circular(8)
+                .copyWith(bottomRight: const Radius.circular(50)),
       ),
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
-              'خبر\nفوری',
+              '${AppLocalizations.of(context)!.news}\n${AppLocalizations.of(context)!.instant}',
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
@@ -74,10 +73,15 @@ class ForceNews extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColors.grey200,
-                borderRadius: BorderRadius.circular(4)
-                    .copyWith(bottomRight: const Radius.circular(15)),
+                borderRadius: CheckDirect.isRTL(context)
+                    ? BorderRadius.circular(4).copyWith(
+                        bottomRight: const Radius.circular(15),
+                      )
+                    : BorderRadius.circular(4).copyWith(
+                        bottomLeft: const Radius.circular(15),
+                      ),
               ),
-              child: const SvgIcon(
+              child: const AppIcon(
                 icon: AppIcons.rightArrow,
                 color: AppColors.red,
                 matchDirection: true,

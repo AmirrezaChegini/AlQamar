@@ -8,7 +8,7 @@ import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/models/salavat.dart';
 import 'package:al_qamar/pages/salavat/widgets/circle_widget.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +30,10 @@ class _SalavatPageState extends State<SalavatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: const MainAppbar(),
+      appBar: const MainAppbar(
+        showLeading: false,
+        title: 'عد النعم',
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -217,7 +220,7 @@ class _SalavatPageState extends State<SalavatPage> {
                                     spreadRadius: -4,
                                   ),
                                 ],
-                                child: SvgIcon(
+                                child: AppIcon(
                                   icon: AppIcons.rightArrow,
                                   height: 20,
                                   width: 20,

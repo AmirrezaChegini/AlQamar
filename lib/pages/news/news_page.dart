@@ -1,6 +1,7 @@
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
@@ -16,11 +17,11 @@ class _NewsPageState extends State<NewsPage>
     super.build(context);
     return CustomScrollView(
       slivers: [
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.all(10),
             child: TitleWidget(
-              title: 'قايمة الأخبار',
+              title: AppLocalizations.of(context)!.newsList,
               showDivider: true,
               dividerWidth: 75,
             ),

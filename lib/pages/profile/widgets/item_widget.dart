@@ -1,5 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class ItemWidget extends StatelessWidget {
@@ -9,12 +9,16 @@ class ItemWidget extends StatelessWidget {
     required this.image,
     this.color = AppColors.black,
     this.onTap,
+    this.width = 30,
+    this.height = 30,
   });
 
   final String title;
   final String image;
   final Color color;
   final Function()? onTap;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +33,11 @@ class ItemWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgIcon(
+            AppIcon(
               icon: image,
               color: color,
-              height: 30,
-              width: 30,
+              height: height,
+              width: width,
             ),
             const SizedBox(height: 6),
             Text(

@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -21,7 +21,7 @@ class _PdfWidgetState extends State<PdfWidget> {
       slivers: [
         SliverToBoxAdapter(
           child: Container(
-            height: MediaQuery.sizeOf(context).height / 2.5,
+            height: MediaQuery.sizeOf(context).height / 3,
             margin: const EdgeInsets.all(10),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -71,10 +71,10 @@ class _PdfWidgetState extends State<PdfWidget> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SvgIcon(
+                      const AppIcon(
                         icon: AppIcons.pdf,
-                        width: 40,
-                        height: 40,
+                        width: 30,
+                        height: 30,
                         color: AppColors.black,
                       ),
                       const SizedBox(width: 10),

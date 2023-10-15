@@ -1,8 +1,55 @@
+import 'package:al_qamar/bloc/auth/auth_bloc.dart';
+import 'package:al_qamar/bloc/auth/auth_event.dart';
+import 'package:al_qamar/cubit/btn_verify_cubit.dart';
+import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
+import 'package:al_qamar/pages/auth/widgets/otp_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OtpWidget extends StatelessWidget {
-  const OtpWidget({super.key});
+class OtpWidget extends StatefulWidget {
+  const OtpWidget({
+    super.key,
+    required this.emailCtrl,
+  });
+
+  final TextEditingController emailCtrl;
+
+  @override
+  State<OtpWidget> createState() => _OtpWidgetState();
+}
+
+class _OtpWidgetState extends State<OtpWidget> {
+  List<String> otpCode = [];
+
+  void onChange(String v, int index) {
+    if (v.isNotEmpty) {
+      otpCode.insert(index, v);
+      FocusScope.of(context).nextFocus();
+    }
+    if (v.isEmpty) {
+      otpCode.removeAt(index);
+      FocusScope.of(context).previousFocus();
+    }
+
+    if (otpCode.length == 6) {
+      BlocProvider.of<BtnVerifyCubit>(context).clickable(true);
+    } else {
+      BlocProvider.of<BtnVerifyCubit>(context).clickable(false);
+    }
+  }
+
+  void verify() {
+    BlocProvider.of<AuthBloc>(context)
+        .add(VerifyAuthEvent(widget.emailCtrl.text, otpCode.join()));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<BtnVerifyCubit>(context).clickable(false);
+    BlocProvider.of<TimerCubit>(context).startTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,32 +61,16 @@ class OtpWidget extends StatelessWidget {
           style:
               Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
         ),
-        Row(
-          children: List.generate(
-            6,
-            (index) => Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
-                  maxLength: 1,
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      FocusScope.of(context).previousFocus();
-                    }
-                    if (value.isEmpty) {
-                      FocusScope.of(context).nextFocus();
-                    }
-                  },
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontSize: 22),
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.all(0),
-                    counterText: '',
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Row(
+            children: List.generate(
+              6,
+              (index) => Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: OtpTextField(
+                    onChanged: (v) => onChange(v, index),
                   ),
                 ),
               ),
@@ -47,19 +78,27 @@ class OtpWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        Text(
-          'اعادة ارسالة کلمة المرور بعد 20 ثانیه',
-          style:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
+        BlocConsumer<TimerCubit, int>(
+          listener: (context, state) {
+            if (state == 0) {
+              BlocProvider.of<AuthBloc>(context)
+                  .add(ResendCodeEvent(widget.emailCtrl.text));
+            }
+          },
+          builder: (context, state) => Text(
+            'اعادة ارسالة کلمة المرور بعد $state ثانیه',
+            style:
+                Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
+          ),
         ),
         const Spacer(),
         Align(
           alignment: AlignmentDirectional.centerEnd,
-          child: BtnAuth(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            title: 'المرحلة التالیة',
+          child: BlocBuilder<BtnVerifyCubit, bool>(
+            builder: (context, state) => BtnAuth(
+              onTap: state ? verify : null,
+              title: 'تسجیل الدخول',
+            ),
           ),
         ),
       ],

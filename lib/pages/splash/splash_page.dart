@@ -3,7 +3,7 @@ import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/utils/anim/fade_rotate.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -43,7 +43,7 @@ class _SplashPageState extends State<SplashPage> {
         ),
         child: Center(
           child: FadeRotateAnim(
-            child: SvgIcon(
+            child: AppIcon(
               icon: AppIcons.logo,
               height: 120,
               width: 120,

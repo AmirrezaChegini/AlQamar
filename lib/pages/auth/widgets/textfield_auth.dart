@@ -8,21 +8,27 @@ class TextFieldAuth extends StatelessWidget {
     required this.hint,
     required this.inputType,
     required this.inputAction,
+    required this.controller,
+    this.obsecure = false,
   });
 
   final Function(String) validate;
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
+  final TextEditingController controller;
+  final bool obsecure;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       textInputAction: inputAction,
+      obscureText: obsecure,
       validator: (value) => validate(value!),
       cursorColor: AppColors.blue,
       textAlignVertical: TextAlignVertical.bottom,
-      style: Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 12),
+      style: Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 14),
       decoration: InputDecoration(
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(

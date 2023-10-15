@@ -1,75 +1,94 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/icon_btn_appbar.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppbar({
     super.key,
+    this.showLeading = true,
+    this.title = '',
   });
+
+  final bool showLeading;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: AppBar(
-        backgroundColor: AppColors.grey200,
-        elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.all(5),
-          child: SvgIcon(
+    return AppBar(
+      backgroundColor: AppColors.grey200,
+      elevation: 0,
+      automaticallyImplyLeading: false,
+      leadingWidth: MediaQuery.sizeOf(context).width / 2,
+      title: Text(title),
+      titleTextStyle:
+          Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 20),
+      titleSpacing: 10,
+      leading: showLeading
+          ? Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(width: 5),
+                Transform.flip(
+                  flipX: true,
+                  child: IconBtnAppbar(
+                    onTap: () => Scaffold.of(context).openDrawer(),
+                    child: const AppIcon(
+                      icon: AppIcons.menu,
+                      color: AppColors.red,
+                      matchDirection: true,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconBtnAppbar(
+                  onTap: () {},
+                  child: const AppIcon(
+                    icon: AppIcons.live,
+                    color: AppColors.red,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      AppLocalizations.of(context)!.liveBroadcast,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : null,
+      actions: const [
+        Padding(
+          padding: EdgeInsets.all(3),
+          child: AppIcon(
             icon: AppIcons.logo,
-            height: 25,
-            width: 25,
+            height: 60,
+            width: 60,
             color: AppColors.red,
           ),
         ),
-        actions: [
-          Container(
-            alignment: Alignment.bottomCenter,
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              'البت المباشر',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(fontSize: 12),
-            ),
-          ),
-          const SizedBox(width: 4),
-          const SvgIcon(
-            icon: AppIcons.live,
-            height: 25,
-            width: 25,
-            color: AppColors.red,
-          ),
-          const SizedBox(width: 15),
-          GestureDetector(
-            onTap: () {
-              Scaffold.of(context).openDrawer();
-            },
-            child: const SvgIcon(
-              icon: AppIcons.menu,
-              height: 15,
-              width: 15,
-              color: AppColors.red,
-            ),
-          ),
-          const SizedBox(width: 10),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(5),
-          child: Container(
-            color: AppColors.red,
-            height: 2,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-          ),
+      ],
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(5),
+        child: Container(
+          color: AppColors.red,
+          height: 2,
+          margin: const EdgeInsets.symmetric(horizontal: 10),
         ),
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-        ),
+      ),
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
     );
   }

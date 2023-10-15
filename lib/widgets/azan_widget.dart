@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/azan_time.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class AzanWidget extends StatelessWidget {
@@ -53,14 +53,15 @@ class AzanWidget extends StatelessWidget {
               (index) => Expanded(
                 child: Column(
                   children: [
-                    SvgIcon(
+                    AppIcon(
                       icon: index % 2 == 0
                           ? AppIcons.azan
                           : index == 5
                               ? AppIcons.moon
                               : AppIcons.sun,
-                      width: 20,
-                      height: 20,
+                      width: 30,
+                      height: 30,
+                      color: AppColors.grey600,
                     ),
                     const SizedBox(height: 6),
                     Text(

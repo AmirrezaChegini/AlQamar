@@ -3,11 +3,14 @@ import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/home/widgets/week_calender.dart';
 import 'package:al_qamar/utils/extensions/int.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:intl/intl.dart';
 
 class CalenderWidget extends StatelessWidget {
   const CalenderWidget({
@@ -29,10 +32,12 @@ class CalenderWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TitleWidget(
-            title:
-                '${HijriCalendar.now().hMonth.getHijriMonth()} ${HijriCalendar.now().hYear}',
+            title: CheckDirect.isRTL(context)
+                ? '${HijriCalendar.now().hMonth.getHijriMonth()} ${HijriCalendar.now().hYear}'
+                : DateFormat("MMMM yyyy").format(DateTime.now()),
             showDivider: true,
             crossAlignment: CrossAxisAlignment.end,
+            dividerWidth: 130,
           ),
           const SizedBox(height: 8),
           const Padding(
@@ -59,7 +64,7 @@ class CalenderWidget extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     TextSpan(
-                      text: 'ذکر الیوم: ',
+                      text: '${AppLocalizations.of(context)!.todayMention}: ',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -81,11 +86,12 @@ class CalenderWidget extends StatelessWidget {
                       color: AppColors.grey200,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const SvgIcon(
-                      icon: AppIcons.leftArrow,
+                    child: const AppIcon(
+                      icon: AppIcons.rightArrow,
                       color: AppColors.grey,
                       height: 20,
                       width: 20,
+                      matchDirection: true,
                     ),
                   )
                 ],

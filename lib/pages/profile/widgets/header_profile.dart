@@ -1,14 +1,39 @@
+import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HeaderProfile extends StatelessWidget {
+class HeaderProfile extends StatefulWidget {
   const HeaderProfile({
     super.key,
   });
+
+  @override
+  State<HeaderProfile> createState() => _HeaderProfileState();
+}
+
+class _HeaderProfileState extends State<HeaderProfile> {
+  User? user;
+
+  Future<void> authenticate() async {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.white,
+      builder: (context) => DraggableScrollableSheet(
+        minChildSize: 0.3,
+        maxChildSize: 1,
+        initialChildSize: 1,
+        builder: (context, scrollController) => const AuthPage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,60 +82,57 @@ class HeaderProfile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       color: AppColors.white,
                     ),
-                    child: const SvgIcon(
+                    child: const AppIcon(
                       icon: AppIcons.profile,
                       color: AppColors.blue,
                     ),
                   ),
                 ),
                 const SizedBox(width: 15),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'حساب تعریفی',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium!
-                          .copyWith(fontSize: 16),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          backgroundColor: AppColors.white,
-                          builder: (context) => DraggableScrollableSheet(
-                            minChildSize: 0.8,
-                            maxChildSize: 1,
-                            initialChildSize: 1,
-                            builder: (context, scrollController) =>
-                                const AuthPage(),
-                          ),
-                        );
-                      },
-                      child: Text.rich(
-                        TextSpan(
-                          text: 'إنشاء ملف تعریف  |  ',
-                          children: [
-                            TextSpan(
-                              text: 'تسجیل الدخول',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium!
-                                  .copyWith(fontSize: 12),
-                            ),
-                          ],
-                        ),
+                BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) => Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        state is CompleteUserState ? 'مرحبا' : 'حساب تعریفی',
                         style: Theme.of(context)
                             .textTheme
-                            .titleMedium!
-                            .copyWith(fontSize: 12),
+                            .displayMedium!
+                            .copyWith(fontSize: 16),
                       ),
-                    ),
-                    const SizedBox(),
-                  ],
+                      GestureDetector(
+                        onTap: state is CompleteUserState ? null : authenticate,
+                        child: Text.rich(
+                          TextSpan(
+                            text: state is CompleteUserState
+                                ? '${state.user.firstName} | '
+                                : 'إنشاء ملف تعریف  |  ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontSize: 14),
+                            children: [
+                              TextSpan(
+                                text: state is CompleteUserState
+                                    ? 'تعدیل ملف الشخصی'
+                                    : 'تسجیل الدخول',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(fontSize: 12),
+                        ),
+                      ),
+                      const SizedBox(),
+                    ],
+                  ),
                 ),
               ],
             ),

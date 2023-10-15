@@ -8,9 +8,9 @@ import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
 import 'package:al_qamar/pages/salavat/salavat_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,7 +57,8 @@ class ProfilePage extends StatelessWidget {
                                 children: [
                                   const Expanded(
                                     child: ItemWidget(
-                                      image: AppIcons.tv,
+                                      image: AppIcons.live,
+                                      color: AppColors.grey600,
                                       title: 'برامج',
                                     ),
                                   ),
@@ -68,7 +69,7 @@ class ProfilePage extends StatelessWidget {
                                           fadePageTran(
                                               child: const BookmarkPage())),
                                       image: AppIcons.bookmark,
-                                      color: AppColors.grey,
+                                      color: AppColors.grey600,
                                       title: 'المفضلة',
                                     ),
                                   ),
@@ -81,14 +82,14 @@ class ProfilePage extends StatelessWidget {
                                   const Expanded(
                                     child: ItemWidget(
                                       image: AppIcons.aboutUs,
-                                      color: AppColors.grey,
+                                      color: AppColors.grey600,
                                       title: 'معلومات عنا',
                                     ),
                                   ),
                                   Expanded(
                                     child: ItemWidget(
                                       image: AppIcons.salavat,
-                                      color: AppColors.grey,
+                                      color: AppColors.grey600,
                                       title: 'صلوات',
                                       onTap: () => Navigator.push(
                                         context,

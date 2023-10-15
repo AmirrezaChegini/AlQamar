@@ -8,13 +8,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RegisterWidgets extends StatelessWidget {
   RegisterWidgets({
     super.key,
-    required this.nameCtrl,
+    required this.firstNameCtrl,
+    required this.lastNameCtrl,
     required this.emailCtrl,
     required this.passwordCtrl,
   });
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController nameCtrl;
+  final TextEditingController firstNameCtrl;
+  final TextEditingController lastNameCtrl;
   final TextEditingController emailCtrl;
   final TextEditingController passwordCtrl;
 
@@ -53,7 +55,12 @@ class RegisterWidgets extends StatelessWidget {
   void register(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
-          RegisterAuthEvent(nameCtrl.text, emailCtrl.text, passwordCtrl.text));
+        RegisterAuthEvent(
+          '${firstNameCtrl.text} ${lastNameCtrl.text}',
+          emailCtrl.text,
+          passwordCtrl.text,
+        ),
+      );
     }
   }
 
@@ -66,9 +73,17 @@ class RegisterWidgets extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           TextFieldAuth(
-            controller: nameCtrl,
+            controller: firstNameCtrl,
             validate: (v) => validateName(v),
             hint: 'اسم',
+            inputAction: TextInputAction.next,
+            inputType: TextInputType.name,
+          ),
+          const SizedBox(height: 15),
+          TextFieldAuth(
+            controller: lastNameCtrl,
+            validate: (v) => validateName(v),
+            hint: 'اسم العائلة',
             inputAction: TextInputAction.next,
             inputType: TextInputType.name,
           ),
@@ -78,7 +93,7 @@ class RegisterWidgets extends StatelessWidget {
             validate: (v) => validateEmail(v),
             hint: 'بريد إلكتروني',
             inputAction: TextInputAction.next,
-            inputType: TextInputType.name,
+            inputType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 15),
           TextFieldAuth(
@@ -86,7 +101,7 @@ class RegisterWidgets extends StatelessWidget {
             validate: (v) => validatePassword(v),
             hint: 'كلمة المرور',
             inputAction: TextInputAction.next,
-            inputType: TextInputType.name,
+            inputType: TextInputType.visiblePassword,
             obsecure: true,
           ),
           const Spacer(),

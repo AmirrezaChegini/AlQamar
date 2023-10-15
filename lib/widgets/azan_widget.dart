@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/azan_time.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class AzanWidget extends StatelessWidget {

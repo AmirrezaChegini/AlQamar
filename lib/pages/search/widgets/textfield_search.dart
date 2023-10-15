@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class TextfielfSearch extends StatelessWidget {

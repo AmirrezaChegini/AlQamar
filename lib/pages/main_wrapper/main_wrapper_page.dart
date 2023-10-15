@@ -1,5 +1,7 @@
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_event.dart';
+import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
@@ -26,6 +28,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   void initState() {
     super.initState();
     BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
+    BlocProvider.of<UserBloc>(context).add(GetUserEvent());
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
   }
 

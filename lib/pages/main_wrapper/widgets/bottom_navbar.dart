@@ -2,7 +2,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/search/search_page.dart';
-import 'package:al_qamar/widgets/svg_icon.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -95,8 +95,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   buildWhen: (previous, current) => current != 2,
                   builder: (context, state) => AppIcon(
                     icon: bottomIcons[index],
-                    width: 30,
-                    height: 30,
+                    width: index == 1 ? 28 : 30,
+                    height: index == 1 ? 28 : 30,
                     color: index == state ? AppColors.blue : AppColors.grey,
                   ),
                 ),

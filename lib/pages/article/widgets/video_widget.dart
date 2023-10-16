@@ -1,3 +1,4 @@
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -5,7 +6,9 @@ import 'package:video_player/video_player.dart';
 class VideoWidget extends StatefulWidget {
   const VideoWidget({
     super.key,
+    required this.article,
   });
+  final Article article;
 
   @override
   State<VideoWidget> createState() => _VideoWidgetState();
@@ -18,9 +21,11 @@ class _VideoWidgetState extends State<VideoWidget> {
   void initState() {
     super.initState();
 
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
-        'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4'))
-      ..initialize().then((value) {
+    _videoPlayerController = VideoPlayerController.networkUrl(
+      Uri.parse(
+        'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
+      ),
+    )..initialize().then((value) {
         _videoPlayerController.play();
         setState(() {});
       });
@@ -60,14 +65,14 @@ class _VideoWidgetState extends State<VideoWidget> {
             ),
           ),
         ),
-        const SliverToBoxAdapter(
-          child: ActionArticle(),
+        SliverToBoxAdapter(
+          child: ActionArticle(article: widget.article),
         ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              'التمهدیة الأولی اللحزب الجمهوری فی الدورة الانتخابیة',
+              widget.article.title,
               maxLines: 3,
               style: Theme.of(context)
                   .textTheme
@@ -80,7 +85,7 @@ class _VideoWidgetState extends State<VideoWidget> {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              'لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسيو سأعرض مثال حي لهذا، من منا لم يتحمل جهد بدني شاق إلا من أجل الحصول على ميزة أو فائدة؟ ولكن من لديه الحق أن ينتقد شخص ما أراد أن يشعر بالسعادة التي لا تشوبها عواقب أليمة أو آخر أراد أن يتجنب الألم الذي ربما تنجم عنه بعض المتعة ؟ لي الجانب الآخر نشجب ونستنكر هؤلاء الرجال المفتونون بنشوة اللحظة الهائمون في رغباتهم فلا يدركون ما يعقبها من الألم والأسي المحتم، واللوم كذلك يشمل هؤلاء الذين أخفقوا في واجباتهم نتيجة لضعف إرادتهم فيتساوي مع هؤلاء الذين يتجنبون وينأون عن تحمل الكدح والألم',
+              widget.article.content,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!

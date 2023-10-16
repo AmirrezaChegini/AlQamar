@@ -15,7 +15,6 @@ class ArticlePage extends StatefulWidget {
     super.key,
     required this.article,
   });
-
   final Article article;
 
   @override
@@ -25,9 +24,7 @@ class ArticlePage extends StatefulWidget {
 class _ArticlePageState extends State<ArticlePage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
-
   late final List<String> tabsText;
-
   final List<String> tabsIcon = const [
     AppIcons.image,
     AppIcons.video,
@@ -78,15 +75,11 @@ class _ArticlePageState extends State<ArticlePage>
               controller: _tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                ImageWidget(
-                  imageList: widget.article.images,
-                  title: widget.article.title,
-                  content: widget.article.content,
-                ),
-                const VideoWidget(),
-                const YoutubeWidget(),
-                const AudioWidget(),
-                const PdfWidget(),
+                ImageWidget(article: widget.article),
+                VideoWidget(article: widget.article),
+                YoutubeWidget(article: widget.article),
+                AudioWidget(article: widget.article),
+                PdfWidget(article: widget.article),
               ],
             ),
           ),

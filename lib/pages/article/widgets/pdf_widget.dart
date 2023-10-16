@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 class PdfWidget extends StatefulWidget {
   const PdfWidget({
     super.key,
+    required this.article,
   });
+  final Article article;
 
   @override
   State<PdfWidget> createState() => _PdfWidgetState();
@@ -33,8 +36,8 @@ class _PdfWidgetState extends State<PdfWidget> {
             ),
           ),
         ),
-        const SliverToBoxAdapter(
-          child: ActionArticle(),
+        SliverToBoxAdapter(
+          child: ActionArticle(article: widget.article),
         ),
         SliverToBoxAdapter(
           child: Padding(

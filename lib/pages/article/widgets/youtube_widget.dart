@@ -1,3 +1,4 @@
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -5,7 +6,9 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class YoutubeWidget extends StatefulWidget {
   const YoutubeWidget({
     super.key,
+    required this.article,
   });
+  final Article article;
 
   @override
   State<YoutubeWidget> createState() => _YoutubeWidgetState();
@@ -48,8 +51,8 @@ class _YoutubeWidgetState extends State<YoutubeWidget> {
             ),
           ),
         ),
-        const SliverToBoxAdapter(
-          child: ActionArticle(),
+        SliverToBoxAdapter(
+          child: ActionArticle(article: widget.article),
         ),
         SliverToBoxAdapter(
           child: Padding(

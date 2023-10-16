@@ -1,11 +1,17 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class ActionArticle extends StatelessWidget {
-  const ActionArticle({super.key});
+  const ActionArticle({
+    super.key,
+    required this.article,
+  });
+
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,7 @@ class ActionArticle extends StatelessWidget {
                         color: AppColors.black,
                       ),
                       Text(
-                        ' 1402/03/03',
+                        ' ${article.updateAt}',
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -54,7 +60,7 @@ class ActionArticle extends StatelessWidget {
                         color: AppColors.black,
                       ),
                       Text(
-                        ' بواسظ امیررضا چگینی',
+                        ' ${article.writer}',
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!

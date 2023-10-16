@@ -1,16 +1,19 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
 import 'package:al_qamar/utils/anim/animated_icon.dart';
-import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
+import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 
 class AudioWidget extends StatefulWidget {
   const AudioWidget({
     super.key,
+    required this.article,
   });
+  final Article article;
 
   @override
   State<AudioWidget> createState() => _AudioWidgetState();
@@ -191,8 +194,8 @@ class _AudioWidgetState extends State<AudioWidget> {
             ),
           ),
         ),
-        const SliverToBoxAdapter(
-          child: ActionArticle(),
+        SliverToBoxAdapter(
+          child: ActionArticle(article: widget.article),
         ),
         SliverToBoxAdapter(
           child: Padding(

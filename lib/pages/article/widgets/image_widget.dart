@@ -1,6 +1,7 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
@@ -10,14 +11,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class ImageWidget extends StatefulWidget {
   const ImageWidget({
     super.key,
-    this.imageList,
-    required this.title,
-    required this.content,
+    required this.article,
   });
-
-  final List<dynamic>? imageList;
-  final String title;
-  final String content;
+  final Article article;
 
   @override
   State<ImageWidget> createState() => _ImageWidgetState();
@@ -49,14 +45,15 @@ class _ImageWidgetState extends State<ImageWidget> {
               alignment: Alignment.bottomCenter,
               children: [
                 PageView.builder(
-                  itemCount: widget.imageList?.length ?? 1,
+                  itemCount: widget.article.images?.length ?? 1,
                   controller: _pageController,
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.all(10),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: CacheImage(
-                        imageUrl: widget.imageList?[index] ?? AppImages.error,
+                        imageUrl:
+                            widget.article.images?[index] ?? AppImages.error,
                       ),
                     ),
                   ),
@@ -65,7 +62,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                   bottom: 20,
                   child: SmoothPageIndicator(
                     controller: _pageController,
-                    count: widget.imageList?.length ?? 1,
+                    count: widget.article.images?.length ?? 1,
                     effect: const ExpandingDotsEffect(
                       dotColor: AppColors.grey,
                       activeDotColor: AppColors.white,
@@ -80,14 +77,14 @@ class _ImageWidgetState extends State<ImageWidget> {
             ),
           ),
         ),
-        const SliverToBoxAdapter(
-          child: ActionArticle(),
+        SliverToBoxAdapter(
+          child: ActionArticle(article: widget.article),
         ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              widget.title,
+              widget.article.title,
               maxLines: 3,
               style: Theme.of(context)
                   .textTheme
@@ -100,7 +97,7 @@ class _ImageWidgetState extends State<ImageWidget> {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              widget.content,
+              widget.article.content,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -113,6 +110,7 @@ class _ImageWidgetState extends State<ImageWidget> {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: TitleWidget(
               title: 'similarNews'.localize(context),
+              dividerWidth: 80,
               showDivider: true,
             ),
           ),

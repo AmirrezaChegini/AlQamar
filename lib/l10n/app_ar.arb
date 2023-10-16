@@ -14,5 +14,11 @@
     "subscribe": "إشتراک",
     "works": "أعمال",
     "noInternetConnection": "لا يوجد اتصال بالإنترنت",
-    "tryagain": "حاول ثانية"
+    "tryagain": "حاول ثانية",
+    "photo": "صور",
+    "video": "فیدیو",
+    "youtube": "یوتیوب",
+    "audio": "صوتی",
+    "document": "وثیقة",
+    "similarNews": "أخبار مماثلة"
 }

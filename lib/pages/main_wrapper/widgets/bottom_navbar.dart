@@ -53,7 +53,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     bottomTexts = [
       AppLocalizations.of(context)!.works,
       AppLocalizations.of(context)!.subscribe,
@@ -61,6 +62,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
       AppLocalizations.of(context)!.topics,
       AppLocalizations.of(context)!.home,
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(

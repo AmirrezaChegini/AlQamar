@@ -14,5 +14,11 @@
     "subscribe": "Sybscribe",
     "works": "Works",
     "noInternetConnection": "No Internet Connection",
-    "tryagain": "Try Again"
+    "tryagain": "Try Again",
+    "photo": "Photo",
+    "video": "Video",
+    "youtube": "Youtube",
+    "audio": "Audio",
+    "document": "Doc",
+    "similarNews": "Similar News"
 }

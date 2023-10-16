@@ -1,7 +1,9 @@
 import 'package:al_qamar/bloc/news/news_bloc.dart';
+import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/bloc/news/news_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
+import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -49,9 +51,14 @@ class _NewsPageState extends State<NewsPage>
               ),
             ],
           );
-        } else {
-          return const Center(child: LoadingState());
         }
+        if (state is FailNewsState) {
+          return ErrorState(
+            errorMessage: state.errorMessage,
+            onTap: () => BlocProvider.of<NewsBloc>(context).add(GetAllNews()),
+          );
+        }
+        return const LoadingState();
       },
     );
   }

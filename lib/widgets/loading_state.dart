@@ -7,11 +7,14 @@ class LoadingState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: LottieBuilder.asset(
-        'assets/video/animation.json',
-        width: MediaQuery.sizeOf(context).width / 2,
-        height: MediaQuery.sizeOf(context).height / 2,
-        reverse: true,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 120),
+        child: LottieBuilder.asset(
+          'assets/video/animation.json',
+          width: MediaQuery.sizeOf(context).width / 2,
+          height: MediaQuery.sizeOf(context).height / 2,
+          reverse: true,
+        ),
       ),
     );
   }

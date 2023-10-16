@@ -1,4 +1,5 @@
 import 'package:al_qamar/bloc/home/home_bloc.dart';
+import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/icons.dart';
@@ -103,7 +104,11 @@ class HomePage extends StatelessWidget {
         }
 
         if (state is FailHomeState) {
-          return ErrorState(errorMessage: state.errorMessage);
+          return ErrorState(
+            errorMessage: state.errorMessage,
+            onTap: () =>
+                BlocProvider.of<HomeBloc>(context).add(GetAllDataHomeEvent()),
+          );
         }
 
         return const LoadingState();

@@ -1,5 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
@@ -54,7 +55,12 @@ class FourActions extends StatelessWidget {
               ),
               itemBuilder: (context, index) => TxtBtn(
                 onTap: () => Navigator.push(
-                    context, fadePageTran(child: const ArticlePage())),
+                  context,
+                  fadePageTran(
+                      child: ArticlePage(
+                    article: Article(1, 1, '', '', '', '', '', '', [], [], []),
+                  )),
+                ),
                 title: 'دعا کمیل بن الزیاد',
                 icon: AppIcons.rightArrow,
               ),

@@ -20,5 +20,6 @@
     "youtube": "Youtube",
     "audio": "Audio",
     "document": "Doc",
-    "similarNews": "Similar News"
+    "similarNews": "Similar News",
+    "internetError": "Make sure Wi-Fi or cellular data is turned on then try again"
 }

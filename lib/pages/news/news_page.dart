@@ -1,11 +1,11 @@
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/news/news_state.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
-import 'package:al_qamar/widgets/loading_anim.dart';
+import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
@@ -28,7 +28,7 @@ class _NewsPageState extends State<NewsPage>
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: TitleWidget(
-                    title: AppLocalizations.of(context)!.newsList,
+                    title: 'newsList'.localize(context),
                     showDivider: true,
                     dividerWidth: 75,
                   ),
@@ -50,7 +50,7 @@ class _NewsPageState extends State<NewsPage>
             ],
           );
         } else {
-          return const Center(child: LoadingAnim());
+          return const Center(child: LoadingState());
         }
       },
     );

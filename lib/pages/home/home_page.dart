@@ -1,5 +1,6 @@
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
@@ -7,11 +8,11 @@ import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
 import 'package:al_qamar/pages/home/widgets/force_news.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
-import 'package:al_qamar/widgets/loading_anim.dart';
+import 'package:al_qamar/widgets/error_state.dart';
+import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -38,8 +39,8 @@ class HomePage extends StatelessWidget {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  child: TitleWidget(
-                      title: '● ${AppLocalizations.of(context)!.latestNews}'),
+                  child:
+                      TitleWidget(title: '● ${'latestNews'.localize(context)}'),
                 ),
               ),
               SliverToBoxAdapter(
@@ -67,7 +68,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: TitleWidget(
-                        title: AppLocalizations.of(context)!.newsList,
+                        title: 'newsList'.localize(context),
                         showDivider: true,
                         dividerWidth: 75,
                       ),
@@ -77,7 +78,7 @@ class HomePage extends StatelessWidget {
                         tabController.animateTo(3);
                         BlocProvider.of<BottomnavCubit>(context).changeIndex(3);
                       },
-                      title: AppLocalizations.of(context)!.readMore,
+                      title: 'readMore'.localize(context),
                       icon: AppIcons.leftArrow,
                     ),
                   ],
@@ -101,7 +102,11 @@ class HomePage extends StatelessWidget {
           );
         }
 
-        return const Center(child: LoadingAnim());
+        if (state is FailHomeState) {
+          return ErrorState(errorMessage: state.errorMessage);
+        }
+
+        return const LoadingState();
       },
     );
   }

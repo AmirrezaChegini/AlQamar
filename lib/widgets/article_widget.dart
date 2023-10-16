@@ -21,8 +21,10 @@ class ArticleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          Navigator.push(context, fadePageTran(child: const ArticlePage())),
+      onTap: () => Navigator.push(
+        context,
+        fadePageTran(child: ArticlePage(article: article)),
+      ),
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height / 7,

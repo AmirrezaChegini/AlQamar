@@ -1,3 +1,4 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
@@ -5,7 +6,6 @@ import 'package:al_qamar/pages/search/search_page.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({
@@ -56,11 +56,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     bottomTexts = [
-      AppLocalizations.of(context)!.works,
-      AppLocalizations.of(context)!.subscribe,
-      AppLocalizations.of(context)!.search,
-      AppLocalizations.of(context)!.topics,
-      AppLocalizations.of(context)!.home,
+      'works'.localize(context),
+      'subscribe'.localize(context),
+      'search'.localize(context),
+      'topics'.localize(context),
+      'home'.localize(context),
     ];
   }
 

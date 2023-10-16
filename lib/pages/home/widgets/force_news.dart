@@ -1,9 +1,9 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForceNews extends StatelessWidget {
   const ForceNews({
@@ -27,7 +27,7 @@ class ForceNews extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
-              '${AppLocalizations.of(context)!.news}\n${AppLocalizations.of(context)!.instant}',
+              '${'news'.localize(context)}\n${'instant'.localize(context)}',
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme

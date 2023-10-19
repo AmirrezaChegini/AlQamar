@@ -38,7 +38,7 @@ class _AuthPageState extends State<AuthPage>
     _firstNameCtrl = TextEditingController(text: 'Amirreza');
     _lastNameCtrl = TextEditingController(text: 'Chegini');
     _emailCtrl = TextEditingController(text: 'amirreza@gmail.com');
-    _passwordCtrl = TextEditingController(text: 'amirreza1324');
+    _passwordCtrl = TextEditingController(text: 'Amirreza1324');
   }
 
   @override

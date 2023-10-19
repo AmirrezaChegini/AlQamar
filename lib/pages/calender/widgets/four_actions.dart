@@ -58,7 +58,8 @@ class FourActions extends StatelessWidget {
                   context,
                   fadePageTran(
                       child: ArticlePage(
-                    article: Article(1, 1, '', '', '', '', '', '', [], [], []),
+                    article:
+                        Article(1, 1, '', '', '', '', '', '', [], [], [], []),
                   )),
                 ),
                 title: 'دعا کمیل بن الزیاد',

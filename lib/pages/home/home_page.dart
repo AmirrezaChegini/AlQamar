@@ -89,7 +89,7 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 100),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    childCount: 5,
+                    childCount: 1,
                     (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 8),

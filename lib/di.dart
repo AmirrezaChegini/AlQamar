@@ -7,6 +7,7 @@ import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/counter_cubit.dart';
+import 'package:al_qamar/cubit/pdf_cubit.dart';
 import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/data/datasources/article_datasource.dart';
@@ -68,6 +69,7 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<SalavatCubit>(() => SalavatCubit());
   locator.registerLazySingleton<TimerCubit>(() => TimerCubit());
   locator.registerLazySingleton<BtnVerifyCubit>(() => BtnVerifyCubit());
+  locator.registerLazySingleton<PdfCubit>(() => PdfCubit());
 
   //bloc
   locator.registerLazySingleton<AzanBloc>(() => AzanBloc(locator.get()));

@@ -34,6 +34,7 @@ class AppIcons {
   static const String sun = '$root/sun.png';
   static const String topics = '$root/topics.png';
   static const String video = '$root/video.png';
+  static const String videoError = '$root/videoerror.png';
   static const String vimeo = '$root/vimeo.png';
   static const String wifi = '$root/wifi.png';
   static const String youtube = '$root/youtube.png';

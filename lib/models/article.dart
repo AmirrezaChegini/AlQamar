@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Article {
   final int _id;
@@ -8,7 +9,7 @@ class Article {
   final String _writer;
   final String _type;
   String _updateAt;
-  final String _youtube;
+  String? _youtube;
   List<dynamic>? _images;
   List<dynamic>? _videos;
   List<dynamic>? _audios;
@@ -29,6 +30,7 @@ class Article {
     this._pdfs,
   ) {
     _updateAt = DateFormat('yyyy-MM-dd').format(DateTime.parse(_updateAt));
+    _youtube = YoutubePlayer.convertUrlToId(_youtube ?? '');
     _images = _images?.map((e) => 'http://192.168.213.2:8585$e').toList();
     _videos = _videos?.map((e) => 'http://192.168.213.2:8585$e').toList();
     _audios = _audios?.map((e) => 'http://192.168.213.2:8585$e').toList();
@@ -59,7 +61,7 @@ class Article {
   String get writer => _writer;
   String get type => _type;
   String get updateAt => _updateAt;
-  String get youtube => _youtube;
+  String? get youtube => _youtube;
   List<dynamic>? get images => _images;
   List<dynamic>? get videos => _videos;
   List<dynamic>? get audios => _audios;

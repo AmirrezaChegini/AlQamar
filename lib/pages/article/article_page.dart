@@ -2,12 +2,12 @@ import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
+import 'package:al_qamar/pages/article/audio_page.dart';
+import 'package:al_qamar/pages/article/image_page.dart';
+import 'package:al_qamar/pages/article/pdf_page.dart';
+import 'package:al_qamar/pages/article/video_page.dart';
 import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
-import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
-import 'package:al_qamar/pages/article/widgets/image_widget.dart';
-import 'package:al_qamar/pages/article/widgets/pdf_widget.dart';
-import 'package:al_qamar/pages/article/widgets/video_widget.dart';
-import 'package:al_qamar/pages/article/widgets/youtube_widget.dart';
+import 'package:al_qamar/pages/article/youtube_page.dart';
 import 'package:flutter/material.dart';
 
 class ArticlePage extends StatefulWidget {
@@ -75,11 +75,11 @@ class _ArticlePageState extends State<ArticlePage>
               controller: _tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                ImageWidget(article: widget.article),
-                VideoWidget(article: widget.article),
-                YoutubeWidget(article: widget.article),
-                AudioWidget(article: widget.article),
-                PdfWidget(article: widget.article),
+                ImagePage(article: widget.article),
+                VideoPage(article: widget.article),
+                YoutubePage(article: widget.article),
+                AudioPage(article: widget.article),
+                PdfPage(article: widget.article),
               ],
             ),
           ),

@@ -1,10 +1,12 @@
+import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
-import 'package:al_qamar/pages/article/widgets/article_video_player.dart';
+import 'package:al_qamar/pages/article/widgets/audio_article_player.dart';
+import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
 import 'package:flutter/material.dart';
 
-class VideoWidget extends StatelessWidget {
-  const VideoWidget({
+class AudioPage extends StatelessWidget {
+  const AudioPage({
     super.key,
     required this.article,
   });
@@ -17,13 +19,11 @@ class VideoWidget extends StatelessWidget {
         SliverToBoxAdapter(
           child: Container(
             margin: const EdgeInsets.all(10),
-            height: MediaQuery.sizeOf(context).height / 3,
-            child: ClipRRect(
+            decoration: BoxDecoration(
+              color: AppColors.white,
               borderRadius: BorderRadius.circular(20),
-              child: ArticleVideoPlayer(
-                video: article.videos![0],
-              ),
             ),
+            child: AudioArticlePlayer(article: article),
           ),
         ),
         SliverToBoxAdapter(
@@ -42,15 +42,12 @@ class VideoWidget extends StatelessWidget {
             ),
           ),
         ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              article.content,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: 14),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            childCount: article.audios?.length ?? 0,
+            (context, index) => Padding(
+              padding: const EdgeInsets.all(10),
+              child: AudioWidget(index: index),
             ),
           ),
         ),

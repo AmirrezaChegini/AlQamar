@@ -62,26 +62,24 @@ class _ArticlePageState extends State<ArticlePage>
     return Scaffold(
       backgroundColor: AppColors.grey200,
       body: SafeArea(
-        child: PageView.builder(
-          itemBuilder: (context, index) => NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) => [
-              ArticleTabbar(
-                tabController: _tabController,
-                tabsIcon: tabsIcon,
-                tabsText: tabsText,
-              ),
-            ],
-            body: TabBarView(
-              controller: _tabController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                ImagePage(article: widget.article),
-                VideoPage(article: widget.article),
-                YoutubePage(article: widget.article),
-                AudioPage(article: widget.article),
-                PdfPage(article: widget.article),
-              ],
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            ArticleTabbar(
+              tabController: _tabController,
+              tabsIcon: tabsIcon,
+              tabsText: tabsText,
             ),
+          ],
+          body: TabBarView(
+            controller: _tabController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              ImagePage(article: widget.article),
+              VideoPage(article: widget.article),
+              YoutubePage(article: widget.article),
+              AudioPage(article: widget.article),
+              PdfPage(article: widget.article),
+            ],
           ),
         ),
       ),

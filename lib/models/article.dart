@@ -3,12 +3,12 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Article {
   final int _id;
-  final int _categoryID;
-  final String _title;
-  final String _content;
-  final String _writer;
-  final String _type;
-  String _updateAt;
+  final int? _categoryID;
+  final String? _title;
+  final String? _content;
+  final String? _writer;
+  final String? _type;
+  String? _updateAt;
   String? _youtube;
   List<dynamic>? _images;
   List<dynamic>? _videos;
@@ -29,7 +29,8 @@ class Article {
     this._audios,
     this._pdfs,
   ) {
-    _updateAt = DateFormat('yyyy-MM-dd').format(DateTime.parse(_updateAt));
+    _updateAt =
+        DateFormat('yyyy-MM-dd').format(DateTime.parse(_updateAt ?? ''));
     _youtube = YoutubePlayer.convertUrlToId(_youtube ?? '');
     _images = _images?.map((e) => 'http://192.168.213.2:8585$e').toList();
     _videos = _videos?.map((e) => 'http://192.168.213.2:8585$e').toList();
@@ -55,13 +56,13 @@ class Article {
   }
 
   int get id => _id;
-  int get categoryID => _categoryID;
-  String get title => _title;
-  String get content => _content;
-  String get writer => _writer;
-  String get type => _type;
-  String get updateAt => _updateAt;
-  String? get youtube => _youtube;
+  int get categoryID => _categoryID ?? 0;
+  String get title => _title ?? '';
+  String get content => _content ?? '';
+  String get writer => _writer ?? '';
+  String get type => _type ?? '';
+  String get updateAt => _updateAt ?? '';
+  String get youtube => _youtube ?? '';
   List<dynamic>? get images => _images;
   List<dynamic>? get videos => _videos;
   List<dynamic>? get audios => _audios;

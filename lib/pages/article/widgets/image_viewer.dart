@@ -45,7 +45,7 @@ class _ImageViewerState extends State<ImageViewer> {
           bottom: 20,
           child: SmoothPageIndicator(
             controller: _pageCtrl,
-            count: widget.images?.length ?? 0,
+            count: widget.images?.length ?? 1,
             effect: const ExpandingDotsEffect(
               dotColor: AppColors.grey,
               activeDotColor: AppColors.white,

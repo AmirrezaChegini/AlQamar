@@ -4,6 +4,7 @@ import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/counter_cubit.dart';
@@ -69,6 +70,7 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<SalavatCubit>(() => SalavatCubit());
   locator.registerLazySingleton<TimerCubit>(() => TimerCubit());
   locator.registerLazySingleton<BtnVerifyCubit>(() => BtnVerifyCubit());
+  locator.registerLazySingleton<AudioCubit>(() => AudioCubit());
   locator.registerLazySingleton<PdfCubit>(() => PdfCubit());
 
   //bloc

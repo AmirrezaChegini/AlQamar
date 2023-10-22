@@ -20,12 +20,6 @@ class _PdfArticleViewerState extends State<PdfArticleViewer> {
   final PdfViewerController _pdfCtrl = PdfViewerController();
 
   @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<PdfCubit>(context).chnageIndex(0);
-  }
-
-  @override
   void dispose() {
     _pdfCtrl.dispose();
     super.dispose();

@@ -17,9 +17,7 @@ class VideoPage extends StatelessWidget {
         SliverToBoxAdapter(
           child: Container(
             margin: const EdgeInsets.all(10),
-            height: article.videos != null
-                ? MediaQuery.sizeOf(context).height / 3
-                : 0,
+            height: MediaQuery.sizeOf(context).height / 3,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: VideoArticlePlayer(video: article.videos?[0]),

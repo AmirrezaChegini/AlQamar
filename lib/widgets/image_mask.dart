@@ -6,10 +6,10 @@ import 'package:widget_mask/widget_mask.dart';
 class MaskImage extends StatefulWidget {
   const MaskImage({
     super.key,
-    required this.imageUrl,
+    this.imageUrl,
   });
 
-  final String imageUrl;
+  final String? imageUrl;
 
   @override
   State<MaskImage> createState() => _MaskImageState();
@@ -25,8 +25,8 @@ class _MaskImageState extends State<MaskImage> {
   void initState() {
     super.initState();
 
-    _image = Image.network(widget.imageUrl);
-    _error = Image.asset(AppImages.error);
+    _image = Image.network(widget.imageUrl ?? '');
+    _error = Image.asset(AppImages.error, fit: BoxFit.cover);
     _placeHolder = Image.asset(AppImages.transparent);
     _mask = Image.asset(AppImages.mask);
   }

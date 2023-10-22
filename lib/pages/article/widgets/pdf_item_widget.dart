@@ -33,11 +33,11 @@ class PdfItemWidget extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const AppIcon(
+              AppIcon(
                 icon: AppIcons.pdf,
                 width: 30,
                 height: 30,
-                color: AppColors.black,
+                color: state == index ? AppColors.red : AppColors.black,
               ),
               const SizedBox(width: 10),
               Column(
@@ -46,10 +46,11 @@ class PdfItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     'وثیقة ${index + 1}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontSize: 16),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 16,
+                          color:
+                              state == index ? AppColors.red : AppColors.black,
+                        ),
                   ),
                   // Text(
                   //   '123.6 MB',

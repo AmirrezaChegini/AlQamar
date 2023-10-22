@@ -13,7 +13,8 @@ class YoutubeArticlePlayer extends StatefulWidget {
   State<YoutubeArticlePlayer> createState() => _YoutubeArticlePlayerState();
 }
 
-class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer> {
+class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer>
+    with AutomaticKeepAliveClientMixin {
   late final YoutubePlayerController _youtubeCtrl;
 
   @override
@@ -37,8 +38,12 @@ class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return YoutubePlayer(
       controller: _youtubeCtrl,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

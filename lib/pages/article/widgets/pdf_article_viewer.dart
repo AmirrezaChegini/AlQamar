@@ -12,11 +12,13 @@ class PdfArticleViewer extends StatefulWidget {
     this.pdfList,
   });
   final List<dynamic>? pdfList;
+
   @override
   State<PdfArticleViewer> createState() => _PdfArticleViewerState();
 }
 
-class _PdfArticleViewerState extends State<PdfArticleViewer> {
+class _PdfArticleViewerState extends State<PdfArticleViewer>
+    with AutomaticKeepAliveClientMixin {
   final PdfViewerController _pdfCtrl = PdfViewerController();
 
   @override
@@ -27,6 +29,7 @@ class _PdfArticleViewerState extends State<PdfArticleViewer> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (widget.pdfList != null) {
       return BlocBuilder<PdfCubit, int>(
         builder: (context, state) => SfPdfViewer.network(
@@ -49,4 +52,7 @@ class _PdfArticleViewerState extends State<PdfArticleViewer> {
       );
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

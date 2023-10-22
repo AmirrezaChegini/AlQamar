@@ -24,6 +24,7 @@ import 'package:al_qamar/data/repositories/user_repository.dart';
 import 'package:al_qamar/utils/error_handling/app_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var locator = GetIt.I;
@@ -40,6 +41,7 @@ Future<void> initLocator() async {
   );
   locator.registerSingleton<SharedPreferences>(
       await SharedPreferences.getInstance());
+  locator.registerLazySingleton<AudioPlayer>(() => AudioPlayer());
 
   //datasources
   locator
@@ -70,7 +72,7 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<SalavatCubit>(() => SalavatCubit());
   locator.registerLazySingleton<TimerCubit>(() => TimerCubit());
   locator.registerLazySingleton<BtnVerifyCubit>(() => BtnVerifyCubit());
-  locator.registerLazySingleton<AudioCubit>(() => AudioCubit());
+  locator.registerLazySingleton<AudioCubit>(() => AudioCubit(locator.get()));
   locator.registerLazySingleton<PdfCubit>(() => PdfCubit());
 
   //bloc

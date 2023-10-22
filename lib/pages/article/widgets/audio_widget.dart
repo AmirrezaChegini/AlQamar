@@ -4,7 +4,7 @@ import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AudioWidget extends StatelessWidget {
+class AudioWidget extends StatefulWidget {
   const AudioWidget({
     super.key,
     required this.index,
@@ -13,11 +13,22 @@ class AudioWidget extends StatelessWidget {
   final int index;
 
   @override
+  State<AudioWidget> createState() => _AudioWidgetState();
+}
+
+class _AudioWidgetState extends State<AudioWidget> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AudioCubit>(context).changeIndex();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<AudioCubit, int>(
       builder: (context, state) => ListTile(
-        onTap: () => BlocProvider.of<AudioCubit>(context).chnageIndex(index),
-        selected: state == index,
+        onTap: null,
+        selected: state == widget.index,
         tileColor: AppColors.white,
         selectedTileColor: AppColors.red100,
         shape: RoundedRectangleBorder(
@@ -34,10 +45,12 @@ class AudioWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${'audio'.localize(context)} ${index + 1}',
+                '${'audio'.localize(context)} ${widget.index + 1}',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: 16,
-                      color: state == index ? AppColors.red : AppColors.black,
+                      color: state == widget.index
+                          ? AppColors.red
+                          : AppColors.black,
                     ),
               ),
               // Text(

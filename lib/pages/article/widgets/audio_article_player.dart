@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/cubit/audio_cubit.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/utils/anim/animated_icon.dart';
 import 'package:al_qamar/utils/extensions/duration.dart';
@@ -11,8 +11,8 @@ import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 class AudioArticlePlayer extends StatefulWidget {
   const AudioArticlePlayer({
@@ -27,22 +27,42 @@ class AudioArticlePlayer extends StatefulWidget {
 }
 
 class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioPlayer _audioPlayer = locator.get();
   Timer? _timer;
-  Duration? totalDuration;
   Duration? currentPosition;
+  int speed = 0;
+  List<String> speedText = [
+    '1.0 X',
+    '1.1 X',
+    '1.25 X',
+    '1.5 X',
+  ];
 
   Future<void> initial() async {
+    List<AudioSource> audioSource = [];
     if (widget.article.audios != null) {
-      int index = BlocProvider.of<AudioCubit>(context).state;
-      await _audioPlayer
-          .setAudioSource(
-              AudioSource.uri(Uri.parse(widget.article.audios?[index])))
-          .then((value) => setState(() {
-                totalDuration = value;
-                currentPosition = _audioPlayer.position;
-              }));
+      for (int i = 0; i < widget.article.audios!.length; i++) {
+        audioSource.add(AudioSource.uri(
+          Uri.parse(widget.article.audios?[i]),
+          tag: MediaItem(
+            id: '1',
+            title: 'Audio ${i + 1}',
+            artUri: Uri.parse(widget.article.images?[0]),
+          ),
+        ));
+      }
     }
+    final ConcatenatingAudioSource playList =
+        ConcatenatingAudioSource(children: audioSource);
+    _audioPlayer
+        .setAudioSource(
+          playList,
+          initialIndex: 0,
+          initialPosition: Duration.zero,
+        )
+        .then((value) => setState(() {
+              currentPosition = _audioPlayer.position;
+            }));
   }
 
   @override
@@ -52,21 +72,19 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
     _timer = Timer.periodic(
         const Duration(seconds: 1),
         (timer) => setState(() {
-              if (widget.article.audios != null) {
+              if (_audioPlayer.duration != null) {
                 if (currentPosition?.inSeconds ==
-                    totalDuration!.inSeconds - 1) {
+                    _audioPlayer.duration!.inSeconds - 1) {
                   _audioPlayer.seek(const Duration(microseconds: 0));
                   _audioPlayer.stop();
                 }
+                currentPosition = _audioPlayer.position;
               }
-              currentPosition = _audioPlayer.position;
             }));
   }
 
   @override
   void dispose() {
-    _audioPlayer.stop();
-    _audioPlayer.dispose();
     _timer?.cancel();
     super.dispose();
   }
@@ -94,14 +112,14 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    BlocBuilder<AudioCubit, int>(
-                      builder: (context, state) => Text(
-                        '${'audio'.localize(context)} ${state + 1}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(fontSize: 16),
-                      ),
+                    Text(
+                      _audioPlayer.currentIndex != null
+                          ? '${'audio'.localize(context)} ${_audioPlayer.currentIndex! + 1}'
+                          : 'audio'.localize(context),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontSize: 16),
                     ),
                     const SizedBox(height: 15),
                     Row(
@@ -150,8 +168,10 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
               textDirection: TextDirection.ltr,
               child: Slider(
                 min: 0,
-                max: double.parse('${totalDuration?.inMicroseconds ?? 1}'),
-                value: double.parse('${currentPosition?.inMicroseconds ?? 0}'),
+                max: double.parse(
+                    '${_audioPlayer.duration?.inMicroseconds ?? 10000000000}'),
+                value:
+                    double.parse('${currentPosition?.inMicroseconds ?? '0'}'),
                 inactiveColor: AppColors.grey200,
                 activeColor: AppColors.blue,
                 overlayColor: MaterialStatePropertyAll(
@@ -172,7 +192,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  totalDuration?.format() ?? '00:00:00',
+                  _audioPlayer.duration?.format() ?? '00:00:00',
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -192,17 +212,42 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
             padding: const EdgeInsets.only(right: 20, left: 5, bottom: 10),
             child: Row(
               children: [
-                Text(
-                  '1.0 X',
-                  textDirection: TextDirection.ltr,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(fontSize: 12),
+                IconBtn(
+                  onTap: () {
+                    if (speed == 3) {
+                      speed = 0;
+                    } else {
+                      speed++;
+                    }
+
+                    if (speed == 0) {
+                      _audioPlayer.setSpeed(1);
+                    }
+                    if (speed == 1) {
+                      _audioPlayer.setSpeed(1.1);
+                    }
+                    if (speed == 2) {
+                      _audioPlayer.setSpeed(1.25);
+                    }
+                    if (speed == 3) {
+                      _audioPlayer.setSpeed(1.5);
+                    }
+                  },
+                  padding: 5,
+                  child: Text(
+                    speedText[speed],
+                    textDirection: TextDirection.ltr,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontSize: 12),
+                  ),
                 ),
                 const Spacer(),
                 IconBtn(
-                  onTap: () {},
+                  onTap: () {
+                    _audioPlayer.seekToNext();
+                  },
                   child: const Icon(
                     Icons.skip_next_rounded,
                     color: AppColors.blue,
@@ -221,7 +266,9 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
                   ),
                 ),
                 IconBtn(
-                  onTap: () {},
+                  onTap: () {
+                    _audioPlayer.seekToPrevious();
+                  },
                   child: const Icon(
                     Icons.skip_previous_rounded,
                     color: AppColors.blue,

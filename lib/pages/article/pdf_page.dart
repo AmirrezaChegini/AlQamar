@@ -5,10 +5,7 @@ import 'package:al_qamar/pages/article/widgets/pdf_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class PdfPage extends StatelessWidget {
-  const PdfPage({
-    super.key,
-    required this.article,
-  });
+  const PdfPage({super.key, required this.article});
   final Article article;
 
   @override

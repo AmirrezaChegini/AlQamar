@@ -54,6 +54,7 @@ class _ArticlePageState extends State<ArticlePage>
   @override
   void dispose() {
     _tabController.dispose();
+
     super.dispose();
   }
 

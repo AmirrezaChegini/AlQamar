@@ -14,7 +14,8 @@ class ImageViewer extends StatefulWidget {
   State<ImageViewer> createState() => _ImageViewerState();
 }
 
-class _ImageViewerState extends State<ImageViewer> {
+class _ImageViewerState extends State<ImageViewer>
+    with AutomaticKeepAliveClientMixin {
   final PageController _pageCtrl = PageController();
 
   @override
@@ -25,6 +26,7 @@ class _ImageViewerState extends State<ImageViewer> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -59,4 +61,7 @@ class _ImageViewerState extends State<ImageViewer> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

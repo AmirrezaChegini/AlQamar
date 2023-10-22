@@ -15,9 +15,9 @@ class VideoArticlePlayer extends StatefulWidget {
   State<VideoArticlePlayer> createState() => _VideoArticlePlayerState();
 }
 
-class _VideoArticlePlayerState extends State<VideoArticlePlayer> {
+class _VideoArticlePlayerState extends State<VideoArticlePlayer>
+    with AutomaticKeepAliveClientMixin {
   late final VideoPlayerController _videoCtrl;
-  bool state = false;
 
   @override
   void initState() {
@@ -35,6 +35,7 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (widget.video != null) {
       return FittedBox(
         fit: BoxFit.fitHeight,
@@ -55,18 +56,13 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer> {
                 } else {
                   _videoCtrl.play();
                 }
-                if (state) {
-                  state = false;
-                } else {
-                  state = true;
-                }
               }),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   VideoPlayer(_videoCtrl),
                   FadeOutAnim(
-                    state: state,
+                    state: _videoCtrl.value.isPlaying,
                     child: _videoCtrl.value.isPlaying
                         ? const Icon(
                             Icons.pause_rounded,
@@ -94,4 +90,7 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer> {
       );
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

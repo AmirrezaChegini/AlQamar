@@ -58,7 +58,12 @@ class _NewsPageState extends State<NewsPage>
             onTap: () => BlocProvider.of<NewsBloc>(context).add(GetAllNews()),
           );
         }
-        return const LoadingState();
+
+        if (state is LoadingNewsState) {
+          return const LoadingState();
+        }
+
+        return const SizedBox();
       },
     );
   }

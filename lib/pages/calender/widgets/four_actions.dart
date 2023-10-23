@@ -1,9 +1,11 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
 
 class FourActions extends StatelessWidget {
@@ -24,12 +26,12 @@ class FourActions extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 100,
+            width: 150,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'اعمال الاربعاء',
+                  'wednesdayBusiness'.localize(context),
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium!
@@ -64,6 +66,9 @@ class FourActions extends StatelessWidget {
                 ),
                 title: 'دعا کمیل بن الزیاد',
                 icon: AppIcons.rightArrow,
+                textDecoration: CheckDirect.isRTL(context)
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
               ),
             ),
           )

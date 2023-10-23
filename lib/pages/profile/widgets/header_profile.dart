@@ -1,5 +1,6 @@
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
@@ -69,6 +70,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
           Positioned.fill(
             top: 40,
             right: 20,
+            left: 20,
             child: Row(
               children: [
                 Material(
@@ -95,7 +97,9 @@ class _HeaderProfileState extends State<HeaderProfile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        state is CompleteUserState ? 'مرحبا' : 'حساب تعریفی',
+                        state is CompleteUserState
+                            ? 'welcome'.localize(context)
+                            : 'personalAccount'.localize(context),
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium!
@@ -107,7 +111,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
                           TextSpan(
                             text: state is CompleteUserState
                                 ? '${state.user.firstName} | '
-                                : 'إنشاء ملف تعریف  |  ',
+                                : '${'createProfile'.localize(context)}  |  ',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
@@ -115,8 +119,8 @@ class _HeaderProfileState extends State<HeaderProfile> {
                             children: [
                               TextSpan(
                                 text: state is CompleteUserState
-                                    ? 'تعدیل ملف الشخصی'
-                                    : 'تسجیل الدخول',
+                                    ? 'editProfile'.localize(context)
+                                    : 'login'.localize(context),
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!

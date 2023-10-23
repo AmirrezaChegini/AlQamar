@@ -8,6 +8,7 @@ import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
 import 'package:al_qamar/pages/home/widgets/force_news.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
@@ -81,6 +82,9 @@ class HomePage extends StatelessWidget {
                       },
                       title: 'readMore'.localize(context),
                       icon: AppIcons.leftArrow,
+                      textDecoration: CheckDirect.isRTL(context)
+                          ? TextDirection.ltr
+                          : TextDirection.rtl,
                     ),
                   ],
                 ),
@@ -111,7 +115,11 @@ class HomePage extends StatelessWidget {
           );
         }
 
-        return const LoadingState();
+        if (state is LoadingHomeState) {
+          return const LoadingState();
+        }
+
+        return const SizedBox();
       },
     );
   }

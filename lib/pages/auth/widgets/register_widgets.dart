@@ -1,5 +1,6 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_event.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,33 +21,33 @@ class RegisterWidgets extends StatelessWidget {
   final TextEditingController emailCtrl;
   final TextEditingController passwordCtrl;
 
-  String? validateName(String v) {
+  String? validateName(String v, BuildContext context) {
     if (v.isEmpty) {
-      return 'Enter your Name.';
+      return 'enterName'.localize(context);
     }
 
     return null;
   }
 
-  String? validateEmail(String v) {
+  String? validateEmail(String v, BuildContext context) {
     bool isMatch = RegExp(
       r'^[\w\.-]+@[\w\.-]+\.\w+$',
     ).hasMatch(v);
 
     if (v.isEmpty) {
-      return 'Enter your email.';
+      return 'enterEmail'.localize(context);
     } else if (!isMatch) {
-      return 'Your email format is incorrect.';
+      return 'emailInCorrect'.localize(context);
     }
 
     return null;
   }
 
-  String? validatePassword(String v) {
+  String? validatePassword(String v, BuildContext context) {
     if (v.isEmpty) {
-      return 'Enter your Password.';
+      return 'enterPassword'.localize(context);
     } else if (v.length < 8) {
-      return 'Your password must be at least 8 characters';
+      return 'passwordInCorrect'.localize(context);
     }
 
     return null;
@@ -74,32 +75,32 @@ class RegisterWidgets extends StatelessWidget {
         children: [
           TextFieldAuth(
             controller: firstNameCtrl,
-            validate: (v) => validateName(v),
-            hint: 'اسم',
+            validate: (v) => validateName(v, context),
+            hint: 'firstname'.localize(context),
             inputAction: TextInputAction.next,
             inputType: TextInputType.name,
           ),
           const SizedBox(height: 15),
           TextFieldAuth(
             controller: lastNameCtrl,
-            validate: (v) => validateName(v),
-            hint: 'اسم العائلة',
+            validate: (v) => validateName(v, context),
+            hint: 'lastname'.localize(context),
             inputAction: TextInputAction.next,
             inputType: TextInputType.name,
           ),
           const SizedBox(height: 15),
           TextFieldAuth(
             controller: emailCtrl,
-            validate: (v) => validateEmail(v),
-            hint: 'بريد إلكتروني',
+            validate: (v) => validateEmail(v, context),
+            hint: 'email'.localize(context),
             inputAction: TextInputAction.next,
             inputType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 15),
           TextFieldAuth(
             controller: passwordCtrl,
-            validate: (v) => validatePassword(v),
-            hint: 'كلمة المرور',
+            validate: (v) => validatePassword(v, context),
+            hint: 'password'.localize(context),
             inputAction: TextInputAction.next,
             inputType: TextInputType.visiblePassword,
             obsecure: true,
@@ -107,7 +108,7 @@ class RegisterWidgets extends StatelessWidget {
           const Spacer(),
           BtnAuth(
             onTap: () => register(context),
-            title: 'المرحلة التالیة',
+            title: 'nextPhase'.localize(context),
           ),
         ],
       ),

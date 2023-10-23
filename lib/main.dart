@@ -14,7 +14,7 @@ import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/db.dart';
 import 'package:al_qamar/di.dart';
-import 'package:al_qamar/pages/splash/splash_page.dart';
+import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,8 +72,8 @@ class MainApp extends StatelessWidget {
           Locale('en'),
           Locale('ar'),
         ],
-        locale: const Locale('ar'),
-        home: const SplashPage(),
+        locale: const Locale('en'),
+        home: const MainWrapperPage(),
       ),
     );
   }

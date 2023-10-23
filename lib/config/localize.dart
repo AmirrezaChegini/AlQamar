@@ -51,6 +51,72 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.similarNews;
       case 'internetError':
         return AppLocalizations.of(context)!.internetError;
+      case 'previousMonth':
+        return AppLocalizations.of(context)!.previousMonth;
+      case 'nextMonth':
+        return AppLocalizations.of(context)!.nextMonth;
+      case 'najaf':
+        return AppLocalizations.of(context)!.najaf;
+      case 'london':
+        return AppLocalizations.of(context)!.london;
+      case 'wednesdayBusiness':
+        return AppLocalizations.of(context)!.wednesdayBusiness;
+      case 'welcome':
+        return AppLocalizations.of(context)!.welcome;
+      case 'personalAccount':
+        return AppLocalizations.of(context)!.personalAccount;
+      case 'createProfile':
+        return AppLocalizations.of(context)!.createProfile;
+      case 'login':
+        return AppLocalizations.of(context)!.login;
+      case 'favorite':
+        return AppLocalizations.of(context)!.favorite;
+      case 'programs':
+        return AppLocalizations.of(context)!.programs;
+      case 'preyers':
+        return AppLocalizations.of(context)!.preyers;
+      case 'aboutUs':
+        return AppLocalizations.of(context)!.aboutUs;
+      case 'live':
+        return AppLocalizations.of(context)!.live;
+      case 'editProfile':
+        return AppLocalizations.of(context)!.editProfile;
+      case 'reset':
+        return AppLocalizations.of(context)!.reset;
+      case 'save':
+        return AppLocalizations.of(context)!.save;
+      case 'sentenceOne':
+        return AppLocalizations.of(context)!.sentenceOne;
+      case 'sentenceTwo':
+        return AppLocalizations.of(context)!.sentenceTwo;
+      case 'register':
+        return AppLocalizations.of(context)!.register;
+      case 'firstname':
+        return AppLocalizations.of(context)!.firstname;
+      case 'lastname':
+        return AppLocalizations.of(context)!.lastname;
+      case 'email':
+        return AppLocalizations.of(context)!.email;
+      case 'password':
+        return AppLocalizations.of(context)!.password;
+      case 'nextPhase':
+        return AppLocalizations.of(context)!.nextPhase;
+      case 'enterName':
+        return AppLocalizations.of(context)!.enterName;
+      case 'enterEmail':
+        return AppLocalizations.of(context)!.enterEmail;
+      case 'enterPassword':
+        return AppLocalizations.of(context)!.enterPassword;
+      case 'emailInCorrect':
+        return AppLocalizations.of(context)!.emailInCorrect;
+      case 'passwordInCorrect':
+        return AppLocalizations.of(context)!.passwordInCorrect;
+      case 'enterCode':
+        return AppLocalizations.of(context)!.enterCode;
+      case 'resendCode':
+        return AppLocalizations.of(context)!.resendCode;
+      case 'second':
+        return AppLocalizations.of(context)!.second;
       default:
         return '';
     }

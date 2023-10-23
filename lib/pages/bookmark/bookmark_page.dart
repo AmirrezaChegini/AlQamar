@@ -1,3 +1,4 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
@@ -15,7 +16,8 @@ class BookmarkPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: const MainAppbar(title: 'المفضلة', showLeading: false),
+      appBar:
+          MainAppbar(title: 'favorite'.localize(context), showLeading: false),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [

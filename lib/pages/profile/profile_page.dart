@@ -1,5 +1,6 @@
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
@@ -44,7 +45,7 @@ class ProfilePage extends StatelessWidget {
                         child: ItemWidget(
                           image: AppIcons.play,
                           color: AppColors.red.withOpacity(0.4),
-                          title: 'بعیش',
+                          title: 'live'.localize(context),
                           height: 40,
                           width: 40,
                         ),
@@ -55,11 +56,11 @@ class ProfilePage extends StatelessWidget {
                             Expanded(
                               child: Row(
                                 children: [
-                                  const Expanded(
+                                  Expanded(
                                     child: ItemWidget(
                                       image: AppIcons.live,
                                       color: AppColors.grey600,
-                                      title: 'برامج',
+                                      title: 'programs'.localize(context),
                                     ),
                                   ),
                                   Expanded(
@@ -70,7 +71,7 @@ class ProfilePage extends StatelessWidget {
                                               child: const BookmarkPage())),
                                       image: AppIcons.bookmark,
                                       color: AppColors.grey600,
-                                      title: 'المفضلة',
+                                      title: 'favorite'.localize(context),
                                     ),
                                   ),
                                 ],
@@ -79,18 +80,18 @@ class ProfilePage extends StatelessWidget {
                             Expanded(
                               child: Row(
                                 children: [
-                                  const Expanded(
+                                  Expanded(
                                     child: ItemWidget(
                                       image: AppIcons.aboutUs,
                                       color: AppColors.grey600,
-                                      title: 'معلومات عنا',
+                                      title: 'aboutUs'.localize(context),
                                     ),
                                   ),
                                   Expanded(
                                     child: ItemWidget(
                                       image: AppIcons.salavat,
                                       color: AppColors.grey600,
-                                      title: 'صلوات',
+                                      title: 'preyers'.localize(context),
                                       onTap: () => Navigator.push(
                                         context,
                                         fadePageTran(
@@ -117,7 +118,9 @@ class ProfilePage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
                             child: AzanWidget(
-                              city: index == 0 ? 'نجف' : 'لندن',
+                              city: index == 0
+                                  ? 'najaf'.localize(context)
+                                  : 'london'.localize(context),
                               azanTime: state.azanTimeList[index],
                               backgroundColor: AppColors.grey200,
                             ),

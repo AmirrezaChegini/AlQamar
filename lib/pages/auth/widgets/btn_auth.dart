@@ -28,15 +28,17 @@ class BtnAuth extends StatelessWidget {
             Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: 11),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          const Spacer(),
           Text(title),
+          const Spacer(),
           const VerticalDivider(
             color: AppColors.white,
             thickness: 1,
             indent: 8,
             endIndent: 8,
           ),
+          const Spacer(),
           BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) =>
                 state is LoadingAuthState || state is LoadingVerifyState

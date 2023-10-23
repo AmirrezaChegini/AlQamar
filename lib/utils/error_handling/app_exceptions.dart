@@ -26,8 +26,7 @@ class BadReqEx extends AppExceptions {
 }
 
 class UnAuthorizedEx extends AppExceptions {
-  UnAuthorizedEx({String? message})
-      : super(message ?? 'Email or Password is incorrect');
+  UnAuthorizedEx({String? message}) : super(message ?? 'Unauthenticated');
 }
 
 class ForbiddenEx extends AppExceptions {

@@ -8,10 +8,16 @@ class ErrorState extends StatelessWidget {
     super.key,
     required this.errorMessage,
     required this.onTap,
+    this.width,
+    this.height,
+    this.bottomMargin = 120,
   });
 
   final String errorMessage;
   final Function()? onTap;
+  final double? width;
+  final double? height;
+  final double bottomMargin;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +26,8 @@ class ErrorState extends StatelessWidget {
       children: [
         Image.asset(
           AppIcons.wifi,
-          width: MediaQuery.sizeOf(context).width / 2,
-          height: MediaQuery.sizeOf(context).height / 3,
+          width: width ?? MediaQuery.sizeOf(context).width / 2,
+          height: height ?? MediaQuery.sizeOf(context).height / 3,
         ),
         Text(
           errorMessage.localize(context),
@@ -44,7 +50,7 @@ class ErrorState extends StatelessWidget {
           ),
           child: Text('tryagain'.localize(context)),
         ),
-        const SizedBox(height: 120),
+        SizedBox(height: bottomMargin),
       ],
     );
   }

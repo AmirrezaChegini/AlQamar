@@ -8,6 +8,7 @@ import 'package:al_qamar/pages/live/live_page.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
+import 'package:al_qamar/pages/programs/programs_page.dart';
 import 'package:al_qamar/pages/salavat/salavat_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
@@ -63,6 +64,10 @@ class ProfilePage extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: ItemWidget(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          fadePageTran(
+                                              child: const ProgramsPage())),
                                       image: AppIcons.live,
                                       color: AppColors.grey600,
                                       title: 'programs'.localize(context),

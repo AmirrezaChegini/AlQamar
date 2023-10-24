@@ -23,9 +23,9 @@ import 'package:al_qamar/data/repositories/salavat_repository.dart';
 import 'package:al_qamar/data/repositories/user_repository.dart';
 import 'package:al_qamar/utils/error_handling/app_interceptor.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 var locator = GetIt.I;
 
@@ -39,8 +39,12 @@ Future<void> initLocator() async {
       ),
     )..interceptors.add(AppInterceptors()),
   );
-  locator.registerSingleton<SharedPreferences>(
-      await SharedPreferences.getInstance());
+  locator.registerLazySingleton<FlutterSecureStorage>(
+    () => const FlutterSecureStorage(
+        aOptions: AndroidOptions(encryptedSharedPreferences: true),
+        iOptions:
+            IOSOptions(accessibility: KeychainAccessibility.first_unlock)),
+  );
   locator.registerLazySingleton<AudioPlayer>(() => AudioPlayer());
 
   //datasources

@@ -30,10 +30,10 @@ dependencies:
   video_player: ^2.7.2
   youtube_player_flutter: ^8.1.2
   syncfusion_flutter_pdfviewer: ^23.1.39
-  shared_preferences: ^2.2.1
   cached_network_image: ^3.3.0
   lottie: ^2.6.0
   just_audio_background: ^0.0.1-beta.10
+  flutter_secure_storage: ^9.0.0
 
 dev_dependencies:
   flutter_test:

@@ -37,7 +37,7 @@ class _AuthPageState extends State<AuthPage>
     _tabCtrl = TabController(length: 2, vsync: this);
     _firstNameCtrl = TextEditingController(text: 'Amirreza');
     _lastNameCtrl = TextEditingController(text: 'Chegini');
-    _emailCtrl = TextEditingController(text: 'amirreza@gmail.com');
+    _emailCtrl = TextEditingController(text: 'amirrezagugaming@gmail.com');
     _passwordCtrl = TextEditingController(text: 'Amirreza1324');
   }
 

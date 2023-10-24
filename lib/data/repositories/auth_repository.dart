@@ -1,6 +1,6 @@
 import 'package:al_qamar/data/datasources/auth_datasource.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
-import 'package:al_qamar/utils/shared_pref.dart';
+import 'package:al_qamar/utils/storage.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class IAuthRepository {
@@ -35,7 +35,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       {required String email, required String password}) async {
     try {
       String token = await _datasource.login(email: email, password: password);
-      await SharedPref.saveString(key: 'token', value: token);
+      await Storage.saveString(key: 'token', value: token);
 
       return right('Login successfully');
     } on AppExceptions catch (e) {
@@ -76,7 +76,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       {required String email, required String otp}) async {
     try {
       String token = await _datasource.verify(email: email, otp: otp);
-      await SharedPref.saveString(key: 'token', value: token);
+      await Storage.saveString(key: 'token', value: token);
 
       return right('Verify successfully');
     } on AppExceptions catch (e) {

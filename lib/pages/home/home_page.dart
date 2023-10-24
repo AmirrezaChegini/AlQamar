@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height / 3.5,
                   child: PageView.builder(
-                    itemCount: 3,
+                    itemCount: state.articleList.length,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: PageViewItem(article: state.articleList[index]),
@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 100),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    childCount: 1,
+                    childCount: 0,
                     (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 8),

@@ -47,12 +47,17 @@ class _MaskImageState extends State<MaskImage> {
       child: WidgetMask(
         childSaveLayer: true,
         blendMode: BlendMode.srcIn,
-        mask: FadeInImage(
-          fit: BoxFit.cover,
-          alignment: Alignment.centerLeft,
-          image: _image.image,
-          placeholder: _placeHolder.image,
-          imageErrorBuilder: (context, error, stackTrace) => _error,
+        mask: Transform.flip(
+          flipX: CheckDirect.isRTL(context) ? false : true,
+          child: FadeInImage(
+            fit: BoxFit.cover,
+            alignment: CheckDirect.isRTL(context)
+                ? Alignment.centerLeft
+                : Alignment.centerRight,
+            image: _image.image,
+            placeholder: _placeHolder.image,
+            imageErrorBuilder: (context, error, stackTrace) => _error,
+          ),
         ),
         child: _mask,
       ),

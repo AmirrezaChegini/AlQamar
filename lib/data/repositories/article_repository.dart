@@ -23,8 +23,12 @@ class ArticleRepositoryImple implements IArticelRepository {
   }
 
   @override
-  Future<Either<String, List<Article>>> getForceArticles() {
-    // TODO: implement getForceArticles
-    throw UnimplementedError();
+  Future<Either<String, List<Article>>> getForceArticles() async {
+    try {
+      List<Article> articleList = await _datasource.getForceArticles();
+      return right(articleList);
+    } on AppExceptions catch (e) {
+      return left(e.message);
+    }
   }
 }

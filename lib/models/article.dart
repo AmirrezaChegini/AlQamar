@@ -3,17 +3,17 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Article {
   final int _id;
-  final int? _categoryID;
+  final String? _categoryID;
   final String? _title;
   final String? _content;
   final String? _writer;
   final String? _type;
   String? _updateAt;
   String? _youtube;
-  List<dynamic>? _images;
-  List<dynamic>? _videos;
-  List<dynamic>? _audios;
-  List<dynamic>? _pdfs;
+  final List<dynamic>? _images;
+  final List<dynamic>? _videos;
+  final List<dynamic>? _audios;
+  final List<dynamic>? _pdfs;
 
   Article(
     this._id,
@@ -32,10 +32,10 @@ class Article {
     _updateAt =
         DateFormat('yyyy-MM-dd').format(DateTime.parse(_updateAt ?? ''));
     _youtube = YoutubePlayer.convertUrlToId(_youtube ?? '');
-    _images = _images?.map((e) => 'http://192.168.213.2:8585$e').toList();
-    _videos = _videos?.map((e) => 'http://192.168.213.2:8585$e').toList();
-    _audios = _audios?.map((e) => 'http://192.168.213.2:8585$e').toList();
-    _pdfs = _pdfs?.map((e) => 'http://192.168.213.2:8585$e').toList();
+    // _images = _images?.map((e) => 'http://192.168.213.2:8585$e').toList();
+    // _videos = _videos?.map((e) => 'http://192.168.213.2:8585$e').toList();
+    // _audios = _audios?.map((e) => 'http://192.168.213.2:8585$e').toList();
+    // _pdfs = _pdfs?.map((e) => 'http://192.168.213.2:8585$e').toList();
   }
 
   factory Article.fromMapJson(Map<String, dynamic> jsonObject) {
@@ -56,7 +56,7 @@ class Article {
   }
 
   int get id => _id;
-  int get categoryID => _categoryID ?? 0;
+  String get categoryID => _categoryID ?? '1';
   String get title => _title ?? '';
   String get content => _content ?? '';
   String get writer => _writer ?? '';

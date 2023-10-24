@@ -8,7 +8,8 @@ class LoadingHomeState extends HomeState {}
 
 class CompleteHomeState extends HomeState {
   final List<Article> articleList;
-  CompleteHomeState(this.articleList);
+  final List<Article> forceArticleList;
+  CompleteHomeState(this.articleList, this.forceArticleList);
 }
 
 class FailHomeState extends HomeState {

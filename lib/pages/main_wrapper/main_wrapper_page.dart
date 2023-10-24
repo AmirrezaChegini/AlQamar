@@ -1,7 +1,5 @@
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_event.dart';
-import 'package:al_qamar/bloc/home/home_bloc.dart';
-import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
@@ -42,7 +40,6 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   }
 
   void callApis() {
-    BlocProvider.of<HomeBloc>(context).add(GetAllDataHomeEvent());
     BlocProvider.of<NewsBloc>(context).add(GetAllNews());
     BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
     BlocProvider.of<UserBloc>(context).add(GetUserEvent());

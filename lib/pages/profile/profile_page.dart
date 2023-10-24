@@ -10,6 +10,7 @@ import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
 import 'package:al_qamar/pages/programs/programs_page.dart';
 import 'package:al_qamar/pages/salavat/salavat_page.dart';
+import 'package:al_qamar/pages/setting/setting_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/azan_widget.dart';
@@ -163,7 +164,10 @@ class ProfilePage extends StatelessWidget {
               Align(
                 alignment: AlignmentDirectional.centerEnd,
                 child: IconBtn(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    fadePageTran(child: const SettingPage()),
+                  ),
                   padding: 10,
                   child: const AppIcon(
                     icon: AppIcons.setting,

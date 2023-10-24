@@ -9,12 +9,13 @@ import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/counter_cubit.dart';
+import 'package:al_qamar/cubit/localize_cubit.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
 import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/db.dart';
 import 'package:al_qamar/di.dart';
-import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
+import 'package:al_qamar/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +46,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => locator.get<LocalizeCubit>()),
         BlocProvider(create: (context) => locator.get<BottomnavCubit>()),
         BlocProvider(create: (context) => locator.get<CounterCubit>()),
         BlocProvider(create: (context) => locator.get<SalavatCubit>()),
@@ -59,21 +61,27 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<HomeBloc>()),
         BlocProvider(create: (context) => locator.get<NewsBloc>()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en'),
-          Locale('ar'),
-        ],
-        locale: const Locale('ar'),
-        home: const MainWrapperPage(),
+      child: BlocBuilder<LocalizeCubit, String>(
+        builder: (context, state) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'),
+            Locale('ar'),
+          ],
+          locale: state == 'ar'
+              ? const Locale('ar')
+              : state == 'en'
+                  ? const Locale('en')
+                  : null,
+          home: const SplashPage(),
+        ),
       ),
     );
   }

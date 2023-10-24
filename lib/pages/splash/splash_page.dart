@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/cubit/localize_cubit.dart';
 import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/widgets/error_state.dart';
@@ -25,6 +26,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void callApis() {
     BlocProvider.of<HomeBloc>(context).add(GetAllDataHomeEvent());
+    BlocProvider.of<LocalizeCubit>(context).getLang();
   }
 
   @override

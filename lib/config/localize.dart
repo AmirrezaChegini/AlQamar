@@ -119,6 +119,10 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.second;
       case 'programList':
         return AppLocalizations.of(context)!.programList;
+      case 'language':
+        return AppLocalizations.of(context)!.language;
+      case 'setting':
+        return AppLocalizations.of(context)!.setting;
       default:
         return '';
     }

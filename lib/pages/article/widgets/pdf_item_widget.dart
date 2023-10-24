@@ -1,3 +1,4 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
@@ -45,7 +46,7 @@ class PdfItemWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'وثیقة ${index + 1}',
+                    '${'document'.localize(context)} ${index + 1}',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 16,
                           color:

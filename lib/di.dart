@@ -8,6 +8,7 @@ import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/counter_cubit.dart';
+import 'package:al_qamar/cubit/localize_cubit.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
 import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
@@ -71,6 +72,7 @@ Future<void> initLocator() async {
       () => ArticleRepositoryImple(locator.get()));
 
   //cubit
+  locator.registerLazySingleton<LocalizeCubit>(() => LocalizeCubit());
   locator.registerLazySingleton<BottomnavCubit>(() => BottomnavCubit());
   locator.registerLazySingleton<CounterCubit>(() => CounterCubit());
   locator.registerLazySingleton<SalavatCubit>(() => SalavatCubit());

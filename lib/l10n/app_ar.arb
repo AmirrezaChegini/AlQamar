@@ -55,5 +55,7 @@
     "enterCode": "أدخل الرمز المرسل",
     "resendCode": "أعد إرسال كلمة المرور لاحقًا خلال",
     "second": "ثانية",
-    "programList": "قايمة البرامج"
+    "programList": "قايمة البرامج",
+    "language": "لغة",
+    "setting": "إعدادات"
 }

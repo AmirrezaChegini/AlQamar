@@ -55,5 +55,7 @@
     "enterCode": "Enter the code sent",
     "resendCode": "Resend the password later",
     "second": "second",
-    "programList": "Program List"
+    "programList": "Program List",
+    "language": "Language",
+    "setting": "Setting"
 }

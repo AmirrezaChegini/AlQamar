@@ -54,5 +54,6 @@
     "passwordInCorrect": "Your password must be at least 8 characters",
     "enterCode": "Enter the code sent",
     "resendCode": "Resend the password later",
-    "second": "second"
+    "second": "second",
+    "programList": "Program List"
 }

@@ -117,6 +117,8 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.resendCode;
       case 'second':
         return AppLocalizations.of(context)!.second;
+      case 'programList':
+        return AppLocalizations.of(context)!.programList;
       default:
         return '';
     }

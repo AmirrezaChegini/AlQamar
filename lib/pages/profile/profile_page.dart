@@ -4,6 +4,7 @@ import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
+import 'package:al_qamar/pages/live/live_page.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
@@ -43,6 +44,10 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ItemWidget(
+                          onTap: () => Navigator.push(
+                            context,
+                            fadePageTran(child: const LivePage()),
+                          ),
                           image: AppIcons.play,
                           color: AppColors.red.withOpacity(0.4),
                           title: 'live'.localize(context),

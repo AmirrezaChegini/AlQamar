@@ -16,7 +16,7 @@ class AppIcons {
   static const String home = '$root/home.png';
   static const String image = '$root/image.png';
   static const String leftArrow = '$root/left_arrow.png';
-  static const String liveText = '$root/live_text.png';
+  static const String liveText = '$root/live-text.png';
   static const String live = '$root/live.png';
   static const String logo = '$root/logo.png';
   static const String menu = '$root/menu.png';

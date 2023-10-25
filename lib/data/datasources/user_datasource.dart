@@ -1,16 +1,15 @@
 import 'package:al_qamar/constants/api.dart';
-import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
 import 'package:dio/dio.dart';
 
 abstract class UserDatasource {
-  Future<User> createUser({
+  Future<Response> createUser({
     required String firstName,
     required String lastName,
   });
-  Future<User> getUser();
-  Future<User> updateUser({
+  Future<Response> getUser();
+  Future<Response> updateUser({
     required int id,
     String? firstName,
     String? lastName,
@@ -23,7 +22,7 @@ class UserRemote implements UserDatasource {
   UserRemote(this._dio);
 
   @override
-  Future<User> createUser(
+  Future<Response> createUser(
       {required String firstName, required String lastName}) async {
     try {
       Response response = await _dio.post(
@@ -35,8 +34,7 @@ class UserRemote implements UserDatasource {
         },
       );
 
-      User newUser = User.fromMapJson(response.data['data']);
-      return newUser;
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -45,14 +43,14 @@ class UserRemote implements UserDatasource {
   }
 
   @override
-  Future<User> getUser() async {
+  Future<Response> getUser() async {
     try {
       Response response = await _dio.get(
         Api.profile,
         options: Options(headers: {'requiredToken': true}),
       );
-      User user = User.fromMapJson(response.data['data'][0]);
-      return user;
+
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -61,7 +59,7 @@ class UserRemote implements UserDatasource {
   }
 
   @override
-  Future<User> updateUser({
+  Future<Response> updateUser({
     required int id,
     String? firstName,
     String? lastName,
@@ -77,8 +75,7 @@ class UserRemote implements UserDatasource {
           'bio': bio,
         },
       );
-      User user = response.data['data'];
-      return user;
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

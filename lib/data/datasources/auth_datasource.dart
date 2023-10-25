@@ -4,25 +4,25 @@ import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
 import 'package:dio/dio.dart';
 
 abstract class AuthDatasource {
-  Future<String> login({
+  Future<Response> login({
     required String email,
     required String password,
   });
-  Future<String> register({
+  Future<Response> register({
     required String name,
     required String email,
     required String password,
   });
-  Future<String> verify({
+  Future<Response> verify({
     required String email,
     required String otp,
   });
-  Future<String> logout({
+  Future<Response> logout({
     required String email,
     required String password,
   });
 
-  Future<String> resendOtp({required String email});
+  Future<Response> resendOtp({required String email});
 }
 
 class AuthRemote implements AuthDatasource {
@@ -31,7 +31,7 @@ class AuthRemote implements AuthDatasource {
   AuthRemote(this._dio);
 
   @override
-  Future<String> login(
+  Future<Response> login(
       {required String email, required String password}) async {
     try {
       Response response = await _dio.post(
@@ -42,7 +42,7 @@ class AuthRemote implements AuthDatasource {
         },
       );
 
-      return response.data['data'];
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -51,7 +51,7 @@ class AuthRemote implements AuthDatasource {
   }
 
   @override
-  Future<String> logout(
+  Future<Response> logout(
       {required String email, required String password}) async {
     try {
       Response response = await _dio.post(
@@ -63,7 +63,7 @@ class AuthRemote implements AuthDatasource {
         options: Options(headers: {'requiredToken': true}),
       );
 
-      return response.data['data'];
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -72,7 +72,7 @@ class AuthRemote implements AuthDatasource {
   }
 
   @override
-  Future<String> register({
+  Future<Response> register({
     required String name,
     required String email,
     required String password,
@@ -87,7 +87,7 @@ class AuthRemote implements AuthDatasource {
         },
       );
 
-      return response.data['message'];
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -96,7 +96,7 @@ class AuthRemote implements AuthDatasource {
   }
 
   @override
-  Future<String> verify({required String email, required String otp}) async {
+  Future<Response> verify({required String email, required String otp}) async {
     try {
       Response response = await _dio.post(
         Api.verify,
@@ -106,9 +106,7 @@ class AuthRemote implements AuthDatasource {
         },
       );
 
-      String token = response.data['data']['token'];
-
-      return token;
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -117,15 +115,14 @@ class AuthRemote implements AuthDatasource {
   }
 
   @override
-  Future<String> resendOtp({required String email}) async {
+  Future<Response> resendOtp({required String email}) async {
     try {
       Response response = await _dio.post(
         Api.resendOtp,
         data: {'email': email},
       );
 
-      String message = response.data['message'];
-      return message;
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

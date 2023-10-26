@@ -1,17 +1,15 @@
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_event.dart';
-import 'package:al_qamar/bloc/home/home_bloc.dart';
-import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/news/news_event.dart';
-import 'package:al_qamar/bloc/user/user_bloc.dart';
-import 'package:al_qamar/bloc/user/user_event.dart';
+import 'package:al_qamar/bloc/news/news_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
+import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +29,8 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   void initState() {
     super.initState();
-    callApis();
+    BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent());
+    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
   }
 
@@ -41,35 +40,40 @@ class _MainWrapperPageState extends State<MainWrapperPage>
     _tabCtrl.dispose();
   }
 
-  void callApis() {
-    BlocProvider.of<HomeBloc>(context).add(GetAllDataHomeEvent());
-    BlocProvider.of<NewsBloc>(context).add(GetAllNews());
-    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
-    BlocProvider.of<UserBloc>(context).add(GetUserEvent());
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavbar(tabController: _tabCtrl),
-      backgroundColor: AppColors.grey200,
-      resizeToAvoidBottomInset: false,
-      extendBody: true,
-      appBar: const MainAppbar(),
-      drawer: ProfilePage(tabController: _tabCtrl),
-      drawerDragStartBehavior: DragStartBehavior.down,
-      body: TabBarView(
-        controller: _tabCtrl,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          const CalenderPage(),
-          const Center(
-            child: Text('اشتراک'),
-          ),
-          const SizedBox(),
-          const NewsPage(),
-          HomePage(tabController: _tabCtrl),
-        ],
+    return BlocListener<NewsBloc, NewsState>(
+      listener: (context, state) {
+        if (state is FailNewsState) {
+          showMessage(
+            context: context,
+            content: state.errorMessage,
+            verticalMargin: 10,
+            horizontalMargin: 10,
+          );
+        }
+      },
+      child: Scaffold(
+        bottomNavigationBar: BottomNavbar(tabController: _tabCtrl),
+        backgroundColor: AppColors.grey200,
+        resizeToAvoidBottomInset: false,
+        extendBody: true,
+        appBar: const MainAppbar(),
+        drawer: ProfilePage(tabController: _tabCtrl),
+        drawerDragStartBehavior: DragStartBehavior.down,
+        body: TabBarView(
+          controller: _tabCtrl,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            const CalenderPage(),
+            const Center(
+              child: Text('اشتراک'),
+            ),
+            const SizedBox(),
+            const NewsPage(),
+            HomePage(tabController: _tabCtrl),
+          ],
+        ),
       ),
     );
   }

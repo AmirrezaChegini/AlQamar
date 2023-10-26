@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubeArticlePlayer extends StatefulWidget {
@@ -29,10 +28,6 @@ class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer>
   @override
   void dispose() {
     _youtubeCtrl.dispose();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     super.dispose();
   }
 

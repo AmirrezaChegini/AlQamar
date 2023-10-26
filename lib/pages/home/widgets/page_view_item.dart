@@ -3,6 +3,7 @@ import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
@@ -60,7 +61,7 @@ class PageViewItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    article.content,
+                    article.content.htmlToString(),
                     maxLines: 2,
                     style: Theme.of(context)
                         .textTheme

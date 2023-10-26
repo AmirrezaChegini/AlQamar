@@ -71,7 +71,7 @@ class CalenderWidget extends StatelessWidget {
                           .copyWith(fontSize: 12),
                       children: [
                         TextSpan(
-                          text: 'لا اله الا الله الملکوت الحق المبین',
+                          text: '',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!

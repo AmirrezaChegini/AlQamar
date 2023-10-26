@@ -8,12 +8,15 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   final IArticelRepository _articelRepository;
 
   List<Article> articleList = [];
+  int page = 0;
 
   NewsBloc(this._articelRepository) : super(InitNewsState()) {
-    on<GetAllNews>((event, emit) async {
-      emit(LoadingNewsState());
-      await Future.delayed(const Duration(seconds: 2));
-      var either = await _articelRepository.getAllArticles();
+    on<GetAllArticlesEvent>((event, emit) async {
+      if (articleList.isEmpty) {
+        emit(LoadingNewsState());
+      }
+      page++;
+      var either = await _articelRepository.getAllArticles(page: page);
 
       either.fold((l) {
         emit(FailNewsState(l));
@@ -21,9 +24,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         articleList.addAll(r);
       });
 
-      if (articleList.isNotEmpty) {
-        emit(CompleteNewsState(articleList));
-      }
+      emit(CompleteNewsState(articleList));
     });
   }
 }

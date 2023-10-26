@@ -3,7 +3,6 @@ import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/bloc/news/news_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
-import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,25 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage>
     with AutomaticKeepAliveClientMixin {
+  final ScrollController _scrollCtrl = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollCtrl.addListener(() {
+      if (_scrollCtrl.position.pixels == _scrollCtrl.position.maxScrollExtent) {
+        BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent());
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollCtrl.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -25,6 +43,7 @@ class _NewsPageState extends State<NewsPage>
       builder: (context, state) {
         if (state is CompleteNewsState) {
           return CustomScrollView(
+            controller: _scrollCtrl,
             slivers: [
               SliverToBoxAdapter(
                 child: Padding(
@@ -50,12 +69,6 @@ class _NewsPageState extends State<NewsPage>
                 ),
               ),
             ],
-          );
-        }
-        if (state is FailNewsState) {
-          return ErrorState(
-            errorMessage: state.errorMessage,
-            onTap: () => BlocProvider.of<NewsBloc>(context).add(GetAllNews()),
           );
         }
 

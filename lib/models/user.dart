@@ -1,6 +1,6 @@
 class User {
   final int _id;
-  final String _userID;
+  final int _userID;
   final String _firstName;
   final String _lastName;
   final String? _bio;
@@ -18,7 +18,7 @@ class User {
   }
 
   int get id => _id;
-  String get userID => _userID;
+  int get userID => _userID;
   String get firstName => _firstName;
   String get lastName => _lastName;
   String get bio => _bio ?? '';

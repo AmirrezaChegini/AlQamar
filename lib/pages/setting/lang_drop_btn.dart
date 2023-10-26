@@ -20,7 +20,7 @@ class LangDropBtn extends StatelessWidget {
         underline: const SizedBox(),
         items: const [
           DropdownMenuItem(
-            value: 'system',
+            value: 'default',
             child: Row(
               children: [
                 Text('Default'),

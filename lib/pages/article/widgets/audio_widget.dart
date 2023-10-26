@@ -53,20 +53,9 @@ class _AudioWidgetState extends State<AudioWidget> {
                           : AppColors.black,
                     ),
               ),
-              // Text(
-              //   '01:22:32',
-              //   style: Theme.of(context)
-              //       .textTheme
-              //       .titleMedium!
-              //       .copyWith(fontSize: 13),
-              // ),
             ],
           ),
         ),
-        // trailing: const IconAnimated(
-        //   icon: AnimatedIcons.play_pause,
-        //   state: false,
-        // ),
       ),
     );
   }

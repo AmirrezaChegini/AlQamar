@@ -36,7 +36,7 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<Dio>(
     () => Dio(
       BaseOptions(
-        baseUrl: 'https://yadme.com/api/v1',
+        baseUrl: 'http://192.168.91.2:8000/api/v1',
         connectTimeout: const Duration(seconds: 20),
       ),
     )..interceptors.add(AppInterceptors()),

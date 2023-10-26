@@ -1,4 +1,6 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
@@ -6,16 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ArticleTabbar extends StatefulWidget implements PreferredSizeWidget {
-  const ArticleTabbar({
-    super.key,
-    required this.tabController,
-    required this.tabsIcon,
-    required this.tabsText,
-  });
+  const ArticleTabbar({super.key, required this.tabController});
 
   final TabController tabController;
-  final List<String> tabsIcon;
-  final List<String> tabsText;
 
   @override
   State<ArticleTabbar> createState() => _ArticleTabbarState();
@@ -25,6 +20,27 @@ class ArticleTabbar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _ArticleTabbarState extends State<ArticleTabbar> {
+  final List<String> _tabsIcon = const [
+    AppIcons.image,
+    AppIcons.video,
+    AppIcons.youtube,
+    AppIcons.audio,
+    AppIcons.pdf
+  ];
+  late final List<String> _tabsText;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _tabsText = [
+      'photo'.localize(context),
+      'video'.localize(context),
+      'youtube'.localize(context),
+      'audio'.localize(context),
+      'document'.localize(context),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -62,14 +78,14 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
               5,
               (index) => Tab(
                 icon: AppIcon(
-                  icon: widget.tabsIcon[index],
+                  icon: _tabsIcon[index],
                   height: 25,
                   width: 25,
                   color: widget.tabController.index == index
                       ? AppColors.blue
                       : AppColors.grey,
                 ),
-                text: widget.tabsText[index],
+                text: _tabsText[index],
               ),
             ),
           ),

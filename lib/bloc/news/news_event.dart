@@ -1,3 +1,3 @@
 abstract class NewsEvent {}
 
-class GetAllNews extends NewsEvent {}
+class GetAllArticlesEvent extends NewsEvent {}

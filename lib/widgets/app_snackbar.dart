@@ -1,3 +1,4 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ dynamic showMessage({
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(
-        content,
+        content.localize(context),
         style:
             Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 14),
       ),

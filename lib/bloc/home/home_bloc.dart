@@ -8,26 +8,31 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final IArticelRepository _articelRepository;
 
   HomeBloc(this._articelRepository) : super(InitHomeState()) {
-    on<GetAllDataHomeEvent>((event, emit) async {
-      // List<Article> articleList = [];
+    on<GetHomeEvent>((event, emit) async {
+      List<Article> lastArticleList = [];
       List<Article> forceArticleList = [];
+      String errorMessage = '';
 
-      emit(LoadingHomeState());
-      await Future.delayed(const Duration(seconds: 2));
-      var either = await _articelRepository.getAllArticles();
-      // var forceEither = await _articelRepository.getForceArticles();
+      var lastArticleEither = await _articelRepository.getLastArticles();
+      var forceArticleEither = await _articelRepository.getForceArticles();
 
-      either.fold((l) {
-        emit(FailHomeState(l));
+      lastArticleEither.fold((l) {
+        errorMessage = l;
       }, (r) {
-        emit(CompleteHomeState(r, forceArticleList));
+        lastArticleList = r;
       });
 
-      // forceEither.fold((l) {
-      //   emit(FailHomeState(l));
-      // }, (r) {
-      //   forceArticleList = r;
-      // });
+      forceArticleEither.fold((l) {
+        errorMessage = l;
+      }, (r) {
+        forceArticleList = r;
+      });
+
+      if (lastArticleList.isNotEmpty || forceArticleList.isNotEmpty) {
+        emit(CompleteHomeState(lastArticleList, forceArticleList));
+      } else {
+        emit(FailHomeState(errorMessage));
+      }
     });
   }
 }

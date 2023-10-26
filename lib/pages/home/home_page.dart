@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
@@ -16,7 +18,7 @@ import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
     required this.tabController,
@@ -25,18 +27,53 @@ class HomePage extends StatelessWidget {
   final TabController tabController;
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final PageController _pageCtrl = PageController();
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_pageCtrl.page == 2) {
+        _pageCtrl.animateToPage(
+          0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeIn,
+        );
+      } else {
+        _pageCtrl.nextPage(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeIn,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageCtrl.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is CompleteHomeState) {
           return CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: ForceNews(),
+              if (state.forceArticleList.isNotEmpty)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ForceNews(articleList: state.forceArticleList),
+                  ),
                 ),
-              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding:
@@ -49,10 +86,12 @@ class HomePage extends StatelessWidget {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height / 3.5,
                   child: PageView.builder(
-                    itemCount: state.articleList.length,
+                    itemCount: 3,
+                    controller: _pageCtrl,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: PageViewItem(article: state.articleList[index]),
+                      child:
+                          PageViewItem(article: state.lastArticleList[index]),
                     ),
                   ),
                 ),
@@ -60,7 +99,7 @@ class HomePage extends StatelessWidget {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child: CalenderWidget(tabController: tabController),
+                  child: CalenderWidget(tabController: widget.tabController),
                 ),
               ),
               SliverToBoxAdapter(
@@ -77,7 +116,7 @@ class HomePage extends StatelessWidget {
                     ),
                     TxtBtn(
                       onTap: () {
-                        tabController.animateTo(3);
+                        widget.tabController.animateTo(3);
                         BlocProvider.of<BottomnavCubit>(context).changeIndex(3);
                       },
                       title: 'readMore'.localize(context),
@@ -93,12 +132,12 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 100),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    childCount: 0,
+                    childCount: state.lastArticleList.length - 3,
                     (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 8),
-                      child:
-                          ArticleWidget(article: state.articleList[index + 3]),
+                      child: ArticleWidget(
+                          article: state.lastArticleList[index + 3]),
                     ),
                   ),
                 ),
@@ -110,8 +149,7 @@ class HomePage extends StatelessWidget {
         if (state is FailHomeState) {
           return ErrorState(
             errorMessage: state.errorMessage,
-            onTap: () =>
-                BlocProvider.of<HomeBloc>(context).add(GetAllDataHomeEvent()),
+            onTap: () => BlocProvider.of<HomeBloc>(context).add(GetHomeEvent()),
           );
         }
 

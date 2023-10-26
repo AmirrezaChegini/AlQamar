@@ -13,6 +13,8 @@ class Api {
 
   //articles
   static const String articles = '/article';
+  static const String lastArticles = '/article/last';
+  static const String searchArticles = '/article/search';
   static const String forceArticles = '/article/force-news';
 
   //azan

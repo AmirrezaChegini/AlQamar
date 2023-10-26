@@ -152,9 +152,7 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                   selectionColor: AppColors.blue,
                   todayHighlightColor: AppColors.blue,
                   selectionShape: DateRangePickerSelectionShape.rectangle,
-                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
-                    print(dateRangePickerSelectionChangedArgs.value);
-                  },
+                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {},
                 )
               : SfDateRangePicker(
                   controller: _georgiaCtrl,
@@ -163,9 +161,7 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                   selectionColor: AppColors.blue,
                   todayHighlightColor: AppColors.blue,
                   selectionShape: DateRangePickerSelectionShape.rectangle,
-                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
-                    print(dateRangePickerSelectionChangedArgs.value);
-                  },
+                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {},
                 ),
         ],
       ),

@@ -1,14 +1,50 @@
+import 'dart:async';
+
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/models/article.dart';
+import 'package:al_qamar/pages/article/article_page.dart';
+import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
-class ForceNews extends StatelessWidget {
+class ForceNews extends StatefulWidget {
   const ForceNews({
     super.key,
+    required this.articleList,
   });
+
+  final List<Article> articleList;
+
+  @override
+  State<ForceNews> createState() => _ForceNewsState();
+}
+
+class _ForceNewsState extends State<ForceNews> {
+  Timer? _timer;
+  int index = 0;
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      setState(() {
+        if (index == widget.articleList.length - 1) {
+          index = 0;
+        } else {
+          index++;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,26 +78,34 @@ class ForceNews extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'الذکر الیوم لا اله الا الله الملک الحق المبین',
-                  maxLines: 1,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(fontSize: 14),
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                fadePageTran(
+                  child: ArticlePage(article: widget.articleList[index]),
                 ),
-                Text(
-                  'ما الذی یجب المراقبة فی المناظرة التمهیدیة الأولی للحزب الجمهوری مراقبة فی المناظرة الأولی',
-                  maxLines: 2,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall!
-                      .copyWith(fontSize: 12),
-                )
-              ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.articleList[index].title,
+                    maxLines: 1,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(fontSize: 14),
+                  ),
+                  Text(
+                    widget.articleList[index].content.htmlToString(),
+                    maxLines: 2,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(fontSize: 12),
+                  )
+                ],
+              ),
             ),
           ),
           Container(

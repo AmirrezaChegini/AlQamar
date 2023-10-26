@@ -59,10 +59,10 @@ class FourActions extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   fadePageTran(
-                      child: ArticlePage(
-                    article:
-                        Article(1, '1', '', '', '', '', '', '', [], [], [], []),
-                  )),
+                    child: ArticlePage(
+                        article:
+                            Article(1, '', '', '', '', '', '', [], [], [], [])),
+                  ),
                 ),
                 title: 'دعا کمیل بن الزیاد',
                 icon: AppIcons.rightArrow,

@@ -4,8 +4,11 @@ import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
 import 'package:dio/dio.dart';
 
 abstract class ArticleDatasource {
-  Future<Response> getAllArticles();
+  Future<Response> getAllArticles({required int page});
   Future<Response> getForceArticles();
+  Future<Response> getLastArticles();
+  Future<Response> getArticle({required int articleID});
+  Future<Response> searchArticles({required String searchText});
 }
 
 class ArticleRemote implements ArticleDatasource {
@@ -13,11 +16,11 @@ class ArticleRemote implements ArticleDatasource {
   ArticleRemote(this._dio);
 
   @override
-  Future<Response> getAllArticles() async {
+  Future<Response> getAllArticles({required int page}) async {
     try {
       Response response = await _dio.get(
         Api.articles,
-        options: Options(headers: {'requiredToken': true}),
+        queryParameters: {'page': page},
       );
 
       return response;
@@ -31,10 +34,46 @@ class ArticleRemote implements ArticleDatasource {
   @override
   Future<Response> getForceArticles() async {
     try {
-      Response response = await _dio.get(
-        Api.forceArticles,
-        options: Options(headers: {'requiredToken': true}),
-      );
+      Response response = await _dio.get(Api.forceArticles);
+
+      return response;
+    } on DioException catch (e) {
+      e.response == null
+          ? throw FetchDataEx()
+          : throw CheckExceptions.validate(e.response!);
+    }
+  }
+
+  @override
+  Future<Response> getArticle({required int articleID}) async {
+    try {
+      Response response = await _dio.get('${Api.articles}/$articleID');
+
+      return response;
+    } on DioException catch (e) {
+      e.response == null
+          ? throw FetchDataEx()
+          : throw CheckExceptions.validate(e.response!);
+    }
+  }
+
+  @override
+  Future<Response> getLastArticles() async {
+    try {
+      Response response = await _dio.get(Api.lastArticles);
+
+      return response;
+    } on DioException catch (e) {
+      e.response == null
+          ? throw FetchDataEx()
+          : throw CheckExceptions.validate(e.response!);
+    }
+  }
+
+  @override
+  Future<Response> searchArticles({required String searchText}) async {
+    try {
+      Response response = await _dio.get('${Api.searchArticles}/$searchText');
 
       return response;
     } on DioException catch (e) {

@@ -1,6 +1,4 @@
-import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
@@ -12,8 +10,10 @@ import 'package:al_qamar/pages/article/widgets/pdf_article_viewer.dart';
 import 'package:al_qamar/pages/article/widgets/pdf_item_widget.dart';
 import 'package:al_qamar/pages/article/widgets/video_article_player.dart';
 import 'package:al_qamar/pages/article/widgets/youtube_article_player.dart';
+import 'package:al_qamar/widgets/html_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class ArticlePage extends StatefulWidget {
   const ArticlePage({
@@ -29,14 +29,6 @@ class ArticlePage extends StatefulWidget {
 class _ArticlePageState extends State<ArticlePage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabCtrl;
-  late final List<String> _tabsText;
-  final List<String> _tabsIcon = const [
-    AppIcons.image,
-    AppIcons.video,
-    AppIcons.youtube,
-    AppIcons.audio,
-    AppIcons.pdf
-  ];
 
   @override
   void initState() {
@@ -45,21 +37,8 @@ class _ArticlePageState extends State<ArticlePage>
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _tabsText = [
-      'photo'.localize(context),
-      'video'.localize(context),
-      'youtube'.localize(context),
-      'audio'.localize(context),
-      'document'.localize(context),
-    ];
-  }
-
-  @override
   void dispose() {
     _tabCtrl.dispose();
-
     super.dispose();
   }
 
@@ -67,11 +46,7 @@ class _ArticlePageState extends State<ArticlePage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: ArticleTabbar(
-        tabController: _tabCtrl,
-        tabsIcon: _tabsIcon,
-        tabsText: _tabsText,
-      ),
+      appBar: ArticleTabbar(tabController: _tabCtrl),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -128,16 +103,11 @@ class _ArticlePageState extends State<ArticlePage>
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                widget.article.content,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(fontSize: 14),
-              ),
+          SliverPadding(
+            padding: const EdgeInsets.all(10),
+            sliver: HtmlViewer(
+              content: widget.article.content,
+              renderMode: RenderMode.sliverList,
             ),
           ),
         ],

@@ -3,6 +3,7 @@ import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
+import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/config/theme.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
@@ -62,6 +63,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<UserBloc>()),
         BlocProvider(create: (context) => locator.get<HomeBloc>()),
         BlocProvider(create: (context) => locator.get<NewsBloc>()),
+        BlocProvider(create: (context) => locator.get<SearchBloc>()),
       ],
       child: BlocBuilder<LocalizeCubit, String>(
         builder: (context, state) => MaterialApp(

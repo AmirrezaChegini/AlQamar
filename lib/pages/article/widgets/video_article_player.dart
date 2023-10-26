@@ -37,45 +37,51 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
   Widget build(BuildContext context) {
     super.build(context);
     if (widget.video != null) {
-      return FittedBox(
-        fit: BoxFit.fitHeight,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: _videoCtrl.value.size.width,
-            minWidth: _videoCtrl.value.size.width,
-            maxHeight: _videoCtrl.value.size.height,
-            minHeight: _videoCtrl.value.size.height,
-          ),
-          child: AspectRatio(
-            aspectRatio: _videoCtrl.value.aspectRatio,
-            child: GestureDetector(
-              onDoubleTap: () => _videoCtrl,
-              onTap: () => setState(() {
-                if (_videoCtrl.value.isPlaying) {
-                  _videoCtrl.pause();
-                } else {
-                  _videoCtrl.play();
-                }
-              }),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  VideoPlayer(_videoCtrl),
-                  FadeOutAnim(
-                    state: _videoCtrl.value.isPlaying,
-                    child: _videoCtrl.value.isPlaying
-                        ? const Icon(
-                            Icons.pause_rounded,
-                            color: AppColors.grey,
-                            size: 200,
-                          )
-                        : const Icon(
-                            Icons.play_arrow_rounded,
-                            color: AppColors.grey,
-                            size: 200,
-                          ),
-                  )
-                ],
+      return Container(
+        margin: const EdgeInsets.all(10),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: FittedBox(
+            fit: BoxFit.fitHeight,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: _videoCtrl.value.size.width,
+                minWidth: _videoCtrl.value.size.width,
+                maxHeight: _videoCtrl.value.size.height,
+                minHeight: _videoCtrl.value.size.height,
+              ),
+              child: AspectRatio(
+                aspectRatio: _videoCtrl.value.aspectRatio,
+                child: GestureDetector(
+                  onDoubleTap: () => _videoCtrl,
+                  onTap: () => setState(() {
+                    if (_videoCtrl.value.isPlaying) {
+                      _videoCtrl.pause();
+                    } else {
+                      _videoCtrl.play();
+                    }
+                  }),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      VideoPlayer(_videoCtrl),
+                      FadeOutAnim(
+                        state: _videoCtrl.value.isPlaying,
+                        child: _videoCtrl.value.isPlaying
+                            ? const Icon(
+                                Icons.pause_rounded,
+                                color: AppColors.grey,
+                                size: 200,
+                              )
+                            : const Icon(
+                                Icons.play_arrow_rounded,
+                                color: AppColors.grey,
+                                size: 200,
+                              ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),

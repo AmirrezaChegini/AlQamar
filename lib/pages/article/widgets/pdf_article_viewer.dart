@@ -32,12 +32,18 @@ class _PdfArticleViewerState extends State<PdfArticleViewer>
     super.build(context);
     if (widget.pdfList != null) {
       return BlocBuilder<PdfCubit, int>(
-        builder: (context, state) => SfPdfViewer.network(
-          widget.pdfList?[state],
-          controller: _pdfCtrl,
-          pageSpacing: 0,
-          canShowPageLoadingIndicator: false,
-          pageLayoutMode: PdfPageLayoutMode.continuous,
+        builder: (context, state) => Container(
+          margin: const EdgeInsets.all(10),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: SfPdfViewer.network(
+              widget.pdfList?[state],
+              controller: _pdfCtrl,
+              pageSpacing: 0,
+              canShowPageLoadingIndicator: false,
+              pageLayoutMode: PdfPageLayoutMode.continuous,
+            ),
+          ),
         ),
       );
     } else {

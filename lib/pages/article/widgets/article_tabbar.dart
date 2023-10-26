@@ -1,9 +1,11 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ArticleTabbar extends StatefulWidget {
+class ArticleTabbar extends StatefulWidget implements PreferredSizeWidget {
   const ArticleTabbar({
     super.key,
     required this.tabController,
@@ -17,17 +19,18 @@ class ArticleTabbar extends StatefulWidget {
 
   @override
   State<ArticleTabbar> createState() => _ArticleTabbarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(80);
 }
 
 class _ArticleTabbarState extends State<ArticleTabbar> {
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
+    return AppBar(
       toolbarHeight: 80,
-      collapsedHeight: 80,
       backgroundColor: AppColors.grey200,
       elevation: 0,
-      pinned: true,
       automaticallyImplyLeading: false,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: AppColors.grey200,
@@ -52,6 +55,7 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
             indicatorWeight: 2,
             indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
             onTap: (value) {
+              BlocProvider.of<ArticleCubit>(context).changeIndex(value);
               setState(() {});
             },
             tabs: List.generate(

@@ -39,8 +39,14 @@ class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return YoutubePlayer(
-      controller: _youtubeCtrl,
+    return Container(
+      margin: const EdgeInsets.all(10),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: YoutubePlayer(
+          controller: _youtubeCtrl,
+        ),
+      ),
     );
   }
 

@@ -45,10 +45,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
               SearchPage(scrollController: scrollController),
         ),
       );
-    } else {
-      Navigator.maybePop(context);
     }
-
     BlocProvider.of<BottomnavCubit>(context).changeIndex(value);
   }
 

@@ -36,12 +36,6 @@ class _AudioStreamState extends State<AudioStream> {
   }
 
   @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.ltr,

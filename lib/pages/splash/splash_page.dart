@@ -1,5 +1,4 @@
 import 'package:al_qamar/bloc/home/home_bloc.dart';
-import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/localize_cubit.dart';
@@ -25,7 +24,6 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void callApis() {
-    BlocProvider.of<HomeBloc>(context).add(GetAllDataHomeEvent());
     BlocProvider.of<LocalizeCubit>(context).getLang();
   }
 

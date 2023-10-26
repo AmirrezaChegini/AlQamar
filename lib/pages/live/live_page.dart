@@ -1,8 +1,10 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/pages/live/widgets/audio_stream.dart';
 import 'package:al_qamar/pages/live/widgets/live_item.dart';
 import 'package:al_qamar/pages/live/widgets/live_tabbar.dart';
+import 'package:al_qamar/pages/live/widgets/video_stream.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/widgets/programs.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
@@ -69,9 +71,9 @@ class _LivePageState extends State<LivePage>
                       child: Container(
                         height: MediaQuery.sizeOf(context).height / 4,
                         decoration: BoxDecoration(
-                          color: AppColors.red,
                           borderRadius: BorderRadius.circular(20),
                         ),
+                        child: const VideoStream(),
                       ),
                     ),
                     Container(
@@ -122,15 +124,9 @@ class _LivePageState extends State<LivePage>
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Container(
-                        height: MediaQuery.sizeOf(context).height / 4,
-                        decoration: BoxDecoration(
-                          color: AppColors.red,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
+                    const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: AudioStream(),
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(

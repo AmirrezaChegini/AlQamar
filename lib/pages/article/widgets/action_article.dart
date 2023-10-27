@@ -5,6 +5,8 @@ import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/models/calender.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/utils/share.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +48,9 @@ class _ActionArticleState extends State<ActionArticle> {
               ),
               const SizedBox(width: 8),
               ActionItem(
-                onTap: () {},
+                onTap: () => widget.article != null
+                    ? ShareData.share(widget.article!.content.htmlToString())
+                    : ShareData.share(widget.calender!.content.htmlToString()),
                 icon: AppIcons.share,
                 color: AppColors.blue,
               ),

@@ -39,6 +39,7 @@ dependencies:
   html: ^0.15.4
   flutter_html: ^3.0.0-beta.2
   flutter_widget_from_html: ^0.14.5
+  share_plus: ^7.2.1
 
 dev_dependencies:
   flutter_test:

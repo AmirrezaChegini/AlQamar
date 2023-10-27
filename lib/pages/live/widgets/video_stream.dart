@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class VideoStream extends StatefulWidget {
-  const VideoStream({super.key});
+  const VideoStream({
+    super.key,
+    required this.url,
+  });
+
+  final String url;
 
   @override
   State<VideoStream> createState() => _VideoStreamState();
@@ -17,7 +22,7 @@ class _VideoStreamState extends State<VideoStream> {
     _webCtrl = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..enableZoom(true)
-      ..loadRequest(Uri.parse('https://iqsat.net/Alqamar.html#player1'));
+      ..loadRequest(Uri.parse(widget.url));
   }
 
   @override

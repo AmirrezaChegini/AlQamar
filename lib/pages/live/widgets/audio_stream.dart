@@ -8,7 +8,12 @@ import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
 class AudioStream extends StatefulWidget {
-  const AudioStream({super.key});
+  const AudioStream({
+    super.key,
+    required this.url,
+  });
+
+  final String url;
 
   @override
   State<AudioStream> createState() => _AudioStreamState();
@@ -20,7 +25,7 @@ class _AudioStreamState extends State<AudioStream> {
   Future<void> initial() async {
     await _audioPlayer.setAudioSource(
       ProgressiveAudioSource(
-        Uri.parse('https://yadme.com/storage/audio/16981314510.mp3'),
+        Uri.parse(widget.url),
         tag: const MediaItem(
           id: '1',
           title: 'Broadcasting',

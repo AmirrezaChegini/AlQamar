@@ -3,6 +3,7 @@ import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
+import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
@@ -20,12 +21,14 @@ import 'package:al_qamar/data/datasources/article_datasource.dart';
 import 'package:al_qamar/data/datasources/auth_datasource.dart';
 import 'package:al_qamar/data/datasources/azan_datasource.dart';
 import 'package:al_qamar/data/datasources/calender_datasource.dart';
+import 'package:al_qamar/data/datasources/live_datasource.dart';
 import 'package:al_qamar/data/datasources/salavat_datasource.dart';
 import 'package:al_qamar/data/datasources/user_datasource.dart';
 import 'package:al_qamar/data/repositories/article_repository.dart';
 import 'package:al_qamar/data/repositories/auth_repository.dart';
 import 'package:al_qamar/data/repositories/azan_repository.dart';
 import 'package:al_qamar/data/repositories/calender_repositoy.dart';
+import 'package:al_qamar/data/repositories/live_repository.dart';
 import 'package:al_qamar/data/repositories/salavat_repository.dart';
 import 'package:al_qamar/data/repositories/user_repository.dart';
 import 'package:al_qamar/utils/error_handling/app_interceptor.dart';
@@ -66,6 +69,8 @@ Future<void> initLocator() async {
       () => ArticleRemote(locator.get()));
   locator.registerLazySingleton<CalenderDatasource>(
       () => CalenderRemote(locator.get()));
+  locator
+      .registerLazySingleton<LiveDatasource>(() => LiveRemote(locator.get()));
 
   //repositories
   locator.registerLazySingleton<IAzanRepository>(
@@ -80,6 +85,8 @@ Future<void> initLocator() async {
       () => ArticleRepositoryImple(locator.get()));
   locator.registerLazySingleton<ICalenderRepository>(
       () => CalenderRepositoryImpl(locator.get()));
+  locator.registerLazySingleton<ILiveRepository>(
+      () => LiveRepositoryImpl(locator.get()));
 
   //cubit
   locator.registerLazySingleton<LocalizeCubit>(() => LocalizeCubit());
@@ -104,4 +111,5 @@ Future<void> initLocator() async {
       .registerLazySingleton<CalenderBloc>(() => CalenderBloc(locator.get()));
   locator
       .registerLazySingleton<BookmarkBloc>(() => BookmarkBloc(locator.get()));
+  locator.registerLazySingleton<LiveBloc>(() => LiveBloc(locator.get()));
 }

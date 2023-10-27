@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/models/program.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/widgets/programs.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,9 @@ class ProgramsPage extends StatelessWidget {
       ),
       body: ListView.builder(
         itemCount: 30,
-        itemBuilder: (context, index) => const Padding(
-          padding: EdgeInsets.all(10),
-          child: Programs(),
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(10),
+          child: Programs(program: Program('', '')),
         ),
       ),
     );

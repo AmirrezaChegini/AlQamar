@@ -24,6 +24,9 @@ class Api {
   //calender
   static const String calender = '/calendar';
 
+  //live
+  static const String video = '/live/video';
+  static const String audio = '/live/audio';
   //azan
   static const String azan = 'https://api.aladhan.com/v1/calendarByCity';
 }

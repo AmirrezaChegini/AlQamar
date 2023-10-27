@@ -4,26 +4,36 @@ import 'package:flutter/material.dart';
 class LiveItem extends StatelessWidget {
   const LiveItem({
     super.key,
-    required this.image,
+    required this.title,
+    required this.color,
+    this.onTap,
   });
 
-  final String image;
+  final String title;
+  final Color color;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      padding: const EdgeInsets.all(1),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          width: 1,
-          color: AppColors.grey600,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 60,
+        width: MediaQuery.sizeOf(context).width / 4,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            width: 1,
+            color: AppColors.grey600,
+          ),
         ),
-      ),
-      child: Image.asset(
-        image,
-        fit: BoxFit.fitWidth,
+        child: Text(
+          title,
+          maxLines: 1,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 13),
+        ),
       ),
     );
   }

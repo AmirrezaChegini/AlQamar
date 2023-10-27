@@ -4,7 +4,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class YoutubeArticlePlayer extends StatefulWidget {
   const YoutubeArticlePlayer({
     super.key,
-    required this.youtubeID,
+    this.youtubeID,
   });
   final String? youtubeID;
 

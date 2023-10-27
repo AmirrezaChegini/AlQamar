@@ -29,11 +29,14 @@ class TxtBtn extends StatelessWidget {
           width: 20,
           matchDirection: true,
         ),
-        label: Text(title),
+        label: Text(
+          title,
+          maxLines: 1,
+        ),
         style: TextButton.styleFrom(
           foregroundColor: AppColors.grey,
           textStyle:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 10),
+              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
         ),
       ),
     );

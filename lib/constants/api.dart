@@ -17,6 +17,9 @@ class Api {
   static const String searchArticles = '/article/search';
   static const String forceArticles = '/article/force-news';
 
+  //calender
+  static const String calender = '/calendar';
+
   //azan
   static const String azan = 'https://api.aladhan.com/v1/calendarByCity';
 }

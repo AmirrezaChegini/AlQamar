@@ -44,10 +44,10 @@ class CalenderPage extends StatelessWidget {
             }
           },
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(10),
-            child: FourActions(),
+            padding: const EdgeInsets.all(10).copyWith(bottom: 100),
+            child: const FourActions(),
           ),
         ),
       ],

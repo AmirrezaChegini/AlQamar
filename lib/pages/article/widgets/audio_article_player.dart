@@ -5,6 +5,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/article.dart';
+import 'package:al_qamar/models/calender.dart';
 import 'package:al_qamar/utils/anim/animated_icon.dart';
 import 'package:al_qamar/utils/extensions/duration.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
@@ -17,10 +18,12 @@ import 'package:just_audio_background/just_audio_background.dart';
 class AudioArticlePlayer extends StatefulWidget {
   const AudioArticlePlayer({
     super.key,
-    required this.article,
+    this.article,
+    this.calender,
   });
 
-  final Article article;
+  final Article? article;
+  final Calender? calender;
 
   @override
   State<AudioArticlePlayer> createState() => _AudioArticlePlayerState();
@@ -31,20 +34,36 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
 
   Future<void> initial() async {
     List<AudioSource> audioSource = [];
-    if (widget.article.audios != null) {
-      for (int i = 0; i < widget.article.audios!.length; i++) {
+    if (widget.article != null && widget.article?.audios != null) {
+      for (int i = 0; i < widget.article!.audios!.length; i++) {
         audioSource.add(
           AudioSource.uri(
-            Uri.parse(widget.article.audios?[i]),
+            Uri.parse(widget.article!.audios?[i]),
             tag: MediaItem(
               id: '1',
               title: 'Audio ${i + 1}',
-              artUri: Uri.parse(widget.article.images?[0]),
+              artUri: Uri.parse(widget.article!.images?[0]),
             ),
           ),
         );
       }
     }
+
+    if (widget.calender != null && widget.calender?.audios != null) {
+      for (int i = 0; i < widget.calender!.audios!.length; i++) {
+        audioSource.add(
+          AudioSource.uri(
+            Uri.parse(widget.calender!.audios?[i]),
+            tag: MediaItem(
+              id: '1',
+              title: 'Audio ${i + 1}',
+              artUri: Uri.parse(widget.calender!.images?[0]),
+            ),
+          ),
+        );
+      }
+    }
+
     final ConcatenatingAudioSource playList =
         ConcatenatingAudioSource(children: audioSource);
     _audioPlayer.setAudioSource(
@@ -78,11 +97,17 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    child: CacheImage(
-                      imageUrl: widget.article.images?[0] ?? '',
-                      height: 100,
-                      width: 100,
-                    ),
+                    child: widget.article != null
+                        ? CacheImage(
+                            imageUrl: widget.article?.images?[0] ?? '',
+                            height: 100,
+                            width: 100,
+                          )
+                        : CacheImage(
+                            imageUrl: widget.calender?.images?[0] ?? '',
+                            height: 100,
+                            width: 100,
+                          ),
                   ),
                   const SizedBox(width: 10),
                   Column(
@@ -108,7 +133,9 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
                             color: AppColors.black,
                           ),
                           Text(
-                            ' ${widget.article.updateAt}',
+                            widget.article != null
+                                ? ' ${widget.article?.updateAt}'
+                                : ' ${widget.calender?.updateAt}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
@@ -116,23 +143,25 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          const AppIcon(
-                            icon: AppIcons.pen,
-                            width: 10,
-                            height: 10,
-                            color: AppColors.black,
-                          ),
-                          Text(
-                            ' ${widget.article.writer}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 12),
-                          ),
-                        ],
-                      ),
+                      widget.article != null
+                          ? Row(
+                              children: [
+                                const AppIcon(
+                                  icon: AppIcons.pen,
+                                  width: 10,
+                                  height: 10,
+                                  color: AppColors.black,
+                                ),
+                                Text(
+                                  ' ${widget.article?.writer}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(fontSize: 12),
+                                ),
+                              ],
+                            )
+                          : const SizedBox(),
                     ],
                   )
                 ],

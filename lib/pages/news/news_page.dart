@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/bloc/news/news_state.dart';
 import 'package:al_qamar/config/localize.dart';
+import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
@@ -39,7 +40,17 @@ class _NewsPageState extends State<NewsPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocBuilder<NewsBloc, NewsState>(
+    return BlocConsumer<NewsBloc, NewsState>(
+      listener: (context, state) {
+        if (state is FailNewsState) {
+          showMessage(
+            context: context,
+            content: state.errorMessage.localize(context),
+            verticalMargin: 0,
+            horizontalMargin: 10,
+          );
+        }
+      },
       builder: (context, state) {
         if (state is CompleteNewsState) {
           return CustomScrollView(

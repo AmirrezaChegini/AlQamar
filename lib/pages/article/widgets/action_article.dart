@@ -1,6 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
+import 'package:al_qamar/models/calender.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,12 @@ import 'package:flutter/material.dart';
 class ActionArticle extends StatelessWidget {
   const ActionArticle({
     super.key,
-    required this.article,
+    this.article,
+    this.calender,
   });
 
-  final Article article;
+  final Article? article;
+  final Calender? calender;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,9 @@ class ActionArticle extends StatelessWidget {
                         color: AppColors.black,
                       ),
                       Text(
-                        ' ${article.updateAt}',
+                        article != null
+                            ? ' ${article?.updateAt}'
+                            : ' ${calender?.updateAt}',
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -51,23 +56,25 @@ class ActionArticle extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 6),
-                  Row(
-                    children: [
-                      const AppIcon(
-                        icon: AppIcons.pen,
-                        width: 15,
-                        height: 15,
-                        color: AppColors.black,
-                      ),
-                      Text(
-                        ' ${article.writer}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(fontSize: 12),
-                      ),
-                    ],
-                  ),
+                  article != null
+                      ? Row(
+                          children: [
+                            const AppIcon(
+                              icon: AppIcons.pen,
+                              width: 15,
+                              height: 15,
+                              color: AppColors.black,
+                            ),
+                            Text(
+                              ' ${article?.writer}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(fontSize: 12),
+                            ),
+                          ],
+                        )
+                      : const SizedBox(),
                 ],
               )
             ],

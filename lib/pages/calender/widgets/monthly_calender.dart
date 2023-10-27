@@ -1,10 +1,14 @@
+import 'package:al_qamar/bloc/calender/calender_bloc.dart';
+import 'package:al_qamar/bloc/calender/calender_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/utils/extensions/int.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -152,7 +156,10 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                   selectionColor: AppColors.blue,
                   todayHighlightColor: AppColors.blue,
                   selectionShape: DateRangePickerSelectionShape.rectangle,
-                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {},
+                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
+                    BlocProvider.of<CalenderBloc>(context).add(GetCalenderEvent(
+                        _hijriCtrl.selectedDate!.toDateTime().getFormatDate()));
+                  },
                 )
               : SfDateRangePicker(
                   controller: _georgiaCtrl,
@@ -161,7 +168,10 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                   selectionColor: AppColors.blue,
                   todayHighlightColor: AppColors.blue,
                   selectionShape: DateRangePickerSelectionShape.rectangle,
-                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {},
+                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
+                    BlocProvider.of<CalenderBloc>(context).add(GetCalenderEvent(
+                        _georgiaCtrl.selectedDate!.getFormatDate()));
+                  },
                 ),
         ],
       ),

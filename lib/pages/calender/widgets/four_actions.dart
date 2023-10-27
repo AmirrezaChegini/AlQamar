@@ -59,7 +59,6 @@ class FourActions extends StatelessWidget {
                     content: state.errorMessage.localize(context),
                     horizontalMargin: 10,
                     verticalMargin: 0,
-                    duration: 20,
                   );
                 }
               },

@@ -14,7 +14,7 @@ class CalenderBloc extends Bloc<CalenderEvent, CalenderState> {
         emit(FailCalenderState(l));
       }, (r) {
         if (r.isEmpty) {
-          emit(EmptyCalenderState('Nothing calender to show'));
+          emit(EmptyCalenderState('nothingCalenderToShow'));
         } else {
           emit(CompleteCalenderState(r));
         }

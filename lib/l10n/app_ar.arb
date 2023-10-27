@@ -57,5 +57,8 @@
     "second": "ثانية",
     "programList": "قايمة البرامج",
     "language": "لغة",
-    "setting": "إعدادات"
+    "setting": "إعدادات",
+    "exit": "انقر مرة أخرى للخروج من التطبيق",
+    "nothingCalenderToShow": "لا يوجد شيء التقويم لإظهاره",
+    "unauthenticated": "يرجى تسجيل الدخول إلى حسابك"
 }

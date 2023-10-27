@@ -123,6 +123,12 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.language;
       case 'setting':
         return AppLocalizations.of(context)!.setting;
+      case 'exit':
+        return AppLocalizations.of(context)!.exit;
+      case 'nothingCalenderToShow':
+        return AppLocalizations.of(context)!.nothingCalenderToShow;
+      case 'unauthenticated':
+        return AppLocalizations.of(context)!.unauthenticated;
       default:
         return '';
     }

@@ -4,6 +4,7 @@ import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/news/news_event.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
@@ -62,7 +63,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
             exit = true;
             showMessage(
               context: context,
-              content: 'Tap again to exit app',
+              content: 'exit'.localize(context),
               horizontalMargin: 10,
               verticalMargin: 0,
             );

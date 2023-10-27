@@ -26,7 +26,9 @@ class BadReqEx extends AppExceptions {
 }
 
 class UnAuthorizedEx extends AppExceptions {
-  UnAuthorizedEx({String? message}) : super(message ?? 'Unauthenticated');
+  UnAuthorizedEx({String? message})
+      : super(message?.toLowerCase().substring(0, message.length - 1) ??
+            'unauthenticated');
 }
 
 class ForbiddenEx extends AppExceptions {

@@ -57,5 +57,8 @@
     "second": "second",
     "programList": "Program List",
     "language": "Language",
-    "setting": "Setting"
+    "setting": "Setting",
+    "exit": "Tap again to exit app",
+    "nothingCalenderToShow": "Nothing calender to show",
+    "unauthenticated": "Please login to your account"
 }

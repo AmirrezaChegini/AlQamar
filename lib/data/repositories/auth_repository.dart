@@ -18,10 +18,7 @@ abstract class IAuthRepository {
     required String email,
     required String otp,
   });
-  Future<Either<String, String>> logout({
-    required String email,
-    required String password,
-  });
+  Future<Either<String, String>> logout();
 
   Future<Either<String, String>> resendOtp({required String email});
 }
@@ -50,15 +47,13 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
-  Future<Either<String, String>> logout(
-      {required String email, required String password}) async {
+  Future<Either<String, String>> logout() async {
     try {
-      Response response =
-          await _datasource.logout(email: email, password: password);
+      Response response = await _datasource.logout();
 
-      String message = response.data['data'];
+      Storage.removeKey(key: 'token');
 
-      return right(message);
+      return right(response.data['message']);
     } on AppExceptions catch (e) {
       return left(e.message);
     }

@@ -74,10 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(LoadingAuthState());
       await Future.delayed(const Duration(seconds: 2));
 
-      var either = await _repository.logout(
-        email: event.email,
-        password: event.password,
-      );
+      var either = await _repository.logout();
 
       either.fold((erroMessage) {
         emit(FailAuthState(erroMessage));

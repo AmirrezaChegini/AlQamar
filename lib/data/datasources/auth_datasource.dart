@@ -17,10 +17,7 @@ abstract class AuthDatasource {
     required String email,
     required String otp,
   });
-  Future<Response> logout({
-    required String email,
-    required String password,
-  });
+  Future<Response> logout();
 
   Future<Response> resendOtp({required String email});
 }
@@ -51,15 +48,10 @@ class AuthRemote implements AuthDatasource {
   }
 
   @override
-  Future<Response> logout(
-      {required String email, required String password}) async {
+  Future<Response> logout() async {
     try {
       Response response = await _dio.post(
         Api.logout,
-        data: {
-          'email': email,
-          'password': password,
-        },
         options: Options(headers: {'requiredToken': true}),
       );
 

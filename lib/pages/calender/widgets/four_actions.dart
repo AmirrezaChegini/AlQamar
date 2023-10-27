@@ -97,7 +97,7 @@ class FourActions extends StatelessWidget {
                 if (state is EmptyCalenderState) {
                   return Center(
                     child: Text(
-                      state.message,
+                      state.message.localize(context),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

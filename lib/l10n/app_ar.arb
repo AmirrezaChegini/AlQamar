@@ -65,5 +65,8 @@
     "submit": "يُقدِّم",
     "sentenceThree": "أنت تستخدم البرنامج كعضو",
     "sentenceFour": "يمكنك تعديل ملف التعريف الخاص بك هنا",
-    "successProfile": "تم تحديث ملفك الشخصي"
+    "successProfile": "تم تحديث ملفك الشخصي",
+    "logout": "تسجيل خروج",
+    "cancel": "يلغي",
+    "logoutSuccess": "تم تسجيل الخروج بنجاح"
 }

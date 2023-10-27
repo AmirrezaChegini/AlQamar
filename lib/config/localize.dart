@@ -139,6 +139,10 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.sentenceFour;
       case 'successProfile':
         return AppLocalizations.of(context)!.successProfile;
+      case 'logout':
+        return AppLocalizations.of(context)!.logout;
+      case 'logoutSuccess':
+        return AppLocalizations.of(context)!.logoutSuccess;
       default:
         return '';
     }

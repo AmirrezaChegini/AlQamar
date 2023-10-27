@@ -1,8 +1,15 @@
+import 'package:al_qamar/bloc/auth/auth_bloc.dart';
+import 'package:al_qamar/bloc/auth/auth_event.dart';
+import 'package:al_qamar/bloc/auth/auth_state.dart';
+import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/setting/lang_drop_btn.dart';
+import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -18,19 +25,56 @@ class SettingPage extends StatelessWidget {
           color: AppColors.red,
         ),
       ),
-      body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: ListTile(
-            tileColor: AppColors.white,
-            title: Text('language'.localize(context)),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is InitAuthState) {
+            showMessage(
+              context: context,
+              content: 'logoutSuccess'.localize(context),
+              horizontalMargin: 10,
+              verticalMargin: 10,
+            );
+
+            BlocProvider.of<UserBloc>(context).add(GetUserEvent());
+          }
+
+          if (state is FailAuthState) {
+            showMessage(
+              context: context,
+              content: state.errorMessage.localize(context),
+              horizontalMargin: 10,
+              verticalMargin: 10,
+            );
+          }
+        },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ListTile(
+                tileColor: AppColors.white,
+                title: Text('language'.localize(context)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                trailing: const LangDropBtn(),
+              ),
             ),
-            trailing: const LangDropBtn(),
-          ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ListTile(
+                onTap: () =>
+                    BlocProvider.of<AuthBloc>(context).add(LogoutAuthEvent()),
+                tileColor: AppColors.white,
+                title: Text('logout'.localize(context)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          ],
         ),
-      ]),
+      ),
     );
   }
 }

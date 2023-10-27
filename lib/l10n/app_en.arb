@@ -65,5 +65,7 @@
     "submit": "Submit",
     "sentenceThree": "You are using the program as a memeber",
     "sentenceFour": "You can edit your profile here",
-    "successProfile": "Your profile has been updated"
+    "successProfile": "Your profile has been updated",
+    "logout": "Logout",
+    "logoutSuccess": "Logout Successfully"
 }

@@ -60,5 +60,10 @@
     "setting": "Setting",
     "exit": "Tap again to exit app",
     "nothingCalenderToShow": "Nothing calender to show",
-    "unauthenticated": "Please login to your account"
+    "unauthenticated": "Please login to your account",
+    "bio": "Biography",
+    "submit": "Submit",
+    "sentenceThree": "You are using the program as a memeber",
+    "sentenceFour": "You can edit your profile here",
+    "successProfile": "Your profile has been updated"
 }

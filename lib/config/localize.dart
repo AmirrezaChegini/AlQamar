@@ -129,6 +129,16 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.nothingCalenderToShow;
       case 'unauthenticated':
         return AppLocalizations.of(context)!.unauthenticated;
+      case 'bio':
+        return AppLocalizations.of(context)!.bio;
+      case 'submit':
+        return AppLocalizations.of(context)!.submit;
+      case 'sentenceThree':
+        return AppLocalizations.of(context)!.sentenceThree;
+      case 'sentenceFour':
+        return AppLocalizations.of(context)!.sentenceFour;
+      case 'successProfile':
+        return AppLocalizations.of(context)!.successProfile;
       default:
         return '';
     }

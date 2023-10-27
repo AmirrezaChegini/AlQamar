@@ -16,8 +16,13 @@ class BookmarkPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar:
-          MainAppbar(title: 'favorite'.localize(context), showLeading: false),
+      appBar: MainAppbar(
+        title: 'favorite'.localize(context),
+        appbarLeading: BackButton(
+          onPressed: () => Navigator.pop(context),
+          color: AppColors.red,
+        ),
+      ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [

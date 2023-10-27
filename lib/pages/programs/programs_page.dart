@@ -13,7 +13,10 @@ class ProgramsPage extends StatelessWidget {
       backgroundColor: AppColors.grey200,
       appBar: MainAppbar(
         title: 'programList'.localize(context),
-        showLeading: false,
+        appbarLeading: BackButton(
+          onPressed: () => Navigator.pop(context),
+          color: AppColors.red,
+        ),
       ),
       body: ListView.builder(
         itemCount: 30,

@@ -32,7 +32,10 @@ class _SalavatPageState extends State<SalavatPage> {
     return Scaffold(
       backgroundColor: AppColors.grey200,
       appBar: MainAppbar(
-        showLeading: false,
+        appbarLeading: BackButton(
+          onPressed: () => Navigator.pop(context),
+          color: AppColors.red,
+        ),
         title: 'preyers'.localize(context),
       ),
       body: Column(

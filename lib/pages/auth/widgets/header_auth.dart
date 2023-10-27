@@ -28,7 +28,7 @@ class HeaderAuth extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
-                    .copyWith(fontSize: 22),
+                    .copyWith(fontSize: 18),
               ),
               Container(
                 height: 2,

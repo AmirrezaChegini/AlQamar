@@ -13,7 +13,10 @@ class SettingPage extends StatelessWidget {
       backgroundColor: AppColors.grey200,
       appBar: MainAppbar(
         title: 'setting'.localize(context),
-        showLeading: false,
+        appbarLeading: BackButton(
+          onPressed: () => Navigator.pop(context),
+          color: AppColors.red,
+        ),
       ),
       body: Column(children: [
         Padding(

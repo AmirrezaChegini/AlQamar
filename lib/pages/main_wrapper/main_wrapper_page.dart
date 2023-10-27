@@ -5,6 +5,7 @@ import 'package:al_qamar/bloc/calender/calender_event.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
@@ -13,6 +14,7 @@ import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
+import 'package:al_qamar/widgets/appbar_leading.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,16 +77,17 @@ class _MainWrapperPageState extends State<MainWrapperPage>
         backgroundColor: AppColors.grey200,
         resizeToAvoidBottomInset: false,
         extendBody: true,
-        appBar: const MainAppbar(),
+        appBar: MainAppbar(
+          leadingWidth: MediaQuery.sizeOf(context).width / 2,
+          appbarLeading: const AppbarLeading(),
+        ),
         drawer: ProfilePage(tabController: _tabCtrl),
         body: TabBarView(
           controller: _tabCtrl,
           physics: const NeverScrollableScrollPhysics(),
           children: [
             const CalenderPage(),
-            const Center(
-              child: Text('اشتراک'),
-            ),
+            Center(child: Image.asset(AppImages.comingSoon)),
             const SizedBox(),
             const NewsPage(),
             HomePage(tabController: _tabCtrl),

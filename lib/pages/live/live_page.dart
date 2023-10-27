@@ -38,7 +38,10 @@ class _LivePageState extends State<LivePage>
       backgroundColor: AppColors.grey200,
       appBar: MainAppbar(
         title: 'live'.localize(context),
-        showLeading: false,
+        appbarLeading: BackButton(
+          onPressed: () => Navigator.pop(context),
+          color: AppColors.red,
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

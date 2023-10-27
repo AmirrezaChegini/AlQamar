@@ -31,6 +31,7 @@ class AudioArticlePlayer extends StatefulWidget {
 
 class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
   final AudioPlayer _audioPlayer = locator.get();
+  Timer? timer;
 
   Future<void> initial() async {
     List<AudioSource> audioSource = [];
@@ -76,6 +77,11 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
   @override
   void initState() {
     super.initState();
+    timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      if (_audioPlayer.position.inSeconds == _audioPlayer.duration?.inSeconds) {
+        _audioPlayer.hasNext ? _audioPlayer.seekToNext() : _audioPlayer.stop();
+      }
+    });
     initial();
   }
 
@@ -187,11 +193,12 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
                           AppColors.blue.withOpacity(0.1),
                         ),
                         min: 0,
-                        max: durationSnapshot.data?.inMilliseconds.toDouble() ??
+                        max: durationSnapshot.data?.inMilliseconds
+                                .roundToDouble() ??
                             1000000,
-                        value:
-                            positionSnapshot.data?.inMilliseconds.toDouble() ??
-                                0,
+                        value: positionSnapshot.data?.inMilliseconds
+                                .roundToDouble() ??
+                            0,
                         secondaryTrackValue:
                             bufferedSnapshot.data?.inMilliseconds.toDouble(),
                         onChanged: (value) => _audioPlayer

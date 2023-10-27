@@ -71,12 +71,12 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
                             ? const Icon(
                                 Icons.pause_rounded,
                                 color: AppColors.grey,
-                                size: 200,
+                                size: 80,
                               )
                             : const Icon(
                                 Icons.play_arrow_rounded,
                                 color: AppColors.grey,
-                                size: 200,
+                                size: 80,
                               ),
                       )
                     ],

@@ -9,6 +9,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc(this._articelRepository) : super(InitHomeState()) {
     on<GetHomeEvent>((event, emit) async {
+      emit(LoadingHomeState());
       List<Article> lastArticleList = [];
       List<Article> forceArticleList = [];
       String errorMessage = '';

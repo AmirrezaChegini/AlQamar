@@ -34,6 +34,7 @@ class _ArticlePageState extends State<ArticlePage>
   void initState() {
     super.initState();
     _tabCtrl = TabController(length: 5, vsync: this);
+    BlocProvider.of<ArticleCubit>(context).changeIndex(0);
   }
 
   @override
@@ -76,7 +77,7 @@ class _ArticlePageState extends State<ArticlePage>
                           ? widget.article.pdfs?.length ?? 0
                           : 0,
                   (context, index) => Padding(
-                    padding: const EdgeInsets.all(10).copyWith(bottom: 20),
+                    padding: const EdgeInsets.all(10),
                     child: state == 3
                         ? AudioWidget(index: index)
                         : state == 4

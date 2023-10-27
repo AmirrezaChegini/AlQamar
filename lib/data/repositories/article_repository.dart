@@ -12,6 +12,8 @@ abstract class IArticelRepository {
   Future<Either<String, Article>> getArticle({required int articleID});
   Future<Either<String, List<Article>>> searchArticles(
       {required String searchText});
+  Future<Either<String, String>> addBookmark({required int articleID});
+  Future<Either<String, String>> removeBookmark({required int articleID});
 }
 
 class ArticleRepositoryImple implements IArticelRepository {
@@ -66,6 +68,30 @@ class ArticleRepositoryImple implements IArticelRepository {
       Response response =
           await _datasource.searchArticles(searchText: searchText);
       return right(await compute(_articleList, response));
+    } on AppExceptions catch (e) {
+      return left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> addBookmark({required int articleID}) async {
+    try {
+      Response response = await _datasource.addBookmark(articleID: articleID);
+
+      return right(response.data['message']);
+    } on AppExceptions catch (e) {
+      return left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> removeBookmark(
+      {required int articleID}) async {
+    try {
+      Response response =
+          await _datasource.removeBookmark(articleID: articleID);
+
+      return right(response.data['message']);
     } on AppExceptions catch (e) {
       return left(e.message);
     }

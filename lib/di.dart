@@ -1,5 +1,6 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
+import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
@@ -101,4 +102,6 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<SearchBloc>(() => SearchBloc(locator.get()));
   locator
       .registerLazySingleton<CalenderBloc>(() => CalenderBloc(locator.get()));
+  locator
+      .registerLazySingleton<BookmarkBloc>(() => BookmarkBloc(locator.get()));
 }

@@ -17,6 +17,10 @@ class Api {
   static const String searchArticles = '/article/search';
   static const String forceArticles = '/article/force-news';
 
+  //user
+  static const String addBookmark = '/user/1/favorites/add';
+  static const String removeBookmark = '/user/1/favorites/remove';
+
   //calender
   static const String calender = '/calendar';
 

@@ -48,43 +48,43 @@ class _ForceNewsState extends State<ForceNews> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      decoration: BoxDecoration(
-        color: AppColors.red,
-        borderRadius: CheckDirect.isRTL(context)
-            ? BorderRadius.circular(8)
-                .copyWith(bottomLeft: const Radius.circular(50))
-            : BorderRadius.circular(8)
-                .copyWith(bottomRight: const Radius.circular(50)),
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        fadePageTran(
+          child: ArticlePage(article: widget.articleList[index]),
+        ),
       ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              '${'news'.localize(context)}\n${'instant'.localize(context)}',
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .copyWith(fontSize: 16),
-            ),
-          ),
-          Container(
-            width: 1,
-            height: 50,
-            color: AppColors.white,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                fadePageTran(
-                  child: ArticlePage(article: widget.articleList[index]),
-                ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        decoration: BoxDecoration(
+          color: AppColors.red,
+          borderRadius: CheckDirect.isRTL(context)
+              ? BorderRadius.circular(8)
+                  .copyWith(bottomLeft: const Radius.circular(50))
+              : BorderRadius.circular(8)
+                  .copyWith(bottomRight: const Radius.circular(50)),
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                '${'news'.localize(context)}\n${'instant'.localize(context)}',
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .copyWith(fontSize: 16),
               ),
+            ),
+            Container(
+              width: 1,
+              height: 50,
+              color: AppColors.white,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -107,32 +107,32 @@ class _ForceNewsState extends State<ForceNews> {
                 ],
               ),
             ),
-          ),
-          Container(
-            height: 70,
-            alignment: Alignment.topCenter,
-            child: Container(
-              height: 25,
-              width: 25,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: AppColors.grey200,
-                borderRadius: CheckDirect.isRTL(context)
-                    ? BorderRadius.circular(4).copyWith(
-                        bottomRight: const Radius.circular(15),
-                      )
-                    : BorderRadius.circular(4).copyWith(
-                        bottomLeft: const Radius.circular(15),
-                      ),
+            Container(
+              height: 70,
+              alignment: Alignment.topCenter,
+              child: Container(
+                height: 25,
+                width: 25,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColors.grey200,
+                  borderRadius: CheckDirect.isRTL(context)
+                      ? BorderRadius.circular(4).copyWith(
+                          bottomRight: const Radius.circular(15),
+                        )
+                      : BorderRadius.circular(4).copyWith(
+                          bottomLeft: const Radius.circular(15),
+                        ),
+                ),
+                child: const AppIcon(
+                  icon: AppIcons.rightArrow,
+                  color: AppColors.red,
+                  matchDirection: true,
+                ),
               ),
-              child: const AppIcon(
-                icon: AppIcons.rightArrow,
-                color: AppColors.red,
-                matchDirection: true,
-              ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

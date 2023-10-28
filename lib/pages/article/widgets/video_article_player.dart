@@ -68,15 +68,15 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
                       FadeOutAnim(
                         state: _videoCtrl.value.isPlaying,
                         child: _videoCtrl.value.isPlaying
-                            ? const Icon(
+                            ? Icon(
                                 Icons.pause_rounded,
                                 color: AppColors.grey,
-                                size: 80,
+                                size: MediaQuery.sizeOf(context).width / 2,
                               )
-                            : const Icon(
+                            : Icon(
                                 Icons.play_arrow_rounded,
                                 color: AppColors.grey,
-                                size: 80,
+                                size: MediaQuery.sizeOf(context).width / 2,
                               ),
                       )
                     ],

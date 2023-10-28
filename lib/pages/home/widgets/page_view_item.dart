@@ -42,7 +42,8 @@ class PageViewItem extends StatelessWidget {
           fit: StackFit.expand,
           alignment: Alignment.bottomCenter,
           children: [
-            CacheImage(imageUrl: article.images?[0]),
+            CacheImage(
+                imageUrl: article.images.isNotEmpty ? article.images[0] : ''),
             Container(
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
@@ -97,12 +98,16 @@ class PageViewItem extends StatelessWidget {
                         height: 12,
                         color: AppColors.white,
                       ),
-                      Text(
-                        ' ${article.writer}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .copyWith(fontSize: 12),
+                      Flexible(
+                        flex: 3,
+                        child: Text(
+                          ' ${article.writer}',
+                          softWrap: false,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(fontSize: 12),
+                        ),
                       ),
                     ],
                   ),

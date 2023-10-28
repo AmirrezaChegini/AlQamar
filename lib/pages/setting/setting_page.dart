@@ -5,7 +5,7 @@ import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/pages/setting/lang_drop_btn.dart';
+import 'package:al_qamar/pages/setting/widgets/lang_drop_btn.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';

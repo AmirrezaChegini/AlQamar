@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/models/calender.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
@@ -59,9 +60,20 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   ImageViewer(images: widget.calender.images),
-                  VideoArticlePlayer(video: widget.calender.videos?[0]),
+                  VideoArticlePlayer(
+                    video: widget.calender.videos.isNotEmpty
+                        ? widget.calender.videos[0]
+                        : '',
+                  ),
                   const YoutubeArticlePlayer(),
-                  AudioArticlePlayer(calender: widget.calender),
+                  AudioArticlePlayer(
+                    audios: widget.calender.audios,
+                    date: widget.calender.updateAt,
+                    image: widget.calender.images.isNotEmpty
+                        ? widget.calender.images[0]
+                        : AppImages.error,
+                    writer: '',
+                  ),
                   PdfArticleViewer(pdfList: widget.calender.pdfs),
                 ],
               ),
@@ -72,9 +84,9 @@ class _CalenderDataPageState extends State<CalenderDataPage>
               return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   childCount: state == 3
-                      ? widget.calender.audios?.length ?? 0
+                      ? widget.calender.audios.length
                       : state == 4
-                          ? widget.calender.pdfs?.length ?? 0
+                          ? widget.calender.pdfs.length
                           : 0,
                   (context, index) => Padding(
                     padding: const EdgeInsets.all(10),

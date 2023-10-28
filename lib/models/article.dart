@@ -64,8 +64,8 @@ class Article {
   String get type => _type ?? '';
   String get updateAt => _createAt ?? '';
   String get youtube => _youtube ?? '';
-  List<dynamic>? get images => _images;
-  List<dynamic>? get videos => _videos;
-  List<dynamic>? get audios => _audios;
-  List<dynamic>? get pdfs => _pdfs;
+  List<dynamic> get images => _images;
+  List<dynamic> get videos => _videos;
+  List<dynamic> get audios => _audios;
+  List<dynamic> get pdfs => _pdfs;
 }

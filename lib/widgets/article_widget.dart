@@ -38,7 +38,8 @@ class ArticleWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            MaskImage(imageUrl: article.images?[0]),
+            MaskImage(
+                imageUrl: article.images.isNotEmpty ? article.images[0] : ''),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -87,12 +88,16 @@ class ArticleWidget extends StatelessWidget {
                         height: 10,
                         color: AppColors.grey,
                       ),
-                      Text(
-                        ' ${article.writer}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontSize: 10),
+                      Flexible(
+                        flex: 3,
+                        child: Text(
+                          ' ${article.writer}',
+                          softWrap: false,
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    fontSize: 10,
+                                  ),
+                        ),
                       ),
                       const Spacer(),
                     ],

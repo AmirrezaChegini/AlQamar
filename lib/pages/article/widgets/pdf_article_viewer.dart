@@ -9,9 +9,9 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 class PdfArticleViewer extends StatefulWidget {
   const PdfArticleViewer({
     super.key,
-    this.pdfList,
+    required this.pdfList,
   });
-  final List<dynamic>? pdfList;
+  final List<dynamic> pdfList;
 
   @override
   State<PdfArticleViewer> createState() => _PdfArticleViewerState();
@@ -30,14 +30,14 @@ class _PdfArticleViewerState extends State<PdfArticleViewer>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (widget.pdfList != null) {
+    if (widget.pdfList.isNotEmpty) {
       return BlocBuilder<PdfCubit, int>(
         builder: (context, state) => Container(
           margin: const EdgeInsets.all(10),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: SfPdfViewer.network(
-              widget.pdfList?[state],
+              widget.pdfList[state],
               controller: _pdfCtrl,
               pageSpacing: 0,
               canShowPageLoadingIndicator: false,

@@ -1,6 +1,8 @@
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
+import 'package:al_qamar/bloc/news/news_bloc.dart';
+import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/constants/images.dart';
@@ -30,6 +32,7 @@ class _SplashPageState extends State<SplashPage> {
     BlocProvider.of<LocalizeCubit>(context).getLang();
     BlocProvider.of<HomeBloc>(context).add(GetHomeEvent());
     BlocProvider.of<UserBloc>(context).add(GetUserEvent());
+    BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent());
   }
 
   @override

@@ -6,9 +6,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class ImageViewer extends StatefulWidget {
   const ImageViewer({
     super.key,
-    this.images,
+    required this.images,
   });
-  final List<dynamic>? images;
+  final List<dynamic> images;
 
   @override
   State<ImageViewer> createState() => _ImageViewerState();
@@ -31,14 +31,14 @@ class _ImageViewerState extends State<ImageViewer>
       alignment: Alignment.bottomCenter,
       children: [
         PageView.builder(
-          itemCount: widget.images?.length ?? 1,
+          itemCount: widget.images.isNotEmpty ? widget.images.length : 1,
           controller: _pageCtrl,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.all(10),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: CacheImage(
-                imageUrl: widget.images?[index] ?? '',
+                imageUrl: widget.images.isNotEmpty ? widget.images[index] : '',
               ),
             ),
           ),
@@ -47,7 +47,7 @@ class _ImageViewerState extends State<ImageViewer>
           bottom: 20,
           child: SmoothPageIndicator(
             controller: _pageCtrl,
-            count: widget.images?.length ?? 1,
+            count: widget.images.isNotEmpty ? widget.images.length : 1,
             effect: const ExpandingDotsEffect(
               dotColor: AppColors.grey,
               activeDotColor: AppColors.white,

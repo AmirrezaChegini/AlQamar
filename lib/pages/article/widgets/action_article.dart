@@ -107,6 +107,7 @@ class _ActionArticleState extends State<ActionArticle> {
                         ),
                         Text(
                           ' ${widget.article?.writer}',
+                          softWrap: false,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!

@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
@@ -59,9 +60,20 @@ class _ArticlePageState extends State<ArticlePage>
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   ImageViewer(images: widget.article.images),
-                  VideoArticlePlayer(video: widget.article.videos?[0]),
+                  VideoArticlePlayer(
+                    video: widget.article.videos.isNotEmpty
+                        ? widget.article.videos[0]
+                        : '',
+                  ),
                   YoutubeArticlePlayer(youtubeID: widget.article.youtube),
-                  AudioArticlePlayer(article: widget.article),
+                  AudioArticlePlayer(
+                    audios: widget.article.audios,
+                    date: widget.article.updateAt,
+                    image: widget.article.images.isNotEmpty
+                        ? widget.article.images[0]
+                        : AppImages.error,
+                    writer: widget.article.writer,
+                  ),
                   PdfArticleViewer(pdfList: widget.article.pdfs),
                 ],
               ),
@@ -72,9 +84,9 @@ class _ArticlePageState extends State<ArticlePage>
               return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   childCount: state == 3
-                      ? widget.article.audios?.length ?? 0
+                      ? widget.article.audios.length
                       : state == 4
-                          ? widget.article.pdfs?.length ?? 0
+                          ? widget.article.pdfs.length
                           : 0,
                   (context, index) => Padding(
                     padding: const EdgeInsets.all(10),

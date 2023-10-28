@@ -8,9 +8,9 @@ import 'package:video_player/video_player.dart';
 class VideoArticlePlayer extends StatefulWidget {
   const VideoArticlePlayer({
     super.key,
-    this.video,
+    required this.video,
   });
-  final String? video;
+  final String video;
   @override
   State<VideoArticlePlayer> createState() => _VideoArticlePlayerState();
 }
@@ -23,7 +23,7 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
   void initState() {
     super.initState();
     _videoCtrl = VideoPlayerController.networkUrl(
-      Uri.parse(widget.video ?? ''),
+      Uri.parse(widget.video),
     )..initialize().then((value) => setState(() {}));
   }
 
@@ -36,7 +36,7 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (widget.video != null) {
+    if (widget.video.isNotEmpty) {
       return Container(
         margin: const EdgeInsets.all(10),
         child: ClipRRect(

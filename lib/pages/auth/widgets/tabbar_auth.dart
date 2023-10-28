@@ -1,3 +1,4 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +9,6 @@ class TabbarAuth extends StatelessWidget {
   });
 
   final TabController tabCtrl;
-  final List<String> texts = const [
-    'إنشاء ملف تحریف',
-    'تسجیل الدخول',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +28,11 @@ class TabbarAuth extends StatelessWidget {
           labelStyle:
               Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
           tabs: List.generate(
-            texts.length,
+            2,
             (index) => Tab(
-              text: texts[index],
+              text: index == 0
+                  ? 'register'.localize(context)
+                  : 'login'.localize(context),
             ),
           ),
         ),

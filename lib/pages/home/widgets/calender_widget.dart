@@ -1,3 +1,4 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
@@ -8,7 +9,6 @@ import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -64,14 +64,14 @@ class CalenderWidget extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     TextSpan(
-                      text: '${AppLocalizations.of(context)!.todayMention}: ',
+                      text: '${'todayMention'.localize(context)}: ',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
                           .copyWith(fontSize: 12),
                       children: [
                         TextSpan(
-                          text: 'لا اله الا الله الملکوت الحق المبین',
+                          text: '',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!

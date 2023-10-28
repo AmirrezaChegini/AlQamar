@@ -1,28 +1,34 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
-import 'package:al_qamar/widgets/image_mask.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
+import 'package:al_qamar/widgets/image_mask.dart';
 import 'package:flutter/material.dart';
 
 class ArticleWidget extends StatelessWidget {
   const ArticleWidget({
     super.key,
     this.backgroundColor = AppColors.white,
+    required this.article,
   });
 
   final Color backgroundColor;
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          Navigator.push(context, fadePageTran(child: const ArticlePage())),
+      onTap: () => Navigator.push(
+        context,
+        fadePageTran(child: ArticlePage(article: article)),
+      ),
       child: Container(
-        height: MediaQuery.of(context).size.height / 7,
+        width: MediaQuery.sizeOf(context).width,
+        height: MediaQuery.sizeOf(context).height / 7,
         padding: CheckDirect.isRTL(context)
             ? const EdgeInsets.only(left: 10)
             : const EdgeInsets.only(right: 10),
@@ -32,24 +38,24 @@ class ArticleWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const MaskImage(image: AppImages.img2),
+            MaskImage(
+                imageUrl: article.images.isNotEmpty ? article.images[0] : ''),
             Expanded(
-              flex: 7,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'یقول المحافظ ان مستمسری العملات',
+                    article.title,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyMedium!
+                        .bodyLarge!
                         .copyWith(fontSize: 12),
                     maxLines: 1,
                     overflow: TextOverflow.clip,
                   ),
                   Text(
-                    'شسیشسیییییییییییییییییییییییییییییییییییییییییییییییییییییییییییییییییییسسسسسسسسسییییی',
+                    article.content.htmlToString(),
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -69,7 +75,7 @@ class ArticleWidget extends StatelessWidget {
                         color: AppColors.grey,
                       ),
                       Text(
-                        ' 1402/03/03',
+                        ' ${article.updateAt}',
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
@@ -82,12 +88,16 @@ class ArticleWidget extends StatelessWidget {
                         height: 10,
                         color: AppColors.grey,
                       ),
-                      Text(
-                        ' بواسظ امیررضا چگینی',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontSize: 10),
+                      Flexible(
+                        flex: 3,
+                        child: Text(
+                          ' ${article.writer}',
+                          softWrap: false,
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    fontSize: 10,
+                                  ),
+                        ),
                       ),
                       const Spacer(),
                     ],

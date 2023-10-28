@@ -1,14 +1,15 @@
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_event.dart';
 import 'package:al_qamar/bloc/salavat/salavat_state.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/counter_cubit.dart';
 import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/models/salavat.dart';
 import 'package:al_qamar/pages/salavat/widgets/circle_widget.dart';
-import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
+import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,9 +31,12 @@ class _SalavatPageState extends State<SalavatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: const MainAppbar(
-        showLeading: false,
-        title: 'عد النعم',
+      appBar: MainAppbar(
+        appbarLeading: BackButton(
+          onPressed: () => Navigator.pop(context),
+          color: AppColors.red,
+        ),
+        title: 'preyers'.localize(context),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +82,7 @@ class _SalavatPageState extends State<SalavatPage> {
                         color: AppColors.grey,
                       ),
                       Text(
-                        'سالافات',
+                        'preyers'.localize(context),
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall!
@@ -106,7 +110,7 @@ class _SalavatPageState extends State<SalavatPage> {
                         ),
                       ],
                       child: Text(
-                        'إلغاء',
+                        'reset'.localize(context),
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!
@@ -142,7 +146,7 @@ class _SalavatPageState extends State<SalavatPage> {
                         ),
                       ],
                       child: Text(
-                        'محل',
+                        'save'.localize(context),
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!
@@ -200,7 +204,7 @@ class _SalavatPageState extends State<SalavatPage> {
                                 color: AppColors.grey,
                               ),
                               Text(
-                                'سالافات',
+                                'preyers'.localize(context),
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall!

@@ -1,8 +1,14 @@
+import 'package:al_qamar/bloc/calender/calender_bloc.dart';
+import 'package:al_qamar/bloc/calender/calender_event.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -22,17 +28,20 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
   int georgiaYear = DateTime.now().year;
 
   late final HijriDatePickerController _hijriCtrl;
+  late final DateRangePickerController _georgiaCtrl;
 
   @override
   void initState() {
     super.initState();
 
     _hijriCtrl = HijriDatePickerController();
+    _georgiaCtrl = DateRangePickerController();
   }
 
   @override
   void dispose() {
     _hijriCtrl.dispose();
+    _georgiaCtrl.dispose();
     super.dispose();
   }
 
@@ -53,7 +62,12 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
               children: [
                 TxtBtn(
                   onTap: () {
-                    _hijriCtrl.backward!();
+                    if (CheckDirect.isRTL(context)) {
+                      _hijriCtrl.backward!();
+                    } else {
+                      _georgiaCtrl.backward!();
+                    }
+
                     setState(() {
                       if (hijriMonth == 1) {
                         hijriMonth = 12;
@@ -70,8 +84,11 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                       }
                     });
                   },
-                  title: 'الشهر ماضی',
+                  title: 'previousMonth'.localize(context),
                   icon: AppIcons.leftArrow,
+                  textDecoration: CheckDirect.isRTL(context)
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +117,11 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                 ),
                 TxtBtn(
                   onTap: () {
-                    _hijriCtrl.forward!();
+                    if (CheckDirect.isRTL(context)) {
+                      _hijriCtrl.forward!();
+                    } else {
+                      _georgiaCtrl.forward!();
+                    }
                     setState(() {
                       if (hijriMonth == 12) {
                         hijriMonth = 1;
@@ -117,21 +138,41 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                       }
                     });
                   },
-                  title: 'الشهر قادم',
+                  title: 'nextMonth'.localize(context),
                   icon: AppIcons.leftArrow,
+                  textDecoration: CheckDirect.isRTL(context)
+                      ? TextDirection.ltr
+                      : TextDirection.rtl,
                 ),
               ],
             ),
           ),
           const SizedBox(height: 10),
-          SfHijriDateRangePicker(
-            controller: _hijriCtrl,
-            navigationMode: DateRangePickerNavigationMode.none,
-            headerHeight: 0,
-            selectionColor: AppColors.blue,
-            todayHighlightColor: AppColors.blue,
-            selectionShape: DateRangePickerSelectionShape.rectangle,
-          ),
+          CheckDirect.isRTL(context)
+              ? SfHijriDateRangePicker(
+                  controller: _hijriCtrl,
+                  navigationMode: DateRangePickerNavigationMode.none,
+                  headerHeight: 0,
+                  selectionColor: AppColors.blue,
+                  todayHighlightColor: AppColors.blue,
+                  selectionShape: DateRangePickerSelectionShape.rectangle,
+                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
+                    BlocProvider.of<CalenderBloc>(context).add(GetCalenderEvent(
+                        _hijriCtrl.selectedDate!.toDateTime().getFormatDate()));
+                  },
+                )
+              : SfDateRangePicker(
+                  controller: _georgiaCtrl,
+                  navigationMode: DateRangePickerNavigationMode.none,
+                  headerHeight: 0,
+                  selectionColor: AppColors.blue,
+                  todayHighlightColor: AppColors.blue,
+                  selectionShape: DateRangePickerSelectionShape.rectangle,
+                  onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
+                    BlocProvider.of<CalenderBloc>(context).add(GetCalenderEvent(
+                        _georgiaCtrl.selectedDate!.getFormatDate()));
+                  },
+                ),
         ],
       ),
     );

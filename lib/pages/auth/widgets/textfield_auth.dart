@@ -36,7 +36,7 @@ class TextFieldAuth extends StatelessWidget {
           ),
         ),
         hintStyle:
-            Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
+            Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
         hintText: hint,
       ),
     );

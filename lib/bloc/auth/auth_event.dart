@@ -28,9 +28,4 @@ class ResendCodeEvent extends AuthEvent {
   ResendCodeEvent(this.email);
 }
 
-class LogoutAuthEvent extends AuthEvent {
-  final String email;
-  final String password;
-
-  LogoutAuthEvent(this.email, this.password);
-}
+class LogoutAuthEvent extends AuthEvent {}

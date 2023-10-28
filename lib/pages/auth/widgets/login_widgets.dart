@@ -1,5 +1,6 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_event.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,25 +17,25 @@ class LoginWidgets extends StatelessWidget {
   final TextEditingController emailCtrl;
   final TextEditingController passwordCtrl;
 
-  String? validateEmail(String v) {
+  String? validateEmail(String v, BuildContext context) {
     bool isMatch = RegExp(
       r'^[\w\.-]+@[\w\.-]+\.\w+$',
     ).hasMatch(v);
 
     if (v.isEmpty) {
-      return 'Enter your email.';
+      return 'enterEmail'.localize(context);
     } else if (!isMatch) {
-      return 'Your email format is incorrect.';
+      return 'emailInCorrect'.localize(context);
     }
 
     return null;
   }
 
-  String? validatePassword(String v) {
+  String? validatePassword(String v, BuildContext context) {
     if (v.isEmpty) {
-      return 'Enter your Password.';
+      return 'enterPassword'.localize(context);
     } else if (v.length < 8) {
-      return 'Your password must be at least 8 characters';
+      return 'passwordInCorrect'.localize(context);
     }
 
     return null;
@@ -56,16 +57,16 @@ class LoginWidgets extends StatelessWidget {
         children: [
           TextFieldAuth(
             controller: emailCtrl,
-            validate: (v) => validateEmail(v),
-            hint: 'بريد إلكتروني',
+            validate: (v) => validateEmail(v, context),
+            hint: 'email'.localize(context),
             inputAction: TextInputAction.next,
             inputType: TextInputType.name,
           ),
           const SizedBox(height: 15),
           TextFieldAuth(
             controller: passwordCtrl,
-            validate: (v) => validatePassword(v),
-            hint: 'كلمة المرور',
+            validate: (v) => validatePassword(v, context),
+            hint: 'password'.localize(context),
             inputAction: TextInputAction.next,
             inputType: TextInputType.name,
             obsecure: true,
@@ -73,7 +74,7 @@ class LoginWidgets extends StatelessWidget {
           const Spacer(),
           BtnAuth(
             onTap: () => login(context),
-            title: 'تسجیل الدخول',
+            title: 'login'.localize(context),
           ),
         ],
       ),

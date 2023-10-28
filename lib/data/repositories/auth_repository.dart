@@ -1,7 +1,8 @@
 import 'package:al_qamar/data/datasources/auth_datasource.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
-import 'package:al_qamar/utils/shared_pref.dart';
+import 'package:al_qamar/utils/storage.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 abstract class IAuthRepository {
   Future<Either<String, String>> login({
@@ -17,10 +18,7 @@ abstract class IAuthRepository {
     required String email,
     required String otp,
   });
-  Future<Either<String, String>> logout({
-    required String email,
-    required String password,
-  });
+  Future<Either<String, String>> logout();
 
   Future<Either<String, String>> resendOtp({required String email});
 }
@@ -34,23 +32,28 @@ class AuthRepositoryImpl implements IAuthRepository {
   Future<Either<String, String>> login(
       {required String email, required String password}) async {
     try {
-      String token = await _datasource.login(email: email, password: password);
-      await SharedPref.saveString(key: 'token', value: token);
+      Response response =
+          await _datasource.login(email: email, password: password);
 
-      return right('Login successfully');
+      String token = response.data['data'];
+      String message = response.data['message'];
+
+      await Storage.saveString(key: 'token', value: token);
+
+      return right(message);
     } on AppExceptions catch (e) {
       return left(e.message);
     }
   }
 
   @override
-  Future<Either<String, String>> logout(
-      {required String email, required String password}) async {
+  Future<Either<String, String>> logout() async {
     try {
-      String message =
-          await _datasource.logout(email: email, password: password);
+      Response response = await _datasource.logout();
 
-      return right(message);
+      Storage.removeKey(key: 'token');
+
+      return right(response.data['message']);
     } on AppExceptions catch (e) {
       return left(e.message);
     }
@@ -62,8 +65,10 @@ class AuthRepositoryImpl implements IAuthRepository {
       required String email,
       required String password}) async {
     try {
-      String message = await _datasource.register(
+      Response response = await _datasource.register(
           name: name, email: email, password: password);
+
+      String message = response.data['message'];
 
       return right(message);
     } on AppExceptions catch (e) {
@@ -75,10 +80,14 @@ class AuthRepositoryImpl implements IAuthRepository {
   Future<Either<String, String>> verify(
       {required String email, required String otp}) async {
     try {
-      String token = await _datasource.verify(email: email, otp: otp);
-      await SharedPref.saveString(key: 'token', value: token);
+      Response response = await _datasource.verify(email: email, otp: otp);
 
-      return right('Verify successfully');
+      String token = response.data['data']['token'];
+      String message = response.data['message'];
+
+      await Storage.saveString(key: 'token', value: token);
+
+      return right(message);
     } on AppExceptions catch (e) {
       return left(e.message);
     }
@@ -87,7 +96,10 @@ class AuthRepositoryImpl implements IAuthRepository {
   @override
   Future<Either<String, String>> resendOtp({required String email}) async {
     try {
-      String message = await _datasource.resendOtp(email: email);
+      Response response = await _datasource.resendOtp(email: email);
+
+      String message = response.data['message'];
+
       return right(message);
     } on AppExceptions catch (e) {
       return left(e.message);

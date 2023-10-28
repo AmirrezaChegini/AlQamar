@@ -1,10 +1,12 @@
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
+import 'package:al_qamar/pages/profile/edit_profile_page.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,8 +21,6 @@ class HeaderProfile extends StatefulWidget {
 }
 
 class _HeaderProfileState extends State<HeaderProfile> {
-  User? user;
-
   Future<void> authenticate() async {
     showModalBottomSheet(
       context: context,
@@ -31,6 +31,20 @@ class _HeaderProfileState extends State<HeaderProfile> {
         maxChildSize: 1,
         initialChildSize: 1,
         builder: (context, scrollController) => const AuthPage(),
+      ),
+    );
+  }
+
+  Future<void> editProfile(User user) async {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.white,
+      builder: (context) => DraggableScrollableSheet(
+        minChildSize: 0.3,
+        maxChildSize: 1,
+        initialChildSize: 1,
+        builder: (context, scrollController) => EditProfilePage(user: user),
       ),
     );
   }
@@ -69,6 +83,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
           Positioned.fill(
             top: 40,
             right: 20,
+            left: 20,
             child: Row(
               children: [
                 Material(
@@ -95,19 +110,25 @@ class _HeaderProfileState extends State<HeaderProfile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        state is CompleteUserState ? 'مرحبا' : 'حساب تعریفی',
+                        state is CompleteUserState
+                            ? 'welcome'.localize(context)
+                            : 'personalAccount'.localize(context),
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium!
                             .copyWith(fontSize: 16),
                       ),
                       GestureDetector(
-                        onTap: state is CompleteUserState ? null : authenticate,
+                        onTap: () {
+                          state is CompleteUserState
+                              ? editProfile(state.user)
+                              : authenticate();
+                        },
                         child: Text.rich(
                           TextSpan(
                             text: state is CompleteUserState
                                 ? '${state.user.firstName} | '
-                                : 'إنشاء ملف تعریف  |  ',
+                                : '${'createProfile'.localize(context)}  |  ',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
@@ -115,8 +136,8 @@ class _HeaderProfileState extends State<HeaderProfile> {
                             children: [
                               TextSpan(
                                 text: state is CompleteUserState
-                                    ? 'تعدیل ملف الشخصی'
-                                    : 'تسجیل الدخول',
+                                    ? 'editProfile'.localize(context)
+                                    : 'login'.localize(context),
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!

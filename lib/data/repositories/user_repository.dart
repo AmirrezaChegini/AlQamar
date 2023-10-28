@@ -2,6 +2,8 @@ import 'package:al_qamar/data/datasources/user_datasource.dart';
 import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class IUserRepository {
   Future<Either<String, User>> createUser(
@@ -22,10 +24,10 @@ class UserRepositoryImpl implements IUserRepository {
   Future<Either<String, User>> createUser(
       {required String firstName, required String lastName}) async {
     try {
-      User user = await _datasource.createUser(
+      Response response = await _datasource.createUser(
           firstName: firstName, lastName: lastName);
 
-      return right(user);
+      return right(await compute(_newUser, response));
     } on AppExceptions catch (e) {
       return left(e.message);
     }
@@ -34,9 +36,9 @@ class UserRepositoryImpl implements IUserRepository {
   @override
   Future<Either<String, User>> getUser() async {
     try {
-      User user = await _datasource.getUser();
+      Response response = await _datasource.getUser();
 
-      return right(user);
+      return right(await compute(_getUser, response));
     } on AppExceptions catch (e) {
       return left(e.message);
     }
@@ -50,16 +52,26 @@ class UserRepositoryImpl implements IUserRepository {
     String? bio,
   }) async {
     try {
-      User user = await _datasource.updateUser(
+      Response response = await _datasource.updateUser(
         id: id,
         firstName: firstName,
         lastName: lastName,
         bio: bio,
       );
 
-      return right(user);
+      return right(await compute(_newUser, response));
     } on AppExceptions catch (e) {
       return left(e.message);
     }
   }
+}
+
+User _newUser(Response response) {
+  User newUser = User.fromMapJson(response.data['data']);
+  return newUser;
+}
+
+User _getUser(Response response) {
+  User user = User.fromMapJson(response.data['data'][0]);
+  return user;
 }

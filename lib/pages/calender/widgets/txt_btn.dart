@@ -8,18 +8,18 @@ class TxtBtn extends StatelessWidget {
     this.onTap,
     required this.title,
     required this.icon,
+    required this.textDecoration,
   });
 
   final Function()? onTap;
   final String title;
   final String icon;
+  final TextDirection textDecoration;
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl == Directionality.of(context)
-          ? TextDirection.ltr
-          : TextDirection.rtl,
+      textDirection: textDecoration,
       child: TextButton.icon(
         onPressed: onTap,
         icon: AppIcon(
@@ -29,11 +29,14 @@ class TxtBtn extends StatelessWidget {
           width: 20,
           matchDirection: true,
         ),
-        label: Text(title),
+        label: Text(
+          title,
+          maxLines: 1,
+        ),
         style: TextButton.styleFrom(
           foregroundColor: AppColors.grey,
           textStyle:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 10),
+              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
         ),
       ),
     );

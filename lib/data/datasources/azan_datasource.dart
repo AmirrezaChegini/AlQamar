@@ -1,11 +1,10 @@
 import 'package:al_qamar/constants/api.dart';
-import 'package:al_qamar/models/azan_time.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
 import 'package:dio/dio.dart';
 
 abstract class AzanDatasource {
-  Future<AzanTime> getAzanTime({required String city, required String country});
+  Future<Response> getAzanTime({required String city, required String country});
 }
 
 class AzanRemote implements AzanDatasource {
@@ -13,7 +12,7 @@ class AzanRemote implements AzanDatasource {
   AzanRemote(this._dio);
 
   @override
-  Future<AzanTime> getAzanTime(
+  Future<Response> getAzanTime(
       {required String city, required String country}) async {
     try {
       Response response = await _dio.get(
@@ -24,14 +23,7 @@ class AzanRemote implements AzanDatasource {
         },
       );
 
-      List<AzanTime> azanTimeList = response.data['data']
-          .map<AzanTime>((e) => AzanTime.fromMapJson(e))
-          .toList();
-
-      AzanTime azanTime = azanTimeList
-          .singleWhere((e) => int.parse(e.day) == DateTime.now().day);
-
-      return azanTime;
+      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

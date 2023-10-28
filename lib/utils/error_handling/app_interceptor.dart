@@ -1,14 +1,15 @@
-import 'package:al_qamar/utils/shared_pref.dart';
+import 'package:al_qamar/utils/storage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class AppInterceptors implements Interceptor {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     if (options.headers['requiredToken'] != null &&
         options.headers['requiredToken']) {
       options.headers['Authorization'] =
-          'Bearer ${SharedPref.getString(key: 'token')}';
+          'Bearer ${await Storage.getString(key: 'token')}';
     }
     options.headers['Accept'] = 'application/json';
     handler.next(options);

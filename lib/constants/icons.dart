@@ -7,16 +7,16 @@ class AppIcons {
   static const String alarabi = '$root/alarabi.png';
   static const String audio = '$root/audio.png';
   static const String azan = '$root/azan.png';
-  static const String bookmarkFill = '$root/bookmark_fill.svg';
+  static const String bookmarkFill = '$root/bookmark_fill.png';
   static const String bookmark = '$root/bookmark.png';
   static const String calender = '$root/calender.png';
   static const String close = '$root/close.png';
-  static const String favoriteFill = '$root/favorite_fill.svg';
+  static const String favoriteFill = '$root/favorite_fill.png';
   static const String favorite = '$root/favorite.png';
   static const String home = '$root/home.png';
   static const String image = '$root/image.png';
   static const String leftArrow = '$root/left_arrow.png';
-  static const String liveText = '$root/live_text.png';
+  static const String liveText = '$root/live-text.png';
   static const String live = '$root/live.png';
   static const String logo = '$root/logo.png';
   static const String menu = '$root/menu.png';
@@ -34,6 +34,8 @@ class AppIcons {
   static const String sun = '$root/sun.png';
   static const String topics = '$root/topics.png';
   static const String video = '$root/video.png';
+  static const String videoError = '$root/videoerror.png';
   static const String vimeo = '$root/vimeo.png';
+  static const String wifi = '$root/wifi.png';
   static const String youtube = '$root/youtube.png';
 }

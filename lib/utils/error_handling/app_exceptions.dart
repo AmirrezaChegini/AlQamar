@@ -5,29 +5,30 @@ class AppExceptions implements Exception {
 }
 
 class FetchDataEx extends AppExceptions {
-  FetchDataEx({String? message}) : super(message ?? 'No internet connection');
+  FetchDataEx({String? message}) : super(message ?? 'noInternetConnection');
 }
 
 class ServerEx extends AppExceptions {
-  ServerEx({String? message}) : super(message ?? 'There is a server error');
+  ServerEx({String? message}) : super(message ?? 'There Is A Server Error');
 }
 
 class NotFoundEx extends AppExceptions {
-  NotFoundEx({String? message}) : super(message ?? 'Not found');
+  NotFoundEx({String? message}) : super(message ?? 'Not Found');
 }
 
 class AuthEx extends AppExceptions {
   AuthEx({String? message})
-      : super(message ?? 'Email or Password is incorrect');
+      : super(message ?? 'Email Or Password Is Incorrect');
 }
 
 class BadReqEx extends AppExceptions {
-  BadReqEx({String? message}) : super(message ?? 'Wrong format');
+  BadReqEx({String? message}) : super(message ?? 'Wrong Format');
 }
 
 class UnAuthorizedEx extends AppExceptions {
   UnAuthorizedEx({String? message})
-      : super(message ?? 'Email or Password is incorrect');
+      : super(message?.toLowerCase().substring(0, message.length - 1) ??
+            'unauthenticated');
 }
 
 class ForbiddenEx extends AppExceptions {

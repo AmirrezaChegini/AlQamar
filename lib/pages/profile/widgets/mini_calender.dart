@@ -1,7 +1,9 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';
+import 'package:intl/intl.dart';
 
 class MiniCalender extends StatelessWidget {
   MiniCalender({
@@ -26,14 +28,18 @@ class MiniCalender extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                _hijriCalendar.weekDay().getWeekDay(),
+                CheckDirect.isRTL(context)
+                    ? _hijriCalendar.weekDay().getWeekDay()
+                    : DateFormat('EEEE').format(DateTime.now()),
                 style: const TextStyle(
                   color: AppColors.red,
                   fontSize: 12,
                 ),
               ),
               Text(
-                '${_hijriCalendar.hDay}',
+                CheckDirect.isRTL(context)
+                    ? '${_hijriCalendar.hDay}'
+                    : '${DateTime.now().day}',
                 style: const TextStyle(
                   color: AppColors.red,
                   fontSize: 20,
@@ -51,14 +57,18 @@ class MiniCalender extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                _hijriCalendar.hMonth.getHijriMonth(),
+                CheckDirect.isRTL(context)
+                    ? _hijriCalendar.hMonth.getHijriMonth()
+                    : DateFormat('MMMM').format(DateTime.now()),
                 style: const TextStyle(
                   color: AppColors.blue,
                   fontSize: 12,
                 ),
               ),
               Text(
-                '${_hijriCalendar.hYear}',
+                CheckDirect.isRTL(context)
+                    ? '${_hijriCalendar.hYear}'
+                    : '${DateTime.now().year}',
                 style: const TextStyle(
                   color: AppColors.blue,
                   fontSize: 20,

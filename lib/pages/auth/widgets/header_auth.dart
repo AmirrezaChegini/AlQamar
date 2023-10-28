@@ -1,3 +1,4 @@
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -23,11 +24,11 @@ class HeaderAuth extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'مرحباً',
+                'welcome'.localize(context),
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
-                    .copyWith(fontSize: 22),
+                    .copyWith(fontSize: 18),
               ),
               Container(
                 height: 2,
@@ -40,7 +41,7 @@ class HeaderAuth extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Text(
-              'أنت تستخدم البرنامج کضیف',
+              'sentenceOne'.localize(context),
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
@@ -51,8 +52,7 @@ class HeaderAuth extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: FittedBox(
-              child: Text(
-                  'إذا کان لدیک حساب، یرجی تسجیل الدخول أو إنشاء ملف شخصی جدید',
+              child: Text('sentenceTwo'.localize(context),
                   style: Theme.of(context).textTheme.labelMedium),
             ),
           ),

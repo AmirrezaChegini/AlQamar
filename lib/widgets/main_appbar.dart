@@ -1,20 +1,20 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/widgets/icon_btn_appbar.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppbar({
     super.key,
-    this.showLeading = true,
     this.title = '',
+    this.appbarLeading,
+    this.leadingWidth,
   });
 
-  final bool showLeading;
   final String title;
+  final Widget? appbarLeading;
+  final double? leadingWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -22,51 +22,12 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.grey200,
       elevation: 0,
       automaticallyImplyLeading: false,
-      leadingWidth: MediaQuery.sizeOf(context).width / 2,
+      leadingWidth: leadingWidth,
       title: Text(title),
       titleTextStyle:
           Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 20),
       titleSpacing: 10,
-      leading: showLeading
-          ? Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(width: 5),
-                Transform.flip(
-                  flipX: true,
-                  child: IconBtnAppbar(
-                    onTap: () => Scaffold.of(context).openDrawer(),
-                    child: const AppIcon(
-                      icon: AppIcons.menu,
-                      color: AppColors.red,
-                      matchDirection: true,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                IconBtnAppbar(
-                  onTap: () {},
-                  child: const AppIcon(
-                    icon: AppIcons.live,
-                    color: AppColors.red,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      AppLocalizations.of(context)!.liveBroadcast,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium!
-                          .copyWith(fontSize: 12),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          : null,
+      leading: appbarLeading,
       actions: const [
         Padding(
           padding: EdgeInsets.all(3),

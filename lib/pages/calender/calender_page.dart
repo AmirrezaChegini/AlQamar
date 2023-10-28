@@ -1,5 +1,6 @@
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
+import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/pages/calender/widgets/four_actions.dart';
 import 'package:al_qamar/pages/calender/widgets/monthly_calender.dart';
 import 'package:al_qamar/widgets/azan_widget.dart';
@@ -30,7 +31,9 @@ class CalenderPage extends StatelessWidget {
                   (context, index) => Padding(
                     padding: const EdgeInsets.all(10),
                     child: AzanWidget(
-                      city: index == 0 ? 'نجف' : 'لندن',
+                      city: index == 0
+                          ? 'najaf'.localize(context)
+                          : 'london'.localize(context),
                       azanTime: state.azanTimeList[index],
                     ),
                   ),
@@ -41,10 +44,10 @@ class CalenderPage extends StatelessWidget {
             }
           },
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.all(10),
-            child: FourActions(),
+            padding: const EdgeInsets.all(10).copyWith(bottom: 100),
+            child: const FourActions(),
           ),
         ),
       ],

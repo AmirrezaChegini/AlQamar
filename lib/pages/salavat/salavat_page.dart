@@ -134,8 +134,6 @@ class _SalavatPageState extends State<SalavatPage> {
 
                         BlocProvider.of<SalavatBloc>(context)
                             .add(AddSalavatEvent(Salavat(id, number)));
-                        BlocProvider.of<SalavatBloc>(context)
-                            .add(GetAllSalavatEvent());
                       },
                       shadows: const [
                         BoxShadow(

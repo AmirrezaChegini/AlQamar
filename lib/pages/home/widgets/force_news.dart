@@ -107,6 +107,7 @@ class _ForceNewsState extends State<ForceNews> {
                 ],
               ),
             ),
+            const SizedBox(width: 12),
             Container(
               height: 70,
               alignment: Alignment.topCenter,

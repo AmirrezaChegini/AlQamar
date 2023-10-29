@@ -35,10 +35,10 @@ class _AuthPageState extends State<AuthPage>
   void initState() {
     super.initState();
     _tabCtrl = TabController(length: 2, vsync: this);
-    _firstNameCtrl = TextEditingController(text: 'Amirreza');
-    _lastNameCtrl = TextEditingController(text: 'Chegini');
-    _emailCtrl = TextEditingController(text: 'amirrezagugaming@gmail.com');
-    _passwordCtrl = TextEditingController(text: 'Amirreza1324');
+    _firstNameCtrl = TextEditingController();
+    _lastNameCtrl = TextEditingController();
+    _emailCtrl = TextEditingController();
+    _passwordCtrl = TextEditingController();
   }
 
   @override

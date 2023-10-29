@@ -13,12 +13,12 @@ class Programs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(
       style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.start,
       TextSpan(
         children: [
           TextSpan(
             text:
-                ' .................................................................... ',
+                ' ............................................................. ',
             style:
                 Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
           ),

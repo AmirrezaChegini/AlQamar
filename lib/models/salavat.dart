@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+
 part 'salavat.g.dart';
 
 @HiveType(typeId: 0)

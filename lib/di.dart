@@ -96,7 +96,7 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<TimerCubit>(() => TimerCubit());
   locator.registerLazySingleton<BtnVerifyCubit>(() => BtnVerifyCubit());
   locator.registerLazySingleton<ArticleCubit>(() => ArticleCubit());
-  locator.registerLazySingleton<AudioCubit>(() => AudioCubit(locator.get()));
+  locator.registerLazySingleton<AudioCubit>(() => AudioCubit());
   locator.registerLazySingleton<PdfCubit>(() => PdfCubit());
 
   //bloc

@@ -91,7 +91,13 @@ class _ArticlePageState extends State<ArticlePage>
                   (context, index) => Padding(
                     padding: const EdgeInsets.all(10),
                     child: state == 3
-                        ? AudioWidget(index: index)
+                        ? AudioWidget(
+                            index: index,
+                            audio: widget.article.audios[index],
+                            image: widget.article.images.isNotEmpty
+                                ? widget.article.images[0]
+                                : '',
+                          )
                         : state == 4
                             ? PdfItemWidget(index: index)
                             : const SizedBox(),

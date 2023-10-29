@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/di.dart';
 import 'package:al_qamar/utils/anim/animated_icon.dart';
 import 'package:al_qamar/utils/extensions/duration.dart';
@@ -10,6 +11,7 @@ import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
@@ -31,12 +33,14 @@ class AudioArticlePlayer extends StatefulWidget {
   State<AudioArticlePlayer> createState() => _AudioArticlePlayerState();
 }
 
-class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
+class _AudioArticlePlayerState extends State<AudioArticlePlayer>
+    with AutomaticKeepAliveClientMixin {
   final AudioPlayer _audioPlayer = locator.get();
   Timer? timer;
+  List<AudioSource> audioSource = [];
 
   Future<void> initial() async {
-    List<AudioSource> audioSource = [];
+    BlocProvider.of<AudioCubit>(context).changeIndex(0);
     if (widget.audios.isNotEmpty) {
       for (int i = 0; i < widget.audios.length; i++) {
         audioSource.add(
@@ -50,30 +54,49 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
           ),
         );
       }
+      _audioPlayer.setAudioSource(audioSource[0]);
+    } else {
+      _audioPlayer.stop();
+      _audioPlayer.setAudioSource(
+        AudioSource.uri(
+          Uri.parse(''),
+          tag: MediaItem(
+            id: '1',
+            title: 'Audio',
+            artUri: Uri.parse(widget.image),
+          ),
+        ),
+      );
     }
-
-    final ConcatenatingAudioSource playList =
-        ConcatenatingAudioSource(children: audioSource);
-    _audioPlayer.setAudioSource(
-      playList,
-      initialIndex: 0,
-      initialPosition: Duration.zero,
-    );
   }
 
   @override
   void initState() {
     super.initState();
+    initial();
     timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       if (_audioPlayer.position.inSeconds == _audioPlayer.duration?.inSeconds) {
-        _audioPlayer.hasNext ? _audioPlayer.seekToNext() : _audioPlayer.stop();
+        BlocProvider.of<AudioCubit>(context).i < audioSource.length - 1
+            ? _audioPlayer.setAudioSource(
+                audioSource[BlocProvider.of<AudioCubit>(context).i + 1])
+            : _audioPlayer.stop();
+
+        if (BlocProvider.of<AudioCubit>(context).i < audioSource.length - 1) {
+          BlocProvider.of<AudioCubit>(context).i++;
+          _audioPlayer.setAudioSource(
+              audioSource[BlocProvider.of<AudioCubit>(context).i]);
+          BlocProvider.of<AudioCubit>(context)
+              .changeIndex(BlocProvider.of<AudioCubit>(context).i);
+        } else {
+          _audioPlayer.stop();
+        }
       }
     });
-    initial();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -250,7 +273,18 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
                   ),
                   const Spacer(),
                   IconBtn(
-                    onTap: () => _audioPlayer.seekToNext(),
+                    onTap: () {
+                      if (BlocProvider.of<AudioCubit>(context).i <
+                          audioSource.length - 1) {
+                        BlocProvider.of<AudioCubit>(context).i++;
+                        _audioPlayer.setAudioSource(audioSource[
+                            BlocProvider.of<AudioCubit>(context).i]);
+                        BlocProvider.of<AudioCubit>(context).changeIndex(
+                            BlocProvider.of<AudioCubit>(context).i);
+                      } else {
+                        _audioPlayer.stop();
+                      }
+                    },
                     child: const Icon(
                       Icons.skip_next_rounded,
                       color: AppColors.blue,
@@ -273,7 +307,22 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
                     ),
                   ),
                   IconBtn(
-                    onTap: () => _audioPlayer.seekToPrevious(),
+                    onTap: () {
+                      BlocProvider.of<AudioCubit>(context).i == 0
+                          ? _audioPlayer.stop()
+                          : _audioPlayer.setAudioSource(audioSource[
+                              BlocProvider.of<AudioCubit>(context).i - 1]);
+
+                      if (BlocProvider.of<AudioCubit>(context).i == 0) {
+                        _audioPlayer.stop();
+                      } else {
+                        BlocProvider.of<AudioCubit>(context).i--;
+                        _audioPlayer.setAudioSource(audioSource[
+                            BlocProvider.of<AudioCubit>(context).i]);
+                        BlocProvider.of<AudioCubit>(context).changeIndex(
+                            BlocProvider.of<AudioCubit>(context).i);
+                      }
+                    },
                     child: const Icon(
                       Icons.skip_previous_rounded,
                       color: AppColors.blue,
@@ -296,4 +345,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

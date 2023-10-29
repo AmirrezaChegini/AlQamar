@@ -30,6 +30,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
     with TickerProviderStateMixin {
   late final TabController _tabCtrl;
   bool exit = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -51,27 +52,32 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (_tabCtrl.index != 4) {
-          BlocProvider.of<BottomnavCubit>(context).changeIndex(4);
-          _tabCtrl.animateTo(4);
+        if (_scaffoldKey.currentState!.isDrawerOpen) {
+          _scaffoldKey.currentState?.closeDrawer();
         } else {
-          if (exit) {
-            SystemNavigator.pop();
+          if (_tabCtrl.index != 4) {
+            BlocProvider.of<BottomnavCubit>(context).changeIndex(4);
+            _tabCtrl.animateTo(4);
           } else {
-            exit = true;
-            showMessage(
-              context: context,
-              content: 'exit'.localize(context),
-              horizontalMargin: 10,
-              verticalMargin: 0,
-            );
-            await Future.delayed(
-                const Duration(seconds: 3), () => exit = false);
+            if (exit) {
+              SystemNavigator.pop();
+            } else {
+              exit = true;
+              showMessage(
+                context: context,
+                content: 'exit'.localize(context),
+                horizontalMargin: 10,
+                verticalMargin: 0,
+              );
+              await Future.delayed(
+                  const Duration(seconds: 3), () => exit = false);
+            }
           }
         }
         return false;
       },
       child: Scaffold(
+        key: _scaffoldKey,
         bottomNavigationBar: BottomNavbar(tabController: _tabCtrl),
         backgroundColor: AppColors.grey200,
         resizeToAvoidBottomInset: false,

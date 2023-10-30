@@ -1,6 +1,6 @@
 class User {
   final int _id;
-  final String _userID;
+  final dynamic _userID;
   final String _firstName;
   final String _lastName;
   final String? _bio;
@@ -19,7 +19,7 @@ class User {
 
   int get id => _id;
   String get userID => _userID;
-  String get firstName => _firstName;
+  dynamic get firstName => _firstName;
   String get lastName => _lastName;
   String get bio => _bio ?? '';
 }

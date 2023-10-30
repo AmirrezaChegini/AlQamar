@@ -15,6 +15,7 @@ import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/counter_cubit.dart';
 import 'package:al_qamar/cubit/localize_cubit.dart';
+import 'package:al_qamar/cubit/password_cubit.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
 import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
@@ -60,6 +61,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<ArticleCubit>()),
         BlocProvider(create: (context) => locator.get<AudioCubit>()),
         BlocProvider(create: (context) => locator.get<PdfCubit>()),
+        BlocProvider(create: (context) => locator.get<PasswordCubit>()),
         BlocProvider(create: (context) => locator.get<AzanBloc>()),
         BlocProvider(create: (context) => locator.get<SalavatBloc>()),
         BlocProvider(create: (context) => locator.get<AuthBloc>()),

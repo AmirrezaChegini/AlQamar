@@ -10,6 +10,7 @@ class TextFieldAuth extends StatelessWidget {
     required this.inputAction,
     required this.controller,
     this.obsecure = false,
+    this.suffixIcon,
   });
 
   final Function(String) validate;
@@ -18,6 +19,7 @@ class TextFieldAuth extends StatelessWidget {
   final TextInputAction inputAction;
   final TextEditingController controller;
   final bool obsecure;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class TextFieldAuth extends StatelessWidget {
         hintStyle:
             Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
         hintText: hint,
+        suffixIcon: suffixIcon,
       ),
     );
   }

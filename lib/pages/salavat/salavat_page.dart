@@ -131,7 +131,6 @@ class _SalavatPageState extends State<SalavatPage> {
                       onTap: () {
                         int id = BlocProvider.of<SalavatCubit>(context).state;
                         if (salavatLength == 3 && id == -1) {
-                          print('NNNot OKKKKKKKKKK');
                         } else {
                           int number =
                               BlocProvider.of<CounterCubit>(context).index;

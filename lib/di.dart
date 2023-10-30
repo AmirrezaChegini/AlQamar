@@ -10,6 +10,7 @@ import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/cubit/audio_cubit.dart';
+import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/counter_cubit.dart';
@@ -21,6 +22,7 @@ import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/data/datasources/article_datasource.dart';
 import 'package:al_qamar/data/datasources/auth_datasource.dart';
 import 'package:al_qamar/data/datasources/azan_datasource.dart';
+import 'package:al_qamar/data/datasources/bookmark_datasource.dart';
 import 'package:al_qamar/data/datasources/calender_datasource.dart';
 import 'package:al_qamar/data/datasources/live_datasource.dart';
 import 'package:al_qamar/data/datasources/salavat_datasource.dart';
@@ -28,6 +30,7 @@ import 'package:al_qamar/data/datasources/user_datasource.dart';
 import 'package:al_qamar/data/repositories/article_repository.dart';
 import 'package:al_qamar/data/repositories/auth_repository.dart';
 import 'package:al_qamar/data/repositories/azan_repository.dart';
+import 'package:al_qamar/data/repositories/bookmark_repository.dart';
 import 'package:al_qamar/data/repositories/calender_repositoy.dart';
 import 'package:al_qamar/data/repositories/live_repository.dart';
 import 'package:al_qamar/data/repositories/salavat_repository.dart';
@@ -72,6 +75,8 @@ Future<void> initLocator() async {
       () => CalenderRemote(locator.get()));
   locator
       .registerLazySingleton<LiveDatasource>(() => LiveRemote(locator.get()));
+  locator.registerLazySingleton<BookmarkDatasource>(
+      () => BookmarkRemote(locator.get()));
 
   //repositories
   locator.registerLazySingleton<IAzanRepository>(
@@ -88,6 +93,8 @@ Future<void> initLocator() async {
       () => CalenderRepositoryImpl(locator.get()));
   locator.registerLazySingleton<ILiveRepository>(
       () => LiveRepositoryImpl(locator.get()));
+  locator.registerLazySingleton<IBookmarkRepository>(
+      () => BookmarkRepositoryImpl(locator.get()));
 
   //cubit
   locator.registerLazySingleton<LocalizeCubit>(() => LocalizeCubit());
@@ -100,6 +107,8 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<AudioCubit>(() => AudioCubit());
   locator.registerLazySingleton<PdfCubit>(() => PdfCubit());
   locator.registerLazySingleton<PasswordCubit>(() => PasswordCubit());
+  locator
+      .registerLazySingleton<BookmarkCubit>(() => BookmarkCubit(locator.get()));
 
   //bloc
   locator.registerLazySingleton<AzanBloc>(() => AzanBloc(locator.get()));

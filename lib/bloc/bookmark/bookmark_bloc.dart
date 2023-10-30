@@ -1,10 +1,10 @@
 import 'package:al_qamar/bloc/bookmark/bookmark_event.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_state.dart';
-import 'package:al_qamar/data/repositories/article_repository.dart';
+import 'package:al_qamar/data/repositories/bookmark_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
-  final IArticelRepository _repository;
+  final IBookmarkRepository _repository;
 
   BookmarkBloc(this._repository) : super(InitBookmarkState()) {
     on<AddBookmarkEvent>((event, emit) async {
@@ -12,7 +12,9 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
 
       either.fold((l) {
         emit(FailBookmarkState(l));
-      }, (r) {});
+      }, (r) {
+        emit(CompleteAddBookmarkState(r));
+      });
     });
 
     on<RemoveBookmarkEvent>((event, emit) async {
@@ -20,7 +22,20 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
 
       either.fold((l) {
         emit(FailBookmarkState(l));
-      }, (r) {});
+      }, (r) {
+        emit(CompleteRemoveBookmarkState(r));
+      });
+    });
+
+    on<GetAllBookmarkEvent>((event, emit) async {
+      emit(LoadingBookmarkState());
+      var either = await _repository.getBookmarks();
+
+      either.fold((l) {
+        emit(FailBookmarkState(l));
+      }, (r) {
+        emit(CompleteBookmarkState(r));
+      });
     });
   }
 }

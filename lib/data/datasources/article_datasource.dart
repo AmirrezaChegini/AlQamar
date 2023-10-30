@@ -9,8 +9,6 @@ abstract class ArticleDatasource {
   Future<Response> getLastArticles();
   Future<Response> getArticle({required int articleID});
   Future<Response> searchArticles({required String searchText});
-  Future<Response> addBookmark({required int articleID});
-  Future<Response> removeBookmark({required int articleID});
 }
 
 class ArticleRemote implements ArticleDatasource {
@@ -76,38 +74,6 @@ class ArticleRemote implements ArticleDatasource {
   Future<Response> searchArticles({required String searchText}) async {
     try {
       Response response = await _dio.get('${Api.searchArticles}/$searchText');
-
-      return response;
-    } on DioException catch (e) {
-      e.response == null
-          ? throw FetchDataEx()
-          : throw CheckExceptions.validate(e.response!);
-    }
-  }
-
-  @override
-  Future<Response> addBookmark({required int articleID}) async {
-    try {
-      Response response = await _dio.post(
-        '${Api.addBookmark}/$articleID',
-        options: Options(headers: {'requiredToken': true}),
-      );
-
-      return response;
-    } on DioException catch (e) {
-      e.response == null
-          ? throw FetchDataEx()
-          : throw CheckExceptions.validate(e.response!);
-    }
-  }
-
-  @override
-  Future<Response> removeBookmark({required int articleID}) async {
-    try {
-      Response response = await _dio.post(
-        '${Api.removeBookmark}/$articleID',
-        options: Options(headers: {'requiredToken': true}),
-      );
 
       return response;
     } on DioException catch (e) {

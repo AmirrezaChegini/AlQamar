@@ -68,5 +68,6 @@
     "successProfile": "تم تحديث ملفك الشخصي",
     "logout": "تسجيل خروج",
     "cancel": "يلغي",
-    "logoutSuccess": "تم تسجيل الخروج بنجاح"
+    "logoutSuccess": "تم تسجيل الخروج بنجاح",
+    "remove": "يزيل"
 }

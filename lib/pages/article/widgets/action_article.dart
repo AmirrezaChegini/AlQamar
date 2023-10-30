@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_event.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/models/calender.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
@@ -27,7 +28,14 @@ class ActionArticle extends StatefulWidget {
 
 class _ActionArticleState extends State<ActionArticle> {
   bool isLiked = false;
-  bool isBookmarked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.article != null) {
+      BlocProvider.of<BookmarkCubit>(context).isBookmarked(widget.article!.id);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,21 +63,25 @@ class _ActionArticleState extends State<ActionArticle> {
                 color: AppColors.blue,
               ),
               const SizedBox(width: 8),
-              ActionItem(
-                onTap: () => setState(() {
-                  isBookmarked = !isBookmarked;
+              BlocBuilder<BookmarkCubit, bool>(
+                builder: (context, state) => ActionItem(
+                  onTap: () => setState(() {
+                    if (widget.article != null) {
+                      BlocProvider.of<BookmarkCubit>(context).changeBookmark();
+                    }
 
-                  if (widget.article != null && isBookmarked) {
-                    BlocProvider.of<BookmarkBloc>(context)
-                        .add(AddBookmarkEvent(widget.article!.id));
-                  }
-                  if (widget.article != null && !isBookmarked) {
-                    BlocProvider.of<BookmarkBloc>(context)
-                        .add(RemoveBookmarkEvent(widget.article!.id));
-                  }
-                }),
-                icon: isBookmarked ? AppIcons.bookmarkFill : AppIcons.bookmark,
-                color: AppColors.blue,
+                    if (widget.article != null && !state) {
+                      BlocProvider.of<BookmarkBloc>(context)
+                          .add(AddBookmarkEvent(widget.article!.id));
+                    }
+                    if (widget.article != null && state) {
+                      BlocProvider.of<BookmarkBloc>(context)
+                          .add(RemoveBookmarkEvent(widget.article!.id));
+                    }
+                  }),
+                  icon: state ? AppIcons.bookmarkFill : AppIcons.bookmark,
+                  color: AppColors.blue,
+                ),
               ),
               const Spacer(),
               Column(

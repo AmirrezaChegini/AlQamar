@@ -1,4 +1,5 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
+import 'package:al_qamar/bloc/auth/auth_event.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
@@ -10,6 +11,7 @@ import 'package:al_qamar/pages/auth/widgets/login_widgets.dart';
 import 'package:al_qamar/pages/auth/widgets/otp_widget.dart';
 import 'package:al_qamar/pages/auth/widgets/register_widgets.dart';
 import 'package:al_qamar/pages/auth/widgets/tabbar_auth.dart';
+import 'package:al_qamar/utils/storage.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +41,7 @@ class _AuthPageState extends State<AuthPage>
     _lastNameCtrl = TextEditingController();
     _emailCtrl = TextEditingController();
     _passwordCtrl = TextEditingController();
+    BlocProvider.of<AuthBloc>(context).add(CheckEmailEvent());
   }
 
   @override
@@ -78,7 +81,7 @@ class _AuthPageState extends State<AuthPage>
               ),
             ),
             BlocConsumer<AuthBloc, AuthState>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 if (state is FailAuthState) {
                   showMessage(context: context, content: state.errorMessage);
                 }
@@ -95,16 +98,30 @@ class _AuthPageState extends State<AuthPage>
                   showMessage(context: context, content: state.message);
                 }
 
-                if (state is CompleteVerifyState) {
-                  BlocProvider.of<TimerCubit>(context).cancel();
-                  BlocProvider.of<UserBloc>(context).add(
-                      CreateUserEvent(_firstNameCtrl.text, _lastNameCtrl.text));
-                  Navigator.pop(context);
-                }
-
                 if (state is CompleteLoginState) {
                   BlocProvider.of<UserBloc>(context).add(GetUserEvent());
                   Navigator.pop(context);
+                }
+
+                if (state is CompleteVerifyState) {
+                  BlocProvider.of<TimerCubit>(context).cancel();
+                  String firstName = '';
+                  String lastName = '';
+
+                  await Future.wait([
+                    Storage.getString(key: 'firstName')
+                        .then((value) => firstName = value),
+                    Storage.getString(key: 'lastName')
+                        .then((value) => lastName = value),
+                  ]).whenComplete(() {
+                    BlocProvider.of<UserBloc>(context).add(
+                      CreateUserEvent(
+                        firstName,
+                        lastName,
+                      ),
+                    );
+                    Navigator.pop(context);
+                  });
                 }
               },
               builder: (context, state) => Expanded(

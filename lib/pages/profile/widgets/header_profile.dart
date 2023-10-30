@@ -7,6 +7,7 @@ import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/pages/profile/edit_profile_page.dart';
+import 'package:al_qamar/utils/storage.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,7 +105,16 @@ class _HeaderProfileState extends State<HeaderProfile> {
                   ),
                 ),
                 const SizedBox(width: 15),
-                BlocBuilder<UserBloc, UserState>(
+                BlocConsumer<UserBloc, UserState>(
+                  listener: (context, state) async {
+                    if (state is CompleteUserState) {
+                      await Future.wait([
+                        Storage.removeKey(key: 'email'),
+                        Storage.removeKey(key: 'firstName'),
+                        Storage.removeKey(key: 'lastName'),
+                      ]);
+                    }
+                  },
                   builder: (context, state) => Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,

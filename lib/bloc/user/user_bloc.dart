@@ -22,7 +22,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       either.fold((l) {
         emit(InitUserState());
-      }, (r) {
+      }, (r) async {
         emit(CompleteUserState(r));
       });
     });

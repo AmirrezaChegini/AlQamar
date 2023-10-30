@@ -60,7 +60,8 @@ class RegisterWidgets extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
         RegisterAuthEvent(
-          '${firstNameCtrl.text} ${lastNameCtrl.text}',
+          firstNameCtrl.text,
+          lastNameCtrl.text,
           emailCtrl.text,
           passwordCtrl.text,
         ),

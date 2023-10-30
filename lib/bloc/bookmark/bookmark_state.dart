@@ -6,6 +6,8 @@ class InitBookmarkState extends BookmarkState {}
 
 class LoadingBookmarkState extends BookmarkState {}
 
+class EmptyBookmarkState extends BookmarkState {}
+
 class CompleteBookmarkState extends BookmarkState {
   final List<Article> bookmarkList;
 

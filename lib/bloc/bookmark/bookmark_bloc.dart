@@ -34,7 +34,9 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
       either.fold((l) {
         emit(FailBookmarkState(l));
       }, (r) {
-        emit(CompleteBookmarkState(r));
+        r.isNotEmpty
+            ? emit(CompleteBookmarkState(r))
+            : emit(EmptyBookmarkState());
       });
     });
   }

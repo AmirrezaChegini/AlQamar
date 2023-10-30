@@ -3,6 +3,7 @@ import 'package:al_qamar/bloc/bookmark/bookmark_event.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
@@ -104,6 +105,12 @@ class _BookmarkPageState extends State<BookmarkPage> {
 
             if (state is LoadingBookmarkState) {
               return const LoadingState();
+            }
+
+            if (state is EmptyBookmarkState) {
+              return Center(
+                child: Image.asset(AppImages.blank),
+              );
             }
 
             return const SizedBox();

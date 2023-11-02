@@ -3,6 +3,7 @@ import 'package:al_qamar/bloc/auth/auth_event.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
+import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/setting/widgets/lang_drop_btn.dart';
@@ -60,17 +61,25 @@ class SettingPage extends StatelessWidget {
                 trailing: const LangDropBtn(),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: ListTile(
-                onTap: () =>
-                    BlocProvider.of<AuthBloc>(context).add(LogoutAuthEvent()),
-                tileColor: AppColors.white,
-                title: Text('logout'.localize(context)),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
+            BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state is CompleteUserState) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ListTile(
+                      onTap: () => BlocProvider.of<AuthBloc>(context)
+                          .add(LogoutAuthEvent()),
+                      tileColor: AppColors.white,
+                      title: Text('logout'.localize(context)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
             ),
           ],
         ),

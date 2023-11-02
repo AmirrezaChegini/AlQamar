@@ -76,6 +76,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         Storage.clearAll();
         emit(InitAuthState());
       });
+      Storage.removeKey(key: 'token');
     });
 
     on<CheckEmailEvent>((event, emit) async {

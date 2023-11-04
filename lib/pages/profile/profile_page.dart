@@ -8,7 +8,6 @@ import 'package:al_qamar/pages/live/live_page.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
-import 'package:al_qamar/pages/programs/programs_page.dart';
 import 'package:al_qamar/pages/salavat/salavat_page.dart';
 import 'package:al_qamar/pages/setting/setting_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
@@ -65,10 +64,7 @@ class ProfilePage extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: ItemWidget(
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          fadePageTran(
-                                              child: const ProgramsPage())),
+                                      onTap: () {},
                                       image: AppIcons.live,
                                       color: AppColors.grey600,
                                       title: 'programs'.localize(context),
@@ -77,9 +73,10 @@ class ProfilePage extends StatelessWidget {
                                   Expanded(
                                     child: ItemWidget(
                                       onTap: () => Navigator.push(
-                                          context,
-                                          fadePageTran(
-                                              child: const BookmarkPage())),
+                                        context,
+                                        fadePageTran(
+                                            child: const BookmarkPage()),
+                                      ),
                                       image: AppIcons.bookmark,
                                       color: AppColors.grey600,
                                       title: 'favorite'.localize(context),
@@ -93,6 +90,7 @@ class ProfilePage extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: ItemWidget(
+                                      onTap: () {},
                                       image: AppIcons.aboutUs,
                                       color: AppColors.grey600,
                                       title: 'aboutUs'.localize(context),

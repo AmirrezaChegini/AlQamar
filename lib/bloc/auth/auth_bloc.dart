@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_event.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/data/repositories/auth_repository.dart';
+import 'package:al_qamar/utils/storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -9,10 +10,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._repository) : super(InitAuthState()) {
     on<RegisterAuthEvent>((event, emit) async {
       emit(LoadingAuthState());
-      await Future.delayed(const Duration(seconds: 2));
-
+      await Future.wait([
+        Storage.saveString(key: 'email', value: event.email),
+        Storage.saveString(key: 'firstName', value: event.firstName),
+        Storage.saveString(key: 'lastName', value: event.lastName),
+      ]);
       var either = await _repository.register(
-        name: event.name,
+        name: '${event.firstName} ${event.lastName}',
         email: event.email,
         password: event.password,
       );
@@ -26,8 +30,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<LoginAuthEvent>((event, emit) async {
       emit(LoadingAuthState());
-      await Future.delayed(const Duration(seconds: 2));
-
       var either = await _repository.login(
         email: event.email,
         password: event.password,
@@ -42,27 +44,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<VerifyAuthEvent>((event, emit) async {
       emit(LoadingVerifyState());
-
-      await Future.delayed(const Duration(seconds: 2));
-
+      String email = await Storage.getString(key: 'email');
       var either = await _repository.verify(
-        email: event.email,
+        email: email,
         otp: event.otp,
       );
 
       either.fold((erroMessage) {
         emit(FailVerifyState(erroMessage));
-      }, (message) {
+      }, (message) async {
         emit(CompleteVerifyState(message));
       });
     });
 
     on<ResendCodeEvent>((event, emit) async {
       emit(LoadingVerifyState());
-      await Future.delayed(const Duration(seconds: 2));
-
       var either = await _repository.resendOtp(email: event.email);
-
       either.fold((erroMessage) {
         emit(FailVerifyState(erroMessage));
       }, (message) {
@@ -72,15 +69,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<LogoutAuthEvent>((event, emit) async {
       emit(LoadingAuthState());
-      await Future.delayed(const Duration(seconds: 2));
-
       var either = await _repository.logout();
-
       either.fold((erroMessage) {
         emit(FailAuthState(erroMessage));
       }, (message) {
+        Storage.clearAll();
         emit(InitAuthState());
       });
+      Storage.removeKey(key: 'token');
+    });
+
+    on<CheckEmailEvent>((event, emit) async {
+      String email = await Storage.getString(key: 'email');
+      if (email.isNotEmpty) {
+        emit(CompleteRegisterState('You must enter OTP code'));
+      } else {
+        emit(InitAuthState());
+      }
     });
   }
 }

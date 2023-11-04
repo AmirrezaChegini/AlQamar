@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 dynamic showMessage({
   required BuildContext context,
   required String content,
-  int duration = 4,
+  int duration = 2,
   double horizontalMargin = 48,
   double verticalMargin = 80,
   SnackBarAction? action,

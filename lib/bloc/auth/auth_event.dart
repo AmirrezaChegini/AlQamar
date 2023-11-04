@@ -8,18 +8,18 @@ class LoginAuthEvent extends AuthEvent {
 }
 
 class RegisterAuthEvent extends AuthEvent {
-  final String name;
+  final String firstName;
+  final String lastName;
   final String email;
   final String password;
 
-  RegisterAuthEvent(this.name, this.email, this.password);
+  RegisterAuthEvent(this.firstName, this.lastName, this.email, this.password);
 }
 
 class VerifyAuthEvent extends AuthEvent {
-  final String email;
   final String otp;
 
-  VerifyAuthEvent(this.email, this.otp);
+  VerifyAuthEvent(this.otp);
 }
 
 class ResendCodeEvent extends AuthEvent {
@@ -29,3 +29,5 @@ class ResendCodeEvent extends AuthEvent {
 }
 
 class LogoutAuthEvent extends AuthEvent {}
+
+class CheckEmailEvent extends AuthEvent {}

@@ -41,8 +41,7 @@ class _OtpWidgetState extends State<OtpWidget> {
   }
 
   void verify() {
-    BlocProvider.of<AuthBloc>(context)
-        .add(VerifyAuthEvent(widget.emailCtrl.text, otpCode.join()));
+    BlocProvider.of<AuthBloc>(context).add(VerifyAuthEvent(otpCode.join()));
   }
 
   @override

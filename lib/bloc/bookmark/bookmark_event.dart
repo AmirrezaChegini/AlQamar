@@ -9,3 +9,5 @@ class RemoveBookmarkEvent extends BookmarkEvent {
   final int articelID;
   RemoveBookmarkEvent(this.articelID);
 }
+
+class GetAllBookmarkEvent extends BookmarkEvent {}

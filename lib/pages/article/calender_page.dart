@@ -91,7 +91,13 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                   (context, index) => Padding(
                     padding: const EdgeInsets.all(10),
                     child: state == 3
-                        ? AudioWidget(index: index)
+                        ? AudioWidget(
+                            index: index,
+                            audio: widget.calender.audios[index],
+                            image: widget.calender.images.isNotEmpty
+                                ? widget.calender.images[0]
+                                : '',
+                          )
                         : state == 4
                             ? PdfItemWidget(index: index)
                             : const SizedBox(),

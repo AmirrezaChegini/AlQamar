@@ -314,7 +314,7 @@ packages:
     source: hosted
     version: "7.0.0"
   device_preview:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: device_preview
       sha256: "2f097bf31b929e15e6756dbe0ec1bcb63952ab9ed51c25dc5a2c722d2b21fdaf"
@@ -382,14 +382,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
-  flutter_html:
-    dependency: "direct main"
-    description:
-      name: flutter_html
-      sha256: "02ad69e813ecfc0728a455e4bf892b9379983e050722b1dce00192ee2e41d1ee"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0-beta.2"
   flutter_inappwebview:
     dependency: transitive
     description:
@@ -460,7 +452,7 @@ packages:
     source: hosted
     version: "3.0.0"
   flutter_svg:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_svg
       sha256: "8c5d68a82add3ca76d792f058b186a0599414f279f00ece4830b9b231b570338"
@@ -717,14 +709,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  list_counter:
-    dependency: transitive
-    description:
-      name: list_counter
-      sha256: c447ae3dfcd1c55f0152867090e67e219d42fe6d4f2807db4bbe8b8d69912237
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
   logging:
     dependency: transitive
     description:
@@ -1435,7 +1419,7 @@ packages:
     source: hosted
     version: "0.1.4-beta"
   web_socket_channel:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: web_socket_channel
       sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b

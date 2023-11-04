@@ -143,6 +143,8 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.logout;
       case 'logoutSuccess':
         return AppLocalizations.of(context)!.logoutSuccess;
+      case 'remove':
+        return AppLocalizations.of(context)!.remove;
       default:
         return '';
     }

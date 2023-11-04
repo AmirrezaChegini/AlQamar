@@ -10,12 +10,13 @@ class SalavatBloc extends Bloc<SalavatEvent, SalavatState> {
   SalavatBloc(this._repository) : super(InitSalavatState()) {
     on<GetAllSalavatEvent>((event, emit) {
       List<Salavat> salavatList = _repository.getAllSalavats();
-
       emit(CompleteSalavatState(salavatList));
     });
 
     on<AddSalavatEvent>((event, emit) async {
       await _repository.addSalavat(salavat: event.salavat);
+      List<Salavat> salavatList = _repository.getAllSalavats();
+      emit(CompleteSalavatState(salavatList));
     });
   }
 }

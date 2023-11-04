@@ -21,6 +21,7 @@ class SalavatPage extends StatefulWidget {
 }
 
 class _SalavatPageState extends State<SalavatPage> {
+  int salavatLength = 0;
   @override
   void initState() {
     super.initState();
@@ -129,13 +130,14 @@ class _SalavatPageState extends State<SalavatPage> {
                       width: 80,
                       onTap: () {
                         int id = BlocProvider.of<SalavatCubit>(context).state;
-                        int number =
-                            BlocProvider.of<CounterCubit>(context).index;
+                        if (salavatLength == 3 && id == -1) {
+                        } else {
+                          int number =
+                              BlocProvider.of<CounterCubit>(context).index;
 
-                        BlocProvider.of<SalavatBloc>(context)
-                            .add(AddSalavatEvent(Salavat(id, number)));
-                        BlocProvider.of<SalavatBloc>(context)
-                            .add(GetAllSalavatEvent());
+                          BlocProvider.of<SalavatBloc>(context)
+                              .add(AddSalavatEvent(Salavat(id, number)));
+                        }
                       },
                       shadows: const [
                         BoxShadow(
@@ -159,7 +161,12 @@ class _SalavatPageState extends State<SalavatPage> {
             ),
           ),
           const SizedBox(height: 100),
-          BlocBuilder<SalavatBloc, SalavatState>(
+          BlocConsumer<SalavatBloc, SalavatState>(
+            listener: (context, state) {
+              if (state is CompleteSalavatState) {
+                salavatLength = state.salavatList.length;
+              }
+            },
             builder: (context, outerState) {
               if (outerState is CompleteSalavatState) {
                 return Row(

@@ -1,8 +1,11 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_event.dart';
 import 'package:al_qamar/config/localize.dart';
+import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/cubit/password_cubit.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
+import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,7 +60,8 @@ class RegisterWidgets extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
         RegisterAuthEvent(
-          '${firstNameCtrl.text} ${lastNameCtrl.text}',
+          firstNameCtrl.text,
+          lastNameCtrl.text,
           emailCtrl.text,
           passwordCtrl.text,
         ),
@@ -97,13 +101,25 @@ class RegisterWidgets extends StatelessWidget {
             inputType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 15),
-          TextFieldAuth(
-            controller: passwordCtrl,
-            validate: (v) => validatePassword(v, context),
-            hint: 'password'.localize(context),
-            inputAction: TextInputAction.next,
-            inputType: TextInputType.visiblePassword,
-            obsecure: true,
+          BlocBuilder<PasswordCubit, bool>(
+            builder: (context, state) => TextFieldAuth(
+              controller: passwordCtrl,
+              validate: (v) => validatePassword(v, context),
+              hint: 'password'.localize(context),
+              inputAction: TextInputAction.next,
+              inputType: TextInputType.visiblePassword,
+              obsecure: state,
+              suffixIcon: IconBtn(
+                onTap: () => BlocProvider.of<PasswordCubit>(context)
+                    .changeVisible(!state),
+                child: Icon(
+                  state
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  color: AppColors.grey600,
+                ),
+              ),
+            ),
           ),
           const Spacer(),
           BtnAuth(

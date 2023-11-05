@@ -91,6 +91,20 @@ class _OtpWidgetState extends State<OtpWidget> {
                 Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
           ),
         ),
+        TextButton(
+          onPressed: () =>
+              BlocProvider.of<AuthBloc>(context).add(ChangeInfoEvent()),
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            textStyle: Theme.of(context)
+                .textTheme
+                .displayMedium!
+                .copyWith(fontSize: 14),
+          ),
+          child: Text(
+            'changeInfo'.localize(context),
+          ),
+        ),
         const Spacer(),
         Align(
           alignment: AlignmentDirectional.centerEnd,

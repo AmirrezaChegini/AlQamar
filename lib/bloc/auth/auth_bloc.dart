@@ -87,5 +87,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(InitAuthState());
       }
     });
+
+    on<ChangeInfoEvent>((event, emit) async {
+      await Future.wait([
+        Storage.removeKey(key: 'email'),
+        Storage.removeKey(key: 'firstName'),
+        Storage.removeKey(key: 'lastName'),
+      ]);
+      emit(InitAuthState());
+    });
   }
 }

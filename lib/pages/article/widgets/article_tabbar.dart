@@ -90,7 +90,7 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
 
                 showMessage(
                   context: context,
-                  content: 'There is no content to show',
+                  content: 'noContent'.localize(context),
                   horizontalMargin: 10,
                   verticalMargin: 10,
                   isError: false,

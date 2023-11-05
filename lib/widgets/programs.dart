@@ -11,25 +11,20 @@ class Programs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-      textAlign: TextAlign.start,
-      TextSpan(
-        children: [
-          TextSpan(
-            text:
-                ' ............................................................. ',
-            style:
-                Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
-          ),
-          TextSpan(
-            text: program.time,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-          ),
-        ],
-        text: program.name,
-      ),
+    return Row(
+      children: [
+        Text(
+          program.name,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        Expanded(
+          child: Text('.' * 100, maxLines: 1),
+        ),
+        Text(
+          program.time,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ],
     );
   }
 }

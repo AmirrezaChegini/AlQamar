@@ -13,7 +13,7 @@ class HeaderAuth extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: AppColors.red.withOpacity(0.7),
+        color: AppColors.red,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -74,12 +74,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             }
 
             if (state is CompleteUserState) {
-              showMessage(
-                context: context,
-                content: 'successProfile'.localize(context),
-                horizontalMargin: 20,
-                isError: false,
-              );
+              Navigator.maybePop(context);
             }
           },
           child: Column(

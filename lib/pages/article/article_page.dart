@@ -75,6 +75,7 @@ class _ArticlePageState extends State<ArticlePage>
               content: state.message,
               horizontalMargin: 10,
               verticalMargin: 10,
+              isError: false,
             );
           }
 
@@ -84,6 +85,7 @@ class _ArticlePageState extends State<ArticlePage>
               content: state.message,
               horizontalMargin: 10,
               verticalMargin: 10,
+              isError: false,
             );
           }
         },

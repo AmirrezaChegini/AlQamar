@@ -68,6 +68,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
                 content: 'exit'.localize(context),
                 horizontalMargin: 10,
                 verticalMargin: 0,
+                isError: false,
               );
               await Future.delayed(
                   const Duration(seconds: 3), () => exit = false);

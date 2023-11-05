@@ -57,6 +57,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                 content: state.message,
                 horizontalMargin: 10,
                 verticalMargin: 10,
+                isError: false,
               );
             }
           },

@@ -91,11 +91,19 @@ class _AuthPageState extends State<AuthPage>
                 }
 
                 if (state is CompleteRegisterState) {
-                  showMessage(context: context, content: state.message);
+                  showMessage(
+                    context: context,
+                    content: state.message,
+                    isError: false,
+                  );
                 }
 
                 if (state is CompleteResendCodeState) {
-                  showMessage(context: context, content: state.message);
+                  showMessage(
+                    context: context,
+                    content: state.message,
+                    isError: false,
+                  );
                 }
 
                 if (state is CompleteLoginState) {

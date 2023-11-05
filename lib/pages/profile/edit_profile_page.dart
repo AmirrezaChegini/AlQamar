@@ -78,6 +78,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 context: context,
                 content: 'successProfile'.localize(context),
                 horizontalMargin: 20,
+                isError: false,
               );
             }
           },

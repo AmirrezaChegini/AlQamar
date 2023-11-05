@@ -80,6 +80,7 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
             indicatorColor: AppColors.blue,
             indicatorWeight: 2,
             indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
+            labelPadding: const EdgeInsets.all(0),
             onTap: (value) {
               if ((value == 1 && widget.videos.isEmpty) ||
                   (value == 3 && widget.audios.isEmpty) ||
@@ -92,6 +93,7 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
                   content: 'There is no content to show',
                   horizontalMargin: 10,
                   verticalMargin: 10,
+                  isError: false,
                 );
               } else {
                 BlocProvider.of<ArticleCubit>(context).changeIndex(value);

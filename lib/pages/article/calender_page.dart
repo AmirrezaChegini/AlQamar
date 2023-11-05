@@ -48,7 +48,12 @@ class _CalenderDataPageState extends State<CalenderDataPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: ArticleTabbar(tabController: _tabCtrl),
+      appBar: ArticleTabbar(
+        tabController: _tabCtrl,
+        audios: widget.calender.audios,
+        videos: widget.calender.videos,
+        pdfs: widget.calender.pdfs,
+      ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(

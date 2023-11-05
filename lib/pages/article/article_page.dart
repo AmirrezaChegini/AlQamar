@@ -52,7 +52,12 @@ class _ArticlePageState extends State<ArticlePage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: ArticleTabbar(tabController: _tabCtrl),
+      appBar: ArticleTabbar(
+        tabController: _tabCtrl,
+        audios: widget.article.audios,
+        videos: widget.article.videos,
+        pdfs: widget.article.pdfs,
+      ),
       body: BlocListener<BookmarkBloc, BookmarkState>(
         listener: (context, state) {
           if (state is FailBookmarkState) {

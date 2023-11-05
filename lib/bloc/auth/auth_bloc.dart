@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(FailAuthState(erroMessage));
       }, (message) {
         Storage.clearAll();
-        emit(InitAuthState());
+        emit(CompleteLogoutState());
       });
       Storage.removeKey(key: 'token');
     });

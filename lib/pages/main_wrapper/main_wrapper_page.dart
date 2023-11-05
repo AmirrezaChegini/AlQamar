@@ -1,7 +1,11 @@
+import 'package:al_qamar/bloc/auth/auth_bloc.dart';
+import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
+import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
@@ -88,16 +92,41 @@ class _MainWrapperPageState extends State<MainWrapperPage>
           appbarLeading: const AppbarLeading(),
         ),
         drawer: ProfilePage(tabController: _tabCtrl),
-        body: TabBarView(
-          controller: _tabCtrl,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const CalenderPage(),
-            Center(child: Image.asset(AppImages.comingSoon)),
-            const SizedBox(),
-            const NewsPage(),
-            HomePage(tabController: _tabCtrl),
-          ],
+        body: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is CompleteLogoutState) {
+              _scaffoldKey.currentState?.closeDrawer();
+              showMessage(
+                context: context,
+                content: 'logoutSuccess'.localize(context),
+                horizontalMargin: 10,
+                verticalMargin: 0,
+                isError: false,
+              );
+
+              BlocProvider.of<UserBloc>(context).add(GetUserEvent());
+            }
+
+            if (state is FailAuthState) {
+              showMessage(
+                context: context,
+                content: state.errorMessage.localize(context),
+                horizontalMargin: 10,
+                verticalMargin: 0,
+              );
+            }
+          },
+          child: TabBarView(
+            controller: _tabCtrl,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              const CalenderPage(),
+              Center(child: Image.asset(AppImages.comingSoon)),
+              const SizedBox(),
+              const NewsPage(),
+              HomePage(tabController: _tabCtrl),
+            ],
+          ),
         ),
       ),
     );

@@ -89,11 +89,12 @@ class MainApp extends StatelessWidget {
             Locale('en'),
             Locale('ar'),
           ],
-          locale: state == 'ar'
-              ? const Locale('ar')
-              : state == 'en'
-                  ? const Locale('en')
-                  : null,
+          // locale: state == 'ar'
+          //     ? const Locale('ar')
+          //     : state == 'en'
+          //         ? const Locale('en')
+          //         : null,
+          locale: const Locale('ar'),
           home: const SplashPage(),
         ),
       ),

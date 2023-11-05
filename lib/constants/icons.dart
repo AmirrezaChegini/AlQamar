@@ -19,6 +19,7 @@ class AppIcons {
   static const String liveText = '$root/live-text.png';
   static const String live = '$root/live.png';
   static const String logo = '$root/logo.png';
+  static const String logout = '$root/logout.png';
   static const String menu = '$root/menu.png';
   static const String money = '$root/money.png';
   static const String moon = '$root/moon.png';

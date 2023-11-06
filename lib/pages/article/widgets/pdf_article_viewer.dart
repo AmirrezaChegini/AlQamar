@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
-import 'package:al_qamar/pages/fullscreen/pdf_fullscreen.dart';
+import 'package:al_qamar/pages/fullscreen/pdf_fullscreen_page.dart';
 import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/app_icon.dart';

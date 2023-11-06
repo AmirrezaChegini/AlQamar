@@ -94,8 +94,9 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
                             onTap: () => Navigator.push(
                               context,
                               fadePageTran(
-                                  child: VideoFullscrreenPage(
-                                      videoCtrl: _videoCtrl)),
+                                child:
+                                    VideoFullscrreenPage(videoCtrl: _videoCtrl),
+                              ),
                             ),
                             child: const Icon(
                               Icons.fullscreen_rounded,

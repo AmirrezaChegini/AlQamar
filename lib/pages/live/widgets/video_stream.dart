@@ -19,10 +19,16 @@ class _VideoStreamState extends State<VideoStream> {
   @override
   void initState() {
     super.initState();
+
     _webCtrl = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..enableZoom(true)
       ..loadRequest(Uri.parse(widget.url));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

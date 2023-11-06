@@ -7,12 +7,14 @@ import 'package:al_qamar/pages/live/widgets/audio_stream.dart';
 import 'package:al_qamar/pages/live/widgets/live_item.dart';
 import 'package:al_qamar/pages/live/widgets/live_tabbar.dart';
 import 'package:al_qamar/pages/live/widgets/video_stream.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/widgets/programs.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LivePage extends StatefulWidget {
@@ -31,8 +33,19 @@ class _LivePageState extends State<LivePage>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+    ]);
     BlocProvider.of<LiveBloc>(context).add(GetLiveEvent());
     _tabCtrl = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    super.dispose();
   }
 
   @override
@@ -49,16 +62,20 @@ class _LivePageState extends State<LivePage>
       body: BlocBuilder<LiveBloc, LiveState>(
         builder: (context, state) {
           if (state is CompleteLiveState) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            return ListView(
               children: [
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  width: MediaQuery.sizeOf(context).width / 2,
+                  margin: CheckDirect.isRTL(context)
+                      ? const EdgeInsets.symmetric(vertical: 10).copyWith(
+                          right: MediaQuery.sizeOf(context).width / 2, left: 10)
+                      : const EdgeInsets.symmetric(vertical: 10).copyWith(
+                          right: 10,
+                          left: MediaQuery.sizeOf(context).width / 2,
+                        ),
                   child: LiveTabbar(tabCtrl: _tabCtrl),
                 ),
-                Expanded(
+                SizedBox(
+                  height: 1080,
                   child: TabBarView(
                     controller: _tabCtrl,
                     children: [
@@ -84,14 +101,8 @@ class _LivePageState extends State<LivePage>
                           ),
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Container(
-                              height: MediaQuery.sizeOf(context).height / 4,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: VideoStream(
-                                url: state.videoList[videoIndex].url,
-                              ),
+                            child: VideoStream(
+                              url: state.videoList[videoIndex].url,
                             ),
                           ),
                           Container(
@@ -116,20 +127,17 @@ class _LivePageState extends State<LivePage>
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: state
-                                  .videoList[videoIndex].programList.length,
-                              itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 10),
-                                child: Programs(
-                                  program: state
-                                      .videoList[videoIndex].programList[index],
-                                ),
+                          ...List.generate(
+                            state.videoList[videoIndex].programList.length,
+                            (index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 10),
+                              child: Programs(
+                                program: state
+                                    .videoList[videoIndex].programList[index],
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Column(
@@ -180,20 +188,17 @@ class _LivePageState extends State<LivePage>
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: state
-                                  .audioList[audioIndex].programList.length,
-                              itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 10),
-                                child: Programs(
-                                  program: state
-                                      .audioList[audioIndex].programList[index],
-                                ),
+                          ...List.generate(
+                            state.audioList[audioIndex].programList.length,
+                            (index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 10),
+                              child: Programs(
+                                program: state
+                                    .audioList[audioIndex].programList[index],
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ],

@@ -1,6 +1,9 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/pages/fullscreen/video_fullscreen.dart';
 import 'package:al_qamar/utils/anim/fade_in_out.dart';
+import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -68,17 +71,40 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
                       FadeOutAnim(
                         state: _videoCtrl.value.isPlaying,
                         child: _videoCtrl.value.isPlaying
-                            ? Icon(
+                            ? const Icon(
                                 Icons.pause_rounded,
-                                color: AppColors.grey,
-                                size: MediaQuery.sizeOf(context).width / 2,
+                                color: AppColors.grey200,
+                                size: 140,
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.play_arrow_rounded,
-                                color: AppColors.grey,
-                                size: MediaQuery.sizeOf(context).width / 2,
+                                color: AppColors.grey200,
+                                size: 140,
                               ),
-                      )
+                      ),
+                      Positioned.directional(
+                        textDirection: CheckDirect.isRTL(context)
+                            ? TextDirection.rtl
+                            : TextDirection.ltr,
+                        bottom: 0,
+                        start: 180,
+                        child: FadeOutAnim(
+                          state: _videoCtrl.value.isPlaying,
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(
+                              context,
+                              fadePageTran(
+                                  child: VideoFullscrreenPage(
+                                      videoCtrl: _videoCtrl)),
+                            ),
+                            child: const Icon(
+                              Icons.fullscreen_rounded,
+                              color: AppColors.grey200,
+                              size: 120,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

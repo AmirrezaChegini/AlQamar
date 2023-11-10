@@ -4,6 +4,8 @@ import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
+import 'package:al_qamar/bloc/news/news_bloc.dart';
+import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
@@ -41,6 +43,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
     super.initState();
 
     BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
+    BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent());
     BlocProvider.of<CalenderBloc>(context)
         .add(GetCalenderEvent(DateTime.now().getFormatDate()));
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);

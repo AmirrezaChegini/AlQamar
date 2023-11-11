@@ -1,4 +1,6 @@
+import 'package:al_qamar/cubit/live_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class VideoStream extends StatefulWidget {
@@ -27,16 +29,19 @@ class _VideoStreamState extends State<VideoStream> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 16 / 9,
-      child: WebViewWidget(
-        controller: _webCtrl,
+      child: BlocConsumer<LiveCubit, String>(
+        listener: (context, state) {
+          _webCtrl
+            ..setJavaScriptMode(JavaScriptMode.unrestricted)
+            ..enableZoom(true)
+            ..loadRequest(Uri.parse(state));
+        },
+        builder: (context, state) => WebViewWidget(
+          controller: _webCtrl,
+        ),
       ),
     );
   }

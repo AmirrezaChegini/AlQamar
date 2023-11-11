@@ -5,15 +5,11 @@ import 'package:al_qamar/utils/extensions/duration.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 
 class AudioStream extends StatefulWidget {
   const AudioStream({
     super.key,
-    required this.url,
   });
-
-  final String url;
 
   @override
   State<AudioStream> createState() => _AudioStreamState();
@@ -21,24 +17,6 @@ class AudioStream extends StatefulWidget {
 
 class _AudioStreamState extends State<AudioStream> {
   final AudioPlayer _audioPlayer = locator.get();
-
-  Future<void> initial() async {
-    await _audioPlayer.setAudioSource(
-      ProgressiveAudioSource(
-        Uri.parse(widget.url),
-        tag: const MediaItem(
-          id: '1',
-          title: 'Broadcasting',
-        ),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initial();
-  }
 
   @override
   Widget build(BuildContext context) {

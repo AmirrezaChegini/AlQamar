@@ -3,6 +3,8 @@ import 'package:al_qamar/bloc/live/live_event.dart';
 import 'package:al_qamar/bloc/live/live_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/cubit/live_cubit.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/pages/live/widgets/audio_stream.dart';
 import 'package:al_qamar/pages/live/widgets/live_item.dart';
 import 'package:al_qamar/pages/live/widgets/live_tabbar.dart';
@@ -16,6 +18,8 @@ import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 class LivePage extends StatefulWidget {
   const LivePage({super.key});
@@ -29,6 +33,19 @@ class _LivePageState extends State<LivePage>
   late final TabController _tabCtrl;
   int videoIndex = 0;
   int audioIndex = 0;
+  final AudioPlayer _audioPlayer = locator.get();
+
+  void initAudio(String url) {
+    _audioPlayer.setAudioSource(
+      ProgressiveAudioSource(
+        Uri.parse(url),
+        tag: const MediaItem(
+          id: '1',
+          title: 'Broadcasting',
+        ),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -59,7 +76,12 @@ class _LivePageState extends State<LivePage>
           color: AppColors.red,
         ),
       ),
-      body: BlocBuilder<LiveBloc, LiveState>(
+      body: BlocConsumer<LiveBloc, LiveState>(
+        listener: (context, state) {
+          if (state is CompleteLiveState) {
+            initAudio(state.audioList[audioIndex].url);
+          }
+        },
         builder: (context, state) {
           if (state is CompleteLiveState) {
             return ListView(
@@ -75,7 +97,7 @@ class _LivePageState extends State<LivePage>
                   child: LiveTabbar(tabCtrl: _tabCtrl),
                 ),
                 SizedBox(
-                  height: 1080,
+                  height: 800,
                   child: TabBarView(
                     controller: _tabCtrl,
                     children: [
@@ -89,9 +111,13 @@ class _LivePageState extends State<LivePage>
                             children: List.generate(
                               state.videoList.length,
                               (index) => LiveItem(
-                                onTap: () => setState(() {
-                                  videoIndex = index;
-                                }),
+                                onTap: () {
+                                  setState(() {
+                                    videoIndex = index;
+                                  });
+                                  BlocProvider.of<LiveCubit>(context).changeUrl(
+                                      state.videoList[videoIndex].url);
+                                },
                                 title: state.videoList[index].name,
                                 color: videoIndex == index
                                     ? AppColors.grey600
@@ -127,14 +153,17 @@ class _LivePageState extends State<LivePage>
                               ),
                             ),
                           ),
-                          ...List.generate(
-                            state.videoList[videoIndex].programList.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 10),
-                              child: Programs(
-                                program: state
-                                    .videoList[videoIndex].programList[index],
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: state
+                                  .videoList[videoIndex].programList.length,
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 10),
+                                child: Programs(
+                                  program: state
+                                      .videoList[videoIndex].programList[index],
+                                ),
                               ),
                             ),
                           ),
@@ -150,9 +179,12 @@ class _LivePageState extends State<LivePage>
                             children: List.generate(
                               state.audioList.length,
                               (index) => LiveItem(
-                                onTap: () => setState(() {
-                                  audioIndex = index;
-                                }),
+                                onTap: () {
+                                  setState(() {
+                                    audioIndex = index;
+                                  });
+                                  initAudio(state.audioList[audioIndex].url);
+                                },
                                 title: state.audioList[index].name,
                                 color: audioIndex == index
                                     ? AppColors.grey600
@@ -160,11 +192,9 @@ class _LivePageState extends State<LivePage>
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: AudioStream(
-                              url: state.audioList[audioIndex].url,
-                            ),
+                          const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: AudioStream(),
                           ),
                           Container(
                             margin: const EdgeInsets.symmetric(
@@ -188,14 +218,17 @@ class _LivePageState extends State<LivePage>
                               ),
                             ),
                           ),
-                          ...List.generate(
-                            state.audioList[audioIndex].programList.length,
-                            (index) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 10),
-                              child: Programs(
-                                program: state
-                                    .audioList[audioIndex].programList[index],
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: state
+                                  .audioList[audioIndex].programList.length,
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 10),
+                                child: Programs(
+                                  program: state
+                                      .audioList[audioIndex].programList[index],
+                                ),
                               ),
                             ),
                           ),

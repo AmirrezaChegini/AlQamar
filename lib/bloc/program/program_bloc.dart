@@ -14,8 +14,6 @@ class ProgramBloc extends Bloc<ProgramEvent, ProgramState> {
       either.fold((l) {
         emit(FailProgramState(l));
       }, (r) {
-        print(r.length);
-        print(r[0].programList.length);
         emit(CompleteProgramState(r));
       });
     });

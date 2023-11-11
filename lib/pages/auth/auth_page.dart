@@ -94,6 +94,7 @@ class _AuthPageState extends State<AuthPage>
                   showMessage(
                     context: context,
                     content: state.message,
+                    horizontalMargin: 20,
                     isError: false,
                   );
                 }

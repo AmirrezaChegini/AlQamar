@@ -109,15 +109,6 @@ class _MainWrapperPageState extends State<MainWrapperPage>
 
               BlocProvider.of<UserBloc>(context).add(GetUserEvent());
             }
-
-            if (state is FailAuthState) {
-              showMessage(
-                context: context,
-                content: state.errorMessage.localize(context),
-                horizontalMargin: 10,
-                verticalMargin: 0,
-              );
-            }
           },
           child: TabBarView(
             controller: _tabCtrl,

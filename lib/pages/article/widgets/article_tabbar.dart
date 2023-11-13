@@ -55,11 +55,11 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 80,
-      backgroundColor: AppColors.grey200,
+      backgroundColor: AppColors.blue,
       elevation: 0,
       automaticallyImplyLeading: false,
       systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.grey200,
+        statusBarColor: AppColors.blue,
         statusBarIconBrightness: Brightness.dark,
       ),
       title: Stack(

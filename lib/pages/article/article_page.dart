@@ -70,101 +70,119 @@ class _ArticlePageState extends State<ArticlePage>
           }
         },
         child: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height / 2.9,
-                  child: TabBarView(
-                    controller: _tabCtrl,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      ImageViewer(images: widget.article.images),
-                      VideoArticlePlayer(
-                        video: widget.article.videos.isNotEmpty
-                            ? widget.article.videos[0]
-                            : '',
-                      ),
-                      YoutubeArticlePlayer(youtubeID: widget.article.youtube),
-                      AudioArticlePlayer(
-                        audios: widget.article.audios,
-                        date: widget.article.updateAt,
-                        image: widget.article.images.isNotEmpty
-                            ? widget.article.images[0]
-                            : AppImages.error,
-                        writer: widget.article.writer,
-                      ),
-                      PdfArticleViewer(pdfList: widget.article.pdfs),
+          child: Stack(
+            children: [
+              Container(
+                height: MediaQuery.sizeOf(context).height / 3.5,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      AppColors.grey600,
+                      AppColors.grey200,
                     ],
                   ),
                 ),
               ),
-              BlocBuilder<ArticleCubit, int>(
-                builder: (context, state) {
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      childCount: state == 3
-                          ? widget.article.audios.length
-                          : state == 4
-                              ? widget.article.pdfs.length
-                              : 0,
-                      (context, index) => Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: state == 3
-                            ? AudioWidget(
-                                index: index,
-                                audio: widget.article.audios[index],
-                                image: widget.article.images.isNotEmpty
-                                    ? widget.article.images[0]
-                                    : '',
-                              )
-                            : state == 4
-                                ? PdfItemWidget(index: index)
-                                : const SizedBox(),
+              CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: MediaQuery.sizeOf(context).height / 2.9,
+                      child: TabBarView(
+                        controller: _tabCtrl,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          ImageViewer(images: widget.article.images),
+                          VideoArticlePlayer(
+                            video: widget.article.videos.isNotEmpty
+                                ? widget.article.videos[0]
+                                : '',
+                          ),
+                          YoutubeArticlePlayer(
+                              youtubeID: widget.article.youtube),
+                          AudioArticlePlayer(
+                            audios: widget.article.audios,
+                            date: widget.article.updateAt,
+                            image: widget.article.images.isNotEmpty
+                                ? widget.article.images[0]
+                                : AppImages.error,
+                            writer: widget.article.writer,
+                          ),
+                          PdfArticleViewer(pdfList: widget.article.pdfs),
+                        ],
                       ),
                     ),
-                  );
-                },
-              ),
-              SliverToBoxAdapter(
-                child: ActionArticle(article: widget.article),
-              ),
-              SliverToBoxAdapter(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      bottomLeft: Radius.circular(60),
-                    ),
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        AppColors.red.withOpacity(0.4),
-                        AppColors.grey200,
-                      ],
+                  ),
+                  BlocBuilder<ArticleCubit, int>(
+                    builder: (context, state) {
+                      return SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: state == 3
+                              ? widget.article.audios.length
+                              : state == 4
+                                  ? widget.article.pdfs.length
+                                  : 0,
+                          (context, index) => Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: state == 3
+                                ? AudioWidget(
+                                    index: index,
+                                    audio: widget.article.audios[index],
+                                    image: widget.article.images.isNotEmpty
+                                        ? widget.article.images[0]
+                                        : '',
+                                  )
+                                : state == 4
+                                    ? PdfItemWidget(index: index)
+                                    : const SizedBox(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  SliverToBoxAdapter(
+                    child: ActionArticle(article: widget.article),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 15),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          bottomLeft: Radius.circular(60),
+                        ),
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            AppColors.red.withOpacity(0.4),
+                            AppColors.grey200,
+                          ],
+                        ),
+                      ),
+                      child: Text(
+                        widget.article.title,
+                        maxLines: 3,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(fontSize: 14),
+                      ),
                     ),
                   ),
-                  child: Text(
-                    widget.article.title,
-                    maxLines: 3,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(fontSize: 14),
+                  SliverPadding(
+                    padding: const EdgeInsets.all(10),
+                    sliver: HtmlViewer(
+                      content: widget.article.content,
+                      renderMode: RenderMode.sliverList,
+                    ),
                   ),
-                ),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.all(10),
-                sliver: HtmlViewer(
-                  content: widget.article.content,
-                  renderMode: RenderMode.sliverList,
-                ),
+                ],
               ),
             ],
           ),

@@ -68,26 +68,6 @@ class _ArticlePageState extends State<ArticlePage>
               verticalMargin: 10,
             );
           }
-
-          if (state is CompleteRemoveBookmarkState) {
-            showMessage(
-              context: context,
-              content: state.message,
-              horizontalMargin: 10,
-              verticalMargin: 10,
-              isError: false,
-            );
-          }
-
-          if (state is CompleteAddBookmarkState) {
-            showMessage(
-              context: context,
-              content: state.message,
-              horizontalMargin: 10,
-              verticalMargin: 10,
-              isError: false,
-            );
-          }
         },
         child: SafeArea(
           child: CustomScrollView(

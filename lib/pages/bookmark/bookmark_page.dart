@@ -50,23 +50,13 @@ class _BookmarkPageState extends State<BookmarkPage> {
                 verticalMargin: 10,
               );
             }
-
-            if (state is CompleteRemoveBookmarkState) {
-              showMessage(
-                context: context,
-                content: state.message,
-                horizontalMargin: 10,
-                verticalMargin: 10,
-                isError: false,
-              );
-            }
           },
           builder: (context, state) {
             if (state is CompleteBookmarkState) {
               return CustomScrollView(
                 slivers: [
                   SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 100),
+                    padding: const EdgeInsets.all(10),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
                         childCount: state.bookmarkList.length,
@@ -75,26 +65,30 @@ class _BookmarkPageState extends State<BookmarkPage> {
                           direction: DismissDirection.endToStart,
                           onDismissed: (direction) =>
                               BlocProvider.of<BookmarkBloc>(context).add(
-                                  RemoveBookmarkEvent(
-                                      state.bookmarkList[index].id)),
-                          background: Align(
+                            RemoveBookmarkEvent(state.bookmarkList[index].id),
+                          ),
+                          background: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 40),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
                             alignment: AlignmentDirectional.centerEnd,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                'remove'.localize(context),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium!
-                                    .copyWith(fontSize: 20),
-                              ),
+                            decoration: BoxDecoration(
+                              color: AppColors.red100,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              'remove'.localize(context),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall!
+                                  .copyWith(fontSize: 18),
                             ),
                           ),
+                          behavior: HitTestBehavior.translucent,
                           child: Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: ArticleWidget(
-                                article: state.bookmarkList[index]),
+                              article: state.bookmarkList[index],
+                            ),
                           ),
                         ),
                       ),

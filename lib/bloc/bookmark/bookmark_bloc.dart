@@ -12,9 +12,7 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
 
       either.fold((l) {
         emit(FailBookmarkState(l));
-      }, (r) {
-        emit(CompleteAddBookmarkState(r));
-      });
+      }, (r) {});
     });
 
     on<RemoveBookmarkEvent>((event, emit) async {
@@ -22,9 +20,7 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
 
       either.fold((l) {
         emit(FailBookmarkState(l));
-      }, (r) {
-        emit(CompleteRemoveBookmarkState(r));
-      });
+      }, (r) {});
     });
 
     on<GetAllBookmarkEvent>((event, emit) async {

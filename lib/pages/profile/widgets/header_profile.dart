@@ -26,7 +26,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.grey200,
       builder: (context) => DraggableScrollableSheet(
         minChildSize: 0.3,
         maxChildSize: 1,
@@ -40,7 +40,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.grey200,
       builder: (context) => DraggableScrollableSheet(
         minChildSize: 0.3,
         maxChildSize: 1,

@@ -22,83 +22,89 @@ class CalenderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TitleWidget(
-            title: CheckDirect.isRTL(context)
-                ? '${HijriCalendar.now().hMonth.getHijriMonth()} ${HijriCalendar.now().hYear}'
-                : DateFormat("MMMM yyyy").format(DateTime.now()),
-            showDivider: true,
-            crossAlignment: CrossAxisAlignment.end,
-            dividerWidth: 130,
-          ),
-          const SizedBox(height: 8),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: WeekCalender(),
-          ),
-          const Divider(
-            thickness: 1,
-            endIndent: 10,
-            indent: 10,
-            color: AppColors.grey,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: GestureDetector(
-              onTap: () {
-                tabController.animateTo(0);
-                BlocProvider.of<BottomnavCubit>(context).changeIndex(0);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text.rich(
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    TextSpan(
-                      text: '${'todayMention'.localize(context)}: ',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontSize: 12),
-                      children: [
-                        TextSpan(
-                          text: '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .copyWith(fontSize: 12),
-                        ),
-                      ],
+    return Card(
+      color: AppColors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 6,
+      margin: const EdgeInsets.all(0),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TitleWidget(
+              title: CheckDirect.isRTL(context)
+                  ? '${HijriCalendar.now().hMonth.getHijriMonth()} ${HijriCalendar.now().hYear}'
+                  : DateFormat("MMMM yyyy").format(DateTime.now()),
+              showDivider: true,
+              crossAlignment: CrossAxisAlignment.end,
+              dividerWidth: 130,
+            ),
+            const SizedBox(height: 8),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: WeekCalender(),
+            ),
+            const Divider(
+              thickness: 1,
+              endIndent: 10,
+              indent: 10,
+              color: AppColors.grey,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: GestureDetector(
+                onTap: () {
+                  tabController.animateTo(0);
+                  BlocProvider.of<BottomnavCubit>(context).changeIndex(0);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text.rich(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      TextSpan(
+                        text: '${'todayMention'.localize(context)}: ',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontSize: 12),
+                        children: [
+                          TextSpan(
+                            text: '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium!
+                                .copyWith(fontSize: 12),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: AppColors.grey200,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: const AppIcon(
-                      icon: AppIcons.rightArrow,
-                      color: AppColors.grey,
-                      height: 20,
-                      width: 20,
-                      matchDirection: true,
-                    ),
-                  )
-                ],
+                    Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: AppColors.grey200,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const AppIcon(
+                        icon: AppIcons.rightArrow,
+                        color: AppColors.grey,
+                        height: 20,
+                        width: 20,
+                        matchDirection: true,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

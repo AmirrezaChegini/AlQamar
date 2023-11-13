@@ -87,9 +87,12 @@ class _HeaderProfileState extends State<HeaderProfile> {
             left: 20,
             child: Row(
               children: [
-                Material(
+                Card(
                   elevation: 5,
-                  borderRadius: BorderRadius.circular(20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: const EdgeInsets.all(0),
                   child: Container(
                     width: 80,
                     height: 80,

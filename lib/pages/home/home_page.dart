@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                     itemCount: 3,
                     controller: _pageCtrl,
                     itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.all(10).copyWith(top: 0),
                       child:
                           PageViewItem(article: state.lastArticleList[index]),
                     ),

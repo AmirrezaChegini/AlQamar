@@ -59,7 +59,7 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
       elevation: 0,
       automaticallyImplyLeading: false,
       systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.blue,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.dark,
       ),
       title: Stack(

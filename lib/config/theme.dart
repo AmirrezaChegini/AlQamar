@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/widgets/slider_theme.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -7,6 +8,12 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     fontFamily: 'iranyekanmed',
     scaffoldBackgroundColor: AppColors.transparent,
+    sliderTheme: SliderThemeData(
+      trackShape: const GradientRectSliderTrackShape(),
+      thumbColor: AppColors.blue,
+      overlayColor: AppColors.blue.withOpacity(0.1),
+      trackHeight: 3,
+    ),
     textTheme: const TextTheme(
       //large
       titleLarge: TextStyle(

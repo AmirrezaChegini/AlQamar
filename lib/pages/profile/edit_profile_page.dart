@@ -3,7 +3,6 @@ import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
@@ -57,11 +56,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(15),
-          image: const DecorationImage(
-            image: AssetImage(AppImages.authBackground),
-            fit: BoxFit.cover,
-            opacity: 0.5,
-          ),
         ),
         child: BlocListener<UserBloc, UserState>(
           listener: (context, state) {

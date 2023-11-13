@@ -4,7 +4,6 @@ import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/pages/auth/widgets/header_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/login_widgets.dart';
@@ -65,11 +64,6 @@ class _AuthPageState extends State<AuthPage>
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(15),
-          image: const DecorationImage(
-            image: AssetImage(AppImages.authBackground),
-            fit: BoxFit.cover,
-            opacity: 0.5,
-          ),
         ),
         child: Column(
           children: [

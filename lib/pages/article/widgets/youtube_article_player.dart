@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/pages/fullscreen/youtube_fullscreen_page.dart';
-import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/utils/extensions/duration.dart';
+import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 

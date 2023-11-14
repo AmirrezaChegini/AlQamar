@@ -2,7 +2,7 @@ import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
-import 'package:al_qamar/widgets/app_icon.dart';
+import 'package:al_qamar/pages/article/widgets/tab_item.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,67 +55,58 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 80,
-      backgroundColor: AppColors.blue,
+      backgroundColor: AppColors.transparent,
       elevation: 0,
       automaticallyImplyLeading: false,
+      titleSpacing: 0,
       systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: AppColors.blue,
       ),
-      title: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Container(
-            height: 1,
-            color: AppColors.grey600,
+      title: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              AppColors.blue,
+              AppColors.blue.withOpacity(0.7),
+              AppColors.blue.withOpacity(0.7),
+              AppColors.blue,
+            ],
           ),
-          TabBar(
-            controller: widget.tabController,
-            labelStyle:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-            labelColor: AppColors.blue,
-            unselectedLabelStyle:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-            unselectedLabelColor: AppColors.grey,
-            indicatorColor: AppColors.blue,
-            indicatorWeight: 2,
-            indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
-            labelPadding: const EdgeInsets.all(0),
-            onTap: (value) {
-              if ((value == 1 && widget.videos.isEmpty) ||
-                  (value == 3 && widget.audios.isEmpty) ||
-                  (value == 4 && widget.pdfs.isEmpty)) {
-                widget.tabController
-                    .animateTo(widget.tabController.previousIndex);
+        ),
+        child: TabBar(
+          controller: widget.tabController,
+          labelPadding: const EdgeInsets.all(0),
+          onTap: (value) {
+            if ((value == 1 && widget.videos.isEmpty) ||
+                (value == 3 && widget.audios.isEmpty) ||
+                (value == 4 && widget.pdfs.isEmpty)) {
+              widget.tabController
+                  .animateTo(widget.tabController.previousIndex);
 
-                showMessage(
-                  context: context,
-                  content: 'noContent'.localize(context),
-                  horizontalMargin: 10,
-                  verticalMargin: 10,
-                  isError: false,
-                );
-              } else {
-                BlocProvider.of<ArticleCubit>(context).changeIndex(value);
-                setState(() {});
-              }
-            },
-            tabs: List.generate(
-              5,
-              (index) => Tab(
-                icon: AppIcon(
-                  icon: _tabsIcon[index],
-                  height: 25,
-                  width: 25,
-                  color: widget.tabController.index == index
-                      ? AppColors.blue
-                      : AppColors.grey,
-                ),
-                text: _tabsText[index],
-              ),
+              showMessage(
+                context: context,
+                content: 'noContent'.localize(context),
+                horizontalMargin: 10,
+                verticalMargin: 10,
+                isError: false,
+              );
+            } else {
+              BlocProvider.of<ArticleCubit>(context).changeIndex(value);
+              setState(() {});
+            }
+          },
+          tabs: List.generate(
+            5,
+            (index) => TabItem(
+              tabsIcon: _tabsIcon[index],
+              tabsText: _tabsText[index],
+              state: widget.tabController.index == index,
             ),
           ),
-        ],
+        ),
       ),
     );
   }

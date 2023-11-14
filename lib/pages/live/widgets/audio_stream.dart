@@ -1,7 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/di.dart';
-import 'package:al_qamar/utils/anim/animated_icon.dart';
 import 'package:al_qamar/utils/extensions/duration.dart';
+import 'package:al_qamar/widgets/anim/animated_icon.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';

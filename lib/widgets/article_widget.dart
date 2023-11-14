@@ -2,9 +2,9 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
-import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
+import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/image_mask.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +54,7 @@ class ArticleWidget extends StatelessWidget {
                       article.title,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyLarge!
+                          .displayLarge!
                           .copyWith(fontSize: 12),
                       maxLines: 1,
                       overflow: TextOverflow.clip,

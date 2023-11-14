@@ -1,6 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/utils/anim/fade_in_out.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
+import 'package:al_qamar/widgets/anim/fade_in_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';

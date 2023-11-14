@@ -110,11 +110,11 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: 10),
                       ),
                       const SizedBox(height: 5),
                       Container(
-                        width: 180,
+                        width: 150,
                         height: 1,
                         color: AppColors.blue,
                       ),

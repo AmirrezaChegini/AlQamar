@@ -90,7 +90,9 @@ class _ArticlePageState extends State<ArticlePage>
                   SliverToBoxAdapter(
                     child: SizedBox(
                       width: double.infinity,
-                      height: MediaQuery.sizeOf(context).height / 2.9,
+                      height: MediaQuery.sizeOf(context).height < 800
+                          ? MediaQuery.sizeOf(context).height / 2.2
+                          : MediaQuery.sizeOf(context).height / 3,
                       child: TabBarView(
                         controller: _tabCtrl,
                         physics: const NeverScrollableScrollPhysics(),

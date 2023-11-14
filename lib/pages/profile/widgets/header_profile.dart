@@ -84,7 +84,6 @@ class _HeaderProfileState extends State<HeaderProfile> {
           Positioned.fill(
             top: 40,
             right: 20,
-            left: 20,
             child: Row(
               children: [
                 Card(

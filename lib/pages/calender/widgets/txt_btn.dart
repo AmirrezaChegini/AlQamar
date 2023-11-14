@@ -25,8 +25,8 @@ class TxtBtn extends StatelessWidget {
         icon: AppIcon(
           icon: icon,
           color: AppColors.grey,
-          height: 20,
-          width: 20,
+          height: 15,
+          width: 15,
           matchDirection: true,
         ),
         label: Text(
@@ -36,7 +36,7 @@ class TxtBtn extends StatelessWidget {
         style: TextButton.styleFrom(
           foregroundColor: AppColors.grey,
           textStyle:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
+              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 10),
         ),
       ),
     );

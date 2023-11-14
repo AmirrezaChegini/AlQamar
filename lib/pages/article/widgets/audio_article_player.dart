@@ -184,19 +184,26 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                     initialData: Duration.zero,
                     builder: (context, durationSnapshot) => StreamBuilder(
                       stream: _audioPlayer.positionStream,
-                      builder: (context, positionSnapshot) => Slider(
-                        inactiveColor: AppColors.grey200,
-                        min: 0,
-                        max: durationSnapshot.data?.inMilliseconds
-                                .roundToDouble() ??
-                            1000000,
-                        value: positionSnapshot.data?.inMilliseconds
-                                .roundToDouble() ??
-                            0,
-                        onChanged: (value) => _audioPlayer
-                            .seek(Duration(milliseconds: value.toInt())),
-                        onChangeEnd: (value) => _audioPlayer
-                            .seek(Duration(milliseconds: value.toInt())),
+                      builder: (context, positionSnapshot) => StreamBuilder(
+                        stream: _audioPlayer.bufferedPositionStream,
+                        builder: (context, bufferSnapshot) => Slider(
+                          inactiveColor: AppColors.grey200,
+                          min: 0,
+                          max: durationSnapshot.data?.inMilliseconds
+                                  .roundToDouble() ??
+                              1000000,
+                          value: positionSnapshot.data?.inMilliseconds
+                                  .roundToDouble() ??
+                              0,
+                          secondaryTrackValue: bufferSnapshot
+                                  .data?.inMilliseconds
+                                  .roundToDouble() ??
+                              0,
+                          onChanged: (value) => _audioPlayer
+                              .seek(Duration(milliseconds: value.toInt())),
+                          onChangeEnd: (value) => _audioPlayer
+                              .seek(Duration(milliseconds: value.toInt())),
+                        ),
                       ),
                     ),
                   ),

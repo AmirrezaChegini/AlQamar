@@ -124,5 +124,43 @@ class GradientRectSliderTrackShape extends SliderTrackShape
       ),
       rightTrackPaint,
     );
+
+    final bool showSecondaryTrack = (secondaryOffset != null) &&
+        ((textDirection == TextDirection.ltr)
+            ? (secondaryOffset.dx > thumbCenter.dx)
+            : (secondaryOffset.dx < thumbCenter.dx));
+
+    if (showSecondaryTrack) {
+      final ColorTween secondaryTrackColorTween = ColorTween(
+          begin: sliderTheme.disabledSecondaryActiveTrackColor,
+          end: sliderTheme.secondaryActiveTrackColor);
+      final Paint secondaryTrackPaint = Paint()
+        ..color = secondaryTrackColorTween.evaluate(enableAnimation)!;
+      if (textDirection == TextDirection.ltr) {
+        context.canvas.drawRRect(
+          RRect.fromLTRBAndCorners(
+            thumbCenter.dx,
+            trackRect.top,
+            secondaryOffset.dx,
+            trackRect.bottom,
+            topRight: trackRadius,
+            bottomRight: trackRadius,
+          ),
+          secondaryTrackPaint,
+        );
+      } else {
+        context.canvas.drawRRect(
+          RRect.fromLTRBAndCorners(
+            secondaryOffset.dx,
+            trackRect.top,
+            thumbCenter.dx,
+            trackRect.bottom,
+            topLeft: trackRadius,
+            bottomLeft: trackRadius,
+          ),
+          secondaryTrackPaint,
+        );
+      }
+    }
   }
 }

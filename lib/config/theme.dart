@@ -12,6 +12,7 @@ class AppTheme {
       trackShape: const GradientRectSliderTrackShape(),
       thumbColor: AppColors.blue,
       overlayColor: AppColors.blue.withOpacity(0.1),
+      secondaryActiveTrackColor: AppColors.grey600,
       trackHeight: 3,
     ),
     textTheme: const TextTheme(

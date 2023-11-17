@@ -47,14 +47,14 @@ class _ActionArticleState extends State<ActionArticle> {
         children: [
           Row(
             children: [
-              // ActionItem(
-              //   onTap: () => setState(() {
-              //     isLiked = !isLiked;
-              //   }),
-              //   icon: isLiked ? AppIcons.favoriteFill : AppIcons.favorite,
-              //   color: AppColors.red,
-              // ),
-              // const SizedBox(width: 8),
+              ActionItem(
+                onTap: () => setState(() {
+                  isLiked = !isLiked;
+                }),
+                icon: isLiked ? AppIcons.favoriteFill : AppIcons.favorite,
+                color: AppColors.red,
+              ),
+              const SizedBox(width: 8),
               ActionItem(
                 onTap: () => widget.article != null
                     ? ShareData.share(widget.article!.content.htmlToString())

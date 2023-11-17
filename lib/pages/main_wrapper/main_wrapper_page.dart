@@ -57,8 +57,9 @@ class _MainWrapperPageState extends State<MainWrapperPage>
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) async {
         if (_scaffoldKey.currentState!.isDrawerOpen) {
           _scaffoldKey.currentState?.closeDrawer();
         } else {
@@ -78,11 +79,12 @@ class _MainWrapperPageState extends State<MainWrapperPage>
                 isError: false,
               );
               await Future.delayed(
-                  const Duration(seconds: 3), () => exit = false);
+                const Duration(seconds: 3),
+                () => exit = false,
+              );
             }
           }
         }
-        return false;
       },
       child: Scaffold(
         key: _scaffoldKey,

@@ -69,10 +69,11 @@ class _TabItemState extends State<TabItem> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 AppIcon(
-                    icon: widget.tabsIcon,
-                    height: 25,
-                    width: 25,
-                    color: _colorAnim.value),
+                  icon: widget.tabsIcon,
+                  height: 25,
+                  width: 25,
+                  color: _colorAnim.value,
+                ),
                 Text(
                   widget.tabsText,
                   style: Theme.of(context)

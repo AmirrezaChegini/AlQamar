@@ -28,13 +28,7 @@ class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer>
       flags: const YoutubePlayerFlags(
         autoPlay: false,
       ),
-    )..addListener(() {
-        setState(() {});
-        if (_youtubeCtrl.value.position.inSeconds ==
-            _youtubeCtrl.metadata.duration.inSeconds - 1) {
-          _youtubeCtrl.seekTo(const Duration(milliseconds: 0));
-        }
-      });
+    );
   }
 
   @override
@@ -52,6 +46,15 @@ class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer>
         borderRadius: BorderRadius.circular(20),
         child: YoutubePlayer(
           controller: _youtubeCtrl,
+          onReady: () {
+            _youtubeCtrl.addListener(() {
+              setState(() {});
+              if (_youtubeCtrl.value.position.inSeconds ==
+                  _youtubeCtrl.metadata.duration.inSeconds - 1) {
+                _youtubeCtrl.seekTo(const Duration(milliseconds: 0));
+              }
+            });
+          },
           bottomActions: [
             const Spacer(),
             Text.rich(

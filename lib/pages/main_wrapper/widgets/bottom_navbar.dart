@@ -45,7 +45,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10).copyWith(bottom: 20),
       height: 80,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),

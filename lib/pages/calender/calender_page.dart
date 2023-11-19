@@ -41,7 +41,7 @@ class CalenderPage extends StatelessWidget {
         // ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.all(10).copyWith(bottom: 100),
+            padding: const EdgeInsets.all(10).copyWith(bottom: 120),
             child: const FourActions(),
           ),
         ),

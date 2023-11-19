@@ -67,7 +67,7 @@ class _NewsPageState extends State<NewsPage>
                 ),
               ),
               SliverPadding(
-                padding: const EdgeInsets.only(bottom: 100),
+                padding: const EdgeInsets.only(bottom: 110),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     childCount: state.articleList.length,

@@ -51,7 +51,7 @@ class _ForceNewsState extends State<ForceNews> {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        fadePageTran(
+        pageRoute(
           child: ArticlePage(article: widget.articleList[index]),
         ),
       ),

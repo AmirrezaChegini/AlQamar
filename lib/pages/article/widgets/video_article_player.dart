@@ -93,7 +93,7 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
                           child: GestureDetector(
                             onTap: () => Navigator.push(
                               context,
-                              fadePageTran(
+                              pageRoute(
                                 child:
                                     VideoFullscrreenPage(videoCtrl: _videoCtrl),
                               ),

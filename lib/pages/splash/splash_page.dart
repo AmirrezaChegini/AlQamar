@@ -44,7 +44,7 @@ class _SplashPageState extends State<SplashPage> {
           if (state is CompleteHomeState) {
             Navigator.pushReplacement(
               context,
-              fadePageTran(child: const MainWrapperPage()),
+              pageRoute(child: const MainWrapperPage()),
             );
           }
 

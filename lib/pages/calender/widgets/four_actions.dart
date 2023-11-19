@@ -81,7 +81,7 @@ class FourActions extends StatelessWidget {
                       itemBuilder: (context, index) => TxtBtn(
                         onTap: () => Navigator.push(
                           context,
-                          fadePageTran(
+                          pageRoute(
                             child: CalenderDataPage(
                                 calender: state.calenderList[index]),
                           ),

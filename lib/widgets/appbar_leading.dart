@@ -33,7 +33,7 @@ class AppbarLeading extends StatelessWidget {
         IconBtnAppbar(
           onTap: () => Navigator.push(
             context,
-            fadePageTran(child: const LivePage()),
+            pageRoute(child: const LivePage()),
           ),
           child: const AppIcon(
             icon: AppIcons.live,

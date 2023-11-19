@@ -57,7 +57,7 @@ class _PdfArticleViewerState extends State<PdfArticleViewer>
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                       context,
-                      fadePageTran(
+                      pageRoute(
                         child: PdfFullscreenPage(
                             pdfCtrl: _pdfCtrl, pdf: widget.pdfList[state]),
                       ),

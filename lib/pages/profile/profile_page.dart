@@ -51,7 +51,7 @@ class ProfilePage extends StatelessWidget {
                         child: ItemWidget(
                           onTap: () => Navigator.push(
                             context,
-                            fadePageTran(child: const LivePage()),
+                            pageRoute(child: const LivePage()),
                           ),
                           image: AppIcons.play,
                           color: AppColors.red.withOpacity(0.4),
@@ -70,8 +70,7 @@ class ProfilePage extends StatelessWidget {
                                     child: ItemWidget(
                                       onTap: () => Navigator.push(
                                         context,
-                                        fadePageTran(
-                                            child: const ProgramsPage()),
+                                        pageRoute(child: const ProgramsPage()),
                                       ),
                                       image: AppIcons.live,
                                       color: AppColors.grey600,
@@ -82,8 +81,7 @@ class ProfilePage extends StatelessWidget {
                                     child: ItemWidget(
                                       onTap: () => Navigator.push(
                                         context,
-                                        fadePageTran(
-                                            child: const BookmarkPage()),
+                                        pageRoute(child: const BookmarkPage()),
                                       ),
                                       image: AppIcons.bookmark,
                                       color: AppColors.grey600,
@@ -111,8 +109,7 @@ class ProfilePage extends StatelessWidget {
                                       title: 'preyers'.localize(context),
                                       onTap: () => Navigator.push(
                                         context,
-                                        fadePageTran(
-                                            child: const SalavatPage()),
+                                        pageRoute(child: const SalavatPage()),
                                       ),
                                     ),
                                   ),

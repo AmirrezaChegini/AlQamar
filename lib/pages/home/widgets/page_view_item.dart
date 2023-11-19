@@ -22,7 +22,7 @@ class PageViewItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        fadePageTran(child: ArticlePage(article: article)),
+        pageRoute(child: ArticlePage(article: article)),
       ),
       child: Card(
         color: AppColors.transparent,

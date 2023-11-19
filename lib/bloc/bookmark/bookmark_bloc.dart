@@ -1,39 +1,51 @@
 import 'package:al_qamar/bloc/bookmark/bookmark_event.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_state.dart';
+import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/data/repositories/bookmark_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:al_qamar/models/article.dart';
+import 'package:bloc/bloc.dart';
 
 class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
   final IBookmarkRepository _repository;
+  final BookmarkCubit bookmarkCubit;
 
-  BookmarkBloc(this._repository) : super(InitBookmarkState()) {
-    on<AddBookmarkEvent>((event, emit) async {
-      var either = await _repository.addBookmark(articleID: event.articelID);
+  BookmarkBloc(this._repository, this.bookmarkCubit)
+      : super(InitBookmarkState()) {
+    on<GetAllBookmark>((event, emit) {
+      emit(InitBookmarkState());
+      List<Article> bookmarkList = _repository.getAllBookmarks();
 
-      either.fold((l) {
-        emit(FailBookmarkState(l));
-      }, (r) {});
+      if (bookmarkList.isEmpty) {
+        emit(EmptyBookmarkState());
+      } else {
+        emit(CompleteBookmarkState(bookmarkList));
+      }
     });
 
-    on<RemoveBookmarkEvent>((event, emit) async {
-      var either = await _repository.removeBookmark(articleID: event.articelID);
+    on<AddBookmark>((event, emit) async {
+      await _repository.addBookmark(article: event.article);
+      bookmarkCubit.isBookmark(event.article);
 
-      either.fold((l) {
-        emit(FailBookmarkState(l));
-      }, (r) {});
+      List<Article> bookmarkList = _repository.getAllBookmarks();
+
+      if (bookmarkList.isEmpty) {
+        emit(EmptyBookmarkState());
+      } else {
+        emit(CompleteBookmarkState(bookmarkList));
+      }
     });
 
-    on<GetAllBookmarkEvent>((event, emit) async {
-      emit(LoadingBookmarkState());
-      var either = await _repository.getBookmarks();
+    on<Removebookmark>((event, emit) async {
+      await _repository.removeBookmark(article: event.article);
+      bookmarkCubit.isBookmark(event.article);
 
-      either.fold((l) {
-        emit(FailBookmarkState(l));
-      }, (r) {
-        r.isNotEmpty
-            ? emit(CompleteBookmarkState(r))
-            : emit(EmptyBookmarkState());
-      });
+      List<Article> bookmarkList = _repository.getAllBookmarks();
+
+      if (bookmarkList.isEmpty) {
+        emit(EmptyBookmarkState());
+      } else {
+        emit(CompleteBookmarkState(bookmarkList));
+      }
     });
   }
 }

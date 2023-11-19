@@ -15,12 +15,14 @@ class ArticleTabbar extends StatefulWidget implements PreferredSizeWidget {
     required this.audios,
     required this.videos,
     required this.pdfs,
+    required this.youtube,
   });
 
   final TabController tabController;
   final List<dynamic> audios;
   final List<dynamic> videos;
   final List<dynamic> pdfs;
+  final String youtube;
 
   @override
   State<ArticleTabbar> createState() => _ArticleTabbarState();
@@ -81,6 +83,7 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
           labelPadding: const EdgeInsets.all(0),
           onTap: (value) {
             if ((value == 1 && widget.videos.isEmpty) ||
+                value == 2 && widget.youtube.isEmpty ||
                 (value == 3 && widget.audios.isEmpty) ||
                 (value == 4 && widget.pdfs.isEmpty)) {
               widget.tabController

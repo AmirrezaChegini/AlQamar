@@ -1,8 +1,8 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/models/calender.dart';
-import 'package:al_qamar/pages/article/widgets/action_article.dart';
 import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
 import 'package:al_qamar/pages/article/widgets/audio_article_player.dart';
 import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
@@ -11,6 +11,9 @@ import 'package:al_qamar/pages/article/widgets/pdf_article_viewer.dart';
 import 'package:al_qamar/pages/article/widgets/pdf_item_widget.dart';
 import 'package:al_qamar/pages/article/widgets/video_article_player.dart';
 import 'package:al_qamar/pages/article/widgets/youtube_article_player.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/utils/share.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/html_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,11 +51,25 @@ class _CalenderDataPageState extends State<CalenderDataPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =>
+            ShareData.share(widget.calender.content.htmlToString()),
+        backgroundColor: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: AppIcon(icon: AppIcons.share),
+        ),
+      ),
       appBar: ArticleTabbar(
         tabController: _tabCtrl,
         audios: widget.calender.audios,
         videos: widget.calender.videos,
         pdfs: widget.calender.pdfs,
+        youtube: '',
       ),
       body: CustomScrollView(
         slivers: [
@@ -110,9 +127,6 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                 ),
               );
             },
-          ),
-          SliverToBoxAdapter(
-            child: ActionArticle(calender: widget.calender),
           ),
           SliverToBoxAdapter(
             child: Container(

@@ -4,9 +4,7 @@ import 'package:al_qamar/bloc/bookmark/bookmark_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
-import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
-import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +22,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
   @override
   void initState() {
     super.initState();
-
-    BlocProvider.of<BookmarkBloc>(context).add(GetAllBookmarkEvent());
+    BlocProvider.of<BookmarkBloc>(context).add(GetAllBookmark());
   }
 
   @override
@@ -40,17 +37,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
         ),
       ),
       body: SafeArea(
-        child: BlocConsumer<BookmarkBloc, BookmarkState>(
-          listener: (context, state) {
-            if (state is FailBookmarkState) {
-              showMessage(
-                context: context,
-                content: state.errorMessage.localize(context),
-                horizontalMargin: 10,
-                verticalMargin: 10,
-              );
-            }
-          },
+        child: BlocBuilder<BookmarkBloc, BookmarkState>(
           builder: (context, state) {
             if (state is CompleteBookmarkState) {
               return CustomScrollView(
@@ -65,8 +52,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                           direction: DismissDirection.endToStart,
                           onDismissed: (direction) =>
                               BlocProvider.of<BookmarkBloc>(context).add(
-                            RemoveBookmarkEvent(state.bookmarkList[index].id),
-                          ),
+                                  Removebookmark(state.bookmarkList[index])),
                           background: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 40),
                             margin: const EdgeInsets.symmetric(vertical: 10),
@@ -98,14 +84,8 @@ class _BookmarkPageState extends State<BookmarkPage> {
               );
             }
 
-            if (state is LoadingBookmarkState) {
-              return const LoadingState();
-            }
-
             if (state is EmptyBookmarkState) {
-              return Center(
-                child: Image.asset(AppImages.blank),
-              );
+              return Center(child: Image.asset(AppImages.blank));
             }
 
             return const SizedBox();

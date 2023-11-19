@@ -58,8 +58,7 @@ class _PdfArticleViewerState extends State<PdfArticleViewer>
                     onTap: () => Navigator.push(
                       context,
                       pageRoute(
-                        child: PdfFullscreenPage(
-                            pdfCtrl: _pdfCtrl, pdf: widget.pdfList[state]),
+                        child: PdfFullscreenPage(pdf: widget.pdfList[state]),
                       ),
                     ),
                     child: const Icon(

@@ -5,11 +5,9 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 class PdfFullscreenPage extends StatefulWidget {
   const PdfFullscreenPage({
     super.key,
-    required this.pdfCtrl,
     required this.pdf,
   });
 
-  final PdfViewerController pdfCtrl;
   final String pdf;
 
   @override

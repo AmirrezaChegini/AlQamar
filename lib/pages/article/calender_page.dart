@@ -87,7 +87,7 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                         ? widget.calender.videos[0]
                         : '',
                   ),
-                  const YoutubeArticlePlayer(),
+                  const YoutubeArticlePlayer(youtubeID: ''),
                   AudioArticlePlayer(
                     audios: widget.calender.audios,
                     date: widget.calender.updateAt,

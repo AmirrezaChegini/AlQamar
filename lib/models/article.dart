@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Article {
   final int _id;
@@ -10,7 +9,7 @@ class Article {
   final String? _writer;
   final String? _type;
   String? _createAt;
-  String? _youtube;
+  final String? _youtube;
   dynamic _images;
   dynamic _videos;
   dynamic _audios;
@@ -31,7 +30,6 @@ class Article {
   ) {
     _createAt =
         DateFormat('yyyy-MM-dd').format(DateTime.parse(_createAt ?? ''));
-    _youtube = YoutubePlayer.convertUrlToId(_youtube ?? '');
     _images =
         _images is String ? jsonDecode(_images) as List<dynamic> : _images;
     _videos =

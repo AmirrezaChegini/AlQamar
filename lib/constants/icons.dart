@@ -4,7 +4,6 @@ class AppIcons {
   static const String root = 'assets/icons';
 
   static const String aboutUs = '$root/about_us.png';
-  static const String alarabi = '$root/alarabi.png';
   static const String audio = '$root/audio.svg';
   static const String azan = '$root/azan.png';
   static const String bookmarkFill = '$root/bookmark_fill.png';
@@ -16,7 +15,6 @@ class AppIcons {
   static const String home = '$root/home.png';
   static const String image = '$root/image.svg';
   static const String leftArrow = '$root/left_arrow.png';
-  static const String liveText = '$root/live-text.png';
   static const String live = '$root/live.png';
   static const String logo = '$root/logo.png';
   static const String logout = '$root/logout.png';
@@ -36,7 +34,6 @@ class AppIcons {
   static const String topics = '$root/topics.png';
   static const String video = '$root/video.svg';
   static const String videoError = '$root/videoerror.png';
-  static const String vimeo = '$root/vimeo.png';
   static const String wifi = '$root/wifi.png';
   static const String youtube = '$root/youtube.svg';
 }

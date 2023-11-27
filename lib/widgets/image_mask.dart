@@ -16,29 +16,16 @@ class MaskImage extends StatefulWidget {
 }
 
 class _MaskImageState extends State<MaskImage> {
-  late final Image _image;
   late final Image _error;
-  late final Image _placeHolder;
   late final Image _mask;
 
   @override
   void initState() {
     super.initState();
     try {
-      _image = Image.network(widget.imageUrl);
       _error = Image.asset(AppImages.error, fit: BoxFit.cover);
-      _placeHolder = Image.asset(AppImages.transparent);
       _mask = Image.asset(AppImages.mask);
     } catch (_) {}
-  }
-
-  @override
-  void didChangeDependencies() {
-    precacheImage(_image.image, context);
-    precacheImage(_error.image, context);
-    precacheImage(_placeHolder.image, context);
-    precacheImage(_mask.image, context);
-    super.didChangeDependencies();
   }
 
   @override
@@ -50,14 +37,11 @@ class _MaskImageState extends State<MaskImage> {
         blendMode: BlendMode.srcIn,
         mask: Transform.flip(
           flipX: CheckDirect.isRTL(context) ? false : true,
-          child: FadeInImage(
-            fit: BoxFit.cover,
-            alignment: CheckDirect.isRTL(context)
-                ? Alignment.centerLeft
-                : Alignment.centerRight,
-            image: _image.image,
-            placeholder: _placeHolder.image,
+          child: FadeInImage.assetNetwork(
+            placeholder: AppImages.transparent,
+            image: widget.imageUrl,
             imageErrorBuilder: (context, error, stackTrace) => _error,
+            fit: BoxFit.cover,
           ),
         ),
         child: _mask,

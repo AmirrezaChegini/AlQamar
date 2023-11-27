@@ -10,6 +10,7 @@ class TextFieldAuth extends StatelessWidget {
     required this.inputAction,
     required this.controller,
     this.obsecure = false,
+    this.enabled = true,
     this.suffixIcon,
   });
 
@@ -19,6 +20,7 @@ class TextFieldAuth extends StatelessWidget {
   final TextInputAction inputAction;
   final TextEditingController controller;
   final bool obsecure;
+  final bool enabled;
   final Widget? suffixIcon;
 
   @override
@@ -26,6 +28,7 @@ class TextFieldAuth extends StatelessWidget {
     return TextFormField(
       controller: controller,
       textInputAction: inputAction,
+      enabled: enabled,
       obscureText: obsecure,
       validator: (value) => validate(value!),
       cursorColor: AppColors.blue,

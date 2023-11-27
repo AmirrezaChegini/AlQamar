@@ -1,5 +1,6 @@
 import 'package:al_qamar/models/program.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Programs extends StatelessWidget {
   const Programs({
@@ -21,7 +22,7 @@ class Programs extends StatelessWidget {
           child: Text('.' * 100, maxLines: 1),
         ),
         Text(
-          program.time,
+          DateFormat('HH:mm').format(program.time),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ],

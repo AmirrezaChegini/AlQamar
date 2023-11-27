@@ -7,7 +7,6 @@ import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
-import 'package:al_qamar/bloc/program/program_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
@@ -75,7 +74,6 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<SearchBloc>()),
         BlocProvider(create: (context) => locator.get<CalenderBloc>()),
         BlocProvider(create: (context) => locator.get<LiveBloc>()),
-        BlocProvider(create: (context) => locator.get<ProgramBloc>()),
         BlocProvider(create: (context) => locator.get<FavoriteBloc>()),
         BlocProvider(create: (context) => locator.get<BookmarkBloc>()),
         BlocProvider(create: (context) => locator.get<OtherArticleBloc>()),

@@ -7,7 +7,6 @@ import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
-import 'package:al_qamar/bloc/program/program_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
@@ -133,7 +132,7 @@ Future<void> initLocator() async {
   locator
       .registerLazySingleton<CalenderBloc>(() => CalenderBloc(locator.get()));
   locator.registerLazySingleton<LiveBloc>(() => LiveBloc(locator.get()));
-  locator.registerLazySingleton<ProgramBloc>(() => ProgramBloc(locator.get()));
+
   locator
       .registerLazySingleton<FavoriteBloc>(() => FavoriteBloc(locator.get()));
   locator.registerLazySingleton<BookmarkBloc>(

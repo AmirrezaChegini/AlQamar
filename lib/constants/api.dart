@@ -24,5 +24,5 @@ class Api {
   static const String video = '/live/video';
   static const String audio = '/live/audio';
   //azan
-  static const String azan = 'https://api.aladhan.com/v1/calendarByCity';
+  static const String azan = 'https://api.aladhan.com/v1/timingsByCity';
 }

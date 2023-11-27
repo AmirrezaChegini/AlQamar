@@ -24,13 +24,21 @@ class _MaskImageState extends State<MaskImage> {
   @override
   void initState() {
     super.initState();
-
     try {
       _image = Image.network(widget.imageUrl);
       _error = Image.asset(AppImages.error, fit: BoxFit.cover);
       _placeHolder = Image.asset(AppImages.transparent);
       _mask = Image.asset(AppImages.mask);
     } catch (_) {}
+  }
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(_image.image, context);
+    precacheImage(_error.image, context);
+    precacheImage(_placeHolder.image, context);
+    precacheImage(_mask.image, context);
+    super.didChangeDependencies();
   }
 
   @override

@@ -1,19 +1,43 @@
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+part 'article.g.dart';
+
+@HiveType(typeId: 1)
 class Article {
+  @HiveField(0)
   final int _id;
+
+  @HiveField(1)
   final String? _title;
+
+  @HiveField(2)
   final String? _content;
+
+  @HiveField(3)
   final String? _writer;
+
+  @HiveField(4)
   final String? _type;
+
+  @HiveField(5)
   String? _createAt;
-  String? _youtube;
+
+  @HiveField(6)
+  final String? _youtube;
+
+  @HiveField(7)
   dynamic _images;
+
+  @HiveField(8)
   dynamic _videos;
+
+  @HiveField(9)
   dynamic _audios;
+
+  @HiveField(10)
   dynamic _pdfs;
 
   Article(
@@ -31,7 +55,6 @@ class Article {
   ) {
     _createAt =
         DateFormat('yyyy-MM-dd').format(DateTime.parse(_createAt ?? ''));
-    _youtube = YoutubePlayer.convertUrlToId(_youtube ?? '');
     _images =
         _images is String ? jsonDecode(_images) as List<dynamic> : _images;
     _videos =

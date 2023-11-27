@@ -86,10 +86,12 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height / 3.5,
                   child: PageView.builder(
-                    itemCount: 3,
+                    itemCount: state.lastArticleList.length < 3
+                        ? state.lastArticleList.length
+                        : 3,
                     controller: _pageCtrl,
                     itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.all(10).copyWith(top: 0),
                       child:
                           PageViewItem(article: state.lastArticleList[index]),
                     ),
@@ -124,12 +126,14 @@ class _HomePageState extends State<HomePage> {
                       textDecoration: CheckDirect.isRTL(context)
                           ? TextDirection.ltr
                           : TextDirection.rtl,
+                      fontSize: 12,
+                      iconSize: 20,
                     ),
                   ],
                 ),
               ),
               SliverPadding(
-                padding: const EdgeInsets.only(bottom: 100),
+                padding: const EdgeInsets.only(bottom: 110),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     childCount: state.lastArticleList.length - 3,

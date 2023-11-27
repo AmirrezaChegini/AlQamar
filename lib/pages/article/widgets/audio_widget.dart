@@ -49,7 +49,7 @@ class _AudioWidgetState extends State<AudioWidget> {
         },
         selected: state == widget.index,
         tileColor: AppColors.white,
-        selectedTileColor: AppColors.red100,
+        selectedTileColor: AppColors.red,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -68,7 +68,7 @@ class _AudioWidgetState extends State<AudioWidget> {
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: 16,
                       color: state == widget.index
-                          ? AppColors.red
+                          ? AppColors.white
                           : AppColors.black,
                     ),
               ),

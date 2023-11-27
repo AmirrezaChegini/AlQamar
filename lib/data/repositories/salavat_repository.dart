@@ -4,6 +4,7 @@ import 'package:al_qamar/models/salavat.dart';
 abstract class ISalavatRepository {
   List<Salavat> getAllSalavats();
   Future<void> addSalavat({required Salavat salavat});
+  Future<void> removeSalavat({required Salavat salavat});
 }
 
 class SalavatRepositoryImpl implements ISalavatRepository {
@@ -18,5 +19,10 @@ class SalavatRepositoryImpl implements ISalavatRepository {
   @override
   List<Salavat> getAllSalavats() {
     return _datasource.getAllSalavats();
+  }
+
+  @override
+  Future<void> removeSalavat({required Salavat salavat}) async {
+    await _datasource.removeSalavat(salavat: salavat);
   }
 }

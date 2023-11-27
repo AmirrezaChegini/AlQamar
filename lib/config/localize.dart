@@ -145,6 +145,20 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.logoutSuccess;
       case 'remove':
         return AppLocalizations.of(context)!.remove;
+      case 'noContent':
+        return AppLocalizations.of(context)!.noContent;
+      case 'changeInfo':
+        return AppLocalizations.of(context)!.changeInfo;
+      case 'otherNews':
+        return AppLocalizations.of(context)!.otherNews;
+      case 'camera':
+        return AppLocalizations.of(context)!.camera;
+      case 'gallery':
+        return AppLocalizations.of(context)!.gallery;
+      case 'removePhoto':
+        return AppLocalizations.of(context)!.removePhoto;
+      case 'sizePhoto':
+        return AppLocalizations.of(context)!.sizePhoto;
       default:
         return '';
     }

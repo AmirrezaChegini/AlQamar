@@ -21,7 +21,7 @@ class PdfItemWidget extends StatelessWidget {
         onTap: () => BlocProvider.of<PdfCubit>(context).chnageIndex(index),
         selected: state == index,
         tileColor: AppColors.white,
-        selectedTileColor: AppColors.red100,
+        selectedTileColor: AppColors.red,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -38,7 +38,7 @@ class PdfItemWidget extends StatelessWidget {
                 icon: AppIcons.pdf,
                 width: 30,
                 height: 30,
-                color: state == index ? AppColors.red : AppColors.black,
+                color: state == index ? AppColors.white : AppColors.black,
               ),
               const SizedBox(width: 10),
               Column(
@@ -49,8 +49,9 @@ class PdfItemWidget extends StatelessWidget {
                     '${'document'.localize(context)} ${index + 1}',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 16,
-                          color:
-                              state == index ? AppColors.red : AppColors.black,
+                          color: state == index
+                              ? AppColors.white
+                              : AppColors.black,
                         ),
                   ),
                   // Text(

@@ -1,13 +1,15 @@
-abstract class BookmarkEvent {}
+import 'package:al_qamar/models/article.dart';
 
-class AddBookmarkEvent extends BookmarkEvent {
-  final int articelID;
-  AddBookmarkEvent(this.articelID);
+sealed class BookmarkEvent {}
+
+class GetAllBookmark extends BookmarkEvent {}
+
+class AddBookmark extends BookmarkEvent {
+  final Article article;
+  AddBookmark(this.article);
 }
 
-class RemoveBookmarkEvent extends BookmarkEvent {
-  final int articelID;
-  RemoveBookmarkEvent(this.articelID);
+class Removebookmark extends BookmarkEvent {
+  final Article article;
+  Removebookmark(this.article);
 }
-
-class GetAllBookmarkEvent extends BookmarkEvent {}

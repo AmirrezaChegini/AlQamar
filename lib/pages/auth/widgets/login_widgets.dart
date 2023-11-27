@@ -71,7 +71,7 @@ class LoginWidgets extends StatelessWidget {
               controller: passwordCtrl,
               validate: (v) => validatePassword(v, context),
               hint: 'password'.localize(context),
-              inputAction: TextInputAction.next,
+              inputAction: TextInputAction.done,
               inputType: TextInputType.name,
               obsecure: state,
               suffixIcon: IconBtn(

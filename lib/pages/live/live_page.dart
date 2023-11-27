@@ -3,17 +3,23 @@ import 'package:al_qamar/bloc/live/live_event.dart';
 import 'package:al_qamar/bloc/live/live_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/cubit/live_cubit.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/pages/live/widgets/audio_stream.dart';
 import 'package:al_qamar/pages/live/widgets/live_item.dart';
 import 'package:al_qamar/pages/live/widgets/live_tabbar.dart';
 import 'package:al_qamar/pages/live/widgets/video_stream.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:al_qamar/widgets/programs.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 class LivePage extends StatefulWidget {
   const LivePage({super.key});
@@ -27,12 +33,36 @@ class _LivePageState extends State<LivePage>
   late final TabController _tabCtrl;
   int videoIndex = 0;
   int audioIndex = 0;
+  final AudioPlayer _audioPlayer = locator.get();
+
+  void initAudio(String url) {
+    _audioPlayer.setAudioSource(
+      ProgressiveAudioSource(
+        Uri.parse(url),
+        tag: const MediaItem(
+          id: '1',
+          title: 'Broadcasting',
+        ),
+      ),
+    );
+  }
 
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+    ]);
     BlocProvider.of<LiveBloc>(context).add(GetLiveEvent());
     _tabCtrl = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    super.dispose();
   }
 
   @override
@@ -46,19 +76,28 @@ class _LivePageState extends State<LivePage>
           color: AppColors.red,
         ),
       ),
-      body: BlocBuilder<LiveBloc, LiveState>(
+      body: BlocConsumer<LiveBloc, LiveState>(
+        listener: (context, state) {
+          if (state is CompleteLiveState) {
+            initAudio(state.audioList[audioIndex].url);
+          }
+        },
         builder: (context, state) {
           if (state is CompleteLiveState) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            return ListView(
               children: [
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  width: MediaQuery.sizeOf(context).width / 2,
+                  margin: CheckDirect.isRTL(context)
+                      ? const EdgeInsets.symmetric(vertical: 10).copyWith(
+                          right: MediaQuery.sizeOf(context).width / 2, left: 10)
+                      : const EdgeInsets.symmetric(vertical: 10).copyWith(
+                          right: 10,
+                          left: MediaQuery.sizeOf(context).width / 2,
+                        ),
                   child: LiveTabbar(tabCtrl: _tabCtrl),
                 ),
-                Expanded(
+                SizedBox(
+                  height: 800,
                   child: TabBarView(
                     controller: _tabCtrl,
                     children: [
@@ -72,9 +111,13 @@ class _LivePageState extends State<LivePage>
                             children: List.generate(
                               state.videoList.length,
                               (index) => LiveItem(
-                                onTap: () => setState(() {
-                                  videoIndex = index;
-                                }),
+                                onTap: () {
+                                  setState(() {
+                                    videoIndex = index;
+                                  });
+                                  BlocProvider.of<LiveCubit>(context).changeUrl(
+                                      state.videoList[videoIndex].url);
+                                },
                                 title: state.videoList[index].name,
                                 color: videoIndex == index
                                     ? AppColors.grey600
@@ -84,14 +127,8 @@ class _LivePageState extends State<LivePage>
                           ),
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Container(
-                              height: MediaQuery.sizeOf(context).height / 4,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: VideoStream(
-                                url: state.videoList[videoIndex].url,
-                              ),
+                            child: VideoStream(
+                              url: state.videoList[videoIndex].url,
                             ),
                           ),
                           Container(
@@ -129,7 +166,7 @@ class _LivePageState extends State<LivePage>
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Column(
@@ -142,9 +179,12 @@ class _LivePageState extends State<LivePage>
                             children: List.generate(
                               state.audioList.length,
                               (index) => LiveItem(
-                                onTap: () => setState(() {
-                                  audioIndex = index;
-                                }),
+                                onTap: () {
+                                  setState(() {
+                                    audioIndex = index;
+                                  });
+                                  initAudio(state.audioList[audioIndex].url);
+                                },
                                 title: state.audioList[index].name,
                                 color: audioIndex == index
                                     ? AppColors.grey600
@@ -152,11 +192,9 @@ class _LivePageState extends State<LivePage>
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: AudioStream(
-                              url: state.audioList[audioIndex].url,
-                            ),
+                          const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: AudioStream(),
                           ),
                           Container(
                             margin: const EdgeInsets.symmetric(
@@ -193,7 +231,7 @@ class _LivePageState extends State<LivePage>
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ],

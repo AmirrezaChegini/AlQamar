@@ -34,6 +34,7 @@ class SettingPage extends StatelessWidget {
               content: 'logoutSuccess'.localize(context),
               horizontalMargin: 10,
               verticalMargin: 10,
+              isError: false,
             );
 
             BlocProvider.of<UserBloc>(context).add(GetUserEvent());

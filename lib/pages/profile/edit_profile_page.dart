@@ -3,7 +3,6 @@ import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
@@ -15,10 +14,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({
     super.key,
-    this.user,
+    required this.user,
   });
 
-  final User? user;
+  final User user;
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -33,9 +32,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void initState() {
     super.initState();
-    _firstNameCtrl = TextEditingController(text: widget.user?.firstName ?? '');
-    _lastNameCtrl = TextEditingController(text: widget.user?.lastName ?? '');
-    _bioCtrl = TextEditingController(text: widget.user?.bio ?? '');
+    _firstNameCtrl = TextEditingController(text: widget.user.firstName);
+    _lastNameCtrl = TextEditingController(text: widget.user.lastName);
+    _bioCtrl = TextEditingController(text: widget.user.bio);
   }
 
   @override
@@ -57,11 +56,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(15),
-          image: const DecorationImage(
-            image: AssetImage(AppImages.authBackground),
-            fit: BoxFit.cover,
-            opacity: 0.5,
-          ),
         ),
         child: BlocListener<UserBloc, UserState>(
           listener: (context, state) {
@@ -74,11 +68,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             }
 
             if (state is CompleteUserState) {
-              showMessage(
-                context: context,
-                content: 'successProfile'.localize(context),
-                horizontalMargin: 20,
-              );
+              Navigator.maybePop(context);
             }
           },
           child: Column(
@@ -140,10 +130,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               if (_globalKey.currentState!.validate()) {
                                 BlocProvider.of<UserBloc>(context).add(
                                   UpdateUserEvent(
-                                    widget.user!.id,
-                                    _firstNameCtrl.text,
-                                    _lastNameCtrl.text,
-                                    _bioCtrl.text,
+                                    id: widget.user.id,
+                                    firstName: _firstNameCtrl.text,
+                                    lastName: _lastNameCtrl.text,
+                                    bio: _bioCtrl.text,
                                   ),
                                 );
                               }

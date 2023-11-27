@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 abstract class ILiveRepository {
   Future<Either<String, List<Live>>> getVideo();
   Future<Either<String, List<Live>>> getAudio();
+  Future<Either<String, List<Live>>> getAllPrograms();
 }
 
 class LiveRepositoryImpl implements ILiveRepository {
@@ -29,6 +30,25 @@ class LiveRepositoryImpl implements ILiveRepository {
     try {
       Response response = await _datasource.getVideo();
       return right(await compute(_live, response));
+    } on AppExceptions catch (e) {
+      return left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, List<Live>>> getAllPrograms() async {
+    try {
+      List<Live> allProgramList = [];
+      Response videoResponse = await _datasource.getVideo();
+      Response audioResponse = await _datasource.getAudio();
+
+      List<Live> videoList = await compute(_live, videoResponse);
+      List<Live> audioList = await compute(_live, audioResponse);
+
+      allProgramList.addAll(videoList);
+      allProgramList.addAll(audioList);
+
+      return right(allProgramList);
     } on AppExceptions catch (e) {
       return left(e.message);
     }

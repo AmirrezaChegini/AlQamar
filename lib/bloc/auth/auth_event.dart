@@ -31,3 +31,5 @@ class ResendCodeEvent extends AuthEvent {
 class LogoutAuthEvent extends AuthEvent {}
 
 class CheckEmailEvent extends AuthEvent {}
+
+class ChangeInfoEvent extends AuthEvent {}

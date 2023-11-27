@@ -17,6 +17,7 @@ class IconBtn extends StatelessWidget {
       onPressed: onTap,
       minWidth: 0,
       height: 0,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       padding: EdgeInsets.all(padding),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100),

@@ -36,7 +36,7 @@ class _SearchPageState extends State<SearchPage> {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20)
           .copyWith(bottom: 0),
       decoration: const BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.grey200,
       ),
       child: BlocConsumer<SearchBloc, SearchState>(
         listener: (context, state) {
@@ -88,7 +88,7 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ArticleWidget(
                     article: articleList[index],
-                    backgroundColor: AppColors.grey200,
+                    // backgroundColor: AppColors.grey200,
                   ),
                 ),
               ),

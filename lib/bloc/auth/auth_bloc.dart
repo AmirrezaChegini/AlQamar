@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(FailAuthState(erroMessage));
       }, (message) {
         Storage.clearAll();
-        emit(InitAuthState());
+        emit(CompleteLogoutState());
       });
       Storage.removeKey(key: 'token');
     });
@@ -86,6 +86,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         emit(InitAuthState());
       }
+    });
+
+    on<ChangeInfoEvent>((event, emit) async {
+      await Future.wait([
+        Storage.removeKey(key: 'email'),
+        Storage.removeKey(key: 'firstName'),
+        Storage.removeKey(key: 'lastName'),
+      ]);
+      emit(InitAuthState());
     });
   }
 }

@@ -19,7 +19,6 @@ abstract class IAuthRepository {
     required String otp,
   });
   Future<Either<String, String>> logout();
-
   Future<Either<String, String>> resendOtp({required String email});
 }
 

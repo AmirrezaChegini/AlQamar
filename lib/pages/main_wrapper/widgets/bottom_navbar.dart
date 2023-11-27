@@ -88,8 +88,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                           BlocBuilder<BottomnavCubit, int>(
                             builder: (context, state) => AppIcon(
                               icon: bottomIcons[index],
-                              width: 25,
-                              height: 25,
+                              width: index == 3 || index == 4 ? 23 : 25,
+                              height: index == 3 || index == 4 ? 23 : 25,
                               color: index == state
                                   ? AppColors.blue
                                   : AppColors.grey600,

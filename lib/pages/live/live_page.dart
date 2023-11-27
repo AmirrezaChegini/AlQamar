@@ -118,7 +118,7 @@ class _LivePageState extends State<LivePage>
                                   BlocProvider.of<LiveCubit>(context).changeUrl(
                                       state.videoList[videoIndex].url);
                                 },
-                                title: state.videoList[index].name,
+                                image: state.videoList[index].image,
                                 color: videoIndex == index
                                     ? AppColors.grey600
                                     : AppColors.transparent,
@@ -155,8 +155,12 @@ class _LivePageState extends State<LivePage>
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemCount: state
-                                  .videoList[videoIndex].programList.length,
+                              itemCount: state.videoList[videoIndex].programList
+                                          .length <
+                                      10
+                                  ? state
+                                      .videoList[videoIndex].programList.length
+                                  : 10,
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 40, vertical: 10),
@@ -185,7 +189,7 @@ class _LivePageState extends State<LivePage>
                                   });
                                   initAudio(state.audioList[audioIndex].url);
                                 },
-                                title: state.audioList[index].name,
+                                image: state.audioList[index].image,
                                 color: audioIndex == index
                                     ? AppColors.grey600
                                     : AppColors.transparent,
@@ -220,8 +224,12 @@ class _LivePageState extends State<LivePage>
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemCount: state
-                                  .audioList[audioIndex].programList.length,
+                              itemCount: state.audioList[audioIndex].programList
+                                          .length <
+                                      10
+                                  ? state
+                                      .audioList[audioIndex].programList.length
+                                  : 10,
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 40, vertical: 10),

@@ -25,16 +25,16 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: leadingWidth,
       title: Text(title),
       titleTextStyle:
-          Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 20),
+          Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 17),
       titleSpacing: 10,
       leading: appbarLeading,
       actions: const [
         Padding(
-          padding: EdgeInsets.all(3),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: AppIcon(
             icon: AppIcons.logo,
-            height: 60,
-            width: 60,
+            height: 40,
+            width: 40,
             color: AppColors.red,
           ),
         ),

@@ -10,6 +10,7 @@ dynamic showMessage({
   SnackBarAction? action,
   bool isError = true,
 }) {
+  ScaffoldMessenger.of(context).removeCurrentSnackBar();
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(

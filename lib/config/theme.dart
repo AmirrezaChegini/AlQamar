@@ -11,10 +11,12 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.transparent,
     sliderTheme: SliderThemeData(
       trackShape: const GradientRectSliderTrackShape(),
-      thumbColor: AppColors.blue,
-      overlayColor: AppColors.blue.withOpacity(0.1),
       secondaryActiveTrackColor: AppColors.grey600,
-      trackHeight: 3,
+      trackHeight: 1,
+      thumbColor: AppColors.blue,
+      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5),
+      overlayColor: AppColors.blue.withOpacity(0.1),
+      overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
     ),
     textTheme: const TextTheme(
       //large

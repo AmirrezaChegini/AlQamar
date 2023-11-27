@@ -70,5 +70,10 @@
     "logoutSuccess": "Logout Successfully",
     "remove": "Remove",
     "noContent": "There is no content to display",
-    "changeInfo": "Change Info"
+    "changeInfo": "Change Info",
+    "otherNews": "Other News",
+    "camera": "Camera",
+    "gallery": "Gallery",
+    "removePhoto": "Remove Photo",
+    "sizePhoto": "Size of photo should be less than 2 MB"
 }

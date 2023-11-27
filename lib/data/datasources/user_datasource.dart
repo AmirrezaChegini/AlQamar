@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:al_qamar/constants/api.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class UserDatasource {
   Future<Response> createUser({
@@ -11,9 +14,10 @@ abstract class UserDatasource {
   Future<Response> getUser();
   Future<Response> updateUser({
     required int id,
-    String? firstName,
-    String? lastName,
-    String? bio,
+    required String firstName,
+    required String lastName,
+    XFile? avatar,
+    required String bio,
   });
 }
 
@@ -61,19 +65,36 @@ class UserRemote implements UserDatasource {
   @override
   Future<Response> updateUser({
     required int id,
-    String? firstName,
-    String? lastName,
-    String? bio,
+    required String firstName,
+    required String lastName,
+    XFile? avatar,
+    required String bio,
   }) async {
+    FormData formData;
+
+    if (avatar != null) {
+      formData = FormData.fromMap({
+        'first_name': firstName,
+        'last_name': lastName,
+        'avatar': await MultipartFile.fromFile(
+          File(avatar.path).path,
+          filename: avatar.name,
+        ),
+        'bio': bio,
+      });
+    } else {
+      formData = FormData.fromMap({
+        'first_name': firstName,
+        'last_name': lastName,
+        'bio': bio,
+      });
+    }
+
     try {
-      Response response = await _dio.put(
+      Response response = await _dio.post(
         '${Api.profile}/$id',
         options: Options(headers: {'requiredToken': true}),
-        data: {
-          'first_name': firstName,
-          'last_name': lastName,
-          'bio': bio,
-        },
+        data: formData,
       );
       return response;
     } on DioException catch (e) {

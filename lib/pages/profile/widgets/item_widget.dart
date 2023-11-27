@@ -22,32 +22,33 @@ class ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: AppColors.grey200,
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Material(
+        color: AppColors.grey200,
+        borderRadius: BorderRadius.circular(20),
+        child: InkWell(
+          onTap: onTap,
           borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppIcon(
-              icon: image,
-              color: color,
-              height: height,
-              width: width,
-            ),
-            const SizedBox(height: 6),
-            Text(
-              title,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: 12),
-            ),
-          ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppIcon(
+                icon: image,
+                color: color,
+                height: height,
+                width: width,
+              ),
+              const SizedBox(height: 6),
+              Text(
+                title,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontSize: 12),
+              ),
+            ],
+          ),
         ),
       ),
     );

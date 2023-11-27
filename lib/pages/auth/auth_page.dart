@@ -16,9 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthPage extends StatefulWidget {
-  const AuthPage({
-    super.key,
-  });
+  const AuthPage({super.key});
 
   @override
   State<AuthPage> createState() => _AuthPageState();
@@ -26,11 +24,11 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage>
     with SingleTickerProviderStateMixin {
-  late final TabController _tabCtrl;
   late final TextEditingController _firstNameCtrl;
   late final TextEditingController _lastNameCtrl;
   late final TextEditingController _emailCtrl;
   late final TextEditingController _passwordCtrl;
+  late final TabController _tabCtrl;
 
   @override
   void initState() {
@@ -46,11 +44,11 @@ class _AuthPageState extends State<AuthPage>
   @override
   void dispose() {
     super.dispose();
-    _tabCtrl.dispose();
     _firstNameCtrl.dispose();
     _lastNameCtrl.dispose();
     _emailCtrl.dispose();
     _passwordCtrl.dispose();
+    _tabCtrl.dispose();
   }
 
   @override

@@ -18,12 +18,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     on<CreateUserEvent>((event, emit) async {
       var either = await _repository.createUser(
-          firstName: event.firstName, lastName: event.lastName);
+        firstName: event.firstName,
+        lastName: event.lastName,
+      );
 
       either.fold((l) {
         emit(InitUserState());
       }, (r) async {
-        emit(CompleteUserState(r));
+        add(GetUserEvent());
       });
     });
 
@@ -32,13 +34,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         id: event.id,
         firstName: event.firstName,
         lastName: event.lastName,
+        avatar: event.avatar,
         bio: event.bio,
       );
 
       either.fold((l) {
         emit(InitUserState());
       }, (r) {
-        emit(CompleteUserState(r));
+        add(GetUserEvent());
       });
     });
   }

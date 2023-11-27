@@ -54,28 +54,28 @@ class AzanWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     AppIcon(
-                      icon: index % 2 == 0
+                      icon: index % 2 != 0
                           ? AppIcons.azan
-                          : index == 5
+                          : index == 0
                               ? AppIcons.moon
                               : AppIcons.sun,
-                      width: 40,
-                      height: 40,
+                      width: 30,
+                      height: 30,
                       color: AppColors.grey600,
                     ),
                     const SizedBox(height: 6),
                     Text(
                       index == 0
-                          ? azanTime.fajr
+                          ? azanTime.midnight
                           : index == 1
-                              ? azanTime.sunrise
+                              ? azanTime.isha
                               : index == 2
-                                  ? azanTime.dhuhr
+                                  ? azanTime.sunset
                                   : index == 3
-                                      ? azanTime.sunset
+                                      ? azanTime.dhuhr
                                       : index == 4
-                                          ? azanTime.maghrib
-                                          : azanTime.isha,
+                                          ? azanTime.sunrise
+                                          : azanTime.fajr,
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!

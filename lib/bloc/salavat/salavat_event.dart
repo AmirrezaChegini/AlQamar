@@ -8,3 +8,8 @@ class AddSalavatEvent extends SalavatEvent {
   final Salavat salavat;
   AddSalavatEvent(this.salavat);
 }
+
+class RemoveSalavatEvent extends SalavatEvent {
+  final Salavat salavat;
+  RemoveSalavatEvent(this.salavat);
+}

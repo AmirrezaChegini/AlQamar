@@ -15,11 +15,17 @@ class AzanBloc extends Bloc<AzanEvent, AzanState> {
       var londonEither = await _repository.getAzanTime(
         city: 'London',
         country: 'United Kingdom',
+        method: 2,
+        midnightMode: 1,
+        tune: '1,1,1,1,1,1,1,-85',
       );
 
       var baghdadEither = await _repository.getAzanTime(
         city: 'Baghdad',
         country: 'Iraq',
+        method: 3,
+        midnightMode: 1,
+        tune: '1,-2,-3,0,0,0,0,-63',
       );
 
       baghdadEither.fold((l) {

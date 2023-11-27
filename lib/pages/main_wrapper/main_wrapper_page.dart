@@ -46,6 +46,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
     BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent());
     BlocProvider.of<CalenderBloc>(context)
         .add(GetCalenderEvent(DateTime.now().getFormatDate()));
+
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
   }
 

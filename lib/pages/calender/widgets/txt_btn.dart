@@ -9,12 +9,16 @@ class TxtBtn extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.textDecoration,
+    required this.fontSize,
+    required this.iconSize,
   });
 
   final Function()? onTap;
   final String title;
   final String icon;
   final TextDirection textDecoration;
+  final double fontSize;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +29,8 @@ class TxtBtn extends StatelessWidget {
         icon: AppIcon(
           icon: icon,
           color: AppColors.grey,
-          height: 15,
-          width: 15,
+          height: iconSize,
+          width: iconSize,
           matchDirection: true,
         ),
         label: Text(
@@ -35,8 +39,10 @@ class TxtBtn extends StatelessWidget {
         ),
         style: TextButton.styleFrom(
           foregroundColor: AppColors.grey,
-          textStyle:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 10),
+          textStyle: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontSize: fontSize),
         ),
       ),
     );

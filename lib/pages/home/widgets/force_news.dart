@@ -64,10 +64,11 @@ class _ForceNewsState extends State<ForceNews> {
               : BorderRadius.circular(8)
                   .copyWith(bottomRight: const Radius.circular(50)),
         ),
-        elevation: 6,
+        elevation: 4,
         margin: const EdgeInsets.all(0),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5)
+              .copyWith(bottom: 10),
           decoration: BoxDecoration(
             color: AppColors.red,
             borderRadius: CheckDirect.isRTL(context)
@@ -85,8 +86,8 @@ class _ForceNewsState extends State<ForceNews> {
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
-                      .labelMedium!
-                      .copyWith(fontSize: 16),
+                      .labelLarge!
+                      .copyWith(fontSize: 16, height: 1.25),
                 ),
               ),
               Container(
@@ -104,7 +105,7 @@ class _ForceNewsState extends State<ForceNews> {
                       maxLines: 1,
                       style: Theme.of(context)
                           .textTheme
-                          .labelMedium!
+                          .labelLarge!
                           .copyWith(fontSize: 14),
                     ),
                     Text(

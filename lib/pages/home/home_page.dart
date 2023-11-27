@@ -86,7 +86,9 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height / 3.5,
                   child: PageView.builder(
-                    itemCount: 3,
+                    itemCount: state.lastArticleList.length < 3
+                        ? state.lastArticleList.length
+                        : 3,
                     controller: _pageCtrl,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.all(10).copyWith(top: 0),
@@ -124,6 +126,8 @@ class _HomePageState extends State<HomePage> {
                       textDecoration: CheckDirect.isRTL(context)
                           ? TextDirection.ltr
                           : TextDirection.rtl,
+                      fontSize: 12,
+                      iconSize: 20,
                     ),
                   ],
                 ),

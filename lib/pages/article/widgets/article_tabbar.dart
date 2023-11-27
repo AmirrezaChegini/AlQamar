@@ -5,7 +5,6 @@ import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/pages/article/widgets/tab_item.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ArticleTabbar extends StatefulWidget implements PreferredSizeWidget {
@@ -57,30 +56,18 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 80,
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.blue,
       elevation: 0,
       automaticallyImplyLeading: false,
       titleSpacing: 0,
-      systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.blue,
-      ),
-      title: Container(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
+      title: SizedBox(
         height: 80,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: [
-              AppColors.blue,
-              AppColors.blue.withOpacity(0.7),
-              AppColors.blue.withOpacity(0.7),
-              AppColors.blue,
-            ],
-          ),
-        ),
         child: TabBar(
           controller: widget.tabController,
           labelPadding: const EdgeInsets.all(0),
+          indicatorColor: AppColors.transparent,
           onTap: (value) {
             if ((value == 1 && widget.videos.isEmpty) ||
                 value == 2 && widget.youtube.isEmpty ||

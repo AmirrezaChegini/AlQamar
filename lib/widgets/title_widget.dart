@@ -35,7 +35,7 @@ class TitleWidget extends StatelessWidget {
               if (showDivider) ...{
                 const SizedBox(height: 6),
                 Container(
-                  height: 1,
+                  height: 1.25,
                   width: dividerWidth,
                   color: AppColors.blue,
                 ),

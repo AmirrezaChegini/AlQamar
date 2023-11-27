@@ -14,10 +14,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({
     super.key,
-    this.user,
+    required this.user,
   });
 
-  final User? user;
+  final User user;
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -32,9 +32,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void initState() {
     super.initState();
-    _firstNameCtrl = TextEditingController(text: widget.user?.firstName ?? '');
-    _lastNameCtrl = TextEditingController(text: widget.user?.lastName ?? '');
-    _bioCtrl = TextEditingController(text: widget.user?.bio ?? '');
+    _firstNameCtrl = TextEditingController(text: widget.user.firstName);
+    _lastNameCtrl = TextEditingController(text: widget.user.lastName);
+    _bioCtrl = TextEditingController(text: widget.user.bio);
   }
 
   @override
@@ -130,10 +130,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               if (_globalKey.currentState!.validate()) {
                                 BlocProvider.of<UserBloc>(context).add(
                                   UpdateUserEvent(
-                                    widget.user!.id,
-                                    _firstNameCtrl.text,
-                                    _lastNameCtrl.text,
-                                    _bioCtrl.text,
+                                    id: widget.user.id,
+                                    firstName: _firstNameCtrl.text,
+                                    lastName: _lastNameCtrl.text,
+                                    bio: _bioCtrl.text,
                                   ),
                                 );
                               }

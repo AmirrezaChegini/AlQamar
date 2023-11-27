@@ -1,14 +1,12 @@
+import 'dart:math';
+
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_event.dart';
 import 'package:al_qamar/bloc/salavat/salavat_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/cubit/counter_cubit.dart';
-import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/models/salavat.dart';
 import 'package:al_qamar/pages/salavat/widgets/circle_widget.dart';
-import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +19,10 @@ class SalavatPage extends StatefulWidget {
 }
 
 class _SalavatPageState extends State<SalavatPage> {
-  int salavatLength = 0;
+  int chooseIndex = -1;
+  int counter = 0;
+  List<Salavat> salavatList = [];
+
   @override
   void initState() {
     super.initState();
@@ -51,8 +52,9 @@ class _SalavatPageState extends State<SalavatPage> {
                 CircleWidget(
                   width: 250,
                   height: 250,
-                  onTap: () =>
-                      BlocProvider.of<CounterCubit>(context).increaseCounter(),
+                  onTap: () => setState(() {
+                    counter++;
+                  }),
                   shadows: const [
                     BoxShadow(
                       color: AppColors.red,
@@ -68,14 +70,12 @@ class _SalavatPageState extends State<SalavatPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      BlocBuilder<CounterCubit, int>(
-                        builder: (context, state) => Text(
-                          '$state',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall!
-                              .copyWith(fontSize: 60),
-                        ),
+                      Text(
+                        '$counter',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(fontSize: 60),
                       ),
                       Container(
                         height: 1,
@@ -99,8 +99,9 @@ class _SalavatPageState extends State<SalavatPage> {
                     child: CircleWidget(
                       width: 55,
                       height: 55,
-                      onTap: () =>
-                          BlocProvider.of<CounterCubit>(context).resetCounter(),
+                      onTap: () => setState(() {
+                        counter = 0;
+                      }),
                       backgroundColor: AppColors.grey600,
                       shadows: const [
                         BoxShadow(
@@ -129,14 +130,28 @@ class _SalavatPageState extends State<SalavatPage> {
                       height: 80,
                       width: 80,
                       onTap: () {
-                        int id = BlocProvider.of<SalavatCubit>(context).state;
-                        if (salavatLength == 3 && id == -1) {
-                        } else {
-                          int number =
-                              BlocProvider.of<CounterCubit>(context).index;
-
-                          BlocProvider.of<SalavatBloc>(context)
-                              .add(AddSalavatEvent(Salavat(id, number)));
+                        if (salavatList.length < 3) {
+                          if (chooseIndex == -1) {
+                            BlocProvider.of<SalavatBloc>(context).add(
+                              AddSalavatEvent(
+                                Salavat(Random().nextInt(10000000), counter),
+                              ),
+                            );
+                          } else {
+                            BlocProvider.of<SalavatBloc>(context).add(
+                              AddSalavatEvent(
+                                Salavat(salavatList[chooseIndex].id, counter),
+                              ),
+                            );
+                          }
+                        }
+                        if (salavatList.length == 3) {
+                          if (chooseIndex != -1) {
+                            BlocProvider.of<SalavatBloc>(context).add(
+                              AddSalavatEvent(Salavat(
+                                  salavatList[chooseIndex].id, counter)),
+                            );
+                          }
                         }
                       },
                       shadows: const [
@@ -164,83 +179,87 @@ class _SalavatPageState extends State<SalavatPage> {
           BlocConsumer<SalavatBloc, SalavatState>(
             listener: (context, state) {
               if (state is CompleteSalavatState) {
-                salavatLength = state.salavatList.length;
+                salavatList = state.salavatList;
               }
             },
-            builder: (context, outerState) {
-              if (outerState is CompleteSalavatState) {
+            builder: (context, state) {
+              if (state is CompleteSalavatState) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: List.generate(
-                    outerState.salavatList.length,
+                    state.salavatList.length,
                     (index) => Expanded(
-                      child: BlocBuilder<SalavatCubit, int>(
-                        builder: (context, innerState) => CircleWidget(
-                          onTap: () {
-                            BlocProvider.of<SalavatCubit>(context)
-                                .chooseIndex(index);
-
-                            BlocProvider.of<CounterCubit>(context).setCounter(
-                                outerState.salavatList[index].numbers);
+                      child: CircleWidget(
+                        onTap: () => setState(
+                          () {
+                            chooseIndex = index;
+                            counter = state.salavatList[index].numbers;
                           },
-                          padding: 10,
-                          shadows: const [
-                            BoxShadow(
-                              color: AppColors.grey600,
-                              offset: Offset(5, 10),
-                              blurRadius: 10,
-                              spreadRadius: -4,
+                        ),
+                        padding: 10,
+                        shadows: const [
+                          BoxShadow(
+                            color: AppColors.grey600,
+                            offset: Offset(5, 10),
+                            blurRadius: 10,
+                            spreadRadius: -4,
+                          ),
+                        ],
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              '${state.salavatList[index].numbers}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    fontSize: index == chooseIndex ? 26 : 20,
+                                  ),
+                            ),
+                            const SizedBox(height: 5),
+                            Container(
+                              height: 1,
+                              width: 30,
+                              color: AppColors.grey,
+                            ),
+                            Text(
+                              'preyers'.localize(context),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    fontSize: index == chooseIndex ? 14 : 10,
+                                  ),
+                            ),
+                            const SizedBox(height: 5),
+                            CircleWidget(
+                              onTap: () {
+                                BlocProvider.of<SalavatBloc>(context).add(
+                                  RemoveSalavatEvent(state.salavatList[index]),
+                                );
+
+                                setState(() {
+                                  chooseIndex = -1;
+                                });
+                              },
+                              padding: 8,
+                              backgroundColor: AppColors.blue,
+                              shadows: const [
+                                BoxShadow(
+                                  color: AppColors.grey600,
+                                  offset: Offset(5, 10),
+                                  blurRadius: 10,
+                                  spreadRadius: -4,
+                                ),
+                              ],
+                              child: const Icon(
+                                Icons.delete_outline_rounded,
+                                color: AppColors.white,
+                                size: 22,
+                              ),
                             ),
                           ],
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '${outerState.salavatList[index].numbers}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                      fontSize: index == innerState ? 26 : 20,
-                                    ),
-                              ),
-                              const SizedBox(height: 5),
-                              Container(
-                                height: 1,
-                                width: 30,
-                                color: AppColors.grey,
-                              ),
-                              Text(
-                                'preyers'.localize(context),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                      fontSize: index == innerState ? 14 : 10,
-                                    ),
-                              ),
-                              const SizedBox(height: 5),
-                              const CircleWidget(
-                                padding: 8,
-                                backgroundColor: AppColors.blue,
-                                shadows: [
-                                  BoxShadow(
-                                    color: AppColors.grey600,
-                                    offset: Offset(5, 10),
-                                    blurRadius: 10,
-                                    spreadRadius: -4,
-                                  ),
-                                ],
-                                child: AppIcon(
-                                  icon: AppIcons.rightArrow,
-                                  height: 20,
-                                  width: 20,
-                                  matchDirection: true,
-                                  color: AppColors.white,
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ),

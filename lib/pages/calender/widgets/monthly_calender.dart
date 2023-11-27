@@ -33,7 +33,6 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
   @override
   void initState() {
     super.initState();
-
     _hijriCtrl = HijriDatePickerController();
     _georgiaCtrl = DateRangePickerController();
   }
@@ -94,6 +93,8 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                     textDecoration: CheckDirect.isRTL(context)
                         ? TextDirection.rtl
                         : TextDirection.ltr,
+                    fontSize: 10,
+                    iconSize: 15,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -145,6 +146,8 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                     },
                     title: 'nextMonth'.localize(context),
                     icon: AppIcons.leftArrow,
+                    fontSize: 10,
+                    iconSize: 15,
                     textDecoration: CheckDirect.isRTL(context)
                         ? TextDirection.ltr
                         : TextDirection.rtl,

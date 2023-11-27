@@ -52,8 +52,8 @@ class _PdfArticleViewerState extends State<PdfArticleViewer>
                   textDirection: CheckDirect.isRTL(context)
                       ? TextDirection.ltr
                       : TextDirection.rtl,
-                  bottom: 0,
-                  start: 0,
+                  bottom: 5,
+                  start: 5,
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                       context,
@@ -63,7 +63,7 @@ class _PdfArticleViewerState extends State<PdfArticleViewer>
                     ),
                     child: const Icon(
                       Icons.fullscreen_rounded,
-                      size: 50,
+                      size: 40,
                       color: AppColors.black,
                     ),
                   ),

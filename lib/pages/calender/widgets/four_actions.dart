@@ -26,7 +26,7 @@ class FourActions extends StatelessWidget {
       margin: const EdgeInsets.all(0),
       child: Container(
         height: MediaQuery.of(context).size.height / 3,
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: AppColors.white,
@@ -46,9 +46,9 @@ class FourActions extends StatelessWidget {
                         .displayMedium!
                         .copyWith(fontSize: 14),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
                   Container(
-                    height: 1,
+                    height: 1.25,
                     color: AppColors.blue,
                   ),
                 ],
@@ -83,11 +83,14 @@ class FourActions extends StatelessWidget {
                           context,
                           pageRoute(
                             child: CalenderDataPage(
-                                calender: state.calenderList[index]),
+                              calender: state.calenderList[index],
+                            ),
                           ),
                         ),
                         title: state.calenderList[index].title,
                         icon: AppIcons.rightArrow,
+                        fontSize: 12,
+                        iconSize: 20,
                         textDecoration: CheckDirect.isRTL(context)
                             ? TextDirection.rtl
                             : TextDirection.ltr,

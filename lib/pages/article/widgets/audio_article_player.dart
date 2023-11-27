@@ -102,79 +102,81 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
         textDirection: TextDirection.rtl,
         child: Container(
           margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
             children: [
-              Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: CacheImage(
-                      imageUrl: widget.image,
-                      height: 100,
-                      width: 100,
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CacheImage(
+                        imageUrl: widget.image,
+                        height: 100,
+                        width: 100,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        _audioPlayer.currentIndex != null
-                            ? '${'audio'.localize(context)} ${_audioPlayer.currentIndex! + 1}'
-                            : 'audio'.localize(context),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(fontSize: 16),
-                      ),
-                      const SizedBox(height: 15),
-                      Row(
-                        children: [
-                          const AppIcon(
-                            icon: AppIcons.calender,
-                            width: 10,
-                            height: 10,
-                            color: AppColors.black,
-                          ),
-                          Text(
-                            ' ${widget.date}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 12),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const AppIcon(
-                            icon: AppIcons.pen,
-                            width: 10,
-                            height: 10,
-                            color: AppColors.black,
-                          ),
-                          Text(
-                            ' ${widget.writer}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 12),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _audioPlayer.currentIndex != null
+                              ? '${'audio'.localize(context)} ${_audioPlayer.currentIndex! + 1}'
+                              : 'audio'.localize(context),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontSize: 16),
+                        ),
+                        const SizedBox(height: 15),
+                        Row(
+                          children: [
+                            const AppIcon(
+                              icon: AppIcons.calender,
+                              width: 10,
+                              height: 10,
+                              color: AppColors.black,
+                            ),
+                            Text(
+                              ' ${widget.date}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const AppIcon(
+                              icon: AppIcons.pen,
+                              width: 10,
+                              height: 10,
+                              color: AppColors.black,
+                            ),
+                            Text(
+                              ' ${widget.writer}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
               const Spacer(),
               SizedBox(
-                height: 12,
+                height: 10,
                 child: Directionality(
                   textDirection: TextDirection.ltr,
                   child: StreamBuilder(
@@ -208,7 +210,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 23),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -238,32 +240,34 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20, left: 5, bottom: 10),
+                padding: const EdgeInsets.only(right: 10, left: 5),
                 child: Row(
                   children: [
-                    IconBtn(
-                      onTap: () {
-                        _audioPlayer.speed == 1.0
-                            ? _audioPlayer.setSpeed(1.25)
-                            : _audioPlayer.speed == 1.25
-                                ? _audioPlayer.setSpeed(1.5)
-                                : _audioPlayer.speed == 1.5
-                                    ? _audioPlayer.setSpeed(1.75)
-                                    : _audioPlayer.speed == 1.75
-                                        ? _audioPlayer.setSpeed(2.0)
-                                        : _audioPlayer.setSpeed(1.0);
-                      },
-                      padding: 5,
-                      child: StreamBuilder(
-                        stream: _audioPlayer.speedStream,
-                        initialData: 1.0,
-                        builder: (context, snapshot) => Text(
-                          '${snapshot.data} X',
-                          textDirection: TextDirection.ltr,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(fontSize: 12),
+                    SizedBox(
+                      width: 50,
+                      child: IconBtn(
+                        onTap: () {
+                          _audioPlayer.speed == 1.0
+                              ? _audioPlayer.setSpeed(1.25)
+                              : _audioPlayer.speed == 1.25
+                                  ? _audioPlayer.setSpeed(1.5)
+                                  : _audioPlayer.speed == 1.5
+                                      ? _audioPlayer.setSpeed(1.75)
+                                      : _audioPlayer.speed == 1.75
+                                          ? _audioPlayer.setSpeed(2.0)
+                                          : _audioPlayer.setSpeed(1.0);
+                        },
+                        child: StreamBuilder(
+                          stream: _audioPlayer.speedStream,
+                          initialData: 1.0,
+                          builder: (context, snapshot) => Text(
+                            '${snapshot.data} X',
+                            textDirection: TextDirection.ltr,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontSize: 12),
+                          ),
                         ),
                       ),
                     ),
@@ -328,6 +332,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                     const Spacer(),
                     IconBtn(
                       onTap: () => _audioPlayer.seek(Duration.zero),
+                      padding: 10,
                       child: const Icon(
                         Icons.refresh_rounded,
                         color: AppColors.grey,
@@ -336,6 +341,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                   ],
                 ),
               ),
+              const Spacer(),
             ],
           ),
         ),

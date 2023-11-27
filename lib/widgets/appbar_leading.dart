@@ -36,7 +36,7 @@ class AppbarLeading extends StatelessWidget {
             pageRoute(child: const LivePage()),
           ),
           child: const AppIcon(
-            icon: AppIcons.live,
+            icon: AppIcons.program,
             color: AppColors.red,
           ),
         ),

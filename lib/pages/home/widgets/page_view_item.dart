@@ -41,7 +41,7 @@ class PageViewItem extends StatelessWidget {
                   bottomRight: Radius.circular(8),
                 ),
         ),
-        elevation: 6,
+        elevation: 4,
         margin: const EdgeInsets.all(0),
         child: ClipRRect(
           borderRadius: CheckDirect.isRTL(context)
@@ -91,10 +91,11 @@ class PageViewItem extends StatelessWidget {
                     const SizedBox(height: 10),
                     Container(
                       height: 1,
-                      color: AppColors.white,
+                      color: AppColors.white.withOpacity(0.7),
                     ),
                     const SizedBox(height: 10),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         const Spacer(),
                         const AppIcon(
@@ -107,8 +108,10 @@ class PageViewItem extends StatelessWidget {
                           ' ${article.updateAt}',
                           style: Theme.of(context)
                               .textTheme
-                              .labelMedium!
-                              .copyWith(fontSize: 12),
+                              .labelSmall!
+                              .copyWith(
+                                  fontSize: 12,
+                                  color: AppColors.white.withOpacity(0.7)),
                         ),
                         const SizedBox(width: 30),
                         const AppIcon(
@@ -124,8 +127,10 @@ class PageViewItem extends StatelessWidget {
                             softWrap: false,
                             style: Theme.of(context)
                                 .textTheme
-                                .labelMedium!
-                                .copyWith(fontSize: 12),
+                                .labelSmall!
+                                .copyWith(
+                                    fontSize: 12,
+                                    color: AppColors.white.withOpacity(0.7)),
                           ),
                         ),
                       ],

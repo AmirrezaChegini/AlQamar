@@ -4,16 +4,18 @@ import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class IUserRepository {
-  Future<Either<String, User>> createUser(
+  Future<Either<String, String>> createUser(
       {required String firstName, required String lastName});
   Future<Either<String, User>> getUser();
-  Future<Either<String, User>> updateUser({
+  Future<Either<String, String>> updateUser({
     required int id,
-    String? firstName,
-    String? lastName,
-    String? bio,
+    required String firstName,
+    required String lastName,
+    XFile? avatar,
+    required String bio,
   });
 }
 
@@ -21,13 +23,12 @@ class UserRepositoryImpl implements IUserRepository {
   final UserDatasource _datasource;
   UserRepositoryImpl(this._datasource);
   @override
-  Future<Either<String, User>> createUser(
+  Future<Either<String, String>> createUser(
       {required String firstName, required String lastName}) async {
     try {
-      Response response = await _datasource.createUser(
-          firstName: firstName, lastName: lastName);
+      await _datasource.createUser(firstName: firstName, lastName: lastName);
 
-      return right(await compute(_newUser, response));
+      return right('ok');
     } on AppExceptions catch (e) {
       return left(e.message);
     }
@@ -45,33 +46,30 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  Future<Either<String, User>> updateUser({
+  Future<Either<String, String>> updateUser({
     required int id,
-    String? firstName,
-    String? lastName,
-    String? bio,
+    required String firstName,
+    required String lastName,
+    XFile? avatar,
+    required String bio,
   }) async {
     try {
-      Response response = await _datasource.updateUser(
+      await _datasource.updateUser(
         id: id,
         firstName: firstName,
         lastName: lastName,
+        avatar: avatar,
         bio: bio,
       );
 
-      return right(await compute(_newUser, response));
+      return right('ok');
     } on AppExceptions catch (e) {
       return left(e.message);
     }
   }
 }
 
-User _newUser(Response response) {
-  User newUser = User.fromMapJson(response.data['data']);
-  return newUser;
-}
-
 User _getUser(Response response) {
-  User user = User.fromMapJson(response.data['data'][0]);
+  User user = User.fromMapJson(response.data['data']);
   return user;
 }

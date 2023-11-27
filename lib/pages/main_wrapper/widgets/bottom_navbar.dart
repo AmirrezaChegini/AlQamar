@@ -67,7 +67,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         children: [
           TabBar(
             controller: widget.tabController,
-            unselectedLabelColor: AppColors.grey,
+            unselectedLabelColor: AppColors.grey600,
             labelColor: AppColors.blue,
             indicatorColor: AppColors.blue,
             indicatorPadding: const EdgeInsets.symmetric(horizontal: 30),
@@ -88,11 +88,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
                           BlocBuilder<BottomnavCubit, int>(
                             builder: (context, state) => AppIcon(
                               icon: bottomIcons[index],
-                              width: 30,
-                              height: 30,
+                              width: 25,
+                              height: 25,
                               color: index == state
                                   ? AppColors.blue
-                                  : AppColors.grey,
+                                  : AppColors.grey600,
                             ),
                           ),
                           const SizedBox(height: 6),
@@ -133,8 +133,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   icon: AppIcon(
                     icon: bottomIcons[2],
                     color: AppColors.white,
-                    width: 30,
-                    height: 30,
+                    width: 25,
+                    height: 25,
                   ),
                 ),
               ),

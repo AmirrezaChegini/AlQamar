@@ -70,8 +70,8 @@ class _TabItemState extends State<TabItem> with TickerProviderStateMixin {
               children: [
                 AppIcon(
                   icon: widget.tabsIcon,
-                  height: 25,
-                  width: 25,
+                  height: 23,
+                  width: 23,
                   color: _colorAnim.value,
                 ),
                 Text(
@@ -79,7 +79,7 @@ class _TabItemState extends State<TabItem> with TickerProviderStateMixin {
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
-                      .copyWith(fontSize: 12, color: _colorAnim.value),
+                      .copyWith(fontSize: 11, color: _colorAnim.value),
                 )
               ],
             ),

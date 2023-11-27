@@ -2,9 +2,16 @@ import 'package:al_qamar/constants/api.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 abstract class AzanDatasource {
-  Future<Response> getAzanTime({required String city, required String country});
+  Future<Response> getAzanTime({
+    required String city,
+    required String country,
+    required int method,
+    required int midnightMode,
+    required String tune,
+  });
 }
 
 class AzanRemote implements AzanDatasource {
@@ -12,14 +19,22 @@ class AzanRemote implements AzanDatasource {
   AzanRemote(this._dio);
 
   @override
-  Future<Response> getAzanTime(
-      {required String city, required String country}) async {
+  Future<Response> getAzanTime({
+    required String city,
+    required String country,
+    required int method,
+    required int midnightMode,
+    required String tune,
+  }) async {
     try {
       Response response = await _dio.get(
-        '${Api.azan}/${DateTime.now().year}/${DateTime.now().month}',
+        '${Api.azan}/${DateFormat('dd-MM-yyyy').format(DateTime.now())}',
         queryParameters: {
           'city': city,
           'country': country,
+          'method': method,
+          'midnightMode': midnightMode,
+          'tune': tune,
         },
       );
 

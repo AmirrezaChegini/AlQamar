@@ -7,9 +7,11 @@ import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/image_mask.dart';
+import 'package:al_qamar/widgets/marqueer_title.dart';
 import 'package:flutter/material.dart';
+import 'package:marqueer/marqueer.dart';
 
-class ArticleWidget extends StatelessWidget {
+class ArticleWidget extends StatefulWidget {
   const ArticleWidget({
     super.key,
     this.backgroundColor = AppColors.white,
@@ -20,16 +22,30 @@ class ArticleWidget extends StatelessWidget {
   final Article article;
 
   @override
+  State<ArticleWidget> createState() => _ArticleWidgetState();
+}
+
+class _ArticleWidgetState extends State<ArticleWidget> {
+  final MarqueerController marqueerController = MarqueerController();
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        pageRoute(child: ArticlePage(article: article)),
+        pageRoute(child: ArticlePage(article: widget.article)),
       ),
+      onLongPress: () async {
+        if (marqueerController.isAnimating) {
+          marqueerController.stop();
+        } else {
+          marqueerController.start();
+        }
+      },
       child: Card(
         color: AppColors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 6,
+        elevation: 4,
         margin: const EdgeInsets.all(0),
         child: Container(
           width: MediaQuery.sizeOf(context).width,
@@ -39,28 +55,28 @@ class ArticleWidget extends StatelessWidget {
               : const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: backgroundColor,
+            color: widget.backgroundColor,
           ),
           child: Row(
             children: [
               MaskImage(
-                  imageUrl: article.images.isNotEmpty ? article.images[0] : ''),
+                  imageUrl: widget.article.images.isNotEmpty
+                      ? widget.article.images[0]
+                      : ''),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      article.title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayLarge!
-                          .copyWith(fontSize: 12),
-                      maxLines: 1,
-                      overflow: TextOverflow.clip,
+                    SizedBox(
+                      height: 20,
+                      child: MarqueerTitle(
+                        marqueerController: marqueerController,
+                        title: widget.article.title,
+                      ),
                     ),
                     Text(
-                      article.content.htmlToString(),
+                      widget.article.content.htmlToString(),
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -80,7 +96,7 @@ class ArticleWidget extends StatelessWidget {
                           color: AppColors.grey,
                         ),
                         Text(
-                          ' ${article.updateAt}',
+                          ' ${widget.article.updateAt}',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -96,7 +112,7 @@ class ArticleWidget extends StatelessWidget {
                         Flexible(
                           flex: 3,
                           child: Text(
-                            ' ${article.writer}',
+                            ' ${widget.article.writer}',
                             softWrap: false,
                             style: Theme.of(context)
                                 .textTheme

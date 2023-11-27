@@ -26,7 +26,7 @@ class CalenderWidget extends StatelessWidget {
       child: Card(
         color: AppColors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 6,
+        elevation: 4,
         margin: const EdgeInsets.all(0),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10),

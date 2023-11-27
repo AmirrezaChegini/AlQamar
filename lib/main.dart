@@ -6,6 +6,7 @@ import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
+import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
 import 'package:al_qamar/bloc/program/program_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
@@ -16,12 +17,10 @@ import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
-import 'package:al_qamar/cubit/counter_cubit.dart';
 import 'package:al_qamar/cubit/live_cubit.dart';
 import 'package:al_qamar/cubit/localize_cubit.dart';
 import 'package:al_qamar/cubit/password_cubit.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
-import 'package:al_qamar/cubit/salavat_cubit.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/db.dart';
 import 'package:al_qamar/di.dart';
@@ -46,6 +45,7 @@ void main() async {
     androidStopForegroundOnPause: true,
     androidShowNotificationBadge: false,
   );
+
   initializeDateFormatting().then((value) => runApp(const MainApp()));
 }
 
@@ -58,8 +58,6 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => locator.get<LocalizeCubit>()),
         BlocProvider(create: (context) => locator.get<BottomnavCubit>()),
-        BlocProvider(create: (context) => locator.get<CounterCubit>()),
-        BlocProvider(create: (context) => locator.get<SalavatCubit>()),
         BlocProvider(create: (context) => locator.get<TimerCubit>()),
         BlocProvider(create: (context) => locator.get<BtnVerifyCubit>()),
         BlocProvider(create: (context) => locator.get<ArticleCubit>()),
@@ -80,6 +78,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<ProgramBloc>()),
         BlocProvider(create: (context) => locator.get<FavoriteBloc>()),
         BlocProvider(create: (context) => locator.get<BookmarkBloc>()),
+        BlocProvider(create: (context) => locator.get<OtherArticleBloc>()),
       ],
       child: BlocBuilder<LocalizeCubit, String>(
         builder: (context, state) => MaterialApp(

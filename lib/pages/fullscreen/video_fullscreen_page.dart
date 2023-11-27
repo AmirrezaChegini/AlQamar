@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/utils/rtl_direct.dart';
-import 'package:al_qamar/widgets/anim/fade_in_out.dart';
+import 'package:al_qamar/widgets/anim/animated_icon.dart';
+import 'package:al_qamar/widgets/anim/fade_in.dart';
+import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
@@ -18,6 +21,13 @@ class VideoFullscrreenPage extends StatefulWidget {
 }
 
 class _VideoFullscrreenPageState extends State<VideoFullscrreenPage> {
+  bool isPlaying = false;
+  double volume = 0;
+  double duration = 1;
+  double position = 0;
+  bool showControler = true;
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
@@ -26,6 +36,25 @@ class _VideoFullscrreenPageState extends State<VideoFullscrreenPage> {
       DeviceOrientation.landscapeRight,
     ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      setState(() {
+        isPlaying = widget.videoCtrl.value.isPlaying;
+        volume = widget.videoCtrl.value.volume;
+        duration = widget.videoCtrl.value.duration.inMilliseconds.toDouble();
+        position = widget.videoCtrl.value.position.inMilliseconds.toDouble();
+        if (position == duration - 1) {
+          widget.videoCtrl.pause();
+        }
+        if (widget.videoCtrl.value.isCompleted) {
+          showControler = true;
+        }
+        if (widget.videoCtrl.value.isPlaying && showControler) {
+          Future.delayed(const Duration(seconds: 2), () {
+            showControler = false;
+          });
+        }
+      });
+    });
   }
 
   @override
@@ -35,58 +64,114 @@ class _VideoFullscrreenPageState extends State<VideoFullscrreenPage> {
       SystemUiMode.manual,
       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
     );
+    _timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: widget.videoCtrl.value.aspectRatio,
-      child: GestureDetector(
-        onDoubleTap: () => widget.videoCtrl,
-        onTap: () => setState(() {
-          if (widget.videoCtrl.value.isPlaying) {
-            widget.videoCtrl.pause();
-          } else {
-            widget.videoCtrl.play();
-          }
-        }),
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () {
+          setState(() {
+            showControler = !showControler;
+          });
+        },
         child: Stack(
-          alignment: Alignment.center,
+          fit: StackFit.expand,
           children: [
-            VideoPlayer(widget.videoCtrl),
-            FadeOutAnim(
-              state: widget.videoCtrl.value.isPlaying,
-              child: widget.videoCtrl.value.isPlaying
-                  ? const Icon(
-                      Icons.pause_rounded,
-                      color: AppColors.white,
-                      size: 80,
-                    )
-                  : const Icon(
-                      Icons.play_arrow_rounded,
-                      color: AppColors.white,
-                      size: 80,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: widget.videoCtrl.value.size.width,
+                    minWidth: widget.videoCtrl.value.size.width,
+                    maxHeight: widget.videoCtrl.value.size.height,
+                    minHeight: widget.videoCtrl.value.size.height,
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: widget.videoCtrl.value.aspectRatio,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: VideoPlayer(widget.videoCtrl),
                     ),
-            ),
-            Positioned.directional(
-              textDirection: CheckDirect.isRTL(context)
-                  ? TextDirection.rtl
-                  : TextDirection.ltr,
-              bottom: 0,
-              start: 20,
-              child: FadeOutAnim(
-                state: widget.videoCtrl.value.isPlaying,
-                child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: const Icon(
-                    Icons.fullscreen_exit_rounded,
-                    color: AppColors.white,
-                    size: 80,
                   ),
                 ),
               ),
             ),
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: FadeInAnim(
+                state: showControler,
+                child: Container(
+                  height: 300,
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(
+                    color: AppColors.black.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 5),
+                      IconBtn(
+                        onTap: () => isPlaying
+                            ? widget.videoCtrl.pause()
+                            : widget.videoCtrl.play(),
+                        child: IconAnimated(
+                          icon: AnimatedIcons.play_pause,
+                          state: isPlaying,
+                          color: AppColors.white,
+                          size: 26,
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 60,
+                          child: Slider(
+                            value: position,
+                            min: 0,
+                            max: duration,
+                            onChanged: (value) {
+                              widget.videoCtrl.seekTo(
+                                  Duration(milliseconds: value.toInt()));
+                            },
+                            inactiveColor: AppColors.grey200,
+                            thumbColor: AppColors.white,
+                            overlayColor: MaterialStatePropertyAll(
+                              AppColors.white.withOpacity(0.1),
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconBtn(
+                        onTap: () => Navigator.pop(context),
+                        child: const Icon(
+                          Icons.fullscreen_exit_rounded,
+                          color: AppColors.white,
+                          size: 30,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      IconBtn(
+                        onTap: () => volume == 0
+                            ? widget.videoCtrl.setVolume(1)
+                            : widget.videoCtrl.setVolume(0),
+                        child: Icon(
+                          volume == 0
+                              ? Icons.volume_off_rounded
+                              : Icons.volume_up_rounded,
+                          color: AppColors.white,
+                          size: 24,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:al_qamar/utils/get_permission.dart';
 import 'package:al_qamar/utils/image_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CameraDialog extends StatelessWidget {
   const CameraDialog({
@@ -14,6 +15,7 @@ class CameraDialog extends StatelessWidget {
     required this.user,
   });
   final User user;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -35,7 +37,7 @@ class CameraDialog extends StatelessWidget {
                           bio: user.bio,
                           avatar: value,
                         ));
-                      }
+                      } else {}
                     });
                   }
                 });
@@ -58,6 +60,8 @@ class CameraDialog extends StatelessWidget {
                         bio: user.bio,
                         avatar: value,
                       ));
+                    } else {
+                      Fluttertoast.showToast(msg: 'Photo must be less than 2 MB');
                     }
                   });
                 }

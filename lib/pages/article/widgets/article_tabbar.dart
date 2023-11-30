@@ -73,15 +73,13 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
                 value == 2 && widget.youtube.isEmpty ||
                 (value == 3 && widget.audios.isEmpty) ||
                 (value == 4 && widget.pdfs.isEmpty)) {
-              widget.tabController
-                  .animateTo(widget.tabController.previousIndex);
+              widget.tabController.animateTo(widget.tabController.previousIndex);
 
               showMessage(
                 context: context,
                 content: 'noContent'.localize(context),
                 horizontalMargin: 10,
                 verticalMargin: 10,
-                isError: false,
               );
             } else {
               BlocProvider.of<ArticleCubit>(context).changeIndex(value);

@@ -11,8 +11,7 @@ class OtherArticleBloc extends Bloc<OtherArticleEvent, OtherArticleState> {
     on<GetOtherArticleEvent>((event, emit) async {
       emit(LoadingOtherArticleState());
       await Future.delayed(const Duration(seconds: 1));
-      List<Article> articleList = _newsBloc.articleList;
-      articleList.shuffle();
+      List<Article> articleList = List.from(_newsBloc.articleList)..shuffle();
       emit(CompleteOtherArticleState(articleList));
     });
 

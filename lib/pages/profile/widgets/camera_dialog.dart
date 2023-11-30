@@ -37,7 +37,10 @@ class CameraDialog extends StatelessWidget {
                           bio: user.bio,
                           avatar: value,
                         ));
-                      } else {}
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: 'Photo must be less than 2 MB');
+                      }
                     });
                   }
                 });
@@ -61,7 +64,8 @@ class CameraDialog extends StatelessWidget {
                         avatar: value,
                       ));
                     } else {
-                      Fluttertoast.showToast(msg: 'Photo must be less than 2 MB');
+                      Fluttertoast.showToast(
+                          msg: 'Photo must be less than 2 MB');
                     }
                   });
                 }

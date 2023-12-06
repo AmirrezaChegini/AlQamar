@@ -9,14 +9,14 @@ class ImagePick {
   static Future<XFile?> pickImage() async {
     return await _imagePicker.pickImage(
       source: ImageSource.gallery,
-      imageQuality: 80,
+      imageQuality: 75,
     );
   }
 
   static Future<XFile?> pickPhoto() async {
     return await _imagePicker.pickImage(
       source: ImageSource.camera,
-      imageQuality: 80,
+      imageQuality: 75,
     );
   }
 }

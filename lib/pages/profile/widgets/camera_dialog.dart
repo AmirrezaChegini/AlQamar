@@ -25,8 +25,7 @@ class CameraDialog extends StatelessWidget {
         children: [
           ListTile(
             onTap: () async {
-              if (await GetPermission.camera()) {
-                ImagePick.pickPhoto().then((value) {
+              ImagePick.pickPhoto().then((value) {
                   if (value != null) {
                     value.length().then((size) {
                       if (size < 2000000) {
@@ -44,7 +43,6 @@ class CameraDialog extends StatelessWidget {
                     });
                   }
                 });
-              }
             },
             leading: const Icon(Icons.photo_camera_rounded),
             title: Text('camera'.localize(context)),

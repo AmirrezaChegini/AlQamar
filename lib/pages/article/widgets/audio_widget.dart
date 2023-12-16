@@ -50,6 +50,8 @@ class _AudioWidgetState extends State<AudioWidget> {
         selected: state == widget.index,
         tileColor: AppColors.white,
         selectedTileColor: AppColors.red,
+        textColor: AppColors.black,
+        selectedColor: AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -65,12 +67,10 @@ class _AudioWidgetState extends State<AudioWidget> {
             children: [
               Text(
                 '${'audio'.localize(context)} ${widget.index + 1}',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 16,
-                      color: state == widget.index
-                          ? AppColors.white
-                          : AppColors.black,
-                    ),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

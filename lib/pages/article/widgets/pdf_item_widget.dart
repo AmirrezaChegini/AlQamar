@@ -22,6 +22,8 @@ class PdfItemWidget extends StatelessWidget {
         selected: state == index,
         tileColor: AppColors.white,
         selectedTileColor: AppColors.red,
+        textColor: AppColors.black,
+        selectedColor: AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -47,13 +49,12 @@ class PdfItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     '${'document'.localize(context)} ${index + 1}',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 16,
-                          color: state == index
-                              ? AppColors.white
-                              : AppColors.black,
-                        ),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
+
                   // Text(
                   //   '123.6 MB',
                   //   style: Theme.of(context)

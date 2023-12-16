@@ -40,7 +40,6 @@ dependencies:
   youtube_player_iframe: ^4.0.4
   marqueer: ^1.4.3
   image_picker: ^1.0.4
-  open_settings_plus: ^0.1.0
   grouped_list: ^5.1.2
   fluttertoast: ^8.2.4
 

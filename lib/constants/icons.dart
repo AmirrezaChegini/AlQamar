@@ -10,6 +10,8 @@ class AppIcons {
   static const String bookmark = '$root/bookmark.png';
   static const String calender = '$root/calender.svg';
   static const String close = '$root/close.png';
+  static const String downloading = '$root/downloading.svg';
+  static const String downloaded = '$root/downloaded.svg';
   static const String favoriteFill = '$root/favorite_fill.png';
   static const String favorite = '$root/favorite.png';
   static const String home = '$root/home.svg';

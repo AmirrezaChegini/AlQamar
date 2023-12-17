@@ -1,7 +1,15 @@
+import 'package:al_qamar/bloc/download/download_bloc.dart';
+import 'package:al_qamar/bloc/download/download_event.dart';
+import 'package:al_qamar/bloc/download/download_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/di.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/utils/permission_handler.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
+import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
@@ -25,6 +33,13 @@ class AudioWidget extends StatefulWidget {
 
 class _AudioWidgetState extends State<AudioWidget> {
   final AudioPlayer _audioPlayer = locator.get();
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<DownloadBloc>(context)
+        .add(CheckDownloadedEvent(widget.audio.getFilename()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +67,67 @@ class _AudioWidgetState extends State<AudioWidget> {
         selectedTileColor: AppColors.red,
         textColor: AppColors.black,
         selectedColor: AppColors.white,
+        trailing: SizedBox(
+          width: 50,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BlocBuilder<DownloadBloc, DownloadState>(
+                builder: (context, innerState) {
+                  if (innerState is CompleteDownloadState) {
+                    return AppIcon(
+                      icon: AppIcons.downloaded,
+                      width: 25,
+                      height: 25,
+                      color: state == widget.index
+                          ? AppColors.white
+                          : AppColors.black,
+                    );
+                  } else {
+                    return IconBtn(
+                      onTap: () async {
+                        await storagePermission().then((value) {
+                          if (value) {
+                            BlocProvider.of<DownloadBloc>(context).add(
+                              StartDownloadEvent(
+                                widget.audio,
+                                widget.audio.getFilename(),
+                              ),
+                            );
+                          }
+                        });
+                      },
+                      child: AppIcon(
+                        icon: AppIcons.downloading,
+                        width: 25,
+                        height: 25,
+                        color: state == widget.index
+                            ? AppColors.white
+                            : AppColors.black,
+                      ),
+                    );
+                  }
+                },
+              ),
+              BlocBuilder<DownloadBloc, DownloadState>(
+                builder: (context, innerState) {
+                  if (innerState is DownloadingState) {
+                    return LinearProgressIndicator(
+                      value: innerState.progress,
+                      borderRadius: BorderRadius.circular(20),
+                      backgroundColor: AppColors.grey600,
+                      color: state == widget.index
+                          ? AppColors.white
+                          : AppColors.black,
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),

@@ -19,7 +19,7 @@ class AppIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (icon.contains('png')) {
+    if (icon.contains('png') || icon.contains('jpg')) {
       return Image.asset(
         icon,
         color: color,

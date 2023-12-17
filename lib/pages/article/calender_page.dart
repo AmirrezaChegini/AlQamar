@@ -1,7 +1,9 @@
+import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/calender.dart';
 import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
 import 'package:al_qamar/pages/article/widgets/audio_article_player.dart';
@@ -140,15 +142,25 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                     (context, index) => Padding(
                       padding: const EdgeInsets.all(10),
                       child: state == 3
-                          ? AudioWidget(
-                              index: index,
-                              audio: widget.calender.audios[index],
-                              image: widget.calender.images.isNotEmpty
-                                  ? widget.calender.images[0]
-                                  : '',
+                          ? BlocProvider(
+                              create: (context) => locator.get<DownloadBloc>(),
+                              child: AudioWidget(
+                                index: index,
+                                audio: widget.calender.audios[index],
+                                image: widget.calender.images.isNotEmpty
+                                    ? widget.calender.images[0]
+                                    : '',
+                              ),
                             )
                           : state == 4
-                              ? PdfItemWidget(index: index)
+                              ? BlocProvider(
+                                  create: (context) =>
+                                      locator.get<DownloadBloc>(),
+                                  child: PdfItemWidget(
+                                    index: index,
+                                    url: widget.calender.pdfs[index],
+                                  ),
+                                )
                               : const SizedBox(),
                     ),
                   ),

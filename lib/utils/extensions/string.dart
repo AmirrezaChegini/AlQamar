@@ -7,4 +7,10 @@ extension StringExt on String {
     var document = parse(htmlString);
     return parse(document.body?.text).documentElement?.text ?? '';
   }
+
+  String getFilename() {
+    String url = this;
+
+    return Uri.parse(url).pathSegments.last;
+  }
 }

@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
+import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
@@ -38,6 +39,8 @@ import 'package:al_qamar/data/repositories/favorite_repository.dart';
 import 'package:al_qamar/data/repositories/live_repository.dart';
 import 'package:al_qamar/data/repositories/salavat_repository.dart';
 import 'package:al_qamar/data/repositories/user_repository.dart';
+import 'package:al_qamar/service/download_service.dart';
+import 'package:al_qamar/utils/download_path.dart';
 import 'package:al_qamar/utils/error_handling/app_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -65,6 +68,9 @@ Future<void> initLocator() async {
   );
   locator.registerLazySingleton<AudioPlayer>(() => AudioPlayer());
   locator.registerLazySingleton<ImagePicker>(() => ImagePicker());
+  locator.registerLazySingleton<DownloadPath>(() => DownloadPath());
+  locator.registerFactory<DownloadService>(
+      () => DownloadService(locator.get(), locator.get()));
 
   //datasources
   locator
@@ -134,4 +140,6 @@ Future<void> initLocator() async {
       () => BookmarkBloc(locator.get(), locator.get()));
   locator.registerLazySingleton<OtherArticleBloc>(
       () => OtherArticleBloc(locator.get()));
+  locator.registerFactory<DownloadBloc>(
+      () => DownloadBloc(locator.get(), locator.get()));
 }

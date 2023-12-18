@@ -160,7 +160,8 @@ class _ArticlePageState extends State<ArticlePage>
                       padding: const EdgeInsets.all(10),
                       child: state == 3
                           ? BlocProvider(
-                              create: (context) => locator.get<DownloadBloc>(),
+                              create: (context) =>
+                                  locator.get<DownloadAudioBloc>(),
                               child: AudioWidget(
                                 index: index,
                                 audio: widget.article.audios[index],
@@ -172,7 +173,7 @@ class _ArticlePageState extends State<ArticlePage>
                           : state == 4
                               ? BlocProvider(
                                   create: (context) =>
-                                      locator.get<DownloadBloc>(),
+                                      locator.get<DownloadPdfBloc>(),
                                   child: PdfItemWidget(
                                     index: index,
                                     url: widget.article.pdfs[index],

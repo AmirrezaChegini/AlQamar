@@ -30,8 +30,8 @@ class _PdfItemWidgetState extends State<PdfItemWidget> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<DownloadBloc>(context)
-        .add(CheckDownloadedEvent(widget.url.getFilename()));
+    BlocProvider.of<DownloadPdfBloc>(context)
+        .add(CheckDownloadedPdfEvent(widget.url.getFilename()));
   }
 
   @override
@@ -50,9 +50,9 @@ class _PdfItemWidgetState extends State<PdfItemWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              BlocBuilder<DownloadBloc, DownloadState>(
+              BlocBuilder<DownloadPdfBloc, DownloadPdfState>(
                 builder: (context, innerState) {
-                  if (innerState is CompleteDownloadState) {
+                  if (innerState is CompleteDownloadPdfState) {
                     return AppIcon(
                       icon: AppIcons.downloaded,
                       width: 25,
@@ -66,8 +66,8 @@ class _PdfItemWidgetState extends State<PdfItemWidget> {
                       onTap: () async {
                         await storagePermission().then((value) {
                           if (value) {
-                            BlocProvider.of<DownloadBloc>(context).add(
-                              StartDownloadEvent(
+                            BlocProvider.of<DownloadPdfBloc>(context).add(
+                              StartDownloadPdfEvent(
                                 widget.url,
                                 widget.url.getFilename(),
                               ),
@@ -87,9 +87,9 @@ class _PdfItemWidgetState extends State<PdfItemWidget> {
                   }
                 },
               ),
-              BlocBuilder<DownloadBloc, DownloadState>(
+              BlocBuilder<DownloadPdfBloc, DownloadPdfState>(
                 builder: (context, innerState) {
-                  if (innerState is DownloadingState) {
+                  if (innerState is DownloadingPdfState) {
                     return LinearProgressIndicator(
                       value: innerState.progress,
                       borderRadius: BorderRadius.circular(20),

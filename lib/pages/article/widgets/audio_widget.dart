@@ -37,8 +37,8 @@ class _AudioWidgetState extends State<AudioWidget> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<DownloadBloc>(context)
-        .add(CheckDownloadedEvent(widget.audio.getFilename()));
+    BlocProvider.of<DownloadAudioBloc>(context)
+        .add(CheckDownloadedAudioEvent(widget.audio.getFilename()));
   }
 
   @override
@@ -72,9 +72,9 @@ class _AudioWidgetState extends State<AudioWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              BlocBuilder<DownloadBloc, DownloadState>(
+              BlocBuilder<DownloadAudioBloc, DownloadAudioState>(
                 builder: (context, innerState) {
-                  if (innerState is CompleteDownloadState) {
+                  if (innerState is CompleteDownloadAudioState) {
                     return AppIcon(
                       icon: AppIcons.downloaded,
                       width: 25,
@@ -88,8 +88,8 @@ class _AudioWidgetState extends State<AudioWidget> {
                       onTap: () async {
                         await storagePermission().then((value) {
                           if (value) {
-                            BlocProvider.of<DownloadBloc>(context).add(
-                              StartDownloadEvent(
+                            BlocProvider.of<DownloadAudioBloc>(context).add(
+                              StartDownloadAudioEvent(
                                 widget.audio,
                                 widget.audio.getFilename(),
                               ),
@@ -109,9 +109,9 @@ class _AudioWidgetState extends State<AudioWidget> {
                   }
                 },
               ),
-              BlocBuilder<DownloadBloc, DownloadState>(
+              BlocBuilder<DownloadAudioBloc, DownloadAudioState>(
                 builder: (context, innerState) {
-                  if (innerState is DownloadingState) {
+                  if (innerState is DownloadingAudioState) {
                     return LinearProgressIndicator(
                       value: innerState.progress,
                       borderRadius: BorderRadius.circular(20),

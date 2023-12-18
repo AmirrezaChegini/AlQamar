@@ -143,7 +143,8 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                       padding: const EdgeInsets.all(10),
                       child: state == 3
                           ? BlocProvider(
-                              create: (context) => locator.get<DownloadBloc>(),
+                              create: (context) =>
+                                  locator.get<DownloadAudioBloc>(),
                               child: AudioWidget(
                                 index: index,
                                 audio: widget.calender.audios[index],
@@ -155,7 +156,7 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                           : state == 4
                               ? BlocProvider(
                                   create: (context) =>
-                                      locator.get<DownloadBloc>(),
+                                      locator.get<DownloadPdfBloc>(),
                                   child: PdfItemWidget(
                                     index: index,
                                     url: widget.calender.pdfs[index],

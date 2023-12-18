@@ -1,12 +1,27 @@
-sealed class DownloadEvent {}
+//audio event
+sealed class DownloadAudioEvent {}
 
-class StartDownloadEvent extends DownloadEvent {
+class StartDownloadAudioEvent extends DownloadAudioEvent {
   final String url;
   final String fileName;
-  StartDownloadEvent(this.url, this.fileName);
+  StartDownloadAudioEvent(this.url, this.fileName);
 }
 
-class CheckDownloadedEvent extends DownloadEvent {
+class CheckDownloadedAudioEvent extends DownloadAudioEvent {
   final String fileName;
-  CheckDownloadedEvent(this.fileName);
+  CheckDownloadedAudioEvent(this.fileName);
+}
+
+//pdf event
+sealed class DownloadPdfEvent {}
+
+class StartDownloadPdfEvent extends DownloadPdfEvent {
+  final String url;
+  final String fileName;
+  StartDownloadPdfEvent(this.url, this.fileName);
+}
+
+class CheckDownloadedPdfEvent extends DownloadPdfEvent {
+  final String fileName;
+  CheckDownloadedPdfEvent(this.fileName);
 }

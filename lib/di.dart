@@ -140,6 +140,8 @@ Future<void> initLocator() async {
       () => BookmarkBloc(locator.get(), locator.get()));
   locator.registerLazySingleton<OtherArticleBloc>(
       () => OtherArticleBloc(locator.get()));
-  locator.registerFactory<DownloadBloc>(
-      () => DownloadBloc(locator.get(), locator.get()));
+  locator.registerFactory<DownloadAudioBloc>(
+      () => DownloadAudioBloc(locator.get(), locator.get()));
+  locator.registerFactory<DownloadPdfBloc>(
+      () => DownloadPdfBloc(locator.get(), locator.get()));
 }

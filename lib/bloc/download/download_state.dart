@@ -1,12 +1,27 @@
-sealed class DownloadState {}
+//audio state
+sealed class DownloadAudioState {}
 
-class InitDownloadState extends DownloadState {}
+class InitDownloadAudioState extends DownloadAudioState {}
 
-class DownloadingState extends DownloadState {
+class DownloadingAudioState extends DownloadAudioState {
   final double progress;
-  DownloadingState(this.progress);
+  DownloadingAudioState(this.progress);
 }
 
-class CompleteDownloadState extends DownloadState {}
+class CompleteDownloadAudioState extends DownloadAudioState {}
 
-class FailDownloadState extends DownloadState {}
+class FailDownloadAudioState extends DownloadAudioState {}
+
+//pdf state
+sealed class DownloadPdfState {}
+
+class InitDownloadPdfState extends DownloadPdfState {}
+
+class DownloadingPdfState extends DownloadPdfState {
+  final double progress;
+  DownloadingPdfState(this.progress);
+}
+
+class CompleteDownloadPdfState extends DownloadPdfState {}
+
+class FailDownloadPdfState extends DownloadPdfState {}

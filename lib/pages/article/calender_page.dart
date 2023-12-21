@@ -55,8 +55,8 @@ class _CalenderDataPageState extends State<CalenderDataPage>
       backgroundColor: AppColors.grey200,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            ShareData.share(widget.calender.content.htmlToString()),
+        onPressed: () async =>
+            await ShareData.shareText(widget.calender.content.htmlToString()),
         backgroundColor: AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),

@@ -1,6 +1,10 @@
 class Api {
   Api._();
 
+  //base url
+  static const String baseUrl = 'https://yadme.com';
+  static const String baseUrlSite = 'https://alghamar-vercel.vercel.app';
+
   //auth
   static const String login = '/auth/login';
   static const String register = '/auth/register';

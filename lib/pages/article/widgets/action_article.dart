@@ -8,7 +8,6 @@ import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
-import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/share.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +50,7 @@ class ActionArticle extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               ActionItem(
-                onTap: () => ShareData.share(article.content.htmlToString()),
+                onTap: () async => await ShareData.shareUrl(article.id),
                 icon: AppIcons.share,
                 color: AppColors.blue,
               ),

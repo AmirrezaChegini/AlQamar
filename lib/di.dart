@@ -11,6 +11,7 @@ import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
 import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/constants/api.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/cubit/bookmark_cubit.dart';
@@ -55,7 +56,7 @@ Future<void> initLocator() async {
   locator.registerLazySingleton<Dio>(
     () => Dio(
       BaseOptions(
-        baseUrl: 'https://yadme.com/api/v1',
+        baseUrl: '${Api.baseUrl}/api/v1',
         connectTimeout: const Duration(seconds: 20),
       ),
     )..interceptors.add(AppInterceptors()),

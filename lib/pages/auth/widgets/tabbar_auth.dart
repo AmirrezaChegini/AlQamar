@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:flutter/material.dart';
 
 class TabbarAuth extends StatelessWidget {
@@ -25,8 +26,10 @@ class TabbarAuth extends StatelessWidget {
           unselectedLabelColor: AppColors.grey,
           indicatorColor: AppColors.blue,
           dividerColor: AppColors.grey,
-          labelStyle:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
+          labelStyle: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontSize: Fontsize.large),
           tabs: List.generate(
             2,
             (index) => Tab(

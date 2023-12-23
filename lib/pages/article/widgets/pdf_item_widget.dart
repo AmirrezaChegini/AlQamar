@@ -3,6 +3,7 @@ import 'package:al_qamar/bloc/download/download_event.dart';
 import 'package:al_qamar/bloc/download/download_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
@@ -131,9 +132,10 @@ class _PdfItemWidgetState extends State<PdfItemWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '${'document'.localize(context)} ${widget.index + 1}',
+                    '${'document'.localize(context)} ${widget.index + 1}'
+                        .toArabic(),
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: Fontsize.big,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

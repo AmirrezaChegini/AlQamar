@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:flutter/material.dart';
 
 class LiveTabbar extends StatelessWidget {
@@ -23,8 +24,10 @@ class LiveTabbar extends StatelessWidget {
           controller: _tabCtrl,
           unselectedLabelColor: AppColors.grey600,
           labelColor: AppColors.blue,
-          labelStyle:
-              Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
+          labelStyle: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(fontSize: Fontsize.large),
           tabs: [
             Tab(text: 'video'.localize(context)),
             Tab(text: 'audio'.localize(context)),

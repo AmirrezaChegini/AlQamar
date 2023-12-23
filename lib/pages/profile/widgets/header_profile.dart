@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/models/user.dart';
@@ -153,7 +154,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium!
-                            .copyWith(fontSize: 16),
+                            .copyWith(fontSize: Fontsize.big),
                       ),
                       Row(
                         children: [
@@ -170,7 +171,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(fontSize: 12),
+                                  .copyWith(fontSize: Fontsize.large),
                             ),
                           ),
                           GestureDetector(
@@ -188,7 +189,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium!
-                                  .copyWith(fontSize: 12),
+                                  .copyWith(fontSize: Fontsize.large),
                             ),
                           ),
                         ],

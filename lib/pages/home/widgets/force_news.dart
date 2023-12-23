@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
@@ -87,7 +88,7 @@ class _ForceNewsState extends State<ForceNews> {
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
-                      .copyWith(fontSize: 16, height: 1.25),
+                      .copyWith(fontSize: Fontsize.big, height: 1.25),
                 ),
               ),
               Container(
@@ -106,7 +107,7 @@ class _ForceNewsState extends State<ForceNews> {
                       style: Theme.of(context)
                           .textTheme
                           .labelLarge!
-                          .copyWith(fontSize: 14),
+                          .copyWith(fontSize: Fontsize.large),
                     ),
                     Text(
                       widget.articleList[index].content.htmlToString(),
@@ -114,7 +115,7 @@ class _ForceNewsState extends State<ForceNews> {
                       style: Theme.of(context)
                           .textTheme
                           .labelSmall!
-                          .copyWith(fontSize: 12),
+                          .copyWith(fontSize: Fontsize.large),
                     )
                   ],
                 ),

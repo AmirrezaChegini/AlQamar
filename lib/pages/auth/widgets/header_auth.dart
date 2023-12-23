@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class HeaderAuth extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
-                      .copyWith(fontSize: 18),
+                      .copyWith(fontSize: Fontsize.big),
                 ),
                 Container(
                   height: 2,
@@ -58,15 +59,20 @@ class HeaderAuth extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium!
-                    .copyWith(fontSize: 13),
+                    .copyWith(fontSize: Fontsize.large),
               ),
             ),
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: FittedBox(
-                child: Text('sentenceTwo'.localize(context),
-                    style: Theme.of(context).textTheme.labelMedium),
+                child: Text(
+                  'sentenceTwo'.localize(context),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(fontSize: Fontsize.large),
+                ),
               ),
             ),
             const SizedBox(height: 20),

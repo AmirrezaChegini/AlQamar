@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class HeaderEditProfile extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
-                      .copyWith(fontSize: 18),
+                      .copyWith(fontSize: Fontsize.huge),
                 ),
                 Container(
                   height: 2,
@@ -58,7 +59,7 @@ class HeaderEditProfile extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium!
-                    .copyWith(fontSize: 13),
+                    .copyWith(fontSize: Fontsize.large),
               ),
             ),
             const SizedBox(height: 5),

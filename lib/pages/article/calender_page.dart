@@ -1,5 +1,6 @@
 import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
@@ -193,7 +194,7 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!
-                      .copyWith(fontSize: 14),
+                      .copyWith(fontSize: Fontsize.large),
                 ),
               ),
             ),

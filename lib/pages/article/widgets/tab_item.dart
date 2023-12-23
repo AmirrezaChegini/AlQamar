@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/painter/curved_painter.dart';
 import 'package:flutter/material.dart';
@@ -76,10 +77,8 @@ class _TabItemState extends State<TabItem> with TickerProviderStateMixin {
                 ),
                 Text(
                   widget.tabsText,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontSize: 11, color: _colorAnim.value),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontSize: Fontsize.large, color: _colorAnim.value),
                 )
               ],
             ),

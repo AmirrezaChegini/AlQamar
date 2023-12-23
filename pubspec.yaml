@@ -65,11 +65,9 @@ flutter:
     - assets/video/
 
   fonts:
-    - family: iranyekanmed
+    - family: majalla
       fonts:
-        - asset: assets/fonts/IRANYekanBold.ttf
+        - asset: assets/fonts/majallab.ttf
           weight: 900
-        - asset: assets/fonts/IRANYekanMedium.ttf
+        - asset: assets/fonts/majalla.ttf
           weight: 500
-        - asset: assets/fonts/IRANYekanRegular.ttf
-          weight: 400

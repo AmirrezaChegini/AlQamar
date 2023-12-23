@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
@@ -95,11 +96,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                   : AppColors.grey600,
                             ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 7),
                           Text(
                             bottomTexts[index],
                             style: const TextStyle(
-                              fontSize: 11,
+                              fontSize: Fontsize.medium,
                             ),
                           ),
                         ],

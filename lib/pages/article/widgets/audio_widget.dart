@@ -3,6 +3,7 @@ import 'package:al_qamar/bloc/download/download_event.dart';
 import 'package:al_qamar/bloc/download/download_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/di.dart';
@@ -142,9 +143,9 @@ class _AudioWidgetState extends State<AudioWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${'audio'.localize(context)} ${widget.index + 1}',
+                '${'audio'.localize(context)} ${widget.index + 1}'.toArabic(),
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: Fontsize.big,
                   fontWeight: FontWeight.w500,
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:flutter/material.dart';
 
@@ -31,13 +32,18 @@ class ErrorState extends StatelessWidget {
         ),
         Text(
           errorMessage.localize(context),
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(fontSize: Fontsize.huge),
         ),
         Text(
           'internetError'.localize(context),
           textAlign: TextAlign.center,
-          style:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontSize: Fontsize.large),
         ),
         const SizedBox(height: 20),
         ElevatedButton(

@@ -4,10 +4,12 @@ import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/favorite/favorite_event.dart';
 import 'package:al_qamar/bloc/favorite/favorite_state.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/share.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
@@ -84,11 +86,11 @@ class ActionArticle extends StatelessWidget {
                         color: AppColors.black,
                       ),
                       Text(
-                        ' ${article.updateAt}',
+                        ' ${article.updateAt}'.toArabic(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                     ],
                   ),
@@ -107,7 +109,7 @@ class ActionArticle extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                     ],
                   ),

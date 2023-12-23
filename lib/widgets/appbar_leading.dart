@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/live/live_page.dart';
 import 'package:al_qamar/widgets/anim/page_route.dart';
@@ -49,7 +50,7 @@ class AppbarLeading extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headlineMedium!
-                  .copyWith(fontSize: 12),
+                  .copyWith(fontSize: Fontsize.large),
             ),
           ),
         ),

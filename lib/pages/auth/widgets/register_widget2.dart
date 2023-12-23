@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/api.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/utils/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,10 @@ class RegisterWidgets2 extends StatelessWidget {
       children: [
         Text.rich(
           TextSpan(
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(fontSize: Fontsize.large),
             children: [
               const TextSpan(
                 text:
@@ -25,7 +28,7 @@ class RegisterWidgets2 extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
-                    .copyWith(fontSize: 14),
+                    .copyWith(fontSize: Fontsize.large),
               ),
               const TextSpan(
                 text:
@@ -36,7 +39,7 @@ class RegisterWidgets2 extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
-                    .copyWith(fontSize: 14),
+                    .copyWith(fontSize: Fontsize.large),
               ),
               const TextSpan(
                 text:
@@ -47,7 +50,7 @@ class RegisterWidgets2 extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
-                    .copyWith(fontSize: 14),
+                    .copyWith(fontSize: Fontsize.large),
               ),
               const TextSpan(
                 text:
@@ -58,7 +61,7 @@ class RegisterWidgets2 extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!
-                    .copyWith(fontSize: 14),
+                    .copyWith(fontSize: Fontsize.large),
               ),
               const TextSpan(
                 text:
@@ -71,7 +74,10 @@ class RegisterWidgets2 extends StatelessWidget {
             ],
             text: 'مرحبًا بك في القمر!\n',
           ),
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(fontSize: Fontsize.large),
         ),
         const SizedBox(height: 10),
         Row(

@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:flutter/material.dart';
 
 dynamic showMessage({
@@ -16,8 +17,14 @@ dynamic showMessage({
       content: Text(
         content,
         style: isError
-            ? Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 14)
-            : Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 14),
+            ? Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(fontSize: Fontsize.large)
+            : Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(fontSize: Fontsize.large),
       ),
       backgroundColor: isError ? AppColors.red100 : AppColors.cyan,
       duration: Duration(seconds: duration),

@@ -6,6 +6,7 @@ import 'package:al_qamar/bloc/other_article/other_article_event.dart';
 import 'package:al_qamar/bloc/other_article/other_article_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/cubit/bookmark_cubit.dart';
@@ -213,7 +214,7 @@ class _ArticlePageState extends State<ArticlePage>
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!
-                      .copyWith(fontSize: 14),
+                      .copyWith(fontSize: Fontsize.large),
                 ),
               ),
             ),

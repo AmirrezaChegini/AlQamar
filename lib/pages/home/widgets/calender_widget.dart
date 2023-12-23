@@ -1,8 +1,10 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/home/widgets/week_calender.dart';
 import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,18 +45,19 @@ class CalenderWidget extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        '${HijriCalendar.now().hMonth.getHijriMonth()} - ${HijriCalendar.now().hYear}',
+                        '${HijriCalendar.now().hMonth.getHijriMonth()} - ${HijriCalendar.now().hYear}'
+                            .toArabic(),
                         style: Theme.of(context)
                             .textTheme
                             .displayLarge!
-                            .copyWith(fontSize: 12, height: 1.5),
+                            .copyWith(fontSize: Fontsize.large, height: 1.5),
                       ),
                       Text(
                         '${DateTime.now().year} ${DateTime.now().month.getGeorgiaMonth()}',
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall!
-                            .copyWith(fontSize: 12, height: 1.5),
+                            .copyWith(fontSize: Fontsize.large, height: 1.5),
                       ),
                     ],
                   ),

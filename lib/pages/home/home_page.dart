@@ -6,6 +6,7 @@ import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/config/localize.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
@@ -154,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                       textDecoration: CheckDirect.isRTL(context)
                           ? TextDirection.ltr
                           : TextDirection.rtl,
-                      fontSize: 12,
+                      fontSize: Fontsize.large,
                       iconSize: 20,
                     ),
                   ],

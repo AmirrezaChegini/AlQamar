@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
@@ -100,7 +101,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
-                          .copyWith(fontSize: 10, height: 1),
+                          .copyWith(fontSize: Fontsize.medium, height: 1),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -116,11 +117,11 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                           color: AppColors.grey,
                         ),
                         Text(
-                          ' ${widget.article.updateAt}',
+                          ' ${widget.article.updateAt}'.toArabic(),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
-                              .copyWith(fontSize: 10),
+                              .copyWith(fontSize: Fontsize.medium),
                         ),
                         const Spacer(),
                         const AppIcon(
@@ -138,7 +139,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(
-                                  fontSize: 10,
+                                  fontSize: Fontsize.medium,
                                 ),
                           ),
                         ),

@@ -2,10 +2,12 @@ import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,25 +95,26 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                     textDecoration: CheckDirect.isRTL(context)
                         ? TextDirection.rtl
                         : TextDirection.ltr,
-                    fontSize: 10,
+                    fontSize: Fontsize.small,
                     iconSize: 15,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '${hijriMonth.getHijriMonth()} - ${(hijriMonth + 1).getHijriMonth()} - $hijriYear',
+                        '${hijriMonth.getHijriMonth()} - ${(hijriMonth + 1).getHijriMonth()} - $hijriYear'
+                            .toArabic(),
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                       Text(
                         '${georgiaMonth.getGeorgiaMonth()}  - ${(georgiaMonth + 1).getGeorgiaMonth()} - $georgiaYear',
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
-                            .copyWith(fontSize: 10),
+                            .copyWith(fontSize: Fontsize.small),
                       ),
                       const SizedBox(height: 5),
                       Container(
@@ -146,7 +149,7 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                     },
                     title: 'nextMonth'.localize(context),
                     icon: AppIcons.leftArrow,
-                    fontSize: 10,
+                    fontSize: Fontsize.small,
                     iconSize: 15,
                     textDecoration: CheckDirect.isRTL(context)
                         ? TextDirection.ltr

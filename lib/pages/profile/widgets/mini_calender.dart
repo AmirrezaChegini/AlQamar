@@ -1,5 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -34,16 +36,16 @@ class MiniCalender extends StatelessWidget {
                     : DateFormat('EEEE').format(DateTime.now()),
                 style: const TextStyle(
                   color: AppColors.red,
-                  fontSize: 12,
+                  fontSize: Fontsize.large,
                 ),
               ),
               Text(
                 CheckDirect.isRTL(context)
-                    ? '${_hijriCalendar.hDay}'
+                    ? '${_hijriCalendar.hDay}'.toArabic()
                     : '${DateTime.now().day}',
                 style: const TextStyle(
                   color: AppColors.red,
-                  fontSize: 20,
+                  fontSize: Fontsize.huge,
                 ),
               ),
             ],
@@ -59,20 +61,20 @@ class MiniCalender extends StatelessWidget {
             children: [
               Text(
                 CheckDirect.isRTL(context)
-                    ? _hijriCalendar.hMonth.getHijriMonth()
+                    ? _hijriCalendar.hMonth.getHijriMonth().toArabic()
                     : DateFormat('MMMM').format(DateTime.now()),
                 style: const TextStyle(
                   color: AppColors.blue,
-                  fontSize: 12,
+                  fontSize: Fontsize.large,
                 ),
               ),
               Text(
                 CheckDirect.isRTL(context)
-                    ? '${_hijriCalendar.hYear}'
+                    ? '${_hijriCalendar.hYear}'.toArabic()
                     : '${DateTime.now().year}',
                 style: const TextStyle(
                   color: AppColors.blue,
-                  fontSize: 20,
+                  fontSize: Fontsize.huge,
                 ),
               ),
             ],

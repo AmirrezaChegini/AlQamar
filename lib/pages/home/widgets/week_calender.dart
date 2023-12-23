@@ -1,5 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/utils/extensions/datetime.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -26,22 +28,24 @@ class WeekCalender extends StatelessWidget {
         outsideBuilder: (context, day, focusedDay) => Container(
           alignment: Alignment.center,
           child: Text(
-            '${CheckDirect.isRTL(context) ? day.getHijriDate() : day.day}',
+            '${CheckDirect.isRTL(context) ? day.getHijriDate() : day.day}'
+                .toArabic(),
             style: TextStyle(
               color: day.weekday == DateTime.friday ||
                       day.weekday == DateTime.saturday
                   ? AppColors.red
                   : AppColors.grey,
-              fontSize: 12,
+              fontSize: Fontsize.large,
             ),
           ),
         ),
         defaultBuilder: (context, day, focusedDay) => Container(
           alignment: Alignment.center,
           child: Text(
-            '${CheckDirect.isRTL(context) ? day.getHijriDate() : day.day}',
+            '${CheckDirect.isRTL(context) ? day.getHijriDate() : day.day}'
+                .toArabic(),
             style: TextStyle(
-              fontSize: 12,
+              fontSize: Fontsize.large,
               color: day.weekday == DateTime.friday ||
                       day.weekday == DateTime.saturday
                   ? AppColors.red
@@ -57,24 +61,25 @@ class WeekCalender extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
           child: Text(
-            '${CheckDirect.isRTL(context) ? focusedDay.getHijriDate() : focusedDay.day}',
+            '${CheckDirect.isRTL(context) ? focusedDay.getHijriDate() : focusedDay.day}'
+                .toArabic(),
             style: TextStyle(
               color: day.weekday == DateTime.friday ||
                       day.weekday == DateTime.saturday
                   ? AppColors.red
                   : AppColors.blue,
-              fontSize: 12,
+              fontSize: Fontsize.large,
             ),
           ),
         ),
       ),
       daysOfWeekStyle: const DaysOfWeekStyle(
         weekdayStyle: TextStyle(
-          fontSize: 12,
+          fontSize: Fontsize.large,
           color: AppColors.grey,
         ),
         weekendStyle: TextStyle(
-          fontSize: 12,
+          fontSize: Fontsize.large,
           color: AppColors.red,
         ),
       ),

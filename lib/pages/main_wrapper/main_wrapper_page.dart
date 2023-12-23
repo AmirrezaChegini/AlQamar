@@ -47,7 +47,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
     BlocProvider.of<CalenderBloc>(context)
         .add(GetCalenderEvent(DateTime.now().getFormatDate()));
 
-    _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 4);
+    _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 0);
   }
 
   @override
@@ -64,9 +64,9 @@ class _MainWrapperPageState extends State<MainWrapperPage>
         if (_scaffoldKey.currentState!.isDrawerOpen) {
           _scaffoldKey.currentState?.closeDrawer();
         } else {
-          if (_tabCtrl.index != 4) {
-            BlocProvider.of<BottomnavCubit>(context).changeIndex(4);
-            _tabCtrl.animateTo(4);
+          if (_tabCtrl.index != 0) {
+            BlocProvider.of<BottomnavCubit>(context).changeIndex(0);
+            _tabCtrl.animateTo(0);
           } else {
             if (exit) {
               SystemNavigator.pop();
@@ -117,11 +117,11 @@ class _MainWrapperPageState extends State<MainWrapperPage>
             controller: _tabCtrl,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              const CalenderPage(),
-              Center(child: Image.asset(AppImages.comingSoon)),
-              const SizedBox(),
-              const NewsPage(),
               HomePage(tabController: _tabCtrl),
+              const NewsPage(),
+              const SizedBox(),
+              Center(child: Image.asset(AppImages.comingSoon)),
+              const CalenderPage(),
             ],
           ),
         ),

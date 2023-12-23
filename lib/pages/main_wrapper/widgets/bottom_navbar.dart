@@ -23,22 +23,22 @@ class BottomNavbar extends StatefulWidget {
 class _BottomNavbarState extends State<BottomNavbar> {
   List<String> bottomTexts = [];
   final List<String> bottomIcons = const [
-    AppIcons.calender,
-    AppIcons.money,
-    AppIcons.search,
-    AppIcons.topics,
     AppIcons.home,
+    AppIcons.topics,
+    AppIcons.search,
+    AppIcons.money,
+    AppIcons.calender,
   ];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     bottomTexts = [
-      'works'.localize(context),
-      'subscribe'.localize(context),
-      'search'.localize(context),
-      'topics'.localize(context),
       'home'.localize(context),
+      'topics'.localize(context),
+      'search'.localize(context),
+      'subscribe'.localize(context),
+      'works'.localize(context),
     ];
   }
 

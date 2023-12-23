@@ -118,8 +118,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     TxtBtn(
                       onTap: () {
-                        widget.tabController.animateTo(3);
-                        BlocProvider.of<BottomnavCubit>(context).changeIndex(3);
+                        widget.tabController.animateTo(1);
+                        BlocProvider.of<BottomnavCubit>(context).changeIndex(1);
                       },
                       title: 'readMore'.localize(context),
                       icon: AppIcons.leftArrow,

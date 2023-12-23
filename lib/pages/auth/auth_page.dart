@@ -7,8 +7,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/pages/auth/widgets/header_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/login_widgets.dart';
-import 'package:al_qamar/pages/auth/widgets/otp_widget.dart';
-import 'package:al_qamar/pages/auth/widgets/register_widgets.dart';
+import 'package:al_qamar/pages/auth/widgets/register_widget2.dart';
 import 'package:al_qamar/pages/auth/widgets/tabbar_auth.dart';
 import 'package:al_qamar/utils/storage.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
@@ -33,7 +32,7 @@ class _AuthPageState extends State<AuthPage>
   @override
   void initState() {
     super.initState();
-    _tabCtrl = TabController(length: 2, vsync: this);
+    _tabCtrl = TabController(length: 2, vsync: this, initialIndex: 1);
     _firstNameCtrl = TextEditingController();
     _lastNameCtrl = TextEditingController();
     _emailCtrl = TextEditingController();
@@ -129,20 +128,25 @@ class _AuthPageState extends State<AuthPage>
                 child: TabBarView(
                   controller: _tabCtrl,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 15),
-                      child: state is CompleteRegisterState ||
-                              state is FailVerifyState ||
-                              state is CompleteResendCodeState ||
-                              state is LoadingVerifyState
-                          ? OtpWidget(emailCtrl: _emailCtrl)
-                          : RegisterWidgets(
-                              firstNameCtrl: _firstNameCtrl,
-                              lastNameCtrl: _lastNameCtrl,
-                              emailCtrl: _emailCtrl,
-                              passwordCtrl: _passwordCtrl,
-                            ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //       horizontal: 40, vertical: 15),
+                    //   child: state is CompleteRegisterState ||
+                    //           state is FailVerifyState ||
+                    //           state is CompleteResendCodeState ||
+                    //           state is LoadingVerifyState
+                    //       ? OtpWidget(emailCtrl: _emailCtrl)
+                    //       : RegisterWidgets(
+                    //           firstNameCtrl: _firstNameCtrl,
+                    //           lastNameCtrl: _lastNameCtrl,
+                    //           emailCtrl: _emailCtrl,
+                    //           passwordCtrl: _passwordCtrl,
+                    //         ),
+                    // ),
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      child: RegisterWidgets2(),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(

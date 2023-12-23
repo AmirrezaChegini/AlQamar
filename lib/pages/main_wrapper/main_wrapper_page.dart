@@ -1,7 +1,5 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
-import 'package:al_qamar/bloc/azan/azan_bloc.dart';
-import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
@@ -42,7 +40,6 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   void initState() {
     super.initState();
 
-    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
     BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent());
     BlocProvider.of<CalenderBloc>(context)
         .add(GetCalenderEvent(DateTime.now().getFormatDate()));

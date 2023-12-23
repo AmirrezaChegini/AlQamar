@@ -10,17 +10,20 @@ class AzanWidget extends StatelessWidget {
     required this.city,
     required this.azanTime,
     this.backgroundColor = AppColors.white,
+    this.elevation = 0,
   });
 
   final String city;
   final AzanTime azanTime;
   final Color backgroundColor;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: backgroundColor,
+    return Card(
+      color: backgroundColor,
+      elevation: elevation,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(

@@ -1,3 +1,5 @@
+import 'package:al_qamar/bloc/azan/azan_bloc.dart';
+import 'package:al_qamar/bloc/azan/azan_event.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
@@ -28,6 +30,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void callApis() {
     BlocProvider.of<LocalizeCubit>(context).getLang();
+    BlocProvider.of<AzanBloc>(context).add(GetAzanTimeEvent());
     BlocProvider.of<HomeBloc>(context).add(GetHomeEvent());
     BlocProvider.of<UserBloc>(context).add(GetUserEvent());
   }

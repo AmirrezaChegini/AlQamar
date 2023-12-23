@@ -3,7 +3,7 @@ import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/fullscreen/video_fullscreen_page.dart';
 import 'package:al_qamar/widgets/anim/animated_icon.dart';
 import 'package:al_qamar/widgets/anim/fade_in.dart';
-import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';

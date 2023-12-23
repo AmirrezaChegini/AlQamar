@@ -2,7 +2,7 @@ import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/live/live_page.dart';
-import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/icon_btn_appbar.dart';
 import 'package:flutter/material.dart';

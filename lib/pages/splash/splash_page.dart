@@ -6,7 +6,7 @@ import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/localize_cubit.dart';
 import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
-import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:flutter/material.dart';

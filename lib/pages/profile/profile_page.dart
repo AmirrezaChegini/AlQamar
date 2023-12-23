@@ -14,7 +14,7 @@ import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
 import 'package:al_qamar/pages/programs/programs_page.dart';
 import 'package:al_qamar/pages/salavat/salavat_page.dart';
-import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';

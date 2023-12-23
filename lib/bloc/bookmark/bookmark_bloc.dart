@@ -25,27 +25,13 @@ class BookmarkBloc extends Bloc<BookmarkEvent, BookmarkState> {
     on<AddBookmark>((event, emit) async {
       await _repository.addBookmark(article: event.article);
       bookmarkCubit.isBookmark(event.article);
-
-      List<Article> bookmarkList = _repository.getAllBookmarks();
-
-      if (bookmarkList.isEmpty) {
-        emit(EmptyBookmarkState());
-      } else {
-        emit(CompleteBookmarkState(bookmarkList));
-      }
+      add(GetAllBookmark());
     });
 
     on<Removebookmark>((event, emit) async {
       await _repository.removeBookmark(article: event.article);
       bookmarkCubit.isBookmark(event.article);
-
-      List<Article> bookmarkList = _repository.getAllBookmarks();
-
-      if (bookmarkList.isEmpty) {
-        emit(EmptyBookmarkState());
-      } else {
-        emit(CompleteBookmarkState(bookmarkList));
-      }
+      add(GetAllBookmark());
     });
   }
 }

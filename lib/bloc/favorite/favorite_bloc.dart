@@ -23,32 +23,12 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
     on<AddFavorite>((event, emit) async {
       await _repository.addFavorite(article: event.article);
-
-      List<Article> favoriteList = _repository.getAllFavoriteArticles();
-
-      List<Article> findFavorite =
-          favoriteList.where((e) => e.id == event.article.id).toList();
-
-      if (findFavorite.isEmpty) {
-        emit(FalseFavoriteState());
-      } else {
-        emit(TrueFavoriteState());
-      }
+      add(GetFavorite(event.article));
     });
 
     on<RemoveFavorite>((event, emit) async {
       await _repository.removeFavorite(article: event.article);
-
-      List<Article> favoriteList = _repository.getAllFavoriteArticles();
-
-      List<Article> findFavorite =
-          favoriteList.where((e) => e.id == event.article.id).toList();
-
-      if (findFavorite.isEmpty) {
-        emit(FalseFavoriteState());
-      } else {
-        emit(TrueFavoriteState());
-      }
+      add(GetFavorite(event.article));
     });
   }
 }

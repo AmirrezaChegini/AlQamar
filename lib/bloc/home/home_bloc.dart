@@ -30,7 +30,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       });
 
       if (lastArticleList.isNotEmpty || forceArticleList.isNotEmpty) {
-        emit(CompleteHomeState(lastArticleList, forceArticleList));
+        await Future.delayed(const Duration(seconds: 4), () {
+          emit(CompleteHomeState(lastArticleList, forceArticleList));
+        });
       } else {
         emit(FailHomeState(errorMessage));
       }

@@ -27,7 +27,7 @@ class LiveTabbar extends StatelessWidget {
           labelStyle: Theme.of(context)
               .textTheme
               .bodyMedium!
-              .copyWith(fontSize: Fontsize.large),
+              .copyWith(fontSize: Fontsize.big),
           tabs: [
             Tab(text: 'video'.localize(context)),
             Tab(text: 'audio'.localize(context)),

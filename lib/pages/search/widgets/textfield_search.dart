@@ -28,7 +28,7 @@ class _TextfielfSearchState extends State<TextfielfSearch> {
   void initState() {
     super.initState();
     final debouncedSearch =
-        searchText.debounceTime(const Duration(seconds: 1)).distinct();
+        searchText.debounceTime(const Duration(milliseconds: 500)).distinct();
 
     debouncedSearch.listen((event) {
       BlocProvider.of<SearchBloc>(context).add(SearchArticleEvent(event));

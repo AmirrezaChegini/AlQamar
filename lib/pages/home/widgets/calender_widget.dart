@@ -21,8 +21,8 @@ class CalenderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        tabController.animateTo(0);
-        BlocProvider.of<BottomnavCubit>(context).changeIndex(0);
+        tabController.animateTo(4);
+        BlocProvider.of<BottomnavCubit>(context).changeIndex(4);
       },
       child: Card(
         color: AppColors.transparent,

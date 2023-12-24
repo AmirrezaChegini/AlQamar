@@ -3,12 +3,11 @@ import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/home/widgets/week_calender.dart';
-import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hijri/hijri_calendar.dart';
 
 class CalenderWidget extends StatelessWidget {
   const CalenderWidget({
@@ -45,7 +44,7 @@ class CalenderWidget extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        '${HijriCalendar.now().hMonth.getHijriMonth()} - ${HijriCalendar.now().hYear}'
+                        '${DateTime.now().getHijriMonth()} - ${DateTime.now().getHijriYear()}'
                             .toArabic(),
                         style: Theme.of(context)
                             .textTheme
@@ -53,7 +52,7 @@ class CalenderWidget extends StatelessWidget {
                             .copyWith(fontSize: Fontsize.large, height: 1.5),
                       ),
                       Text(
-                        '${DateTime.now().year} ${DateTime.now().month.getGeorgiaMonth()}',
+                        '${DateTime.now().year} ${DateTime.now().getGeregorianMonth()}',
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall!

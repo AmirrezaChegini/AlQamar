@@ -153,7 +153,7 @@ class ProfilePage extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 10)
                             .copyWith(bottom: 10),
-                    child: MiniCalender(),
+                    child: const MiniCalender(),
                   ),
                 ),
               ],

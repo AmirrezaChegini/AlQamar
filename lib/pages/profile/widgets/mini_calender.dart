@@ -1,18 +1,14 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
-import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
-import 'package:hijri/hijri_calendar.dart';
-import 'package:intl/intl.dart';
 
 class MiniCalender extends StatelessWidget {
-  MiniCalender({
+  const MiniCalender({
     super.key,
   });
-
-  final HijriCalendar _hijriCalendar = HijriCalendar.now();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +28,8 @@ class MiniCalender extends StatelessWidget {
             children: [
               Text(
                 CheckDirect.isRTL(context)
-                    ? _hijriCalendar.weekDay().getWeekDay()
-                    : DateFormat('EEEE').format(DateTime.now()),
+                    ? DateTime.now().getHijriDay()
+                    : DateTime.now().getGregorianDay(),
                 style: const TextStyle(
                   color: AppColors.red,
                   fontSize: Fontsize.large,
@@ -41,7 +37,7 @@ class MiniCalender extends StatelessWidget {
               ),
               Text(
                 CheckDirect.isRTL(context)
-                    ? '${_hijriCalendar.hDay}'.toArabic()
+                    ? '${DateTime.now().getHijriDate()}'.toArabic()
                     : '${DateTime.now().day}',
                 style: const TextStyle(
                   color: AppColors.red,
@@ -61,8 +57,8 @@ class MiniCalender extends StatelessWidget {
             children: [
               Text(
                 CheckDirect.isRTL(context)
-                    ? _hijriCalendar.hMonth.getHijriMonth().toArabic()
-                    : DateFormat('MMMM').format(DateTime.now()),
+                    ? DateTime.now().getHijriMonth()
+                    : DateTime.now().getGeregorianMonth(),
                 style: const TextStyle(
                   color: AppColors.blue,
                   fontSize: Fontsize.large,
@@ -70,7 +66,7 @@ class MiniCalender extends StatelessWidget {
               ),
               Text(
                 CheckDirect.isRTL(context)
-                    ? '${_hijriCalendar.hYear}'.toArabic()
+                    ? '${DateTime.now().getHijriYear()}'.toArabic()
                     : '${DateTime.now().year}',
                 style: const TextStyle(
                   color: AppColors.blue,

@@ -2,16 +2,12 @@ import 'package:html/parser.dart';
 
 extension StringExt on String {
   String htmlToString() {
-    String htmlString = this;
-
-    var document = parse(htmlString);
+    var document = parse(this);
     return parse(document.body?.text).documentElement?.text ?? '';
   }
 
   String getFilename() {
-    String url = this;
-
-    return Uri.parse(url).pathSegments.last;
+    return Uri.parse(this).pathSegments.last;
   }
 
   String toArabic() {

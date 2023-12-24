@@ -32,8 +32,8 @@ extension DatatimeExt on DateTime {
     return hijriMonth[month];
   }
 
-  String getPreHijriMonth() {
-    int month = HijriCalendar.fromDate(this).hMonth - 1;
+  String getNextHijriMonth() {
+    int month = HijriCalendar.fromDate(this).hMonth + 1;
 
     const List<String> hijriMonth = [
       '',
@@ -51,7 +51,7 @@ extension DatatimeExt on DateTime {
       'ذیحجه',
     ];
 
-    return month == 0 ? hijriMonth[12] : hijriMonth[month];
+    return month == 13 ? hijriMonth[1] : hijriMonth[month];
   }
 
   String getFormatDate() {

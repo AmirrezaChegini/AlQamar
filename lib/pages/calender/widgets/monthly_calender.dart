@@ -63,7 +63,7 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '${state.getPreHijriMonth()} - ${state.getHijriMonth()} - ${state.getHijriYear()}',
+                          '${state.getHijriMonth()} - ${state.getNextHijriMonth()} - ${state.getHijriYear()}',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium!

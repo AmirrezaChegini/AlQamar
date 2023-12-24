@@ -43,7 +43,7 @@ class _TextfielfSearchState extends State<TextfielfSearch> {
       style: Theme.of(context)
           .textTheme
           .bodyMedium!
-          .copyWith(fontSize: Fontsize.large),
+          .copyWith(fontSize: Fontsize.huge),
       onChanged: (value) {
         searchText.add(value);
       },

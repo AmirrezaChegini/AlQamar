@@ -106,10 +106,7 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
                           ),
                           child: AspectRatio(
                             aspectRatio: _videoCtrl.value.aspectRatio,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: VideoPlayer(_videoCtrl),
-                            ),
+                            child: VideoPlayer(_videoCtrl),
                           ),
                         ),
                       ),

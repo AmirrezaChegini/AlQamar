@@ -6,7 +6,7 @@ import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/calender.dart';
-import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
+import 'package:al_qamar/pages/article/widgets/article_appbar.dart';
 import 'package:al_qamar/pages/article/widgets/audio_article_player.dart';
 import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
 import 'package:al_qamar/pages/article/widgets/image_viewer.dart';
@@ -70,12 +70,9 @@ class _CalenderDataPageState extends State<CalenderDataPage>
           ),
         ),
       ),
-      appBar: ArticleTabbar(
+      appBar: ArticleAppbar(
         tabController: _tabCtrl,
-        audios: widget.calender.audios,
-        videos: widget.calender.videos,
-        pdfs: widget.calender.pdfs,
-        youtube: '',
+        calender: widget.calender,
       ),
       body: NestedScrollView(
         headerSliverBuilder: (context, value) => [

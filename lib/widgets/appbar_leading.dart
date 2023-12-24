@@ -49,7 +49,7 @@ class AppbarLeading extends StatelessWidget {
               'liveBroadcast'.localize(context),
               style: Theme.of(context)
                   .textTheme
-                  .headlineMedium!
+                  .headlineLarge!
                   .copyWith(fontSize: Fontsize.large),
             ),
           ),

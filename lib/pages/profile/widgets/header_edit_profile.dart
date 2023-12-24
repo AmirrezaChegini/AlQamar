@@ -66,8 +66,13 @@ class HeaderEditProfile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: FittedBox(
-                child: Text('sentenceFour'.localize(context),
-                    style: Theme.of(context).textTheme.labelMedium),
+                child: Text(
+                  'sentenceFour'.localize(context),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .copyWith(fontSize: Fontsize.large),
+                ),
               ),
             ),
             const SizedBox(height: 20),

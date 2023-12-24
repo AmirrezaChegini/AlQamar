@@ -76,5 +76,6 @@
     "gallery": "Gallery",
     "removePhoto": "Remove Photo",
     "sizePhoto": "Size of photo should be less than 2 MB",
-    "openSite": "Open site"
+    "openSite": "Open site",
+    "privacyPolicy": "Privacy Policy"
 }

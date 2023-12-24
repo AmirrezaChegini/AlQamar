@@ -37,7 +37,7 @@ class TextFieldAuth extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .displayMedium!
-          .copyWith(fontSize: Fontsize.large),
+          .copyWith(fontSize: Fontsize.huge),
       decoration: InputDecoration(
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(

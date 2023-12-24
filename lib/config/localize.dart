@@ -161,6 +161,8 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.sizePhoto;
       case 'openSite':
         return AppLocalizations.of(context)!.openSite;
+      case 'privacyPolicy':
+        return AppLocalizations.of(context)!.privacyPolicy;
       default:
         return '';
     }

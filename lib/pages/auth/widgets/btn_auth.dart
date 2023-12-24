@@ -28,7 +28,7 @@ class BtnAuth extends StatelessWidget {
         textStyle: Theme.of(context)
             .textTheme
             .labelMedium!
-            .copyWith(fontSize: Fontsize.small),
+            .copyWith(fontSize: Fontsize.large),
       ),
       child: Row(
         children: [

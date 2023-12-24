@@ -20,11 +20,11 @@ dynamic showMessage({
             ? Theme.of(context)
                 .textTheme
                 .headlineSmall!
-                .copyWith(fontSize: Fontsize.large)
+                .copyWith(fontSize: Fontsize.big)
             : Theme.of(context)
                 .textTheme
                 .displaySmall!
-                .copyWith(fontSize: Fontsize.large),
+                .copyWith(fontSize: Fontsize.big),
       ),
       backgroundColor: isError ? AppColors.red100 : AppColors.cyan,
       duration: Duration(seconds: duration),

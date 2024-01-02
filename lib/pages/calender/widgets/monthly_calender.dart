@@ -108,7 +108,6 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
               daysOfWeekHeight: 30,
               weekendDays: const [DateTime.friday, DateTime.saturday],
               onPageChanged: (date) {
-                print(date);
                 BlocProvider.of<CalenderCubit>(context).changeDatetime(date);
               },
               selectedDayPredicate: (date) {

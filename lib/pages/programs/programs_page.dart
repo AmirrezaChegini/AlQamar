@@ -3,9 +3,11 @@ import 'package:al_qamar/bloc/live/live_event.dart';
 import 'package:al_qamar/bloc/live/live_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/models/program.dart';
 import 'package:al_qamar/pages/live/widgets/live_item.dart';
 import 'package:al_qamar/pages/live/widgets/live_tabbar.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
@@ -42,7 +44,7 @@ class _ProgramsPageState extends State<ProgramsPage>
     return Scaffold(
       backgroundColor: AppColors.grey200,
       appBar: MainAppbar(
-        title: 'live'.localize(context),
+        title: 'programs'.localize(context),
         appbarLeading: BackButton(
           onPressed: () => Navigator.pop(context),
           color: AppColors.red,
@@ -130,12 +132,15 @@ class _ProgramsPageState extends State<ProgramsPage>
                                 child: Text(
                                   CheckDirect.isRTL(context)
                                       ? '${HijriCalendar.fromDate(time)}'
-                                      : DateFormat('dd/MM/yyy').format(time),
+                                          .toArabic()
+                                      : DateFormat('dd/MM/yyy')
+                                          .format(time)
+                                          .toArabic(),
                                   maxLines: 3,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineLarge!
-                                      .copyWith(fontSize: 14),
+                                      .copyWith(fontSize: Fontsize.large),
                                 ),
                               ),
                             ),
@@ -203,12 +208,15 @@ class _ProgramsPageState extends State<ProgramsPage>
                                 child: Text(
                                   CheckDirect.isRTL(context)
                                       ? '${HijriCalendar.fromDate(time)}'
-                                      : DateFormat('dd/MM/yyy').format(time),
+                                          .toArabic()
+                                      : DateFormat('dd/MM/yyy')
+                                          .format(time)
+                                          .toArabic(),
                                   maxLines: 3,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineLarge!
-                                      .copyWith(fontSize: 14),
+                                      .copyWith(fontSize: Fontsize.large),
                                 ),
                               ),
                             ),

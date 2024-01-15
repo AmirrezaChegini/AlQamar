@@ -54,45 +54,36 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      toolbarHeight: 80,
-      backgroundColor: AppColors.blue,
-      elevation: 0,
-      automaticallyImplyLeading: false,
-      titleSpacing: 0,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
-      title: SizedBox(
-        height: 80,
-        child: TabBar(
-          controller: widget.tabController,
-          labelPadding: const EdgeInsets.all(0),
-          indicatorColor: AppColors.transparent,
-          onTap: (value) {
-            if ((value == 1 && widget.videos.isEmpty) ||
-                value == 2 && widget.youtube.isEmpty ||
-                (value == 3 && widget.audios.isEmpty) ||
-                (value == 4 && widget.pdfs.isEmpty)) {
-              widget.tabController.animateTo(widget.tabController.previousIndex);
+    return SizedBox(
+      height: 80,
+      child: TabBar(
+        controller: widget.tabController,
+        labelPadding: const EdgeInsets.all(0),
+        indicatorColor: AppColors.transparent,
+        onTap: (value) {
+          if ((value == 1 && widget.videos.isEmpty) ||
+              value == 2 && widget.youtube.isEmpty ||
+              (value == 3 && widget.audios.isEmpty) ||
+              (value == 4 && widget.pdfs.isEmpty)) {
+            widget.tabController.animateTo(widget.tabController.previousIndex);
 
-              showMessage(
-                context: context,
-                content: 'noContent'.localize(context),
-                horizontalMargin: 10,
-                verticalMargin: 10,
-              );
-            } else {
-              BlocProvider.of<ArticleCubit>(context).changeIndex(value);
-              setState(() {});
-            }
-          },
-          tabs: List.generate(
-            5,
-            (index) => TabItem(
-              tabsIcon: _tabsIcon[index],
-              tabsText: _tabsText[index],
-              state: widget.tabController.index == index,
-            ),
+            showMessage(
+              context: context,
+              content: 'noContent'.localize(context),
+              horizontalMargin: 10,
+              verticalMargin: 10,
+            );
+          } else {
+            BlocProvider.of<ArticleCubit>(context).changeIndex(value);
+            setState(() {});
+          }
+        },
+        tabs: List.generate(
+          5,
+          (index) => TabItem(
+            tabsIcon: _tabsIcon[index],
+            tabsText: _tabsText[index],
+            state: widget.tabController.index == index,
           ),
         ),
       ),

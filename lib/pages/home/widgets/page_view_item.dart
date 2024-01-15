@@ -1,10 +1,11 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
-import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,7 @@ class PageViewItem extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium!
-                          .copyWith(fontSize: 14),
+                          .copyWith(fontSize: Fontsize.large),
                     ),
                     const SizedBox(height: 10),
                     Container(
@@ -105,12 +106,12 @@ class PageViewItem extends StatelessWidget {
                           color: AppColors.white,
                         ),
                         Text(
-                          ' ${article.updateAt}',
+                          ' ${article.updateAt.toArabic()}',
                           style: Theme.of(context)
                               .textTheme
                               .labelSmall!
                               .copyWith(
-                                  fontSize: 12,
+                                  fontSize: Fontsize.large,
                                   color: AppColors.white.withOpacity(0.7)),
                         ),
                         const SizedBox(width: 30),
@@ -129,7 +130,7 @@ class PageViewItem extends StatelessWidget {
                                 .textTheme
                                 .labelSmall!
                                 .copyWith(
-                                    fontSize: 12,
+                                    fontSize: Fontsize.large,
                                     color: AppColors.white.withOpacity(0.7)),
                           ),
                         ),

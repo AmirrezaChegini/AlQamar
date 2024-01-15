@@ -5,6 +5,7 @@ import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/config/localize.dart';
+import 'package:al_qamar/constants/api.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
@@ -13,8 +14,8 @@ import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
 import 'package:al_qamar/pages/programs/programs_page.dart';
-import 'package:al_qamar/pages/salavat/salavat_page.dart';
-import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
+import 'package:al_qamar/utils/url_launcher.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
@@ -96,23 +97,24 @@ class ProfilePage extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: ItemWidget(
-                                      onTap: () {},
+                                      onTap: () async =>
+                                          UrlLauncher.launch(Api.baseUrlSite),
                                       image: AppIcons.aboutUs,
                                       color: AppColors.grey600,
                                       title: 'aboutUs'.localize(context),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: ItemWidget(
-                                      image: AppIcons.salavat,
-                                      color: AppColors.grey600,
-                                      title: 'preyers'.localize(context),
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        pageRoute(child: const SalavatPage()),
-                                      ),
-                                    ),
-                                  ),
+                                  // Expanded(
+                                  //   child: ItemWidget(
+                                  //     image: AppIcons.salavat,
+                                  //     color: AppColors.grey600,
+                                  //     title: 'preyers'.localize(context),
+                                  //     onTap: () => Navigator.push(
+                                  //       context,
+                                  //       pageRoute(child: const SalavatPage()),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -151,7 +153,7 @@ class ProfilePage extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 10)
                             .copyWith(bottom: 10),
-                    child: MiniCalender(),
+                    child: const MiniCalender(),
                   ),
                 ),
               ],

@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/search/search_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/search/widgets/textfield_search.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
@@ -63,14 +64,14 @@ class _SearchPageState extends State<SearchPage> {
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
-                          .copyWith(fontSize: 12),
+                          .copyWith(fontSize: Fontsize.large),
                       children: [
                         TextSpan(
                           text: ' "${_edtCtrl.text}"',
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
-                              .copyWith(fontSize: 12),
+                              .copyWith(fontSize: Fontsize.large),
                         ),
                       ]),
                 ),

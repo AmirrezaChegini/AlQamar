@@ -4,6 +4,7 @@ import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/favorite/favorite_event.dart';
 import 'package:al_qamar/bloc/favorite/favorite_state.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/models/article.dart';
@@ -51,7 +52,7 @@ class ActionArticle extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               ActionItem(
-                onTap: () => ShareData.share(article.content.htmlToString()),
+                onTap: () async => await ShareData.shareUrl(article.id),
                 icon: AppIcons.share,
                 color: AppColors.blue,
               ),
@@ -85,11 +86,11 @@ class ActionArticle extends StatelessWidget {
                         color: AppColors.black,
                       ),
                       Text(
-                        ' ${article.updateAt}',
+                        ' ${article.updateAt}'.toArabic(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                     ],
                   ),
@@ -108,7 +109,7 @@ class ActionArticle extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                     ],
                   ),

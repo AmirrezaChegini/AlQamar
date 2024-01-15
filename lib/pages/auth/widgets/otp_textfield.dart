@@ -1,3 +1,4 @@
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:flutter/material.dart';
 
 class OtpTextField extends StatelessWidget {
@@ -16,7 +17,10 @@ class OtpTextField extends StatelessWidget {
       maxLength: 1,
       keyboardType: TextInputType.number,
       onChanged: (value) => onChanged(value),
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 22),
+      style: Theme.of(context)
+          .textTheme
+          .bodyMedium!
+          .copyWith(fontSize: Fontsize.huge),
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.all(0),
         counterText: '',

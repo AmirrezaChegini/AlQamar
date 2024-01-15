@@ -2,15 +2,14 @@ import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
+import 'package:al_qamar/constants/fontsize.dart';
+import 'package:al_qamar/cubit/calender_cubit.dart';
 import 'package:al_qamar/utils/extensions/datetime.dart';
-import 'package:al_qamar/utils/extensions/int.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hijri/hijri_calendar.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class MonthlyCalender extends StatefulWidget {
   const MonthlyCalender({
@@ -22,26 +21,13 @@ class MonthlyCalender extends StatefulWidget {
 }
 
 class _MonthlyCalenderState extends State<MonthlyCalender> {
-  int hijriMonth = HijriCalendar.now().hMonth;
-  int georgiaMonth = DateTime.now().month;
-  int hijriYear = HijriCalendar.now().hYear;
-  int georgiaYear = DateTime.now().year;
-
-  late final HijriDatePickerController _hijriCtrl;
-  late final DateRangePickerController _georgiaCtrl;
+  DateTime? selectedDate;
+  DateTime focusedDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
-    _hijriCtrl = HijriDatePickerController();
-    _georgiaCtrl = DateRangePickerController();
-  }
-
-  @override
-  void dispose() {
-    _hijriCtrl.dispose();
-    _georgiaCtrl.dispose();
-    super.dispose();
+    BlocProvider.of<CalenderCubit>(context).changeDatetime(DateTime.now());
   }
 
   @override
@@ -58,132 +44,195 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
         ),
         child: Column(
           children: [
-            SizedBox(
-              height: 70,
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  TxtBtn(
-                    onTap: () {
-                      if (CheckDirect.isRTL(context)) {
-                        _hijriCtrl.backward!();
-                      } else {
-                        _georgiaCtrl.backward!();
-                      }
-
-                      setState(() {
-                        if (hijriMonth == 1) {
-                          hijriMonth = 12;
-                          --hijriYear;
-                        } else {
-                          --hijriMonth;
-                        }
-
-                        if (georgiaMonth == 1) {
-                          georgiaMonth = 12;
-                          --georgiaYear;
-                        } else {
-                          --georgiaMonth;
-                        }
-                      });
-                    },
-                    title: 'previousMonth'.localize(context),
-                    icon: AppIcons.leftArrow,
-                    textDecoration: CheckDirect.isRTL(context)
-                        ? TextDirection.rtl
-                        : TextDirection.ltr,
-                    fontSize: 10,
-                    iconSize: 15,
+                  Text(
+                    'previousMonth'.localize(context),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontSize: Fontsize.large),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '${hijriMonth.getHijriMonth()} - ${(hijriMonth + 1).getHijriMonth()} - $hijriYear',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(fontSize: 12),
-                      ),
-                      Text(
-                        '${georgiaMonth.getGeorgiaMonth()}  - ${(georgiaMonth + 1).getGeorgiaMonth()} - $georgiaYear',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontSize: 10),
-                      ),
-                      const SizedBox(height: 5),
-                      Container(
-                        width: 150,
-                        height: 1,
-                        color: AppColors.blue,
-                      ),
-                    ],
+                  BlocBuilder<CalenderCubit, DateTime>(
+                    builder: (context, state) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${state.getHijriMonth()} - ${state.getNextHijriMonth()} - ${state.getHijriYear()}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(fontSize: Fontsize.large),
+                        ),
+                        Text(
+                          '${state.getGeregorianMonth()} - ${state.year}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(fontSize: Fontsize.large),
+                        ),
+                        const SizedBox(height: 5),
+                        Container(
+                          width: 150,
+                          height: 1,
+                          color: AppColors.blue,
+                        ),
+                      ],
+                    ),
                   ),
-                  TxtBtn(
-                    onTap: () {
-                      if (CheckDirect.isRTL(context)) {
-                        _hijriCtrl.forward!();
-                      } else {
-                        _georgiaCtrl.forward!();
-                      }
-                      setState(() {
-                        if (hijriMonth == 12) {
-                          hijriMonth = 1;
-                          ++hijriYear;
-                        } else {
-                          ++hijriMonth;
-                        }
-
-                        if (georgiaMonth == 12) {
-                          georgiaMonth = 1;
-                          ++georgiaYear;
-                        } else {
-                          ++georgiaMonth;
-                        }
-                      });
-                    },
-                    title: 'nextMonth'.localize(context),
-                    icon: AppIcons.leftArrow,
-                    fontSize: 10,
-                    iconSize: 15,
-                    textDecoration: CheckDirect.isRTL(context)
-                        ? TextDirection.ltr
-                        : TextDirection.rtl,
+                  Text(
+                    'nextMonth'.localize(context),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontSize: Fontsize.large),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 10),
-            CheckDirect.isRTL(context)
-                ? SfHijriDateRangePicker(
-                    controller: _hijriCtrl,
-                    navigationMode: DateRangePickerNavigationMode.none,
-                    headerHeight: 0,
-                    selectionColor: AppColors.blue,
-                    todayHighlightColor: AppColors.blue,
-                    selectionShape: DateRangePickerSelectionShape.rectangle,
-                    onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
-                      BlocProvider.of<CalenderBloc>(context).add(
-                          GetCalenderEvent(_hijriCtrl.selectedDate!
-                              .toDateTime()
-                              .getFormatDate()));
-                    },
-                  )
-                : SfDateRangePicker(
-                    controller: _georgiaCtrl,
-                    navigationMode: DateRangePickerNavigationMode.none,
-                    headerHeight: 0,
-                    selectionColor: AppColors.blue,
-                    todayHighlightColor: AppColors.blue,
-                    selectionShape: DateRangePickerSelectionShape.rectangle,
-                    onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
-                      BlocProvider.of<CalenderBloc>(context).add(
-                          GetCalenderEvent(
-                              _georgiaCtrl.selectedDate!.getFormatDate()));
-                    },
+            TableCalendar(
+              locale: CheckDirect.isRTL(context) ? 'ar_IQ' : 'en_Uk',
+              availableGestures: AvailableGestures.horizontalSwipe,
+              firstDay: DateTime(2000, 1, 1),
+              lastDay: DateTime(2100, 1, 1),
+              focusedDay: focusedDate,
+              calendarFormat: CalendarFormat.month,
+              currentDay: DateTime.now(),
+              headerVisible: false,
+              daysOfWeekHeight: 30,
+              weekendDays: const [DateTime.friday, DateTime.saturday],
+              onPageChanged: (date) {
+                BlocProvider.of<CalenderCubit>(context).changeDatetime(date);
+              },
+              selectedDayPredicate: (date) {
+                return isSameDay(selectedDate, date);
+              },
+              onDaySelected: (selectDate, focusDate) {
+                if (selectedDate != selectDate) {
+                  BlocProvider.of<CalenderBloc>(context)
+                      .add(GetCalenderEvent(selectDate.getFormatDate()));
+                }
+                setState(() {
+                  selectedDate = selectDate;
+                  focusedDate = focusDate;
+                });
+              },
+              calendarBuilders: CalendarBuilders(
+                selectedBuilder: (context, day, focusedDay) => Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.blue,
+                    borderRadius: BorderRadius.circular(5),
                   ),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${day.day}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(fontSize: Fontsize.large),
+                        ),
+                      ),
+                      Positioned.directional(
+                        textDirection: CheckDirect.isRTL(context)
+                            ? TextDirection.rtl
+                            : TextDirection.ltr,
+                        bottom: 0,
+                        end: 10,
+                        child: Text(
+                          '${day.getHijriDate()}'.toArabic(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(fontSize: Fontsize.medium),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                outsideBuilder: (context, day, focusedDay) => const Text(''),
+                defaultBuilder: (context, day, focusedDay) => Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${day.day}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(fontSize: Fontsize.large),
+                      ),
+                    ),
+                    Positioned.directional(
+                      textDirection: CheckDirect.isRTL(context)
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
+                      bottom: 0,
+                      end: 10,
+                      child: Text(
+                        '${day.getHijriDate()}'.toArabic(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(fontSize: Fontsize.medium),
+                      ),
+                    ),
+                  ],
+                ),
+                todayBuilder: (context, day, focusedDay) => Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${day.day}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(fontSize: Fontsize.large),
+                        ),
+                      ),
+                      Positioned.directional(
+                        textDirection: CheckDirect.isRTL(context)
+                            ? TextDirection.rtl
+                            : TextDirection.ltr,
+                        bottom: 0,
+                        end: 10,
+                        child: Text(
+                          '${day.getHijriDate()}'.toArabic(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(fontSize: Fontsize.medium),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              daysOfWeekStyle: const DaysOfWeekStyle(
+                weekdayStyle: TextStyle(
+                  fontSize: Fontsize.large,
+                  color: AppColors.black,
+                ),
+                weekendStyle: TextStyle(
+                  fontSize: Fontsize.large,
+                  color: AppColors.red,
+                ),
+              ),
+            )
           ],
         ),
       ),

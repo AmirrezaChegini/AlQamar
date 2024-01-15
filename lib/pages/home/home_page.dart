@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:al_qamar/bloc/azan/azan_bloc.dart';
+import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/config/localize.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
@@ -12,6 +15,7 @@ import 'package:al_qamar/pages/home/widgets/force_news.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
+import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
@@ -104,6 +108,31 @@ class _HomePageState extends State<HomePage> {
                   child: CalenderWidget(tabController: widget.tabController),
                 ),
               ),
+              BlocBuilder<AzanBloc, AzanState>(
+                builder: (context, state) {
+                  if (state is CompletedAzanState) {
+                    return SliverToBoxAdapter(
+                      child: Column(
+                        children: List.generate(
+                          state.azanTimeList.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            child: AzanWidget(
+                              city: index == 0
+                                  ? 'najaf'.localize(context)
+                                  : 'london'.localize(context),
+                              azanTime: state.azanTimeList[index],
+                              elevation: 4,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return const SliverToBoxAdapter();
+                },
+              ),
               SliverToBoxAdapter(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,15 +147,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                     TxtBtn(
                       onTap: () {
-                        widget.tabController.animateTo(3);
-                        BlocProvider.of<BottomnavCubit>(context).changeIndex(3);
+                        widget.tabController.animateTo(1);
+                        BlocProvider.of<BottomnavCubit>(context).changeIndex(1);
                       },
                       title: 'readMore'.localize(context),
                       icon: AppIcons.leftArrow,
                       textDecoration: CheckDirect.isRTL(context)
                           ? TextDirection.ltr
                           : TextDirection.rtl,
-                      fontSize: 12,
+                      fontSize: Fontsize.large,
                       iconSize: 20,
                     ),
                   ],

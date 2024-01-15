@@ -3,7 +3,6 @@ import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/models/user.dart';
-import 'package:al_qamar/utils/get_permission.dart';
 import 'package:al_qamar/utils/image_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,23 +25,23 @@ class CameraDialog extends StatelessWidget {
           ListTile(
             onTap: () async {
               ImagePick.pickPhoto().then((value) {
-                  if (value != null) {
-                    value.length().then((size) {
-                      if (size < 2000000) {
-                        BlocProvider.of<UserBloc>(context).add(UpdateUserEvent(
-                          id: user.id,
-                          firstName: user.firstName,
-                          lastName: user.lastName,
-                          bio: user.bio,
-                          avatar: value,
-                        ));
-                      } else {
-                        Fluttertoast.showToast(
-                            msg: 'Photo must be less than 2 MB');
-                      }
-                    });
-                  }
-                });
+                if (value != null) {
+                  value.length().then((size) {
+                    if (size < 2000000) {
+                      BlocProvider.of<UserBloc>(context).add(UpdateUserEvent(
+                        id: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        bio: user.bio,
+                        avatar: value,
+                      ));
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: 'Photo must be less than 2 MB');
+                    }
+                  });
+                }
+              });
             },
             leading: const Icon(Icons.photo_camera_rounded),
             title: Text('camera'.localize(context)),

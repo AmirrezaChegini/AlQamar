@@ -1,3 +1,4 @@
+import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/favorite/favorite_event.dart';
 import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
@@ -8,9 +9,10 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/cubit/bookmark_cubit.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_article.dart';
-import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
+import 'package:al_qamar/pages/article/widgets/article_appbar.dart';
 import 'package:al_qamar/pages/article/widgets/audio_article_player.dart';
 import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
 import 'package:al_qamar/pages/article/widgets/image_viewer.dart';
@@ -79,12 +81,9 @@ class _ArticlePageState extends State<ArticlePage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: ArticleTabbar(
+      appBar: ArticleAppbar(
+        article: widget.article,
         tabController: _tabCtrl,
-        audios: widget.article.audios,
-        videos: widget.article.videos,
-        pdfs: widget.article.pdfs,
-        youtube: widget.article.youtube,
       ),
       body: NestedScrollView(
         controller: _scrollController,
@@ -157,15 +156,26 @@ class _ArticlePageState extends State<ArticlePage>
                     (context, index) => Padding(
                       padding: const EdgeInsets.all(10),
                       child: state == 3
-                          ? AudioWidget(
-                              index: index,
-                              audio: widget.article.audios[index],
-                              image: widget.article.images.isNotEmpty
-                                  ? widget.article.images[0]
-                                  : '',
+                          ? BlocProvider(
+                              create: (context) =>
+                                  locator.get<DownloadAudioBloc>(),
+                              child: AudioWidget(
+                                index: index,
+                                audio: widget.article.audios[index],
+                                image: widget.article.images.isNotEmpty
+                                    ? widget.article.images[0]
+                                    : '',
+                              ),
                             )
                           : state == 4
-                              ? PdfItemWidget(index: index)
+                              ? BlocProvider(
+                                  create: (context) =>
+                                      locator.get<DownloadPdfBloc>(),
+                                  child: PdfItemWidget(
+                                    index: index,
+                                    url: widget.article.pdfs[index],
+                                  ),
+                                )
                               : const SizedBox(),
                     ),
                   ),
@@ -175,35 +185,35 @@ class _ArticlePageState extends State<ArticlePage>
             SliverToBoxAdapter(
               child: ActionArticle(article: widget.article),
             ),
-            SliverToBoxAdapter(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(60),
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      AppColors.red.withOpacity(0.4),
-                      AppColors.grey200,
-                    ],
-                  ),
-                ),
-                child: Text(
-                  widget.article.title,
-                  maxLines: 3,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineLarge!
-                      .copyWith(fontSize: 14),
-                ),
-              ),
-            ),
+            // SliverToBoxAdapter(
+            //   child: Container(
+            //     padding:
+            //         const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            //     margin: const EdgeInsets.all(10),
+            //     decoration: BoxDecoration(
+            //       borderRadius: const BorderRadius.only(
+            //         topLeft: Radius.circular(15),
+            //         bottomLeft: Radius.circular(60),
+            //       ),
+            //       gradient: LinearGradient(
+            //         begin: Alignment.centerLeft,
+            //         end: Alignment.centerRight,
+            //         colors: [
+            //           AppColors.red.withOpacity(0.4),
+            //           AppColors.grey200,
+            //         ],
+            //       ),
+            //     ),
+            //     child: Text(
+            //       widget.article.title,
+            //       maxLines: 3,
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .headlineLarge!
+            //           .copyWith(fontSize: Fontsize.large),
+            //     ),
+            //   ),
+            // ),
             SliverPadding(
               padding: const EdgeInsets.all(10),
               sliver: HtmlViewer(

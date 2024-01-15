@@ -6,7 +6,7 @@ class AppTheme {
   AppTheme._();
 
   static final ThemeData lightTheme = ThemeData(
-    fontFamily: 'iranyekanmed',
+    fontFamily: 'majalla',
     useMaterial3: false,
     scaffoldBackgroundColor: AppColors.transparent,
     sliderTheme: SliderThemeData(

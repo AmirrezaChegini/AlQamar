@@ -47,33 +47,13 @@ class _BookmarkPageState extends State<BookmarkPage> {
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
                         childCount: state.bookmarkList.length,
-                        (context, index) => Dismissible(
-                          key: UniqueKey(),
-                          direction: DismissDirection.endToStart,
-                          onDismissed: (direction) =>
-                              BlocProvider.of<BookmarkBloc>(context).add(
-                                  Removebookmark(state.bookmarkList[index])),
-                          background: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 40),
-                            margin: const EdgeInsets.symmetric(vertical: 10),
-                            alignment: AlignmentDirectional.centerEnd,
-                            decoration: BoxDecoration(
-                              color: AppColors.red100,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Text(
-                              'remove'.localize(context),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(fontSize: 18),
-                            ),
-                          ),
-                          behavior: HitTestBehavior.translucent,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: ArticleWidget(
-                              article: state.bookmarkList[index],
+                        (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: ArticleWidget(
+                            article: state.bookmarkList[index],
+                            onTap: () =>
+                                BlocProvider.of<BookmarkBloc>(context).add(
+                              Removebookmark(state.bookmarkList[index]),
                             ),
                           ),
                         ),

@@ -1,3 +1,4 @@
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:flutter/material.dart';
 import 'package:marqueer/marqueer.dart';
@@ -23,7 +24,10 @@ class MarqueerTitle extends StatelessWidget {
           : MarqueerDirection.ltr,
       child: Text(
         title,
-        style: Theme.of(context).textTheme.displayLarge!.copyWith(fontSize: 12),
+        style: Theme.of(context)
+            .textTheme
+            .displayLarge!
+            .copyWith(fontSize: Fontsize.large),
         maxLines: 1,
         overflow: TextOverflow.clip,
       ),

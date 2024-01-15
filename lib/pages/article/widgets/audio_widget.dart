@@ -1,7 +1,16 @@
+import 'package:al_qamar/bloc/download/download_bloc.dart';
+import 'package:al_qamar/bloc/download/download_event.dart';
+import 'package:al_qamar/bloc/download/download_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
+import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/di.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/utils/permission_handler.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
+import 'package:al_qamar/widgets/icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
@@ -27,6 +36,13 @@ class _AudioWidgetState extends State<AudioWidget> {
   final AudioPlayer _audioPlayer = locator.get();
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<DownloadAudioBloc>(context)
+        .add(CheckDownloadedAudioEvent(widget.audio.getFilename()));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<AudioCubit, int>(
       builder: (context, state) => ListTile(
@@ -50,6 +66,81 @@ class _AudioWidgetState extends State<AudioWidget> {
         selected: state == widget.index,
         tileColor: AppColors.white,
         selectedTileColor: AppColors.red,
+        textColor: AppColors.black,
+        selectedColor: AppColors.white,
+        trailing: SizedBox(
+          width: 50,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BlocBuilder<DownloadAudioBloc, DownloadAudioState>(
+                builder: (context, innerState) {
+                  if (innerState is CompleteDownloadAudioState) {
+                    return AppIcon(
+                      icon: AppIcons.downloaded,
+                      width: 25,
+                      height: 25,
+                      color: state == widget.index
+                          ? AppColors.white
+                          : AppColors.black,
+                    );
+                  }
+                  if (innerState is DownloadingAudioState) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: AppIcon(
+                        icon: AppIcons.downloading,
+                        width: 25,
+                        height: 25,
+                        color: state == widget.index
+                            ? AppColors.white
+                            : AppColors.black,
+                      ),
+                    );
+                  }
+                  return IconBtn(
+                    onTap: () async {
+                      await storagePermission().then((value) {
+                        if (value) {
+                          BlocProvider.of<DownloadAudioBloc>(context).add(
+                            StartDownloadAudioEvent(
+                              widget.audio,
+                              widget.audio.getFilename(),
+                            ),
+                          );
+                        }
+                      });
+                    },
+                    child: AppIcon(
+                      icon: AppIcons.downloading,
+                      width: 25,
+                      height: 25,
+                      color: state == widget.index
+                          ? AppColors.white
+                          : AppColors.black,
+                    ),
+                  );
+                },
+              ),
+              BlocBuilder<DownloadAudioBloc, DownloadAudioState>(
+                builder: (context, innerState) {
+                  if (innerState is DownloadingAudioState) {
+                    return LinearProgressIndicator(
+                      value: innerState.progress,
+                      borderRadius: BorderRadius.circular(20),
+                      backgroundColor: AppColors.grey600,
+                      color: state == widget.index
+                          ? AppColors.white
+                          : AppColors.black,
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -64,13 +155,11 @@ class _AudioWidgetState extends State<AudioWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${'audio'.localize(context)} ${widget.index + 1}',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 16,
-                      color: state == widget.index
-                          ? AppColors.white
-                          : AppColors.black,
-                    ),
+                '${'audio'.localize(context)} ${widget.index + 1}'.toArabic(),
+                style: const TextStyle(
+                  fontSize: Fontsize.big,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

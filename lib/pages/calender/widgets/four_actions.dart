@@ -2,11 +2,12 @@ import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/article/calender_page.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
-import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class FourActions extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium!
-                        .copyWith(fontSize: 14),
+                        .copyWith(fontSize: Fontsize.large),
                   ),
                   const SizedBox(height: 10),
                   Container(
@@ -89,7 +90,7 @@ class FourActions extends StatelessWidget {
                         ),
                         title: state.calenderList[index].title,
                         icon: AppIcons.rightArrow,
-                        fontSize: 12,
+                        fontSize: Fontsize.large,
                         iconSize: 20,
                         textDecoration: CheckDirect.isRTL(context)
                             ? TextDirection.rtl
@@ -109,7 +110,7 @@ class FourActions extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
-                            .copyWith(fontSize: 16),
+                            .copyWith(fontSize: Fontsize.big),
                       ),
                     );
                   }

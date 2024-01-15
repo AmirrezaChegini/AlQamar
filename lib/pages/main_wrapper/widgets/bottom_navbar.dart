@@ -1,5 +1,6 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
@@ -23,22 +24,22 @@ class BottomNavbar extends StatefulWidget {
 class _BottomNavbarState extends State<BottomNavbar> {
   List<String> bottomTexts = [];
   final List<String> bottomIcons = const [
-    AppIcons.calender,
-    AppIcons.money,
-    AppIcons.search,
-    AppIcons.topics,
     AppIcons.home,
+    AppIcons.topics,
+    AppIcons.search,
+    AppIcons.money,
+    AppIcons.calender,
   ];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     bottomTexts = [
-      'works'.localize(context),
-      'subscribe'.localize(context),
-      'search'.localize(context),
-      'topics'.localize(context),
       'home'.localize(context),
+      'topics'.localize(context),
+      'search'.localize(context),
+      'subscribe'.localize(context),
+      'works'.localize(context),
     ];
   }
 
@@ -95,11 +96,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                   : AppColors.grey600,
                             ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 7),
                           Text(
                             bottomTexts[index],
                             style: const TextStyle(
-                              fontSize: 11,
+                              fontSize: Fontsize.medium,
                             ),
                           ),
                         ],

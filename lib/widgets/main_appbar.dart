@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,10 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       leadingWidth: leadingWidth,
       title: Text(title),
-      titleTextStyle:
-          Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 17),
+      titleTextStyle: Theme.of(context)
+          .textTheme
+          .headlineMedium!
+          .copyWith(fontSize: Fontsize.huge),
       titleSpacing: 10,
       leading: appbarLeading,
       actions: const [

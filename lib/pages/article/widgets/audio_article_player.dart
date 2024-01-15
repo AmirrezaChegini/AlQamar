@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/di.dart';
 import 'package:al_qamar/utils/extensions/duration.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/widgets/anim/animated_icon.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
@@ -128,11 +130,12 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                         Text(
                           _audioPlayer.currentIndex != null
                               ? '${'audio'.localize(context)} ${_audioPlayer.currentIndex! + 1}'
+                                  .toArabic()
                               : 'audio'.localize(context),
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
-                              .copyWith(fontSize: 16),
+                              .copyWith(fontSize: Fontsize.big),
                         ),
                         const SizedBox(height: 15),
                         Row(
@@ -144,11 +147,11 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                               color: AppColors.black,
                             ),
                             Text(
-                              ' ${widget.date}',
+                              ' ${widget.date}'.toArabic(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(fontSize: 12),
+                                  .copyWith(fontSize: Fontsize.large),
                             ),
                           ],
                         ),
@@ -165,7 +168,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(fontSize: 12),
+                                  .copyWith(fontSize: Fontsize.large),
                             ),
                           ],
                         ),
@@ -222,7 +225,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                     ),
                     StreamBuilder(
@@ -233,7 +236,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                     ),
                   ],
@@ -266,7 +269,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(fontSize: 12),
+                                .copyWith(fontSize: Fontsize.large),
                           ),
                         ),
                       ),

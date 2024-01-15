@@ -30,17 +30,23 @@ class _VideoStreamState extends State<VideoStream> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: BlocConsumer<LiveCubit, String>(
-        listener: (context, state) {
-          _webCtrl
-            ..setJavaScriptMode(JavaScriptMode.unrestricted)
-            ..enableZoom(true)
-            ..loadRequest(Uri.parse(state));
-        },
-        builder: (context, state) => WebViewWidget(
-          controller: _webCtrl,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxWidth: double.infinity,
+        minWidth: double.infinity,
+      ),
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: BlocConsumer<LiveCubit, String>(
+          listener: (context, state) {
+            _webCtrl
+              ..setJavaScriptMode(JavaScriptMode.unrestricted)
+              ..enableZoom(true)
+              ..loadRequest(Uri.parse(state));
+          },
+          builder: (context, state) => WebViewWidget(
+            controller: _webCtrl,
+          ),
         ),
       ),
     );

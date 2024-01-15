@@ -1,13 +1,15 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
-import 'package:al_qamar/widgets/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/image_mask.dart';
 import 'package:al_qamar/widgets/marqueer_title.dart';
+import 'package:al_qamar/widgets/remove_bookmark_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:marqueer/marqueer.dart';
 
@@ -16,10 +18,12 @@ class ArticleWidget extends StatefulWidget {
     super.key,
     this.backgroundColor = AppColors.white,
     required this.article,
+    this.onTap,
   });
 
   final Color backgroundColor;
   final Article article;
+  final Function()? onTap;
 
   @override
   State<ArticleWidget> createState() => _ArticleWidgetState();
@@ -59,10 +63,27 @@ class _ArticleWidgetState extends State<ArticleWidget> {
           ),
           child: Row(
             children: [
-              MaskImage(
-                  imageUrl: widget.article.images.isNotEmpty
-                      ? widget.article.images[0]
-                      : ''),
+              Stack(
+                alignment: AlignmentDirectional.topStart,
+                children: [
+                  MaskImage(
+                    imageUrl: widget.article.images.isNotEmpty
+                        ? widget.article.images[0]
+                        : '',
+                  ),
+                  Visibility(
+                    visible: widget.onTap != null,
+                    child: Positioned.directional(
+                      textDirection: CheckDirect.isRTL(context)
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
+                      top: 3,
+                      start: 3,
+                      child: RemoveBookmarkBtn(ontap: widget.onTap),
+                    ),
+                  ),
+                ],
+              ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -80,7 +101,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
-                          .copyWith(fontSize: 10, height: 1),
+                          .copyWith(fontSize: Fontsize.medium, height: 1),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -96,11 +117,11 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                           color: AppColors.grey,
                         ),
                         Text(
-                          ' ${widget.article.updateAt}',
+                          ' ${widget.article.updateAt}'.toArabic(),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
-                              .copyWith(fontSize: 10),
+                              .copyWith(fontSize: Fontsize.medium),
                         ),
                         const Spacer(),
                         const AppIcon(
@@ -118,7 +139,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(
-                                  fontSize: 10,
+                                  fontSize: Fontsize.medium,
                                 ),
                           ),
                         ),

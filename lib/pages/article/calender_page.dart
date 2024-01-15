@@ -1,9 +1,12 @@
+import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/calender.dart';
-import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
+import 'package:al_qamar/pages/article/widgets/article_appbar.dart';
 import 'package:al_qamar/pages/article/widgets/audio_article_player.dart';
 import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
 import 'package:al_qamar/pages/article/widgets/image_viewer.dart';
@@ -53,8 +56,8 @@ class _CalenderDataPageState extends State<CalenderDataPage>
       backgroundColor: AppColors.grey200,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            ShareData.share(widget.calender.content.htmlToString()),
+        onPressed: () async =>
+            await ShareData.shareText(widget.calender.content.htmlToString()),
         backgroundColor: AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -67,12 +70,9 @@ class _CalenderDataPageState extends State<CalenderDataPage>
           ),
         ),
       ),
-      appBar: ArticleTabbar(
+      appBar: ArticleAppbar(
         tabController: _tabCtrl,
-        audios: widget.calender.audios,
-        videos: widget.calender.videos,
-        pdfs: widget.calender.pdfs,
-        youtube: '',
+        calender: widget.calender,
       ),
       body: NestedScrollView(
         headerSliverBuilder: (context, value) => [
@@ -140,15 +140,26 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                     (context, index) => Padding(
                       padding: const EdgeInsets.all(10),
                       child: state == 3
-                          ? AudioWidget(
-                              index: index,
-                              audio: widget.calender.audios[index],
-                              image: widget.calender.images.isNotEmpty
-                                  ? widget.calender.images[0]
-                                  : '',
+                          ? BlocProvider(
+                              create: (context) =>
+                                  locator.get<DownloadAudioBloc>(),
+                              child: AudioWidget(
+                                index: index,
+                                audio: widget.calender.audios[index],
+                                image: widget.calender.images.isNotEmpty
+                                    ? widget.calender.images[0]
+                                    : '',
+                              ),
                             )
                           : state == 4
-                              ? PdfItemWidget(index: index)
+                              ? BlocProvider(
+                                  create: (context) =>
+                                      locator.get<DownloadPdfBloc>(),
+                                  child: PdfItemWidget(
+                                    index: index,
+                                    url: widget.calender.pdfs[index],
+                                  ),
+                                )
                               : const SizedBox(),
                     ),
                   ),
@@ -180,7 +191,7 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!
-                      .copyWith(fontSize: 14),
+                      .copyWith(fontSize: Fontsize.large),
                 ),
               ),
             ),

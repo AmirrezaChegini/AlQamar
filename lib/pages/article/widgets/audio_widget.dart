@@ -84,20 +84,10 @@ class _AudioWidgetState extends State<AudioWidget> {
                           ? AppColors.white
                           : AppColors.black,
                     );
-                  } else {
-                    return IconBtn(
-                      onTap: () async {
-                        await storagePermission().then((value) {
-                          if (value) {
-                            BlocProvider.of<DownloadAudioBloc>(context).add(
-                              StartDownloadAudioEvent(
-                                widget.audio,
-                                widget.audio.getFilename(),
-                              ),
-                            );
-                          }
-                        });
-                      },
+                  }
+                  if (innerState is DownloadingAudioState) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
                       child: AppIcon(
                         icon: AppIcons.downloading,
                         width: 25,
@@ -108,6 +98,28 @@ class _AudioWidgetState extends State<AudioWidget> {
                       ),
                     );
                   }
+                  return IconBtn(
+                    onTap: () async {
+                      await storagePermission().then((value) {
+                        if (value) {
+                          BlocProvider.of<DownloadAudioBloc>(context).add(
+                            StartDownloadAudioEvent(
+                              widget.audio,
+                              widget.audio.getFilename(),
+                            ),
+                          );
+                        }
+                      });
+                    },
+                    child: AppIcon(
+                      icon: AppIcons.downloading,
+                      width: 25,
+                      height: 25,
+                      color: state == widget.index
+                          ? AppColors.white
+                          : AppColors.black,
+                    ),
+                  );
                 },
               ),
               BlocBuilder<DownloadAudioBloc, DownloadAudioState>(

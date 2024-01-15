@@ -62,20 +62,11 @@ class _PdfItemWidgetState extends State<PdfItemWidget> {
                           ? AppColors.white
                           : AppColors.black,
                     );
-                  } else {
-                    return IconBtn(
-                      onTap: () async {
-                        await storagePermission().then((value) {
-                          if (value) {
-                            BlocProvider.of<DownloadPdfBloc>(context).add(
-                              StartDownloadPdfEvent(
-                                widget.url,
-                                widget.url.getFilename(),
-                              ),
-                            );
-                          }
-                        });
-                      },
+                  }
+
+                  if (innerState is DownloadingPdfState) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
                       child: AppIcon(
                         icon: AppIcons.downloading,
                         width: 25,
@@ -86,6 +77,29 @@ class _PdfItemWidgetState extends State<PdfItemWidget> {
                       ),
                     );
                   }
+
+                  return IconBtn(
+                    onTap: () async {
+                      await storagePermission().then((value) {
+                        if (value) {
+                          BlocProvider.of<DownloadPdfBloc>(context).add(
+                            StartDownloadPdfEvent(
+                              widget.url,
+                              widget.url.getFilename(),
+                            ),
+                          );
+                        }
+                      });
+                    },
+                    child: AppIcon(
+                      icon: AppIcons.downloading,
+                      width: 25,
+                      height: 25,
+                      color: state == widget.index
+                          ? AppColors.white
+                          : AppColors.black,
+                    ),
+                  );
                 },
               ),
               BlocBuilder<DownloadPdfBloc, DownloadPdfState>(

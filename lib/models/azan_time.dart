@@ -1,10 +1,10 @@
 class AzanTime {
-  final String _fajr;
-  final String _sunrise;
-  final String _dhuhr;
-  final String _sunset;
-  final String _isha;
-  final String _midnight;
+  final String? _fajr;
+  final String? _sunrise;
+  final String? _dhuhr;
+  final String? _sunset;
+  final String? _isha;
+  final String? _midnight;
 
   AzanTime(
     this._fajr,
@@ -26,10 +26,10 @@ class AzanTime {
     );
   }
 
-  String get fajr => _fajr;
-  String get sunrise => _sunrise;
-  String get dhuhr => _dhuhr;
-  String get sunset => _sunset;
-  String get isha => _isha;
-  String get midnight => _midnight;
+  String get fajr => _fajr ?? '';
+  String get sunrise => _sunrise ?? '';
+  String get dhuhr => _dhuhr ?? '';
+  String get sunset => _sunset ?? '';
+  String get isha => _isha ?? '';
+  String get midnight => _midnight ?? '';
 }

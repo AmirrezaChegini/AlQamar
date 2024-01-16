@@ -1,8 +1,8 @@
 class User {
   final int _id;
-  final String _firstName;
-  final String _lastName;
-  final String _email;
+  final String? _firstName;
+  final String? _lastName;
+  final String? _email;
   String? _avatar;
   final String? _bio;
 
@@ -31,9 +31,9 @@ class User {
   }
 
   int get id => _id;
-  dynamic get firstName => _firstName;
-  String get lastName => _lastName;
-  String get email => _email;
+  dynamic get firstName => _firstName ?? '';
+  String get lastName => _lastName ?? '';
+  String get email => _email ?? '';
   String get avatar => _avatar ?? '';
   String get bio => _bio ?? '';
 }

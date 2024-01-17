@@ -63,6 +63,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/video/
+    - assets/docs/
 
   fonts:
     - family: majalla

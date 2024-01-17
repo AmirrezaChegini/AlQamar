@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class FadeInAnim extends StatefulWidget {
-  const FadeInAnim({
+class FadeInStaggeredAnim extends StatefulWidget {
+  const FadeInStaggeredAnim({
     super.key,
     required this.child,
-    required this.state,
+    required this.duration,
   });
 
   final Widget child;
-  final bool state;
+  final Duration duration;
 
   @override
-  State<FadeInAnim> createState() => _FadeInAnimState();
+  State<FadeInStaggeredAnim> createState() => _FadeInStaggeredAnimState();
 }
 
-class _FadeInAnimState extends State<FadeInAnim>
+class _FadeInStaggeredAnimState extends State<FadeInStaggeredAnim>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeInAnim;
@@ -34,6 +34,16 @@ class _FadeInAnimState extends State<FadeInAnim>
         curve: Curves.easeIn,
       ),
     );
+
+    showAnim();
+  }
+
+  Future<void> showAnim() async {
+    await Future.delayed(widget.duration, () {
+      if (mounted) {
+        _controller.forward();
+      }
+    });
   }
 
   @override
@@ -44,7 +54,6 @@ class _FadeInAnimState extends State<FadeInAnim>
 
   @override
   Widget build(BuildContext context) {
-    widget.state ? _controller.forward() : _controller.reverse();
     return FadeTransition(
       opacity: _fadeInAnim,
       child: widget.child,

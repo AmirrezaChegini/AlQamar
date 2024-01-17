@@ -2,8 +2,8 @@ import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
-import 'package:al_qamar/bloc/news/news_bloc.dart';
-import 'package:al_qamar/bloc/news/news_event.dart';
+import 'package:al_qamar/bloc/category/category_bloc.dart';
+import 'package:al_qamar/bloc/category/category_event.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
@@ -11,9 +11,9 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
+import 'package:al_qamar/pages/category/category_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
-import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
 import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
@@ -39,8 +39,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   void initState() {
     super.initState();
-
-    BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent());
+    BlocProvider.of<CategoryBloc>(context).add(GetAllCategoryEvent());
     BlocProvider.of<CalenderBloc>(context)
         .add(GetCalenderEvent(DateTime.now().getFormatDate()));
 
@@ -115,7 +114,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
             physics: const NeverScrollableScrollPhysics(),
             children: [
               HomePage(tabController: _tabCtrl),
-              const NewsPage(),
+              const CategoryPage(),
               const SizedBox(),
               Center(child: Image.asset(AppImages.comingSoon)),
               const CalenderPage(),

@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
+import 'package:al_qamar/bloc/category/category_bloc.dart';
 import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
@@ -79,6 +80,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<FavoriteBloc>()),
         BlocProvider(create: (context) => locator.get<BookmarkBloc>()),
         BlocProvider(create: (context) => locator.get<OtherArticleBloc>()),
+        BlocProvider(create: (context) => locator.get<CategoryBloc>()),
       ],
       child: BlocBuilder<LocalizeCubit, String>(
         builder: (context, state) => MaterialApp(

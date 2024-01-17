@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
+import 'package:al_qamar/bloc/category/category_bloc.dart';
 import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
@@ -28,6 +29,7 @@ import 'package:al_qamar/data/datasources/auth_datasource.dart';
 import 'package:al_qamar/data/datasources/azan_datasource.dart';
 import 'package:al_qamar/data/datasources/bookmark_datasource.dart';
 import 'package:al_qamar/data/datasources/calender_datasource.dart';
+import 'package:al_qamar/data/datasources/category_datasource.dart';
 import 'package:al_qamar/data/datasources/favorite_datasource.dart';
 import 'package:al_qamar/data/datasources/live_datasource.dart';
 import 'package:al_qamar/data/datasources/salavat_datasource.dart';
@@ -37,6 +39,7 @@ import 'package:al_qamar/data/repositories/auth_repository.dart';
 import 'package:al_qamar/data/repositories/azan_repository.dart';
 import 'package:al_qamar/data/repositories/bookmark_repository.dart';
 import 'package:al_qamar/data/repositories/calender_repositoy.dart';
+import 'package:al_qamar/data/repositories/category_repository.dart';
 import 'package:al_qamar/data/repositories/favorite_repository.dart';
 import 'package:al_qamar/data/repositories/live_repository.dart';
 import 'package:al_qamar/data/repositories/salavat_repository.dart';
@@ -90,6 +93,8 @@ Future<void> initLocator() async {
       .registerLazySingleton<LiveDatasource>(() => LiveRemote(locator.get()));
   locator.registerLazySingleton<BookmarkDatasource>(() => BookmarkLocal());
   locator.registerLazySingleton<FavoriteDatasource>(() => FavoriteLocal());
+  locator.registerLazySingleton<CategoryDatasource>(
+      () => CategoryRemote(locator.get()));
 
   //repositories
   locator.registerLazySingleton<IAzanRepository>(
@@ -110,6 +115,8 @@ Future<void> initLocator() async {
       () => BookmarkRepositoryImpl(locator.get()));
   locator.registerLazySingleton<IFavoriteRepository>(
       () => FavoriteRepositoryImpl(locator.get()));
+  locator.registerLazySingleton<ICategoryRepository>(
+      () => CategoryRepositoryImpl(locator.get()));
 
   //cubit
   locator.registerLazySingleton<LocalizeCubit>(() => LocalizeCubit());
@@ -147,4 +154,5 @@ Future<void> initLocator() async {
       () => DownloadAudioBloc(locator.get(), locator.get()));
   locator.registerFactory<DownloadPdfBloc>(
       () => DownloadPdfBloc(locator.get(), locator.get()));
+  locator.registerFactory<CategoryBloc>(() => CategoryBloc(locator.get()));
 }

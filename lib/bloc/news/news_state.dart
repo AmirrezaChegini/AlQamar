@@ -6,8 +6,6 @@ class InitNewsState extends NewsState {}
 
 class LoadingNewsState extends NewsState {}
 
-class MoreLoadingNewsState extends NewsState {}
-
 class CompleteNewsState extends NewsState {
   final List<Article> articleList;
   CompleteNewsState(this.articleList);

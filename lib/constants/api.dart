@@ -27,6 +27,9 @@ class Api {
   //live
   static const String video = '/live/video';
   static const String audio = '/live/audio';
+
+  //category
+  static const String category = '/category';
   //azan
   static const String azan = 'https://api.aladhan.com/v1/timingsByCity';
 }

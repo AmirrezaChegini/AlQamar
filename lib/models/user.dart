@@ -31,7 +31,7 @@ class User {
   }
 
   int get id => _id;
-  dynamic get firstName => _firstName ?? '';
+  String get firstName => _firstName ?? '';
   String get lastName => _lastName ?? '';
   String get email => _email ?? '';
   String get avatar => _avatar ?? '';

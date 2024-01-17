@@ -12,6 +12,8 @@ abstract class IArticelRepository {
   Future<Either<String, Article>> getArticle({required int articleID});
   Future<Either<String, List<Article>>> searchArticles(
       {required String searchText});
+  Future<Either<String, List<Article>>> getArticleByCategory(
+      {required int categoryId});
 }
 
 class ArticleRepositoryImple implements IArticelRepository {
@@ -65,6 +67,18 @@ class ArticleRepositoryImple implements IArticelRepository {
     try {
       Response response =
           await _datasource.searchArticles(searchText: searchText);
+      return right(await compute(_articleList, response));
+    } on AppExceptions catch (e) {
+      return left(e.message);
+    }
+  }
+
+  @override
+  Future<Either<String, List<Article>>> getArticleByCategory(
+      {required int categoryId}) async {
+    try {
+      Response response =
+          await _datasource.getArticleByCategory(categoryId: categoryId);
       return right(await compute(_articleList, response));
     } on AppExceptions catch (e) {
       return left(e.message);

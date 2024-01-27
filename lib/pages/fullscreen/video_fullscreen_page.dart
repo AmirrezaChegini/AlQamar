@@ -48,11 +48,6 @@ class _VideoFullscrreenPageState extends State<VideoFullscrreenPage> {
         if (widget.videoCtrl.value.isCompleted) {
           showControler = true;
         }
-        if (widget.videoCtrl.value.isPlaying && showControler) {
-          Future.delayed(const Duration(seconds: 2), () {
-            showControler = false;
-          });
-        }
       });
     });
   }
@@ -116,9 +111,16 @@ class _VideoFullscrreenPageState extends State<VideoFullscrreenPage> {
                     children: [
                       const SizedBox(width: 5),
                       IconBtn(
-                        onTap: () => isPlaying
-                            ? widget.videoCtrl.pause()
-                            : widget.videoCtrl.play(),
+                        onTap: () {
+                          if (isPlaying) {
+                            widget.videoCtrl.pause();
+                          } else {
+                            setState(() {
+                              showControler = false;
+                              widget.videoCtrl.play();
+                            });
+                          }
+                        },
                         child: IconAnimated(
                           icon: AnimatedIcons.play_pause,
                           state: isPlaying,

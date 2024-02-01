@@ -5,7 +5,6 @@ import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/cubit/hide_fabe_cubit.dart';
 import 'package:al_qamar/models/category.dart';
-import 'package:al_qamar/widgets/anim/fade_in_staggered.dart';
 import 'package:al_qamar/widgets/anim/slide_fade_down.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/error_state.dart';
@@ -113,11 +112,8 @@ class _NewsPageState extends State<NewsPage> {
                       (context, index) => Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 8),
-                        child: FadeInStaggeredAnim(
-                          duration: Duration(milliseconds: index * 100),
-                          child: ArticleWidget(
-                            article: state.articleList[index],
-                          ),
+                        child: ArticleWidget(
+                          article: state.articleList[index],
                         ),
                       ),
                     ),

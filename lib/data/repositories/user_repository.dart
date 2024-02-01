@@ -70,6 +70,6 @@ class UserRepositoryImpl implements IUserRepository {
 }
 
 User _getUser(Response response) {
-  User user = User.fromMapJson(response.data['data']);
+  User user = User.fromMapJson(response.data['data'][0]);
   return user;
 }

@@ -86,7 +86,8 @@ class _ProgramsPageState extends State<ProgramsPage>
                                     videoIndex = index;
                                   });
                                 },
-                                image: state.videoList[index].image,
+                                // image: state.videoList[index].image,
+                                live: state.videoList[index],
                                 color: videoIndex == index
                                     ? AppColors.grey600
                                     : AppColors.transparent,
@@ -163,7 +164,8 @@ class _ProgramsPageState extends State<ProgramsPage>
                                     audioIndex = index;
                                   });
                                 },
-                                image: state.audioList[index].image,
+                                // image: state.audioList[index].image,
+                                live: state.audioList[index],
                                 color: audioIndex == index
                                     ? AppColors.grey600
                                     : AppColors.transparent,

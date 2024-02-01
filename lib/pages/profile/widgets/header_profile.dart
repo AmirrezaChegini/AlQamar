@@ -8,7 +8,6 @@ import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/pages/profile/edit_profile_page.dart';
-import 'package:al_qamar/pages/profile/widgets/camera_dialog.dart';
 import 'package:al_qamar/utils/storage.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
@@ -100,14 +99,14 @@ class _HeaderProfileState extends State<HeaderProfile> {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: () => state is CompleteUserState
-                        ? showDialog(
-                            context: context,
-                            builder: (context) =>
-                                CameraDialog(user: state.user),
-                            barrierColor: AppColors.grey200.withOpacity(0.3),
-                          )
-                        : null,
+                    // onTap: () => state is CompleteUserState
+                    //     ? showDialog(
+                    //         context: context,
+                    //         builder: (context) =>
+                    //             CameraDialog(user: state.user),
+                    //         barrierColor: AppColors.grey200.withOpacity(0.3),
+                    //       )
+                    //     : null,
                     child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(

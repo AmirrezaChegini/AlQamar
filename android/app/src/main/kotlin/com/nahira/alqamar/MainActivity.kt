@@ -1,4 +1,4 @@
-package com.example.al_qamar
+package com.nahira.alqamar
 
 import io.flutter.embedding.android.FlutterActivity
 

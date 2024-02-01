@@ -54,8 +54,8 @@ class Calender {
   String get content => _content ?? '';
   String get updateAt => _createAt ?? '';
   String get day => _day ?? '';
-  List<dynamic> get images => _images;
-  List<dynamic> get videos => _videos;
-  List<dynamic> get audios => _audios;
-  List<dynamic> get pdfs => _pdfs;
+  List<dynamic> get images => _images ?? [];
+  List<dynamic> get videos => _videos ?? [];
+  List<dynamic> get audios => _audios ?? [];
+  List<dynamic> get pdfs => _pdfs ?? [];
 }

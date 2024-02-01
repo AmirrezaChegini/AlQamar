@@ -22,8 +22,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  List<Article> articleList = [];
   final TextEditingController _edtCtrl = TextEditingController();
+  List<Article> articleList = [];
 
   @override
   void dispose() {
@@ -43,6 +43,14 @@ class _SearchPageState extends State<SearchPage> {
         listener: (context, state) {
           if (state is CompleteSearchState) {
             articleList = state.articleList;
+          }
+
+          if (state is InitSearchState) {
+            articleList.clear();
+          }
+
+          if (state is FailSearchState) {
+            articleList.clear();
           }
         },
         builder: (context, state) => Column(

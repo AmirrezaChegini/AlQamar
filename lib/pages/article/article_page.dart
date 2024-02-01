@@ -42,8 +42,6 @@ class ArticlePage extends StatefulWidget {
 class _ArticlePageState extends State<ArticlePage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabCtrl;
-  final GlobalKey _globalKey = GlobalKey();
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -52,29 +50,13 @@ class _ArticlePageState extends State<ArticlePage>
     BlocProvider.of<ArticleCubit>(context).changeIndex(0);
     BlocProvider.of<FavoriteBloc>(context).add(GetFavorite(widget.article));
     BlocProvider.of<BookmarkCubit>(context).isBookmark(widget.article);
-    BlocProvider.of<OtherArticleBloc>(context).add(InitOtherArticleEvent());
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        if (BlocProvider.of<OtherArticleBloc>(context).state
-            is! CompleteOtherArticleState) {
-          BlocProvider.of<OtherArticleBloc>(context)
-              .add(GetOtherArticleEvent());
-        }
-      }
-    });
+    BlocProvider.of<OtherArticleBloc>(context).add(GetOtherArticleEvent());
   }
 
   @override
   void dispose() {
     _tabCtrl.dispose();
     super.dispose();
-  }
-
-  double getPosition() {
-    RenderBox box = _globalKey.currentContext?.findRenderObject() as RenderBox;
-    Offset posistion = box.localToGlobal(Offset.zero);
-    return posistion.dy;
   }
 
   @override
@@ -86,7 +68,6 @@ class _ArticlePageState extends State<ArticlePage>
         tabController: _tabCtrl,
       ),
       body: NestedScrollView(
-        controller: _scrollController,
         headerSliverBuilder: (context, value) => [
           SliverAppBar.large(
             backgroundColor: AppColors.transparent,
@@ -221,16 +202,22 @@ class _ArticlePageState extends State<ArticlePage>
                 renderMode: RenderMode.sliverList,
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: TitleWidget(
-                  key: _globalKey,
-                  title: 'otherNews'.localize(context),
-                  showDivider: true,
-                  dividerWidth: 60,
-                ),
-              ),
+            BlocBuilder<OtherArticleBloc, OtherArticleState>(
+              builder: (context, state) {
+                if (state is CompleteOtherArticleState) {
+                  return SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: TitleWidget(
+                        title: 'otherNews'.localize(context),
+                        showDivider: true,
+                        dividerWidth: 60,
+                      ),
+                    ),
+                  );
+                }
+                return const SliverToBoxAdapter();
+              },
             ),
             BlocBuilder<OtherArticleBloc, OtherArticleState>(
               builder: (context, state) {

@@ -125,7 +125,7 @@ class _LivePageState extends State<LivePage>
                                               .changeUrl(state
                                                   .videoList[videoIndex].url);
                                         },
-                                        image: state.videoList[index].image,
+                                        live: state.videoList[index],
                                         color: videoIndex == index
                                             ? AppColors.grey600
                                             : AppColors.transparent,
@@ -198,7 +198,7 @@ class _LivePageState extends State<LivePage>
                                           initAudio(
                                               state.audioList[audioIndex].url);
                                         },
-                                        image: state.audioList[index].image,
+                                        live: state.audioList[index],
                                         color: audioIndex == index
                                             ? AppColors.grey600
                                             : AppColors.transparent,

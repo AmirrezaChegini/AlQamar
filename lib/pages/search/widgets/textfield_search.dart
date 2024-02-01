@@ -62,7 +62,10 @@ class _TextfielfSearchState extends State<TextfielfSearch> {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         suffixIcon: IconBtn(
-          onTap: () => widget.edtCtrl.clear(),
+          onTap: () {
+            widget.edtCtrl.clear();
+            searchText.add('');
+          },
           child: const AppIcon(
             icon: AppIcons.close,
             width: 20,

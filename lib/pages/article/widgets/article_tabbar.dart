@@ -72,6 +72,7 @@ class _ArticleTabbarState extends State<ArticleTabbar> {
               content: 'noContent'.localize(context),
               horizontalMargin: 10,
               verticalMargin: 10,
+              isError: false,
             );
           } else {
             BlocProvider.of<ArticleCubit>(context).changeIndex(value);

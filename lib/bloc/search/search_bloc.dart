@@ -14,7 +14,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       either.fold((l) {
         emit(FailSearchState(l));
       }, (r) {
-        emit(CompleteSearchState(r));
+        if (r.isEmpty) {
+          emit(InitSearchState());
+        } else {
+          emit(CompleteSearchState(r));
+        }
       });
     });
   }

@@ -19,6 +19,7 @@ import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/calender_cubit.dart';
+import 'package:al_qamar/cubit/hide_fabe_cubit.dart';
 import 'package:al_qamar/cubit/live_cubit.dart';
 import 'package:al_qamar/cubit/localize_cubit.dart';
 import 'package:al_qamar/cubit/password_cubit.dart';
@@ -131,6 +132,7 @@ Future<void> initLocator() async {
   locator
       .registerLazySingleton<BookmarkCubit>(() => BookmarkCubit(locator.get()));
   locator.registerLazySingleton<CalenderCubit>(() => CalenderCubit());
+  locator.registerLazySingleton<HideFabeCubit>(() => HideFabeCubit());
 
   //bloc
   locator.registerLazySingleton<AzanBloc>(() => AzanBloc(locator.get()));

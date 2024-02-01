@@ -3,10 +3,12 @@ import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/bloc/news/news_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/cubit/hide_fabe_cubit.dart';
 import 'package:al_qamar/models/category.dart';
 import 'package:al_qamar/widgets/anim/fade_in_staggered.dart';
-import 'package:al_qamar/widgets/app_snackbar.dart';
+import 'package:al_qamar/widgets/anim/slide_fade_down.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
+import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
@@ -15,46 +17,85 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class NewsPage extends StatefulWidget {
   const NewsPage({
     super.key,
-    required this.category,
+    this.category,
   });
 
-  final Category category;
+  final Category? category;
 
   @override
   State<NewsPage> createState() => _NewsPageState();
 }
 
 class _NewsPageState extends State<NewsPage> {
+  int page = 1;
+  final ScrollController _scrollCtrl = ScrollController();
+
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<NewsBloc>(context)
-        .add(GetAllArticlesEvent(widget.category.id));
+    onInit();
+  }
+
+  void onInit() {
+    if (widget.category != null) {
+      BlocProvider.of<NewsBloc>(context)
+          .add(GetArticleByCategoryEVent(widget.category!.id));
+    } else {
+      BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent(page));
+      _scrollCtrl.addListener(() {
+        if (_scrollCtrl.position.hasPixels) {
+          if (_scrollCtrl.position.pixels ==
+              _scrollCtrl.position.maxScrollExtent) {
+            ++page;
+            BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent(page));
+            BlocProvider.of<HideFabeCubit>(context).changeVisibility(true);
+          } else {
+            BlocProvider.of<HideFabeCubit>(context).changeVisibility(false);
+          }
+        }
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollCtrl.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: BlocBuilder<HideFabeCubit, bool>(
+        builder: (context, state) => SlideFadeDownAnim(
+          state: state,
+          child: FloatingActionButton(
+            onPressed: () {
+              if (_scrollCtrl.hasClients) {
+                _scrollCtrl.animateTo(
+                  0,
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeIn,
+                );
+              }
+            },
+            backgroundColor: AppColors.blue,
+            child: const Icon(Icons.arrow_upward),
+          ),
+        ),
+      ),
       appBar: MainAppbar(
-        title: widget.category.name,
+        title: widget.category?.name ?? 'newsList'.localize(context),
         appbarLeading: const BackButton(color: AppColors.red),
       ),
       body: SafeArea(
-        child: BlocConsumer<NewsBloc, NewsState>(
-          listener: (context, state) {
-            if (state is FailNewsState) {
-              showMessage(
-                context: context,
-                content: state.errorMessage.localize(context),
-                verticalMargin: 0,
-                horizontalMargin: 10,
-              );
-            }
-          },
+        child: BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
             if (state is CompleteNewsState) {
               return CustomScrollView(
+                controller: _scrollCtrl,
                 slivers: [
                   // SliverToBoxAdapter(
                   //   child: Padding(
@@ -87,6 +128,14 @@ class _NewsPageState extends State<NewsPage> {
 
             if (state is LoadingNewsState) {
               return const LoadingState();
+            }
+
+            if (state is FailNewsState) {
+              return ErrorState(
+                errorMessage: state.errorMessage,
+                onTap: onInit,
+                width: double.infinity,
+              );
             }
 
             return const SizedBox();

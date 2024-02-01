@@ -1,10 +1,8 @@
 import 'package:al_qamar/bloc/user/user_bloc.dart';
-import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/models/user.dart';
-import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
 import 'package:al_qamar/pages/profile/widgets/header_edit_profile.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
@@ -27,7 +25,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late final TextEditingController _firstNameCtrl;
   late final TextEditingController _lastNameCtrl;
   late final TextEditingController _bioCtrl;
-  late final TextEditingController _emailCtrl;
+  // late final TextEditingController _emailCtrl;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   @override
@@ -36,7 +34,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _firstNameCtrl = TextEditingController(text: widget.user.firstName);
     _lastNameCtrl = TextEditingController(text: widget.user.lastName);
     _bioCtrl = TextEditingController(text: widget.user.bio);
-    _emailCtrl = TextEditingController(text: widget.user.email);
+    // _emailCtrl = TextEditingController(text: widget.user.email);
   }
 
   @override
@@ -44,7 +42,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _firstNameCtrl.dispose();
     _lastNameCtrl.dispose();
     _bioCtrl.dispose();
-    _emailCtrl.dispose();
+    // _emailCtrl.dispose();
     super.dispose();
   }
 
@@ -92,6 +90,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             hint: 'firstname'.localize(context),
                             inputAction: TextInputAction.next,
                             inputType: TextInputType.text,
+                            enabled: false,
                             validate: (value) {
                               if (value.isEmpty) {
                                 return 'enterName'.localize(context);
@@ -107,6 +106,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             hint: 'lastname'.localize(context),
                             inputAction: TextInputAction.next,
                             inputType: TextInputType.text,
+                            enabled: false,
                             validate: (value) {
                               if (value.isEmpty) {
                                 return 'enterName'.localize(context);
@@ -115,46 +115,46 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             },
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: TextFieldAuth(
-                            controller: _bioCtrl,
-                            hint: 'bio'.localize(context),
-                            inputAction: TextInputAction.done,
-                            inputType: TextInputType.text,
-                            validate: (p0) {},
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: TextFieldAuth(
-                            controller: _emailCtrl,
-                            hint: 'email'.localize(context),
-                            inputAction: TextInputAction.done,
-                            inputType: TextInputType.text,
-                            enabled: false,
-                            validate: (p0) {},
-                          ),
-                        ),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: BtnAuth(
-                            onTap: () {
-                              if (_globalKey.currentState!.validate()) {
-                                BlocProvider.of<UserBloc>(context).add(
-                                  UpdateUserEvent(
-                                    id: widget.user.id,
-                                    firstName: _firstNameCtrl.text,
-                                    lastName: _lastNameCtrl.text,
-                                    bio: _bioCtrl.text,
-                                  ),
-                                );
-                              }
-                            },
-                            title: 'submit'.localize(context),
-                          ),
-                        )
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10),
+                        //   child: TextFieldAuth(
+                        //     controller: _bioCtrl,
+                        //     hint: 'bio'.localize(context),
+                        //     inputAction: TextInputAction.done,
+                        //     inputType: TextInputType.text,
+                        //     validate: (p0) {},
+                        //   ),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10),
+                        //   child: TextFieldAuth(
+                        //     controller: _emailCtrl,
+                        //     hint: 'email'.localize(context),
+                        //     inputAction: TextInputAction.done,
+                        //     inputType: TextInputType.text,
+                        //     enabled: false,
+                        //     validate: (p0) {},
+                        //   ),
+                        // ),
+                        // const Spacer(),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10),
+                        //   child: BtnAuth(
+                        //     onTap: () {
+                        //       if (_globalKey.currentState!.validate()) {
+                        //         BlocProvider.of<UserBloc>(context).add(
+                        //           UpdateUserEvent(
+                        //             id: widget.user.id,
+                        //             firstName: _firstNameCtrl.text,
+                        //             lastName: _lastNameCtrl.text,
+                        //             bio: _bioCtrl.text,
+                        //           ),
+                        //         );
+                        //       }
+                        //     },
+                        //     title: 'submit'.localize(context),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

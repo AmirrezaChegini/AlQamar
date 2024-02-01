@@ -91,7 +91,7 @@ class UserRemote implements UserDatasource {
     }
 
     try {
-      Response response = await _dio.post(
+      Response response = await _dio.put(
         '${Api.profile}/$id',
         options: Options(headers: {'requiredToken': true}),
         data: formData,

@@ -8,12 +8,13 @@ import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
 import 'package:al_qamar/pages/home/widgets/force_news.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
+import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/error_state.dart';
@@ -146,10 +147,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     TxtBtn(
-                      onTap: () {
-                        widget.tabController.animateTo(1);
-                        BlocProvider.of<BottomnavCubit>(context).changeIndex(1);
-                      },
+                      onTap: () => Navigator.push(
+                        context,
+                        pageRoute(child: const NewsPage()),
+                      ),
                       title: 'readMore'.localize(context),
                       icon: AppIcons.leftArrow,
                       textDecoration: CheckDirect.isRTL(context)

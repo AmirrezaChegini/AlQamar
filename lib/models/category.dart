@@ -11,7 +11,7 @@ class Category {
       jsonObject['id'],
       jsonObject['name'],
       jsonObject['description'],
-      jsonObject['photo'],
+      jsonObject['photo_path'],
     );
   }
 

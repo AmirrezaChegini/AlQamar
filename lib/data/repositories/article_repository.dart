@@ -79,11 +79,19 @@ class ArticleRepositoryImple implements IArticelRepository {
     try {
       Response response =
           await _datasource.getArticleByCategory(categoryId: categoryId);
-      return right(await compute(_articleList, response));
+      return right(await compute(_articleListByCategory, response));
     } on AppExceptions catch (e) {
       return left(e.message);
     }
   }
+}
+
+List<Article> _articleListByCategory(Response response) {
+  List<Article> articleList = response.data['data']['articles']['data']
+      .map<Article>((e) => Article.fromMapJson(e))
+      .toList();
+
+  return articleList;
 }
 
 List<Article> _articleList(Response response) {

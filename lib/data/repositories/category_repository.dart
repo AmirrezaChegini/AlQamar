@@ -25,7 +25,7 @@ class CategoryRepositoryImpl implements ICategoryRepository {
 }
 
 List<Category> categoryList(Response response) {
-  List<Category> categories = response.data['data']
+  List<Category> categories = response.data['data']['data']
       .map<Category>((e) => Category.fromMapJson(e))
       .toList();
 

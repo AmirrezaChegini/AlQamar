@@ -29,13 +29,18 @@ class CategoryItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CacheImage(
-              imageUrl: category.photo,
-              height: 80,
-              width: 80,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CacheImage(
+                imageUrl: category.photo,
+                height: 80,
+                width: 80,
+              ),
             ),
             Text(
               category.name,
+              maxLines: 1,
+              textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!

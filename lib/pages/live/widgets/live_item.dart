@@ -38,6 +38,8 @@ class LiveItem extends StatelessWidget {
         // child: Image.asset(image),
         child: Text(
           live.name,
+          maxLines: 1,
+          textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme
               .bodyMedium!

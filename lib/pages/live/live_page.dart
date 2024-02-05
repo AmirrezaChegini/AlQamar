@@ -77,7 +77,9 @@ class _LivePageState extends State<LivePage>
       body: BlocConsumer<LiveBloc, LiveState>(
         listener: (context, state) {
           if (state is CompleteLiveState) {
-            initAudio(state.audioList[audioIndex].url);
+            if (state.audioList.isNotEmpty) {
+              initAudio(state.audioList[audioIndex].url);
+            }
           }
         },
         builder: (context, state) {

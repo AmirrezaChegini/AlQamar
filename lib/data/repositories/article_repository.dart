@@ -12,8 +12,10 @@ abstract class IArticelRepository {
   Future<Either<String, Article>> getArticle({required int articleID});
   Future<Either<String, List<Article>>> searchArticles(
       {required String searchText});
-  Future<Either<String, List<Article>>> getArticleByCategory(
-      {required int categoryId});
+  Future<Either<String, List<Article>>> getArticleByCategory({
+    required int categoryId,
+    required int page,
+  });
 }
 
 class ArticleRepositoryImple implements IArticelRepository {
@@ -74,11 +76,13 @@ class ArticleRepositoryImple implements IArticelRepository {
   }
 
   @override
-  Future<Either<String, List<Article>>> getArticleByCategory(
-      {required int categoryId}) async {
+  Future<Either<String, List<Article>>> getArticleByCategory({
+    required int categoryId,
+    required int page,
+  }) async {
     try {
-      Response response =
-          await _datasource.getArticleByCategory(categoryId: categoryId);
+      Response response = await _datasource.getArticleByCategory(
+          categoryId: categoryId, page: page);
       return right(await compute(_articleListByCategory, response));
     } on AppExceptions catch (e) {
       return left(e.message);

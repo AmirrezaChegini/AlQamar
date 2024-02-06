@@ -11,14 +11,22 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   NewsBloc(this._articelRepository) : super(InitNewsState()) {
     on<GetArticleByCategoryEVent>((event, emit) async {
-      emit(LoadingNewsState());
+      if (event.page == 1) {
+        emit(LoadingNewsState());
+      }
       var either = await _articelRepository.getArticleByCategory(
-          categoryId: event.categoryID);
+        categoryId: event.categoryID,
+        page: event.page,
+      );
 
       either.fold((l) {
         emit(FailNewsState(l));
       }, (r) {
-        articleList = r;
+        if (event.page == 1) {
+          articleList = r;
+        } else {
+          articleList.addAll(r);
+        }
         emit(CompleteNewsState(articleList));
       });
     });

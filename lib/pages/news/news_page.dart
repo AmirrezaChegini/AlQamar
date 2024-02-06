@@ -36,23 +36,28 @@ class _NewsPageState extends State<NewsPage> {
   }
 
   void onInit() {
+    getArticle();
+
+    _scrollCtrl.addListener(() {
+      if (_scrollCtrl.position.hasPixels) {
+        if (_scrollCtrl.position.pixels ==
+            _scrollCtrl.position.maxScrollExtent) {
+          ++page;
+          getArticle();
+          BlocProvider.of<HideFabeCubit>(context).changeVisibility(true);
+        } else {
+          BlocProvider.of<HideFabeCubit>(context).changeVisibility(false);
+        }
+      }
+    });
+  }
+
+  void getArticle() {
     if (widget.category != null) {
       BlocProvider.of<NewsBloc>(context)
-          .add(GetArticleByCategoryEVent(widget.category!.id));
+          .add(GetArticleByCategoryEVent(widget.category!.id, page));
     } else {
       BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent(page));
-      _scrollCtrl.addListener(() {
-        if (_scrollCtrl.position.hasPixels) {
-          if (_scrollCtrl.position.pixels ==
-              _scrollCtrl.position.maxScrollExtent) {
-            ++page;
-            BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent(page));
-            BlocProvider.of<HideFabeCubit>(context).changeVisibility(true);
-          } else {
-            BlocProvider.of<HideFabeCubit>(context).changeVisibility(false);
-          }
-        }
-      });
     }
   }
 

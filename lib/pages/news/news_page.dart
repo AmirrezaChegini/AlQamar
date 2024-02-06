@@ -3,6 +3,7 @@ import 'package:al_qamar/bloc/news/news_event.dart';
 import 'package:al_qamar/bloc/news/news_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/hide_fabe_cubit.dart';
 import 'package:al_qamar/models/category.dart';
 import 'package:al_qamar/widgets/anim/slide_fade_down.dart';
@@ -77,7 +78,7 @@ class _NewsPageState extends State<NewsPage> {
           state: state,
           child: FloatingActionButton(
             onPressed: () {
-              if (_scrollCtrl.hasClients) {
+              if (_scrollCtrl.position.hasPixels) {
                 _scrollCtrl.animateTo(
                   0,
                   duration: const Duration(milliseconds: 400),
@@ -129,6 +130,10 @@ class _NewsPageState extends State<NewsPage> {
 
             if (state is LoadingNewsState) {
               return const LoadingState();
+            }
+
+            if (state is EmptyNewsState) {
+              return Center(child: Image.asset(AppImages.blank));
             }
 
             if (state is FailNewsState) {

@@ -116,6 +116,7 @@ class _LivePageState extends State<LivePage>
                                         WrapCrossAlignment.center,
                                     runAlignment: WrapAlignment.center,
                                     spacing: 5,
+                                    runSpacing: 5,
                                     children: List.generate(
                                       state.videoList.length,
                                       (index) => LiveItem(

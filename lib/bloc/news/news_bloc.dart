@@ -27,7 +27,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         } else {
           articleList.addAll(r);
         }
-        emit(CompleteNewsState(articleList));
+
+        if (articleList.isEmpty) {
+          emit(EmptyNewsState());
+        } else {
+          emit(CompleteNewsState(articleList));
+        }
       });
     });
 
@@ -45,7 +50,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         } else {
           articleList.addAll(r);
         }
-        emit(CompleteNewsState(articleList));
+
+        if (articleList.isEmpty) {
+          emit(EmptyNewsState());
+        } else {
+          emit(CompleteNewsState(articleList));
+        }
       });
     });
   }

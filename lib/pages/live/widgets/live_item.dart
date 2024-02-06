@@ -1,6 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/models/live.dart';
+import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:flutter/material.dart';
 
 class LiveItem extends StatelessWidget {
@@ -31,20 +31,20 @@ class LiveItem extends StatelessWidget {
             color: AppColors.grey600,
           ),
         ),
-        // child: CacheImage(
-        //   imageUrl: image,
-        //   width: 80,
-        // ),
-        // child: Image.asset(image),
-        child: Text(
-          live.name,
-          maxLines: 1,
-          textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontSize: Fontsize.huge),
+        child: CacheImage(
+          imageUrl: live.image,
+          width: 80,
         ),
+        // child: Image.asset(image),
+        // child: Text(
+        //   live.name,
+        //   maxLines: 1,
+        //   textAlign: TextAlign.center,
+        //   style: Theme.of(context)
+        //       .textTheme
+        //       .bodyMedium!
+        //       .copyWith(fontSize: Fontsize.huge),
+        // ),
       ),
     );
   }

@@ -1,8 +1,10 @@
 import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/models/user.dart';
+import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
 import 'package:al_qamar/pages/profile/widgets/header_edit_profile.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
@@ -90,7 +92,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             hint: 'firstname'.localize(context),
                             inputAction: TextInputAction.next,
                             inputType: TextInputType.text,
-                            enabled: false,
                             validate: (value) {
                               if (value.isEmpty) {
                                 return 'enterName'.localize(context);
@@ -106,7 +107,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             hint: 'lastname'.localize(context),
                             inputAction: TextInputAction.next,
                             inputType: TextInputType.text,
-                            enabled: false,
                             validate: (value) {
                               if (value.isEmpty) {
                                 return 'enterName'.localize(context);
@@ -115,16 +115,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             },
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(10),
-                        //   child: TextFieldAuth(
-                        //     controller: _bioCtrl,
-                        //     hint: 'bio'.localize(context),
-                        //     inputAction: TextInputAction.done,
-                        //     inputType: TextInputType.text,
-                        //     validate: (p0) {},
-                        //   ),
-                        // ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: TextFieldAuth(
+                            controller: _bioCtrl,
+                            hint: 'bio'.localize(context),
+                            inputAction: TextInputAction.done,
+                            inputType: TextInputType.text,
+                            validate: (p0) {},
+                          ),
+                        ),
                         // Padding(
                         //   padding: const EdgeInsets.all(10),
                         //   child: TextFieldAuth(
@@ -136,25 +136,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         //     validate: (p0) {},
                         //   ),
                         // ),
-                        // const Spacer(),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(10),
-                        //   child: BtnAuth(
-                        //     onTap: () {
-                        //       if (_globalKey.currentState!.validate()) {
-                        //         BlocProvider.of<UserBloc>(context).add(
-                        //           UpdateUserEvent(
-                        //             id: widget.user.id,
-                        //             firstName: _firstNameCtrl.text,
-                        //             lastName: _lastNameCtrl.text,
-                        //             bio: _bioCtrl.text,
-                        //           ),
-                        //         );
-                        //       }
-                        //     },
-                        //     title: 'submit'.localize(context),
-                        //   ),
-                        // )
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: BtnAuth(
+                            onTap: () {
+                              if (_globalKey.currentState!.validate()) {
+                                BlocProvider.of<UserBloc>(context).add(
+                                  UpdateUserEvent(
+                                    id: widget.user.id,
+                                    firstName: _firstNameCtrl.text,
+                                    lastName: _lastNameCtrl.text,
+                                    bio: _bioCtrl.text,
+                                  ),
+                                );
+                              }
+                            },
+                            title: 'submit'.localize(context),
+                          ),
+                        )
                       ],
                     ),
                   ),

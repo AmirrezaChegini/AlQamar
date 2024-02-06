@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:al_qamar/constants/api.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
@@ -70,31 +68,35 @@ class UserRemote implements UserDatasource {
     XFile? avatar,
     required String bio,
   }) async {
-    FormData formData;
+    // FormData formData;
 
-    if (avatar != null) {
-      formData = FormData.fromMap({
-        'first_name': firstName,
-        'last_name': lastName,
-        'avatar': await MultipartFile.fromFile(
-          File(avatar.path).path,
-          filename: avatar.name,
-        ),
-        'bio': bio,
-      });
-    } else {
-      formData = FormData.fromMap({
-        'first_name': firstName,
-        'last_name': lastName,
-        'bio': bio,
-      });
-    }
+    // if (avatar != null) {
+    //   formData = FormData.fromMap({
+    //     'first_name': firstName,
+    //     'last_name': lastName,
+    //     'avatar': await MultipartFile.fromFile(
+    //       File(avatar.path).path,
+    //       filename: avatar.name,
+    //     ),
+    //     'bio': bio,
+    //   });
+    // } else {
+    //   formData = FormData.fromMap({
+    //     'first_name': firstName,
+    //     'last_name': lastName,
+    //     'bio': bio,
+    //   });
+    // }
 
     try {
       Response response = await _dio.put(
         '${Api.profile}/$id',
         options: Options(headers: {'requiredToken': true}),
-        data: formData,
+        queryParameters: {
+          'first_name': firstName,
+          'last_name': lastName,
+          'bio': bio,
+        },
       );
       return response;
     } on DioException catch (e) {

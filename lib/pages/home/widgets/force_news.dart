@@ -30,7 +30,7 @@ class _ForceNewsState extends State<ForceNews> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       setState(() {
         if (index == widget.articleList.length - 1) {
           index = 0;

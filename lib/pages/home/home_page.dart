@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       if (_pageCtrl.page == 2) {
         _pageCtrl.animateToPage(
           0,

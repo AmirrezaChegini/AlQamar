@@ -18,6 +18,7 @@ class MarqueerTitle extends StatelessWidget {
     return Marqueer(
       autoStart: false,
       infinity: false,
+      pps: 20,
       controller: marqueerController,
       direction: CheckDirect.isRTL(context)
           ? MarqueerDirection.rtl

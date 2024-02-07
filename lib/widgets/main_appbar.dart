@@ -1,6 +1,8 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/pages/main_wrapper/main_wrapper_page.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,14 +33,21 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
           .copyWith(fontSize: Fontsize.huge),
       titleSpacing: 10,
       leading: appbarLeading,
-      actions: const [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: AppIcon(
-            icon: AppIcons.logo,
-            height: 40,
-            width: 40,
-            color: AppColors.red,
+      actions: [
+        GestureDetector(
+          onTap: () => Navigator.pushAndRemoveUntil(
+            context,
+            pageRoute(child: const MainWrapperPage()),
+            (route) => false,
+          ),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: AppIcon(
+              icon: AppIcons.logo,
+              height: 40,
+              width: 40,
+              color: AppColors.red,
+            ),
           ),
         ),
       ],

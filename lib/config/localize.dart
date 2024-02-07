@@ -143,6 +143,8 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.logout;
       case 'logoutSuccess':
         return AppLocalizations.of(context)!.logoutSuccess;
+      case 'logoutMessage':
+        return AppLocalizations.of(context)!.logoutMessage;
       case 'remove':
         return AppLocalizations.of(context)!.remove;
       case 'noContent':
@@ -163,6 +165,10 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.openSite;
       case 'privacyPolicy':
         return AppLocalizations.of(context)!.privacyPolicy;
+      case 'yes':
+        return AppLocalizations.of(context)!.yes;
+      case 'cancel':
+        return AppLocalizations.of(context)!.cancel;
       default:
         return '';
     }

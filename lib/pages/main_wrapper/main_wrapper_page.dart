@@ -40,6 +40,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   void initState() {
     super.initState();
     BlocProvider.of<CategoryBloc>(context).add(GetAllCategoryEvent());
+    BlocProvider.of<BottomnavCubit>(context).changeIndex(0);
     BlocProvider.of<CalenderBloc>(context)
         .add(GetCalenderEvent(DateTime.now().getFormatDate()));
 
@@ -97,6 +98,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is CompleteLogoutState) {
+              Navigator.maybePop(context);
               _scaffoldKey.currentState?.closeDrawer();
               showMessage(
                 context: context,

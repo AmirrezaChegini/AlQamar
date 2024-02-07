@@ -1,5 +1,3 @@
-import 'package:al_qamar/bloc/auth/auth_bloc.dart';
-import 'package:al_qamar/bloc/auth/auth_event.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
@@ -12,6 +10,7 @@ import 'package:al_qamar/pages/bookmark/bookmark_page.dart';
 import 'package:al_qamar/pages/live/live_page.dart';
 import 'package:al_qamar/pages/profile/widgets/header_profile.dart';
 import 'package:al_qamar/pages/profile/widgets/item_widget.dart';
+import 'package:al_qamar/pages/profile/widgets/logout_dialog.dart';
 import 'package:al_qamar/pages/profile/widgets/mini_calender.dart';
 import 'package:al_qamar/pages/profile/widgets/privacy_policy.dart';
 import 'package:al_qamar/pages/programs/programs_page.dart';
@@ -173,8 +172,10 @@ class ProfilePage extends StatelessWidget {
                     child: Tooltip(
                       message: 'logout'.localize(context),
                       child: IconBtn(
-                        onTap: () => BlocProvider.of<AuthBloc>(context)
-                            .add(LogoutAuthEvent()),
+                        onTap: () => showAdaptiveDialog(
+                          context: context,
+                          builder: (context) => const LogoutDialog(),
+                        ),
                         padding: 10,
                         child: const AppIcon(
                           icon: AppIcons.logout,

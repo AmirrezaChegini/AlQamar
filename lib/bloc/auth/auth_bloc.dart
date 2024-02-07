@@ -70,13 +70,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutAuthEvent>((event, emit) async {
       emit(LoadingAuthState());
       var either = await _repository.logout();
+
       either.fold((erroMessage) {
         emit(FailAuthState(erroMessage));
       }, (message) {
         Storage.clearAll();
         emit(CompleteLogoutState());
       });
-      Storage.removeKey(key: 'token');
     });
 
     on<CheckEmailEvent>((event, emit) async {

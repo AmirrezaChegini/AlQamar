@@ -1,4 +1,6 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/pages/article/image_page.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -37,8 +39,35 @@ class _ImageViewerState extends State<ImageViewer>
             padding: const EdgeInsets.all(10),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: CacheImage(
-                imageUrl: widget.images.isNotEmpty ? widget.images[index] : '',
+              child: GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  pageRoute(
+                    child: ImagePage(
+                      image: widget.images[index],
+                      index: index,
+                    ),
+                  ),
+                ),
+                child: Hero(
+                  tag: 'post$index',
+                  flightShuttleBuilder: (flightContext, animation,
+                      flightDirection, fromHeroContext, toHeroContext) {
+                    if (flightDirection == HeroFlightDirection.push) {
+                      return toHeroContext.widget;
+                    } else {
+                      return FadeTransition(
+                        opacity:
+                            Tween<double>(begin: 1, end: 1).animate(animation),
+                        child: fromHeroContext.widget,
+                      );
+                    }
+                  },
+                  child: CacheImage(
+                    imageUrl:
+                        widget.images.isNotEmpty ? widget.images[index] : '',
+                  ),
+                ),
               ),
             ),
           ),

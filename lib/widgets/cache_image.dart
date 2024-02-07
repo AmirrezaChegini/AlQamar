@@ -8,11 +8,13 @@ class CacheImage extends StatelessWidget {
     required this.imageUrl,
     this.height,
     this.width,
+    this.fit = BoxFit.cover,
   });
 
   final String imageUrl;
   final double? height;
   final double? width;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class CacheImage extends StatelessWidget {
         AppImages.error,
         fit: BoxFit.cover,
       ),
-      fit: BoxFit.cover,
+      fit: fit,
     );
   }
 }

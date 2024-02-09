@@ -44,29 +44,14 @@ class _ImageViewerState extends State<ImageViewer>
                   context,
                   pageRoute(
                     child: ImagePage(
-                      image: widget.images[index],
+                      images: widget.images,
                       index: index,
                     ),
                   ),
                 ),
-                child: Hero(
-                  tag: 'post$index',
-                  flightShuttleBuilder: (flightContext, animation,
-                      flightDirection, fromHeroContext, toHeroContext) {
-                    if (flightDirection == HeroFlightDirection.push) {
-                      return toHeroContext.widget;
-                    } else {
-                      return FadeTransition(
-                        opacity:
-                            Tween<double>(begin: 1, end: 1).animate(animation),
-                        child: fromHeroContext.widget,
-                      );
-                    }
-                  },
-                  child: CacheImage(
-                    imageUrl:
-                        widget.images.isNotEmpty ? widget.images[index] : '',
-                  ),
+                child: CacheImage(
+                  imageUrl:
+                      widget.images.isNotEmpty ? widget.images[index] : '',
                 ),
               ),
             ),

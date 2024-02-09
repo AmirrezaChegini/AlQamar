@@ -74,136 +74,129 @@ class _CalenderDataPageState extends State<CalenderDataPage>
         tabController: _tabCtrl,
         calender: widget.calender,
       ),
-      body: NestedScrollView(
-        headerSliverBuilder: (context, value) => [
-          SliverAppBar.large(
-            backgroundColor: AppColors.transparent,
-            elevation: 0,
-            floating: true,
-            pinned: false,
-            automaticallyImplyLeading: false,
-            expandedHeight: MediaQuery.sizeOf(context).height / 3,
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.all(0),
-              expandedTitleScale: 1,
-              background: Container(
-                margin: const EdgeInsets.only(bottom: 50),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      AppColors.grey600,
-                      AppColors.grey200,
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: SizedBox(
+              width: double.infinity,
+              height: MediaQuery.sizeOf(context).height < 800
+                  ? MediaQuery.sizeOf(context).height / 2.2
+                  : MediaQuery.sizeOf(context).height / 3,
+              child: Stack(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 50),
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          AppColors.grey600,
+                          AppColors.grey200,
+                        ],
+                      ),
+                    ),
+                  ),
+                  TabBarView(
+                    controller: _tabCtrl,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      ImageViewer(images: widget.calender.images),
+                      VideoArticlePlayer(
+                        video: widget.calender.videos.isNotEmpty
+                            ? widget.calender.videos
+                            : [],
+                      ),
+                      const YoutubeArticlePlayer(youtubeID: ''),
+                      AudioArticlePlayer(
+                        audios: widget.calender.audios,
+                        date: widget.calender.updateAt,
+                        image: widget.calender.images.isNotEmpty
+                            ? widget.calender.images[0]
+                            : AppImages.error,
+                        writer: '',
+                      ),
+                      PdfArticleViewer(pdfList: widget.calender.pdfs),
                     ],
                   ),
-                ),
+                ],
               ),
-              title: SizedBox(
-                width: double.infinity,
-                height: MediaQuery.sizeOf(context).height / 2.9,
-                child: TabBarView(
-                  controller: _tabCtrl,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    ImageViewer(images: widget.calender.images),
-                    VideoArticlePlayer(
-                      video: widget.calender.videos,
-                    ),
-                    const YoutubeArticlePlayer(youtubeID: ''),
-                    AudioArticlePlayer(
-                      audios: widget.calender.audios,
-                      date: widget.calender.updateAt,
-                      image: widget.calender.images.isNotEmpty
-                          ? widget.calender.images[0]
-                          : AppImages.error,
-                      writer: '',
-                    ),
-                    PdfArticleViewer(pdfList: widget.calender.pdfs),
+            ),
+          ),
+          BlocBuilder<ArticleCubit, int>(
+            builder: (context, state) {
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: state == 3
+                      ? widget.calender.audios.length
+                      : state == 4
+                          ? widget.calender.pdfs.length
+                          : 0,
+                  (context, index) => Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: state == 3
+                        ? BlocProvider(
+                            create: (context) =>
+                                locator.get<DownloadAudioBloc>(),
+                            child: AudioWidget(
+                              index: index,
+                              audio: widget.calender.audios[index],
+                              image: widget.calender.images.isNotEmpty
+                                  ? widget.calender.images[0]
+                                  : '',
+                            ),
+                          )
+                        : state == 4
+                            ? BlocProvider(
+                                create: (context) =>
+                                    locator.get<DownloadPdfBloc>(),
+                                child: PdfItemWidget(
+                                  index: index,
+                                  url: widget.calender.pdfs[index],
+                                ),
+                              )
+                            : const SizedBox(),
+                  ),
+                ),
+              );
+            },
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  bottomLeft: Radius.circular(60),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    AppColors.red.withOpacity(0.4),
+                    AppColors.grey200,
                   ],
                 ),
               ),
+              child: Text(
+                widget.calender.title,
+                maxLines: 3,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(fontSize: Fontsize.large),
+              ),
             ),
-          )
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(10),
+            sliver: HtmlViewer(
+              content: widget.calender.content,
+              renderMode: RenderMode.sliverList,
+            ),
+          ),
         ],
-        body: CustomScrollView(
-          slivers: [
-            BlocBuilder<ArticleCubit, int>(
-              builder: (context, state) {
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: state == 3
-                        ? widget.calender.audios.length
-                        : state == 4
-                            ? widget.calender.pdfs.length
-                            : 0,
-                    (context, index) => Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: state == 3
-                          ? BlocProvider(
-                              create: (context) =>
-                                  locator.get<DownloadAudioBloc>(),
-                              child: AudioWidget(
-                                index: index,
-                                audio: widget.calender.audios[index],
-                                image: widget.calender.images.isNotEmpty
-                                    ? widget.calender.images[0]
-                                    : '',
-                              ),
-                            )
-                          : state == 4
-                              ? BlocProvider(
-                                  create: (context) =>
-                                      locator.get<DownloadPdfBloc>(),
-                                  child: PdfItemWidget(
-                                    index: index,
-                                    url: widget.calender.pdfs[index],
-                                  ),
-                                )
-                              : const SizedBox(),
-                    ),
-                  ),
-                );
-              },
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(60),
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      AppColors.red.withOpacity(0.4),
-                      AppColors.grey200,
-                    ],
-                  ),
-                ),
-                child: Text(
-                  widget.calender.title,
-                  maxLines: 3,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineLarge!
-                      .copyWith(fontSize: Fontsize.large),
-                ),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.all(10),
-              sliver: HtmlViewer(
-                content: widget.calender.content,
-                renderMode: RenderMode.sliverList,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

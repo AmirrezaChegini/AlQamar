@@ -36,7 +36,6 @@ class _PdfFullscreenPageState extends State<PdfFullscreenPage> {
   void dispose() {
     _pdfCtrl.dispose();
     _searchResult.dispose();
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
@@ -46,99 +45,105 @@ class _PdfFullscreenPageState extends State<PdfFullscreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.transparent,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        automaticallyImplyLeading: false,
-        leading: const Icon(
-          Icons.search,
-          color: AppColors.black,
-        ),
-        actions: [
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              '${_searchResult.totalInstanceCount}'.toArabic(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: Fontsize.huge),
-            ),
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.transparent,
+        appBar: AppBar(
+          backgroundColor: AppColors.white,
+          automaticallyImplyLeading: false,
+          leading: const Icon(
+            Icons.search,
+            color: AppColors.black,
           ),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              '/',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: Fontsize.huge),
+          actions: [
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                '${_searchResult.totalInstanceCount}'.toArabic(),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontSize: Fontsize.huge),
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              '${_searchResult.currentInstanceIndex}'.toArabic(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontSize: Fontsize.huge),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                '/',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontSize: Fontsize.huge),
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () => _searchResult.nextInstance(),
-            icon: const Icon(
-              Icons.keyboard_arrow_down_rounded,
-              color: AppColors.black,
-              size: 30,
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                '${_searchResult.currentInstanceIndex}'.toArabic(),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontSize: Fontsize.huge),
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () => _searchResult.previousInstance(),
-            icon: const Icon(
-              Icons.keyboard_arrow_up_rounded,
-              color: AppColors.black,
-              size: 30,
+            IconButton(
+              onPressed: () => _searchResult.nextInstance(),
+              icon: const Icon(
+                Icons.keyboard_arrow_down_rounded,
+                color: AppColors.black,
+                size: 30,
+              ),
             ),
-          ),
-        ],
-        title: TextField(
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontSize: Fontsize.huge),
-          onChanged: (value) {
-            if (value.isEmpty) {
-              _searchResult.clear();
-            }
-          },
-          onSubmitted: (value) {
-            if (value.isNotEmpty) {
-              _searchResult = _pdfCtrl.searchText(value);
-              _searchResult.addListener(() {
-                if (_searchResult.hasResult) {
-                  setState(() {});
-                }
-              });
-            }
-          },
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: 'بحث في النص',
-            hintStyle: Theme.of(context)
+            IconButton(
+              onPressed: () => _searchResult.previousInstance(),
+              icon: const Icon(
+                Icons.keyboard_arrow_up_rounded,
+                color: AppColors.black,
+                size: 30,
+              ),
+            ),
+          ],
+          title: TextField(
+            style: Theme.of(context)
                 .textTheme
-                .titleMedium!
-                .copyWith(fontSize: Fontsize.large),
+                .bodyMedium!
+                .copyWith(fontSize: Fontsize.huge),
+            onChanged: (value) {
+              if (value.isEmpty) {
+                _searchResult.clear();
+              }
+            },
+            onSubmitted: (value) {
+              if (value.isNotEmpty) {
+                _searchResult = _pdfCtrl.searchText(value);
+                _searchResult.addListener(() {
+                  if (_searchResult.hasResult) {
+                    setState(() {});
+                  }
+                });
+              }
+            },
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: 'بحث في النص',
+              hintStyle: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(fontSize: Fontsize.large),
+            ),
           ),
         ),
-      ),
-      body: SfPdfViewer.network(
-        widget.pdf,
-        controller: _pdfCtrl,
-        pageSpacing: 0,
-        canShowPageLoadingIndicator: false,
-        pageLayoutMode: PdfPageLayoutMode.continuous,
+        body: SfPdfViewer.network(
+          widget.pdf,
+          controller: _pdfCtrl,
+          pageSpacing: 0,
+          canShowPageLoadingIndicator: false,
+          pageLayoutMode: PdfPageLayoutMode.continuous,
+        ),
       ),
     );
   }

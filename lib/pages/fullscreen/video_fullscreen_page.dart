@@ -54,7 +54,6 @@ class _VideoFullscrreenPageState extends State<VideoFullscrreenPage> {
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
@@ -65,116 +64,124 @@ class _VideoFullscrreenPageState extends State<VideoFullscrreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          setState(() {
-            showControler = !showControler;
-          });
-        },
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: widget.videoCtrl.value.size.width,
-                    minWidth: widget.videoCtrl.value.size.width,
-                    maxHeight: widget.videoCtrl.value.size.height,
-                    minHeight: widget.videoCtrl.value.size.height,
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: widget.videoCtrl.value.aspectRatio,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: VideoPlayer(widget.videoCtrl),
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      },
+      child: Scaffold(
+        body: GestureDetector(
+          onTap: () {
+            setState(() {
+              showControler = !showControler;
+            });
+          },
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: widget.videoCtrl.value.size.width,
+                      minWidth: widget.videoCtrl.value.size.width,
+                      maxHeight: widget.videoCtrl.value.size.height,
+                      minHeight: widget.videoCtrl.value.size.height,
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: widget.videoCtrl.value.aspectRatio,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: VideoPlayer(widget.videoCtrl),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Directionality(
-              textDirection: TextDirection.ltr,
-              child: FadeInAnim(
-                state: showControler,
-                child: Container(
-                  height: 300,
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                    color: AppColors.black.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 5),
-                      IconBtn(
-                        onTap: () {
-                          if (isPlaying) {
-                            widget.videoCtrl.pause();
-                          } else {
-                            setState(() {
-                              showControler = false;
-                              widget.videoCtrl.play();
-                            });
-                          }
-                        },
-                        child: IconAnimated(
-                          icon: AnimatedIcons.play_pause,
-                          state: isPlaying,
-                          color: AppColors.white,
-                          size: 26,
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: FadeInAnim(
+                  state: showControler,
+                  child: Container(
+                    height: 300,
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(
+                      color: AppColors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 5),
+                        IconBtn(
+                          onTap: () {
+                            if (isPlaying) {
+                              widget.videoCtrl.pause();
+                            } else {
+                              setState(() {
+                                showControler = false;
+                                widget.videoCtrl.play();
+                              });
+                            }
+                          },
+                          child: IconAnimated(
+                            icon: AnimatedIcons.play_pause,
+                            state: isPlaying,
+                            color: AppColors.white,
+                            size: 26,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 60,
-                          child: Slider(
-                            value: position,
-                            min: 0,
-                            max: duration,
-                            onChanged: (value) {
-                              widget.videoCtrl.seekTo(
-                                  Duration(milliseconds: value.toInt()));
-                            },
-                            inactiveColor: AppColors.grey200,
-                            thumbColor: AppColors.white,
-                            overlayColor: MaterialStatePropertyAll(
-                              AppColors.white.withOpacity(0.1),
+                        Expanded(
+                          child: SizedBox(
+                            height: 60,
+                            child: Slider(
+                              value: position,
+                              min: 0,
+                              max: duration,
+                              onChanged: (value) {
+                                widget.videoCtrl.seekTo(
+                                    Duration(milliseconds: value.toInt()));
+                              },
+                              inactiveColor: AppColors.grey200,
+                              thumbColor: AppColors.white,
+                              overlayColor: MaterialStatePropertyAll(
+                                AppColors.white.withOpacity(0.1),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      IconBtn(
-                        onTap: () => Navigator.pop(context),
-                        child: const Icon(
-                          Icons.fullscreen_exit_rounded,
-                          color: AppColors.white,
-                          size: 30,
+                        IconBtn(
+                          onTap: () => SystemChrome.setPreferredOrientations(
+                                  [DeviceOrientation.portraitUp])
+                              .then((value) => Navigator.pop(context)),
+                          child: const Icon(
+                            Icons.fullscreen_exit_rounded,
+                            color: AppColors.white,
+                            size: 30,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 5),
-                      IconBtn(
-                        onTap: () => volume == 0
-                            ? widget.videoCtrl.setVolume(1)
-                            : widget.videoCtrl.setVolume(0),
-                        child: Icon(
-                          volume == 0
-                              ? Icons.volume_off_rounded
-                              : Icons.volume_up_rounded,
-                          color: AppColors.white,
-                          size: 24,
+                        const SizedBox(width: 5),
+                        IconBtn(
+                          onTap: () => volume == 0
+                              ? widget.videoCtrl.setVolume(1)
+                              : widget.videoCtrl.setVolume(0),
+                          child: Icon(
+                            volume == 0
+                                ? Icons.volume_off_rounded
+                                : Icons.volume_up_rounded,
+                            color: AppColors.white,
+                            size: 24,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 5),
-                    ],
+                        const SizedBox(width: 5),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

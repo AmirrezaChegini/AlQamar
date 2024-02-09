@@ -14,7 +14,6 @@ class YoutubeArticlePlayer extends StatefulWidget {
 }
 
 class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer> {
-  // late final YoutubePlayerController _playerCtrl;
   late final PodPlayerController _controller;
 
   @override
@@ -23,14 +22,10 @@ class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer> {
     _controller = PodPlayerController(
       playVideoFrom: PlayVideoFrom.youtube(widget.youtubeID),
     )..initialise();
-    // _playerCtrl = YoutubePlayerController(
-    //   params: const YoutubePlayerParams(),
-    // )..loadVideo(widget.youtubeID);
   }
 
   @override
   void dispose() {
-    // _playerCtrl.close();
     _controller.dispose();
     super.dispose();
   }

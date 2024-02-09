@@ -23,7 +23,7 @@ class WeekCalender extends StatelessWidget {
       currentDay: DateTime.now(),
       headerVisible: false,
       daysOfWeekHeight: 30,
-      weekendDays: const [DateTime.friday, DateTime.saturday],
+      weekendDays: const [DateTime.friday],
       calendarBuilders: CalendarBuilders(
         outsideBuilder: (context, day, focusedDay) => Container(
           alignment: Alignment.center,
@@ -31,8 +31,7 @@ class WeekCalender extends StatelessWidget {
             '${CheckDirect.isRTL(context) ? day.getHijriDate() : day.day}'
                 .toArabic(),
             style: TextStyle(
-              color: day.weekday == DateTime.friday ||
-                      day.weekday == DateTime.saturday
+              color: day.weekday == DateTime.friday
                   ? AppColors.red
                   : AppColors.grey,
               fontSize: Fontsize.large,
@@ -46,8 +45,7 @@ class WeekCalender extends StatelessWidget {
                 .toArabic(),
             style: TextStyle(
               fontSize: Fontsize.large,
-              color: day.weekday == DateTime.friday ||
-                      day.weekday == DateTime.saturday
+              color: day.weekday == DateTime.friday
                   ? AppColors.red
                   : AppColors.grey,
             ),

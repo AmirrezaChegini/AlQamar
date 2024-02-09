@@ -44,6 +44,7 @@ dependencies:
   permission_handler: ^11.1.0
   url_launcher: ^6.2.2
   pod_player: ^0.2.1
+  syncfusion_flutter_datepicker: ^23.2.7
 
 dev_dependencies:
   flutter_test:

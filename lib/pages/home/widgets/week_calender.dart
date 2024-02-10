@@ -62,8 +62,7 @@ class WeekCalender extends StatelessWidget {
             '${CheckDirect.isRTL(context) ? focusedDay.getHijriDate() : focusedDay.day}'
                 .toArabic(),
             style: TextStyle(
-              color: day.weekday == DateTime.friday ||
-                      day.weekday == DateTime.saturday
+              color: day.weekday == DateTime.friday
                   ? AppColors.red
                   : AppColors.blue,
               fontSize: Fontsize.large,

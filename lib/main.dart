@@ -8,7 +8,6 @@ import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
-import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/config/theme.dart';
@@ -71,7 +70,6 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<CalenderCubit>()),
         BlocProvider(create: (context) => locator.get<HideFabeCubit>()),
         BlocProvider(create: (context) => locator.get<AzanBloc>()),
-        BlocProvider(create: (context) => locator.get<SalavatBloc>()),
         BlocProvider(create: (context) => locator.get<AuthBloc>()),
         BlocProvider(create: (context) => locator.get<UserBloc>()),
         BlocProvider(create: (context) => locator.get<HomeBloc>()),
@@ -98,11 +96,6 @@ class MainApp extends StatelessWidget {
             Locale('en'),
             Locale('ar'),
           ],
-          // locale: state == 'ar'
-          //     ? const Locale('ar')
-          //     : state == 'en'
-          //         ? const Locale('en')
-          //         : null,
           locale: const Locale('ar'),
           home: const SplashPage(),
         ),

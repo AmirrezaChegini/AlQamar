@@ -105,8 +105,9 @@ class _MonthlyCalenderState extends State<MonthlyCalender> {
                       .changeDatetime(_hijriCtrl.displayDate!.toDateTime());
                 },
                 onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
-                  BlocProvider.of<CalenderBloc>(context).add(GetCalenderEvent(
-                      _hijriCtrl.selectedDate!.toDateTime().getFormatDate()));
+                  BlocProvider.of<CalenderBloc>(context)
+                      .add(GetCalenderEvent('${_hijriCtrl.selectedDate}'));
+                  // print(_hijriCtrl.selectedDate);
                 },
                 selectionColor: AppColors.transparent,
                 cellBuilder: (context, cellDetails) {

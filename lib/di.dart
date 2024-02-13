@@ -9,7 +9,6 @@ import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
-import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/constants/api.dart';
@@ -33,7 +32,6 @@ import 'package:al_qamar/data/datasources/calender_datasource.dart';
 import 'package:al_qamar/data/datasources/category_datasource.dart';
 import 'package:al_qamar/data/datasources/favorite_datasource.dart';
 import 'package:al_qamar/data/datasources/live_datasource.dart';
-import 'package:al_qamar/data/datasources/salavat_datasource.dart';
 import 'package:al_qamar/data/datasources/user_datasource.dart';
 import 'package:al_qamar/data/repositories/article_repository.dart';
 import 'package:al_qamar/data/repositories/auth_repository.dart';
@@ -43,7 +41,6 @@ import 'package:al_qamar/data/repositories/calender_repositoy.dart';
 import 'package:al_qamar/data/repositories/category_repository.dart';
 import 'package:al_qamar/data/repositories/favorite_repository.dart';
 import 'package:al_qamar/data/repositories/live_repository.dart';
-import 'package:al_qamar/data/repositories/salavat_repository.dart';
 import 'package:al_qamar/data/repositories/user_repository.dart';
 import 'package:al_qamar/service/download_service.dart';
 import 'package:al_qamar/utils/download_path.dart';
@@ -81,7 +78,6 @@ Future<void> initLocator() async {
   //datasources
   locator
       .registerLazySingleton<AzanDatasource>(() => AzanRemote(locator.get()));
-  locator.registerLazySingleton<SalavatDatasource>(() => SalavatLocal());
   locator
       .registerLazySingleton<AuthDatasource>(() => AuthRemote(locator.get()));
   locator
@@ -100,8 +96,6 @@ Future<void> initLocator() async {
   //repositories
   locator.registerLazySingleton<IAzanRepository>(
       () => AzanRepositoryImpl(locator.get()));
-  locator.registerLazySingleton<ISalavatRepository>(
-      () => SalavatRepositoryImpl(locator.get()));
   locator.registerLazySingleton<IAuthRepository>(
       () => AuthRepositoryImpl(locator.get()));
   locator.registerLazySingleton<IUserRepository>(
@@ -136,7 +130,6 @@ Future<void> initLocator() async {
 
   //bloc
   locator.registerLazySingleton<AzanBloc>(() => AzanBloc(locator.get()));
-  locator.registerLazySingleton<SalavatBloc>(() => SalavatBloc(locator.get()));
   locator.registerLazySingleton<AuthBloc>(() => AuthBloc(locator.get()));
   locator.registerLazySingleton<UserBloc>(() => UserBloc(locator.get()));
   locator.registerLazySingleton<HomeBloc>(() => HomeBloc(locator.get()));

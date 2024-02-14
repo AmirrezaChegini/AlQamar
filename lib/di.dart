@@ -59,7 +59,7 @@ Future<void> initLocator() async {
     () => Dio(
       BaseOptions(
         baseUrl: '${Api.baseUrl}/api/v1',
-        connectTimeout: const Duration(seconds: 20),
+        connectTimeout: const Duration(seconds: 8),
       ),
     )..interceptors.add(AppInterceptors()),
   );

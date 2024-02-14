@@ -1,6 +1,5 @@
 import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
@@ -160,34 +159,6 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                 ),
               );
             },
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-              margin: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  bottomLeft: Radius.circular(60),
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    AppColors.red.withOpacity(0.4),
-                    AppColors.grey200,
-                  ],
-                ),
-              ),
-              child: Text(
-                widget.calender.title,
-                maxLines: 3,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge!
-                    .copyWith(fontSize: Fontsize.large),
-              ),
-            ),
           ),
           SliverPadding(
             padding: const EdgeInsets.all(10),

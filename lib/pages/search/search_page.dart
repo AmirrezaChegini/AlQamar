@@ -55,7 +55,7 @@ class _SearchPageState extends State<SearchPage> {
         },
         builder: (context, state) => Column(
           children: [
-            const SizedBox(height: 15),
+            const SizedBox(height: 34),
             TextfielfSearch(edtCtrl: _edtCtrl),
             const SizedBox(height: 10),
             Row(

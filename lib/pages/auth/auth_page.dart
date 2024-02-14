@@ -56,8 +56,8 @@ class _AuthPageState extends State<AuthPage>
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10)
-            .copyWith(top: 40),
+        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10)
+            .copyWith(top: 54),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(15),

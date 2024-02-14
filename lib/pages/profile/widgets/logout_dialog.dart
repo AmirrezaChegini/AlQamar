@@ -22,8 +22,7 @@ class LogoutDialog extends StatelessWidget {
         TextButton(
           onPressed: () => Navigator.pop(context),
           style: TextButton.styleFrom(
-            backgroundColor: AppColors.white,
-            foregroundColor: AppColors.blue,
+            foregroundColor: AppColors.red,
             textStyle: Theme.of(context).textTheme.bodyLarge,
           ),
           child: Text('cancel'.localize(context)),
@@ -33,8 +32,7 @@ class LogoutDialog extends StatelessWidget {
             BlocProvider.of<AuthBloc>(context).add(LogoutAuthEvent());
           },
           style: TextButton.styleFrom(
-            backgroundColor: AppColors.blue,
-            foregroundColor: AppColors.white,
+            foregroundColor: AppColors.blue,
             textStyle: Theme.of(context).textTheme.bodyLarge,
           ),
           child: Text('yes'.localize(context)),

@@ -5,11 +5,11 @@ class UrlLauncher {
   UrlLauncher._();
 
   static Future<void> launch(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
+    try {
       await launchUrl(Uri.parse(url));
-    } else {
+    } catch (e) {
       if (kDebugMode) {
-        print('can not launch $url');
+        print(e);
       }
     }
   }

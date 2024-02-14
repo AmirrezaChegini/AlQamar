@@ -5,7 +5,7 @@ class UrlLauncher {
   UrlLauncher._();
 
   static Future<void> launch(String url) async {
-    if (!await canLaunchUrl(Uri.parse(url))) {
+    if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
       if (kDebugMode) {

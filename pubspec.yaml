@@ -37,7 +37,6 @@ dependencies:
   rxdart: ^0.27.7
   flutter_svg: ^2.0.9
   marqueer: ^1.4.3
-  image_picker: ^1.0.4
   grouped_list: ^5.1.2
   fluttertoast: ^8.2.4
   path_provider: ^2.1.1

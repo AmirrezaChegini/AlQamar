@@ -48,7 +48,6 @@ import 'package:al_qamar/utils/error_handling/app_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:just_audio/just_audio.dart';
 
 var locator = GetIt.I;
@@ -70,7 +69,6 @@ Future<void> initLocator() async {
             IOSOptions(accessibility: KeychainAccessibility.first_unlock)),
   );
   locator.registerLazySingleton<AudioPlayer>(() => AudioPlayer());
-  locator.registerLazySingleton<ImagePicker>(() => ImagePicker());
   locator.registerLazySingleton<DownloadPath>(() => DownloadPath());
   locator.registerFactory<DownloadService>(
       () => DownloadService(locator.get(), locator.get()));

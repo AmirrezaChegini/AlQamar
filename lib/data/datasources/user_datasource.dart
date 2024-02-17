@@ -2,7 +2,6 @@ import 'package:al_qamar/constants/api.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
 import 'package:dio/dio.dart';
-import 'package:image_picker/image_picker.dart';
 
 abstract class UserDatasource {
   Future<Response> createUser({
@@ -14,7 +13,6 @@ abstract class UserDatasource {
     required int id,
     required String firstName,
     required String lastName,
-    XFile? avatar,
     required String bio,
   });
 }
@@ -65,7 +63,6 @@ class UserRemote implements UserDatasource {
     required int id,
     required String firstName,
     required String lastName,
-    XFile? avatar,
     required String bio,
   }) async {
     // FormData formData;

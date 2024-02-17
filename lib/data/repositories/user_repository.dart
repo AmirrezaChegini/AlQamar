@@ -4,7 +4,6 @@ import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:image_picker/image_picker.dart';
 
 abstract class IUserRepository {
   Future<Either<String, String>> createUser(
@@ -14,7 +13,6 @@ abstract class IUserRepository {
     required int id,
     required String firstName,
     required String lastName,
-    XFile? avatar,
     required String bio,
   });
 }
@@ -50,7 +48,6 @@ class UserRepositoryImpl implements IUserRepository {
     required int id,
     required String firstName,
     required String lastName,
-    XFile? avatar,
     required String bio,
   }) async {
     try {
@@ -58,7 +55,6 @@ class UserRepositoryImpl implements IUserRepository {
         id: id,
         firstName: firstName,
         lastName: lastName,
-        avatar: avatar,
         bio: bio,
       );
 

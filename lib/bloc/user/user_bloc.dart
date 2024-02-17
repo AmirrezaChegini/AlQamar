@@ -34,7 +34,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         id: event.id,
         firstName: event.firstName,
         lastName: event.lastName,
-        avatar: event.avatar,
         bio: event.bio,
       );
 

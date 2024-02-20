@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/live/live_event.dart';
 import 'package:al_qamar/bloc/live/live_state.dart';
 import 'package:al_qamar/data/repositories/live_repository.dart';
 import 'package:al_qamar/models/live.dart';
+import 'package:al_qamar/utils/api_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LiveBloc extends Bloc<LiveEvent, LiveState> {
@@ -14,20 +15,18 @@ class LiveBloc extends Bloc<LiveEvent, LiveState> {
       List<Live> videoList = [];
       String errorMessage = '';
 
-      var videoEither = await _repository.getVideo();
-      var audioEither = await _repository.getAudio();
+      ApiModel<List<Live>, String> videoEither = await _repository.getVideo();
+      ApiModel<List<Live>, String> audioEither = await _repository.getAudio();
 
-      videoEither.fold((l) {
-        errorMessage = l;
-      }, (r) {
-        videoList = r;
-      });
+      videoEither.fold(
+        (data) => videoList = data,
+        (error) => errorMessage = error,
+      );
 
-      audioEither.fold((l) {
-        errorMessage = l;
-      }, (r) {
-        audioList = r;
-      });
+      audioEither.fold(
+        (data) => audioList = data,
+        (error) => errorMessage = error,
+      );
 
       if (videoList.isNotEmpty || audioList.isNotEmpty) {
         emit(CompleteLiveState(audioList, videoList));

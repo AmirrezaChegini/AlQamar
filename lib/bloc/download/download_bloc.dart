@@ -17,12 +17,8 @@ class DownloadAudioBloc extends Bloc<DownloadAudioEvent, DownloadAudioState> {
       _downloadService.download(url: event.url, fileName: event.fileName);
 
       await emit
-          .forEach(
-            _downloadService.downloadStream,
-            onData: (progress) {
-              return DownloadingAudioState(progress);
-            },
-          )
+          .forEach(_downloadService.downloadStream,
+              onData: (progress) => DownloadingAudioState(progress))
           .onError((error, stackTrace) => emit(FailDownloadAudioState()))
           .whenComplete(() => emit(CompleteDownloadAudioState()));
     });
@@ -51,12 +47,8 @@ class DownloadPdfBloc extends Bloc<DownloadPdfEvent, DownloadPdfState> {
       _downloadService.download(url: event.url, fileName: event.fileName);
 
       await emit
-          .forEach(
-            _downloadService.downloadStream,
-            onData: (progress) {
-              return DownloadingPdfState(progress);
-            },
-          )
+          .forEach(_downloadService.downloadStream,
+              onData: (progress) => DownloadingPdfState(progress))
           .onError((error, stackTrace) => emit(FailDownloadPdfState()))
           .whenComplete(() => emit(CompleteDownloadPdfState()));
     });

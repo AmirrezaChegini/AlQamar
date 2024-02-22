@@ -47,11 +47,6 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
           if (_videoCtrl.value.isCompleted) {
             showControler = true;
           }
-          if (_videoCtrl.value.isPlaying && showControler) {
-            Future.delayed(const Duration(seconds: 2), () {
-              showControler = false;
-            });
-          }
         });
       });
   }
@@ -126,9 +121,16 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
                             children: [
                               const SizedBox(width: 5),
                               IconBtn(
-                                onTap: () => isPlaying
-                                    ? _videoCtrl.pause()
-                                    : _videoCtrl.play(),
+                                onTap: () {
+                                  if (isPlaying) {
+                                    _videoCtrl.pause();
+                                  } else {
+                                    setState(() {
+                                      showControler = false;
+                                      _videoCtrl.play();
+                                    });
+                                  }
+                                },
                                 child: IconAnimated(
                                   icon: AnimatedIcons.play_pause,
                                   state: isPlaying,
@@ -160,7 +162,8 @@ class _VideoArticlePlayerState extends State<VideoArticlePlayer>
                                   context,
                                   pageRoute(
                                     child: VideoFullscrreenPage(
-                                        videoCtrl: _videoCtrl),
+                                      videoCtrl: _videoCtrl,
+                                    ),
                                   ),
                                 ),
                                 child: const Icon(

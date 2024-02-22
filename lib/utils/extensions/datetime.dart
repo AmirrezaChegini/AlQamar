@@ -32,34 +32,16 @@ extension DatatimeExt on DateTime {
     return hijriMonth[month];
   }
 
-  String getNextHijriMonth() {
-    int month = HijriCalendar.fromDate(this).hMonth + 1;
-
-    const List<String> hijriMonth = [
-      '',
-      'محرم',
-      'صفر',
-      'ربیع الاول',
-      'ربیع الثانی',
-      'جمادی الاول',
-      'جمادی الثانیه',
-      'رجب',
-      'شعبان',
-      'رمضان',
-      'شوال',
-      'ذیقعده ',
-      'ذیحجه',
-    ];
-
-    return month == 13 ? hijriMonth[1] : hijriMonth[month];
-  }
-
   String getFormatDate() {
     return DateFormat('MM/dd/yyyy').format(this);
   }
 
   String getGeregorianMonth() {
     return DateFormat('MMMM').format(this);
+  }
+
+  String getNextGeregorianMonth() {
+    return DateFormat('MMMM').format(add(const Duration(days: 31)));
   }
 
   String getGregorianDay() {

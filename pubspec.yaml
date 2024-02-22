@@ -1,14 +1,13 @@
 name: al_qamar
-description: A new Flutter project.
+description: An arabic news app.
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
   bloc: ^8.1.2
-  dartz: ^0.10.1
   dio: ^5.3.2
   flutter:
     sdk: flutter
@@ -22,7 +21,6 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   table_calendar: ^3.0.9
-  syncfusion_flutter_datepicker: ^23.1.36
   smooth_page_indicator: ^1.1.0
   just_audio: ^0.9.35
   video_player: ^2.7.2
@@ -37,14 +35,13 @@ dependencies:
   share_plus: ^7.2.1
   rxdart: ^0.27.7
   flutter_svg: ^2.0.9
-  youtube_player_iframe: ^4.0.4
   marqueer: ^1.4.3
-  image_picker: ^1.0.4
   grouped_list: ^5.1.2
-  fluttertoast: ^8.2.4
   path_provider: ^2.1.1
   permission_handler: ^11.1.0
   url_launcher: ^6.2.2
+  pod_player: ^0.2.1
+  syncfusion_flutter_datepicker: ^23.2.7
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +60,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/video/
+    - assets/docs/
 
   fonts:
     - family: majalla

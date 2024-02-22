@@ -8,12 +8,14 @@ import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/cubit/bottomnav_cubit.dart';
+import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
 import 'package:al_qamar/pages/home/widgets/force_news.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
+import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
 import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/error_state.dart';
@@ -41,7 +43,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    changeArticlesAuto();
+  }
+
+  void changeArticlesAuto() {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       if (_pageCtrl.page == 2) {
         _pageCtrl.animateToPage(
           0,
@@ -96,8 +102,21 @@ class _HomePageState extends State<HomePage> {
                     controller: _pageCtrl,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.all(10).copyWith(top: 0),
-                      child:
-                          PageViewItem(article: state.lastArticleList[index]),
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          pageRoute(
+                            child: ArticlePage(
+                              article: state.lastArticleList[index],
+                            ),
+                          ),
+                        ),
+                        onLongPressStart: (details) => _timer?.cancel(),
+                        onLongPressEnd: (details) => changeArticlesAuto(),
+                        child: PageViewItem(
+                          article: state.lastArticleList[index],
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -146,10 +165,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     TxtBtn(
-                      onTap: () {
-                        widget.tabController.animateTo(1);
-                        BlocProvider.of<BottomnavCubit>(context).changeIndex(1);
-                      },
+                      onTap: () => Navigator.push(
+                        context,
+                        pageRoute(child: const NewsPage()),
+                      ),
                       title: 'readMore'.localize(context),
                       icon: AppIcons.leftArrow,
                       textDecoration: CheckDirect.isRTL(context)

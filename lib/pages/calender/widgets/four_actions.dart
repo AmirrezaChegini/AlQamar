@@ -103,6 +103,18 @@ class FourActions extends StatelessWidget {
                     return const LoadingState();
                   }
 
+                  if (state is FailCalenderState) {
+                    return Center(
+                      child: Text(
+                        state.errorMessage.localize(context),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(fontSize: Fontsize.big),
+                      ),
+                    );
+                  }
+
                   if (state is EmptyCalenderState) {
                     return Center(
                       child: Text(

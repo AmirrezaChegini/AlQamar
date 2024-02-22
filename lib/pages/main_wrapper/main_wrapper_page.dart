@@ -2,8 +2,8 @@ import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
-import 'package:al_qamar/bloc/news/news_bloc.dart';
-import 'package:al_qamar/bloc/news/news_event.dart';
+import 'package:al_qamar/bloc/category/category_bloc.dart';
+import 'package:al_qamar/bloc/category/category_event.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
@@ -11,17 +11,18 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
+import 'package:al_qamar/pages/category/category_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
-import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
-import 'package:al_qamar/utils/extensions/datetime.dart';
+import 'package:al_qamar/utils/extensions/hijri_calender.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/appbar_leading.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hijri/hijri_calendar.dart';
 
 class MainWrapperPage extends StatefulWidget {
   const MainWrapperPage({super.key});
@@ -39,10 +40,10 @@ class _MainWrapperPageState extends State<MainWrapperPage>
   @override
   void initState() {
     super.initState();
-
-    BlocProvider.of<NewsBloc>(context).add(GetAllArticlesEvent());
+    BlocProvider.of<CategoryBloc>(context).add(GetAllCategoryEvent());
+    BlocProvider.of<BottomnavCubit>(context).changeIndex(0);
     BlocProvider.of<CalenderBloc>(context)
-        .add(GetCalenderEvent(DateTime.now().getFormatDate()));
+        .add(GetCalenderEvent(HijriCalendar.now().getHijri()));
 
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 0);
   }
@@ -98,6 +99,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is CompleteLogoutState) {
+              Navigator.maybePop(context);
               _scaffoldKey.currentState?.closeDrawer();
               showMessage(
                 context: context,
@@ -115,7 +117,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
             physics: const NeverScrollableScrollPhysics(),
             children: [
               HomePage(tabController: _tabCtrl),
-              const NewsPage(),
+              const CategoryPage(),
               const SizedBox(),
               Center(child: Image.asset(AppImages.comingSoon)),
               const CalenderPage(),

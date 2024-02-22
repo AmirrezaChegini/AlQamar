@@ -128,10 +128,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          _audioPlayer.currentIndex != null
-                              ? '${'audio'.localize(context)} ${_audioPlayer.currentIndex! + 1}'
-                                  .toArabic()
-                              : 'audio'.localize(context),
+                          'audio'.localize(context),
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!

@@ -28,13 +28,14 @@ class ArticleAdapter extends TypeAdapter<Article> {
       fields[8] as dynamic,
       fields[9] as dynamic,
       fields[10] as dynamic,
+      fields[11] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Article obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj._id)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class ArticleAdapter extends TypeAdapter<Article> {
       ..writeByte(9)
       ..write(obj._audios)
       ..writeByte(10)
-      ..write(obj._pdfs);
+      ..write(obj._pdfs)
+      ..writeByte(11)
+      ..write(obj._vimeo);
   }
 
   @override

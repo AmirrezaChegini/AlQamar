@@ -17,7 +17,7 @@ class RemoveBookmarkBtn extends StatelessWidget {
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           color: AppColors.red,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: const Icon(
           Icons.delete,

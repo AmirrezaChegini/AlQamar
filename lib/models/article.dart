@@ -40,6 +40,9 @@ class Article {
   @HiveField(10)
   dynamic _pdfs;
 
+  @HiveField(11)
+  final String? _vimeo;
+
   Article(
     this._id,
     this._title,
@@ -52,6 +55,7 @@ class Article {
     this._videos,
     this._audios,
     this._pdfs,
+    this._vimeo,
   ) {
     _createAt =
         DateFormat('yyyy-MM-dd').format(DateTime.parse(_createAt ?? ''));
@@ -77,6 +81,7 @@ class Article {
       jsonObject['video_paths'],
       jsonObject['audio_paths'],
       jsonObject['pdf_paths'],
+      jsonObject['vimeo_link'],
     );
   }
 
@@ -87,8 +92,9 @@ class Article {
   String get type => _type ?? '';
   String get updateAt => _createAt ?? '';
   String get youtube => _youtube ?? '';
-  List<dynamic> get images => _images;
-  List<dynamic> get videos => _videos;
-  List<dynamic> get audios => _audios;
-  List<dynamic> get pdfs => _pdfs;
+  List<dynamic> get images => _images ?? [];
+  List<dynamic> get videos => _videos ?? [];
+  List<dynamic> get audios => _audios ?? [];
+  List<dynamic> get pdfs => _pdfs ?? [];
+  String get vimeo => _vimeo ?? '';
 }

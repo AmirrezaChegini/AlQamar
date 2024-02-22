@@ -1,6 +1,5 @@
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/models/program.dart';
-import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -27,7 +26,8 @@ class Programs extends StatelessWidget {
           child: Text('.' * 300, maxLines: 1),
         ),
         Text(
-          DateFormat('HH:mm').format(program.time).toArabic(),
+          // DateFormat('HH:mm').format(program.time).toArabic(),
+          DateFormat('HH:mm').format(program.time),
           style: Theme.of(context)
               .textTheme
               .bodyMedium!

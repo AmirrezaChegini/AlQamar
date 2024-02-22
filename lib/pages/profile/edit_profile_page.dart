@@ -27,7 +27,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late final TextEditingController _firstNameCtrl;
   late final TextEditingController _lastNameCtrl;
   late final TextEditingController _bioCtrl;
-  late final TextEditingController _emailCtrl;
+  // late final TextEditingController _emailCtrl;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   @override
@@ -36,7 +36,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _firstNameCtrl = TextEditingController(text: widget.user.firstName);
     _lastNameCtrl = TextEditingController(text: widget.user.lastName);
     _bioCtrl = TextEditingController(text: widget.user.bio);
-    _emailCtrl = TextEditingController(text: widget.user.email);
+    // _emailCtrl = TextEditingController(text: widget.user.email);
   }
 
   @override
@@ -44,7 +44,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _firstNameCtrl.dispose();
     _lastNameCtrl.dispose();
     _bioCtrl.dispose();
-    _emailCtrl.dispose();
+    // _emailCtrl.dispose();
     super.dispose();
   }
 
@@ -54,8 +54,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10)
-            .copyWith(top: 40),
+        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10)
+            .copyWith(top: 54),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(15),
@@ -125,17 +125,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             validate: (p0) {},
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: TextFieldAuth(
-                            controller: _emailCtrl,
-                            hint: 'email'.localize(context),
-                            inputAction: TextInputAction.done,
-                            inputType: TextInputType.text,
-                            enabled: false,
-                            validate: (p0) {},
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10),
+                        //   child: TextFieldAuth(
+                        //     controller: _emailCtrl,
+                        //     hint: 'email'.localize(context),
+                        //     inputAction: TextInputAction.done,
+                        //     inputType: TextInputType.text,
+                        //     enabled: false,
+                        //     validate: (p0) {},
+                        //   ),
+                        // ),
                         const Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(10),

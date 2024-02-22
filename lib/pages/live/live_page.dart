@@ -59,226 +59,236 @@ class _LivePageState extends State<LivePage>
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    _tabCtrl.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.grey200,
-      appBar: MainAppbar(
-        title: 'live'.localize(context),
-        appbarLeading: BackButton(
-          onPressed: () => Navigator.pop(context),
-          color: AppColors.red,
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.grey200,
+        appBar: MainAppbar(
+          title: 'live'.localize(context),
+          appbarLeading: BackButton(
+            onPressed: () => Navigator.pop(context),
+            color: AppColors.red,
+          ),
         ),
-      ),
-      body: BlocConsumer<LiveBloc, LiveState>(
-        listener: (context, state) {
-          if (state is CompleteLiveState) {
-            initAudio(state.audioList[audioIndex].url);
-          }
-        },
-        builder: (context, state) {
-          if (state is CompleteLiveState) {
-            return OrientationBuilder(
-              builder: (context, orientation) => orientation ==
-                      Orientation.portrait
-                  ? ListView(
-                      children: [
-                        Container(
-                          margin: CheckDirect.isRTL(context)
-                              ? const EdgeInsets.symmetric(vertical: 10)
-                                  .copyWith(
-                                      right:
-                                          MediaQuery.sizeOf(context).width / 2,
-                                      left: 10)
-                              : const EdgeInsets.symmetric(vertical: 10)
-                                  .copyWith(
-                                  right: 10,
-                                  left: MediaQuery.sizeOf(context).width / 2,
-                                ),
-                          child: LiveTabbar(tabCtrl: _tabCtrl),
-                        ),
-                        SizedBox(
-                          height: 800,
-                          child: TabBarView(
-                            controller: _tabCtrl,
-                            children: [
-                              Column(
-                                children: [
-                                  Wrap(
-                                    alignment: WrapAlignment.center,
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    runAlignment: WrapAlignment.center,
-                                    spacing: 5,
-                                    children: List.generate(
-                                      state.videoList.length,
-                                      (index) => LiveItem(
-                                        onTap: () {
-                                          setState(() {
-                                            videoIndex = index;
-                                          });
-                                          BlocProvider.of<LiveCubit>(context)
-                                              .changeUrl(state
-                                                  .videoList[videoIndex].url);
-                                        },
-                                        image: state.videoList[index].image,
-                                        color: videoIndex == index
-                                            ? AppColors.grey600
-                                            : AppColors.transparent,
-                                      ),
-                                    ),
+        body: BlocConsumer<LiveBloc, LiveState>(
+          listener: (context, state) {
+            if (state is CompleteLiveState) {
+              if (state.audioList.isNotEmpty) {
+                initAudio(state.audioList[audioIndex].url);
+              }
+            }
+          },
+          builder: (context, state) {
+            if (state is CompleteLiveState) {
+              return OrientationBuilder(
+                builder: (context, orientation) => orientation ==
+                        Orientation.portrait
+                    ? ListView(
+                        children: [
+                          Container(
+                            margin: CheckDirect.isRTL(context)
+                                ? const EdgeInsets.symmetric(vertical: 10)
+                                    .copyWith(
+                                        right:
+                                            MediaQuery.sizeOf(context).width /
+                                                2,
+                                        left: 10)
+                                : const EdgeInsets.symmetric(vertical: 10)
+                                    .copyWith(
+                                    right: 10,
+                                    left: MediaQuery.sizeOf(context).width / 2,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: VideoStream(
-                                      url: state.videoList[videoIndex].url,
-                                    ),
-                                  ),
-                                  // Container(
-                                  //   margin: const EdgeInsets.symmetric(
-                                  //     horizontal: 40,
-                                  //     vertical: 10,
-                                  //   ),
-                                  //   height: 1,
-                                  //   color: AppColors.grey600,
-                                  // ),
-                                  // Align(
-                                  //   alignment: AlignmentDirectional.centerStart,
-                                  //   child: Padding(
-                                  //     padding: const EdgeInsets.symmetric(
-                                  //       horizontal: 40,
-                                  //       vertical: 10,
-                                  //     ),
-                                  //     child: TitleWidget(
-                                  //       title: 'programList'.localize(context),
-                                  //       showDivider: true,
-                                  //       dividerWidth: 90,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // Expanded(
-                                  //   child: ListView.builder(
-                                  //     itemCount: state.videoList[videoIndex].programList
-                                  //                 .length <
-                                  //             10
-                                  //         ? state
-                                  //             .videoList[videoIndex].programList.length
-                                  //         : 10,
-                                  //     itemBuilder: (context, index) => Padding(
-                                  //       padding: const EdgeInsets.symmetric(
-                                  //           horizontal: 40, vertical: 10),
-                                  //       child: Programs(
-                                  //         program: state
-                                  //             .videoList[videoIndex].programList[index],
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Wrap(
-                                    alignment: WrapAlignment.center,
-                                    runAlignment: WrapAlignment.center,
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    spacing: 5,
-                                    children: List.generate(
-                                      state.audioList.length,
-                                      (index) => LiveItem(
-                                        onTap: () {
-                                          setState(() {
-                                            audioIndex = index;
-                                          });
-                                          initAudio(
-                                              state.audioList[audioIndex].url);
-                                        },
-                                        image: state.audioList[index].image,
-                                        color: audioIndex == index
-                                            ? AppColors.grey600
-                                            : AppColors.transparent,
-                                      ),
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: AudioStream(),
-                                  ),
-                                  // Container(
-                                  //   margin: const EdgeInsets.symmetric(
-                                  //     horizontal: 40,
-                                  //     vertical: 10,
-                                  //   ),
-                                  //   height: 1,
-                                  //   color: AppColors.grey600,
-                                  // ),
-                                  // Align(
-                                  //   alignment: AlignmentDirectional.centerStart,
-                                  //   child: Padding(
-                                  //     padding: const EdgeInsets.symmetric(
-                                  //       horizontal: 40,
-                                  //       vertical: 10,
-                                  //     ),
-                                  //     child: TitleWidget(
-                                  //       title: 'programList'.localize(context),
-                                  //       showDivider: true,
-                                  //       dividerWidth: 90,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // Expanded(
-                                  //   child: ListView.builder(
-                                  //     itemCount: state.audioList[audioIndex].programList
-                                  //                 .length <
-                                  //             10
-                                  //         ? state
-                                  //             .audioList[audioIndex].programList.length
-                                  //         : 10,
-                                  //     itemBuilder: (context, index) => Padding(
-                                  //       padding: const EdgeInsets.symmetric(
-                                  //           horizontal: 40, vertical: 10),
-                                  //       child: Programs(
-                                  //         program: state
-                                  //             .audioList[audioIndex].programList[index],
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                            ],
+                            child: LiveTabbar(tabCtrl: _tabCtrl),
                           ),
-                        ),
-                      ],
-                    )
-                  : VideoStream(
-                      url: state.videoList[videoIndex].url,
-                    ),
-            );
-          }
+                          SizedBox(
+                            height: 800,
+                            child: TabBarView(
+                              controller: _tabCtrl,
+                              children: [
+                                Column(
+                                  children: [
+                                    Wrap(
+                                      alignment: WrapAlignment.center,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      runAlignment: WrapAlignment.center,
+                                      spacing: 5,
+                                      runSpacing: 5,
+                                      children: List.generate(
+                                        state.videoList.length,
+                                        (index) => LiveItem(
+                                          onTap: () {
+                                            setState(() {
+                                              videoIndex = index;
+                                            });
+                                            BlocProvider.of<LiveCubit>(context)
+                                                .changeUrl(state
+                                                    .videoList[videoIndex].url);
+                                          },
+                                          live: state.videoList[index],
+                                          color: videoIndex == index
+                                              ? AppColors.grey600
+                                              : AppColors.transparent,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: VideoStream(
+                                        url: state.videoList[videoIndex].url,
+                                      ),
+                                    ),
+                                    // Container(
+                                    //   margin: const EdgeInsets.symmetric(
+                                    //     horizontal: 40,
+                                    //     vertical: 10,
+                                    //   ),
+                                    //   height: 1,
+                                    //   color: AppColors.grey600,
+                                    // ),
+                                    // Align(
+                                    //   alignment: AlignmentDirectional.centerStart,
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.symmetric(
+                                    //       horizontal: 40,
+                                    //       vertical: 10,
+                                    //     ),
+                                    //     child: TitleWidget(
+                                    //       title: 'programList'.localize(context),
+                                    //       showDivider: true,
+                                    //       dividerWidth: 90,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // Expanded(
+                                    //   child: ListView.builder(
+                                    //     itemCount: state.videoList[videoIndex].programList
+                                    //                 .length <
+                                    //             10
+                                    //         ? state
+                                    //             .videoList[videoIndex].programList.length
+                                    //         : 10,
+                                    //     itemBuilder: (context, index) => Padding(
+                                    //       padding: const EdgeInsets.symmetric(
+                                    //           horizontal: 40, vertical: 10),
+                                    //       child: Programs(
+                                    //         program: state
+                                    //             .videoList[videoIndex].programList[index],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Wrap(
+                                      alignment: WrapAlignment.center,
+                                      runAlignment: WrapAlignment.center,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      spacing: 5,
+                                      children: List.generate(
+                                        state.audioList.length,
+                                        (index) => LiveItem(
+                                          onTap: () {
+                                            setState(() {
+                                              audioIndex = index;
+                                            });
+                                            initAudio(state
+                                                .audioList[audioIndex].url);
+                                          },
+                                          live: state.audioList[index],
+                                          color: audioIndex == index
+                                              ? AppColors.grey600
+                                              : AppColors.transparent,
+                                        ),
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: AudioStream(),
+                                    ),
+                                    // Container(
+                                    //   margin: const EdgeInsets.symmetric(
+                                    //     horizontal: 40,
+                                    //     vertical: 10,
+                                    //   ),
+                                    //   height: 1,
+                                    //   color: AppColors.grey600,
+                                    // ),
+                                    // Align(
+                                    //   alignment: AlignmentDirectional.centerStart,
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.symmetric(
+                                    //       horizontal: 40,
+                                    //       vertical: 10,
+                                    //     ),
+                                    //     child: TitleWidget(
+                                    //       title: 'programList'.localize(context),
+                                    //       showDivider: true,
+                                    //       dividerWidth: 90,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // Expanded(
+                                    //   child: ListView.builder(
+                                    //     itemCount: state.audioList[audioIndex].programList
+                                    //                 .length <
+                                    //             10
+                                    //         ? state
+                                    //             .audioList[audioIndex].programList.length
+                                    //         : 10,
+                                    //     itemBuilder: (context, index) => Padding(
+                                    //       padding: const EdgeInsets.symmetric(
+                                    //           horizontal: 40, vertical: 10),
+                                    //       child: Programs(
+                                    //         program: state
+                                    //             .audioList[audioIndex].programList[index],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    : VideoStream(
+                        url: state.videoList[videoIndex].url,
+                      ),
+              );
+            }
 
-          if (state is LoadingLiveState) {
-            return const LoadingState();
-          }
+            if (state is LoadingLiveState) {
+              return const LoadingState();
+            }
 
-          if (state is FailLiveState) {
-            return Center(
-              child: ErrorState(
-                onTap: () =>
-                    BlocProvider.of<LiveBloc>(context).add(GetLiveEvent()),
-                bottomMargin: 0,
-                errorMessage: state.errorMessage,
-              ),
-            );
-          }
+            if (state is FailLiveState) {
+              return Center(
+                child: ErrorState(
+                  onTap: () =>
+                      BlocProvider.of<LiveBloc>(context).add(GetLiveEvent()),
+                  bottomMargin: 0,
+                  errorMessage: state.errorMessage,
+                ),
+              );
+            }
 
-          return const SizedBox();
-        },
+            return const SizedBox();
+          },
+        ),
       ),
     );
   }

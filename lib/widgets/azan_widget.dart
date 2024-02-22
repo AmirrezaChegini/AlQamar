@@ -23,6 +23,7 @@ class AzanWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.all(0),
       color: backgroundColor,
       elevation: elevation,
       shape: RoundedRectangleBorder(

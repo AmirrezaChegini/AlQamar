@@ -17,7 +17,7 @@ class FadeInAnim extends StatefulWidget {
 class _FadeInAnimState extends State<FadeInAnim>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _fadeOutAnim;
+  late Animation<double> _fadeInAnim;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _FadeInAnimState extends State<FadeInAnim>
       reverseDuration: const Duration(milliseconds: 300),
     );
 
-    _fadeOutAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
+    _fadeInAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.easeIn,
@@ -44,11 +44,9 @@ class _FadeInAnimState extends State<FadeInAnim>
 
   @override
   Widget build(BuildContext context) {
-    widget.state
-        ? _controller.forward().orCancel
-        : _controller.reverse().orCancel;
+    widget.state ? _controller.forward() : _controller.reverse();
     return FadeTransition(
-      opacity: _fadeOutAnim,
+      opacity: _fadeInAnim,
       child: widget.child,
     );
   }

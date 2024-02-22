@@ -9,6 +9,8 @@ abstract class ArticleDatasource {
   Future<Response> getLastArticles();
   Future<Response> getArticle({required int articleID});
   Future<Response> searchArticles({required String searchText});
+  Future<Response> getArticleByCategory(
+      {required int categoryId, required int page});
 }
 
 class ArticleRemote implements ArticleDatasource {
@@ -74,6 +76,23 @@ class ArticleRemote implements ArticleDatasource {
   Future<Response> searchArticles({required String searchText}) async {
     try {
       Response response = await _dio.get('${Api.searchArticles}/$searchText');
+
+      return response;
+    } on DioException catch (e) {
+      e.response == null
+          ? throw FetchDataEx()
+          : throw CheckExceptions.validate(e.response!);
+    }
+  }
+
+  @override
+  Future<Response> getArticleByCategory(
+      {required int categoryId, required int page}) async {
+    try {
+      Response response = await _dio.get(
+        '${Api.category}/$categoryId',
+        queryParameters: {"page": page},
+      );
 
       return response;
     } on DioException catch (e) {

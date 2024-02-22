@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "liveBroadcast": "Live Broadcast",
     "latestNews": "Latest News",
     "news": "News",
@@ -11,7 +12,7 @@
     "home": "Home",
     "topics": "Topics",
     "search": "Search",
-    "subscribe": "Sybscribe",
+    "subscribe": "subscribe",
     "works": "Works",
     "noInternetConnection": "No Internet Connection",
     "tryagain": "Try Again",
@@ -36,7 +37,7 @@
     "preyers": "Preyers",
     "aboutUs": "About Us",
     "live": "Live",
-    "editProfile": "Edit Profile",
+    "editProfile": "View Profile",
     "reset": "Reset",
     "save": "Save",
     "sentenceOne": "You are using the program as a guest",
@@ -68,6 +69,7 @@
     "successProfile": "Your profile has been updated",
     "logout": "Logout",
     "logoutSuccess": "Logout Successfully",
+    "logoutMessage": "Do you want to log out of your account?",
     "remove": "Remove",
     "noContent": "There is no content to display",
     "changeInfo": "Change Info",
@@ -77,5 +79,7 @@
     "removePhoto": "Remove Photo",
     "sizePhoto": "Size of photo should be less than 2 MB",
     "openSite": "Open site",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "yes": "Yes",
+    "cancel": "Cancel"
 }

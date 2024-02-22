@@ -2,13 +2,13 @@ import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
+import 'package:al_qamar/bloc/category/category_bloc.dart';
 import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
-import 'package:al_qamar/bloc/salavat/salavat_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/constants/api.dart';
@@ -18,6 +18,7 @@ import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/calender_cubit.dart';
+import 'package:al_qamar/cubit/hide_fabe_cubit.dart';
 import 'package:al_qamar/cubit/live_cubit.dart';
 import 'package:al_qamar/cubit/localize_cubit.dart';
 import 'package:al_qamar/cubit/password_cubit.dart';
@@ -28,18 +29,18 @@ import 'package:al_qamar/data/datasources/auth_datasource.dart';
 import 'package:al_qamar/data/datasources/azan_datasource.dart';
 import 'package:al_qamar/data/datasources/bookmark_datasource.dart';
 import 'package:al_qamar/data/datasources/calender_datasource.dart';
+import 'package:al_qamar/data/datasources/category_datasource.dart';
 import 'package:al_qamar/data/datasources/favorite_datasource.dart';
 import 'package:al_qamar/data/datasources/live_datasource.dart';
-import 'package:al_qamar/data/datasources/salavat_datasource.dart';
 import 'package:al_qamar/data/datasources/user_datasource.dart';
 import 'package:al_qamar/data/repositories/article_repository.dart';
 import 'package:al_qamar/data/repositories/auth_repository.dart';
 import 'package:al_qamar/data/repositories/azan_repository.dart';
 import 'package:al_qamar/data/repositories/bookmark_repository.dart';
 import 'package:al_qamar/data/repositories/calender_repositoy.dart';
+import 'package:al_qamar/data/repositories/category_repository.dart';
 import 'package:al_qamar/data/repositories/favorite_repository.dart';
 import 'package:al_qamar/data/repositories/live_repository.dart';
-import 'package:al_qamar/data/repositories/salavat_repository.dart';
 import 'package:al_qamar/data/repositories/user_repository.dart';
 import 'package:al_qamar/service/download_service.dart';
 import 'package:al_qamar/utils/download_path.dart';
@@ -47,7 +48,6 @@ import 'package:al_qamar/utils/error_handling/app_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:just_audio/just_audio.dart';
 
 var locator = GetIt.I;
@@ -58,7 +58,7 @@ Future<void> initLocator() async {
     () => Dio(
       BaseOptions(
         baseUrl: '${Api.baseUrl}/api/v1',
-        connectTimeout: const Duration(seconds: 20),
+        connectTimeout: const Duration(seconds: 8),
       ),
     )..interceptors.add(AppInterceptors()),
   );
@@ -69,7 +69,6 @@ Future<void> initLocator() async {
             IOSOptions(accessibility: KeychainAccessibility.first_unlock)),
   );
   locator.registerLazySingleton<AudioPlayer>(() => AudioPlayer());
-  locator.registerLazySingleton<ImagePicker>(() => ImagePicker());
   locator.registerLazySingleton<DownloadPath>(() => DownloadPath());
   locator.registerFactory<DownloadService>(
       () => DownloadService(locator.get(), locator.get()));
@@ -77,7 +76,6 @@ Future<void> initLocator() async {
   //datasources
   locator
       .registerLazySingleton<AzanDatasource>(() => AzanRemote(locator.get()));
-  locator.registerLazySingleton<SalavatDatasource>(() => SalavatLocal());
   locator
       .registerLazySingleton<AuthDatasource>(() => AuthRemote(locator.get()));
   locator
@@ -90,12 +88,12 @@ Future<void> initLocator() async {
       .registerLazySingleton<LiveDatasource>(() => LiveRemote(locator.get()));
   locator.registerLazySingleton<BookmarkDatasource>(() => BookmarkLocal());
   locator.registerLazySingleton<FavoriteDatasource>(() => FavoriteLocal());
+  locator.registerLazySingleton<CategoryDatasource>(
+      () => CategoryRemote(locator.get()));
 
   //repositories
   locator.registerLazySingleton<IAzanRepository>(
       () => AzanRepositoryImpl(locator.get()));
-  locator.registerLazySingleton<ISalavatRepository>(
-      () => SalavatRepositoryImpl(locator.get()));
   locator.registerLazySingleton<IAuthRepository>(
       () => AuthRepositoryImpl(locator.get()));
   locator.registerLazySingleton<IUserRepository>(
@@ -110,6 +108,8 @@ Future<void> initLocator() async {
       () => BookmarkRepositoryImpl(locator.get()));
   locator.registerLazySingleton<IFavoriteRepository>(
       () => FavoriteRepositoryImpl(locator.get()));
+  locator.registerLazySingleton<ICategoryRepository>(
+      () => CategoryRepositoryImpl(locator.get()));
 
   //cubit
   locator.registerLazySingleton<LocalizeCubit>(() => LocalizeCubit());
@@ -124,10 +124,10 @@ Future<void> initLocator() async {
   locator
       .registerLazySingleton<BookmarkCubit>(() => BookmarkCubit(locator.get()));
   locator.registerLazySingleton<CalenderCubit>(() => CalenderCubit());
+  locator.registerLazySingleton<HideFabeCubit>(() => HideFabeCubit());
 
   //bloc
   locator.registerLazySingleton<AzanBloc>(() => AzanBloc(locator.get()));
-  locator.registerLazySingleton<SalavatBloc>(() => SalavatBloc(locator.get()));
   locator.registerLazySingleton<AuthBloc>(() => AuthBloc(locator.get()));
   locator.registerLazySingleton<UserBloc>(() => UserBloc(locator.get()));
   locator.registerLazySingleton<HomeBloc>(() => HomeBloc(locator.get()));
@@ -147,4 +147,5 @@ Future<void> initLocator() async {
       () => DownloadAudioBloc(locator.get(), locator.get()));
   locator.registerFactory<DownloadPdfBloc>(
       () => DownloadPdfBloc(locator.get(), locator.get()));
+  locator.registerFactory<CategoryBloc>(() => CategoryBloc(locator.get()));
 }

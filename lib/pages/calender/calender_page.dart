@@ -17,28 +17,6 @@ class CalenderPage extends StatelessWidget {
             child: MonthlyCalender(),
           ),
         ),
-        // BlocBuilder<AzanBloc, AzanState>(
-        //   builder: (context, state) {
-        //     if (state is CompletedAzanState) {
-        //       return SliverList(
-        //         delegate: SliverChildBuilderDelegate(
-        //           childCount: state.azanTimeList.length,
-        //           (context, index) => Padding(
-        //             padding: const EdgeInsets.all(10),
-        //             child: AzanWidget(
-        //               city: index == 0
-        //                   ? 'najaf'.localize(context)
-        //                   : 'london'.localize(context),
-        //               azanTime: state.azanTimeList[index],
-        //             ),
-        //           ),
-        //         ),
-        //       );
-        //     } else {
-        //       return const SliverToBoxAdapter();
-        //     }
-        //   },
-        // ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(10).copyWith(bottom: 120),

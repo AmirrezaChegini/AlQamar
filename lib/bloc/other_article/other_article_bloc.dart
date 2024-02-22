@@ -12,11 +12,12 @@ class OtherArticleBloc extends Bloc<OtherArticleEvent, OtherArticleState> {
       emit(LoadingOtherArticleState());
       await Future.delayed(const Duration(seconds: 1));
       List<Article> articleList = List.from(_newsBloc.articleList)..shuffle();
-      emit(CompleteOtherArticleState(articleList));
-    });
 
-    on<InitOtherArticleEvent>((event, emit) async {
-      emit(InitOtherArticleState());
+      if (articleList.isEmpty) {
+        emit(InitOtherArticleState());
+      } else {
+        emit(CompleteOtherArticleState(articleList));
+      }
     });
   }
 }

@@ -1,6 +1,8 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/azan_time.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -10,17 +12,21 @@ class AzanWidget extends StatelessWidget {
     required this.city,
     required this.azanTime,
     this.backgroundColor = AppColors.white,
+    this.elevation = 0,
   });
 
   final String city;
   final AzanTime azanTime;
   final Color backgroundColor;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: backgroundColor,
+    return Card(
+      margin: const EdgeInsets.all(0),
+      color: backgroundColor,
+      elevation: elevation,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -37,7 +43,7 @@ class AzanWidget extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
-                      .copyWith(fontSize: 12),
+                      .copyWith(fontSize: Fontsize.large),
                 ),
                 const SizedBox(height: 3),
                 Container(
@@ -54,9 +60,9 @@ class AzanWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     AppIcon(
-                      icon: index % 2 == 0
+                      icon: index % 2 != 0
                           ? AppIcons.azan
-                          : index == 5
+                          : index == 0
                               ? AppIcons.moon
                               : AppIcons.sun,
                       width: 30,
@@ -66,20 +72,20 @@ class AzanWidget extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(
                       index == 0
-                          ? azanTime.fajr
+                          ? azanTime.midnight.toArabic()
                           : index == 1
-                              ? azanTime.sunrise
+                              ? azanTime.isha.toArabic()
                               : index == 2
-                                  ? azanTime.dhuhr
+                                  ? azanTime.sunset.toArabic()
                                   : index == 3
-                                      ? azanTime.sunset
+                                      ? azanTime.dhuhr.toArabic()
                                       : index == 4
-                                          ? azanTime.maghrib
-                                          : azanTime.isha,
+                                          ? azanTime.sunrise.toArabic()
+                                          : azanTime.fajr.toArabic(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium!
-                          .copyWith(fontSize: 12),
+                          .copyWith(fontSize: Fontsize.large),
                     ),
                   ],
                 ),

@@ -26,6 +26,8 @@ class CompleteLoginState extends AuthState {
   CompleteLoginState(this.message);
 }
 
+class CompleteLogoutState extends AuthState {}
+
 class FailAuthState extends AuthState {
   final String errorMessage;
   FailAuthState(this.errorMessage);

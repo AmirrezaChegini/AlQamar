@@ -106,7 +106,7 @@ class RegisterWidgets extends StatelessWidget {
               controller: passwordCtrl,
               validate: (v) => validatePassword(v, context),
               hint: 'password'.localize(context),
-              inputAction: TextInputAction.next,
+              inputAction: TextInputAction.done,
               inputType: TextInputType.visiblePassword,
               obsecure: state,
               suffixIcon: IconBtn(

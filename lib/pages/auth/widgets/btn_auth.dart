@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,10 @@ class BtnAuth extends StatelessWidget {
         fixedSize: const Size(160, 40),
         backgroundColor: AppColors.blue,
         foregroundColor: AppColors.white,
-        textStyle:
-            Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: 11),
+        textStyle: Theme.of(context)
+            .textTheme
+            .labelMedium!
+            .copyWith(fontSize: Fontsize.large),
       ),
       child: Row(
         children: [

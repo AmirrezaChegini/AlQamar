@@ -1,6 +1,9 @@
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
+import 'package:al_qamar/pages/fullscreen/pdf_fullscreen_page.dart';
+import 'package:al_qamar/utils/rtl_direct.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,12 +39,36 @@ class _PdfArticleViewerState extends State<PdfArticleViewer>
           margin: const EdgeInsets.all(10),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: SfPdfViewer.network(
-              widget.pdfList[state],
-              controller: _pdfCtrl,
-              pageSpacing: 0,
-              canShowPageLoadingIndicator: false,
-              pageLayoutMode: PdfPageLayoutMode.continuous,
+            child: Stack(
+              children: [
+                SfPdfViewer.network(
+                  widget.pdfList[state],
+                  controller: _pdfCtrl,
+                  pageSpacing: 0,
+                  canShowPageLoadingIndicator: false,
+                  pageLayoutMode: PdfPageLayoutMode.continuous,
+                ),
+                Positioned.directional(
+                  textDirection: CheckDirect.isRTL(context)
+                      ? TextDirection.ltr
+                      : TextDirection.rtl,
+                  bottom: 5,
+                  start: 5,
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      pageRoute(
+                        child: PdfFullscreenPage(pdf: widget.pdfList[state]),
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons.fullscreen_rounded,
+                      size: 40,
+                      color: AppColors.black,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

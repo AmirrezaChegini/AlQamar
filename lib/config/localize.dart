@@ -143,8 +143,32 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.logout;
       case 'logoutSuccess':
         return AppLocalizations.of(context)!.logoutSuccess;
+      case 'logoutMessage':
+        return AppLocalizations.of(context)!.logoutMessage;
       case 'remove':
         return AppLocalizations.of(context)!.remove;
+      case 'noContent':
+        return AppLocalizations.of(context)!.noContent;
+      case 'changeInfo':
+        return AppLocalizations.of(context)!.changeInfo;
+      case 'otherNews':
+        return AppLocalizations.of(context)!.otherNews;
+      case 'camera':
+        return AppLocalizations.of(context)!.camera;
+      case 'gallery':
+        return AppLocalizations.of(context)!.gallery;
+      case 'removePhoto':
+        return AppLocalizations.of(context)!.removePhoto;
+      case 'sizePhoto':
+        return AppLocalizations.of(context)!.sizePhoto;
+      case 'openSite':
+        return AppLocalizations.of(context)!.openSite;
+      case 'privacyPolicy':
+        return AppLocalizations.of(context)!.privacyPolicy;
+      case 'yes':
+        return AppLocalizations.of(context)!.yes;
+      case 'cancel':
+        return AppLocalizations.of(context)!.cancel;
       default:
         return '';
     }

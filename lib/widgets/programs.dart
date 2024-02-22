@@ -1,5 +1,7 @@
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/models/program.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Programs extends StatelessWidget {
   const Programs({
@@ -11,25 +13,27 @@ class Programs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-      textAlign: TextAlign.start,
-      TextSpan(
-        children: [
-          TextSpan(
-            text:
-                ' ............................................................. ',
-            style:
-                Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12),
-          ),
-          TextSpan(
-            text: program.time,
-            style:
-                Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12),
-          ),
-        ],
-        text: program.name,
-      ),
+    return Row(
+      children: [
+        Text(
+          program.name,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(fontSize: Fontsize.big),
+        ),
+        Expanded(
+          child: Text('.' * 300, maxLines: 1),
+        ),
+        Text(
+          // DateFormat('HH:mm').format(program.time).toArabic(),
+          DateFormat('HH:mm').format(program.time),
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(fontSize: Fontsize.big),
+        ),
+      ],
     );
   }
 }

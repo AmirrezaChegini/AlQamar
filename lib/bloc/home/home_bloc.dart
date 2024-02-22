@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/data/repositories/article_repository.dart';
 import 'package:al_qamar/models/article.dart';
+import 'package:al_qamar/utils/api_model.dart';
 import 'package:bloc/bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
@@ -14,23 +15,25 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       List<Article> forceArticleList = [];
       String errorMessage = '';
 
-      var lastArticleEither = await _articelRepository.getLastArticles();
-      var forceArticleEither = await _articelRepository.getForceArticles();
+      ApiModel<List<Article>, String> lastArticleEither =
+          await _articelRepository.getLastArticles();
+      ApiModel<List<Article>, String> forceArticleEither =
+          await _articelRepository.getForceArticles();
 
-      lastArticleEither.fold((l) {
-        errorMessage = l;
-      }, (r) {
-        lastArticleList = r;
-      });
+      lastArticleEither.fold(
+        (data) => lastArticleList = data,
+        (error) => errorMessage = error,
+      );
 
-      forceArticleEither.fold((l) {
-        errorMessage = l;
-      }, (r) {
-        forceArticleList = r;
-      });
+      forceArticleEither.fold(
+        (data) => forceArticleList = data,
+        (error) => errorMessage = error,
+      );
 
       if (lastArticleList.isNotEmpty || forceArticleList.isNotEmpty) {
-        emit(CompleteHomeState(lastArticleList, forceArticleList));
+        await Future.delayed(const Duration(seconds: 2), () {
+          emit(CompleteHomeState(lastArticleList, forceArticleList));
+        });
       } else {
         emit(FailHomeState(errorMessage));
       }

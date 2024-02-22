@@ -1,12 +1,23 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/widgets/slider_theme.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
   AppTheme._();
 
   static final ThemeData lightTheme = ThemeData(
-    fontFamily: 'iranyekanmed',
+    fontFamily: 'majalla',
+    useMaterial3: false,
     scaffoldBackgroundColor: AppColors.transparent,
+    sliderTheme: SliderThemeData(
+      trackShape: const GradientRectSliderTrackShape(),
+      secondaryActiveTrackColor: AppColors.grey600,
+      trackHeight: 1,
+      thumbColor: AppColors.blue,
+      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5),
+      overlayColor: AppColors.blue.withOpacity(0.1),
+      overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+    ),
     textTheme: const TextTheme(
       //large
       titleLarge: TextStyle(

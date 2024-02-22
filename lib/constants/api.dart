@@ -1,6 +1,10 @@
 class Api {
   Api._();
 
+  //base url
+  static const String baseUrl = 'https://yadme.com';
+  static const String baseUrlSite = 'https://alghamar-vercel.vercel.app';
+
   //auth
   static const String login = '/auth/login';
   static const String register = '/auth/register';
@@ -23,6 +27,9 @@ class Api {
   //live
   static const String video = '/live/video';
   static const String audio = '/live/audio';
+
+  //category
+  static const String category = '/category';
   //azan
-  static const String azan = 'https://api.aladhan.com/v1/calendarByCity';
+  static const String azan = 'https://api.aladhan.com/v1/timingsByCity';
 }

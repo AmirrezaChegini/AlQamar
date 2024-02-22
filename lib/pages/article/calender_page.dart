@@ -1,9 +1,11 @@
+import 'package:al_qamar/bloc/download/download_bloc.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/calender.dart';
-import 'package:al_qamar/pages/article/widgets/action_article.dart';
-import 'package:al_qamar/pages/article/widgets/article_tabbar.dart';
+import 'package:al_qamar/pages/article/widgets/article_appbar.dart';
 import 'package:al_qamar/pages/article/widgets/audio_article_player.dart';
 import 'package:al_qamar/pages/article/widgets/audio_widget.dart';
 import 'package:al_qamar/pages/article/widgets/image_viewer.dart';
@@ -11,6 +13,9 @@ import 'package:al_qamar/pages/article/widgets/pdf_article_viewer.dart';
 import 'package:al_qamar/pages/article/widgets/pdf_item_widget.dart';
 import 'package:al_qamar/pages/article/widgets/video_article_player.dart';
 import 'package:al_qamar/pages/article/widgets/youtube_article_player.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/utils/share.dart';
+import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/html_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,33 +53,71 @@ class _CalenderDataPageState extends State<CalenderDataPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200,
-      appBar: ArticleTabbar(tabController: _tabCtrl),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async =>
+            await ShareData.shareText(widget.calender.content.htmlToString()),
+        backgroundColor: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(12),
+          child: AppIcon(
+            icon: AppIcons.share,
+            color: AppColors.blue,
+          ),
+        ),
+      ),
+      appBar: ArticleAppbar(
+        tabController: _tabCtrl,
+        calender: widget.calender,
+      ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: SizedBox(
               width: double.infinity,
-              height: MediaQuery.sizeOf(context).height / 2.9,
-              child: TabBarView(
-                controller: _tabCtrl,
-                physics: const NeverScrollableScrollPhysics(),
+              height: MediaQuery.sizeOf(context).height < 800
+                  ? MediaQuery.sizeOf(context).height / 2.2
+                  : MediaQuery.sizeOf(context).height / 3,
+              child: Stack(
                 children: [
-                  ImageViewer(images: widget.calender.images),
-                  VideoArticlePlayer(
-                    video: widget.calender.videos.isNotEmpty
-                        ? widget.calender.videos[0]
-                        : '',
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 50),
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          AppColors.grey600,
+                          AppColors.grey200,
+                        ],
+                      ),
+                    ),
                   ),
-                  const YoutubeArticlePlayer(),
-                  AudioArticlePlayer(
-                    audios: widget.calender.audios,
-                    date: widget.calender.updateAt,
-                    image: widget.calender.images.isNotEmpty
-                        ? widget.calender.images[0]
-                        : AppImages.error,
-                    writer: '',
+                  TabBarView(
+                    controller: _tabCtrl,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      ImageViewer(images: widget.calender.images),
+                      VideoArticlePlayer(
+                        video: widget.calender.videos.isNotEmpty
+                            ? widget.calender.videos
+                            : [],
+                      ),
+                      const YoutubeArticlePlayer(youtubeID: ''),
+                      AudioArticlePlayer(
+                        audios: widget.calender.audios,
+                        date: widget.calender.updateAt,
+                        image: widget.calender.images.isNotEmpty
+                            ? widget.calender.images[0]
+                            : AppImages.error,
+                        writer: '',
+                      ),
+                      PdfArticleViewer(pdfList: widget.calender.pdfs),
+                    ],
                   ),
-                  PdfArticleViewer(pdfList: widget.calender.pdfs),
                 ],
               ),
             ),
@@ -91,36 +134,31 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                   (context, index) => Padding(
                     padding: const EdgeInsets.all(10),
                     child: state == 3
-                        ? AudioWidget(
-                            index: index,
-                            audio: widget.calender.audios[index],
-                            image: widget.calender.images.isNotEmpty
-                                ? widget.calender.images[0]
-                                : '',
+                        ? BlocProvider(
+                            create: (context) =>
+                                locator.get<DownloadAudioBloc>(),
+                            child: AudioWidget(
+                              index: index,
+                              audio: widget.calender.audios[index],
+                              image: widget.calender.images.isNotEmpty
+                                  ? widget.calender.images[0]
+                                  : '',
+                            ),
                           )
                         : state == 4
-                            ? PdfItemWidget(index: index)
+                            ? BlocProvider(
+                                create: (context) =>
+                                    locator.get<DownloadPdfBloc>(),
+                                child: PdfItemWidget(
+                                  index: index,
+                                  url: widget.calender.pdfs[index],
+                                ),
+                              )
                             : const SizedBox(),
                   ),
                 ),
               );
             },
-          ),
-          SliverToBoxAdapter(
-            child: ActionArticle(calender: widget.calender),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                widget.calender.title,
-                maxLines: 3,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge!
-                    .copyWith(fontSize: 16),
-              ),
-            ),
           ),
           SliverPadding(
             padding: const EdgeInsets.all(10),

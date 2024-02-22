@@ -1,12 +1,12 @@
 import 'package:al_qamar/data/datasources/calender_datasource.dart';
 import 'package:al_qamar/models/calender.dart';
+import 'package:al_qamar/utils/api_model.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class ICalenderRepository {
-  Future<Either<String, List<Calender>>> getCalender({required String day});
+  Future<ApiModel<List<Calender>, String>> getCalender({required String day});
 }
 
 class CalenderRepositoryImpl implements ICalenderRepository {
@@ -14,14 +14,14 @@ class CalenderRepositoryImpl implements ICalenderRepository {
   CalenderRepositoryImpl(this._datasource);
 
   @override
-  Future<Either<String, List<Calender>>> getCalender(
+  Future<ApiModel<List<Calender>, String>> getCalender(
       {required String day}) async {
     try {
       Response response = await _datasource.getCalender(day: day);
 
-      return right(await compute(_calender, response));
+      return ApiModel.success(await compute(_calender, response));
     } on AppExceptions catch (e) {
-      return left(e.message);
+      return ApiModel.error(e.message);
     }
   }
 }

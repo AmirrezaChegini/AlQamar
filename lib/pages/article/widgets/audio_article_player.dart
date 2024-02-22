@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/cubit/audio_cubit.dart';
 import 'package:al_qamar/di.dart';
-import 'package:al_qamar/utils/anim/animated_icon.dart';
 import 'package:al_qamar/utils/extensions/duration.dart';
+import 'package:al_qamar/utils/extensions/string.dart';
+import 'package:al_qamar/widgets/anim/animated_icon.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
@@ -109,7 +111,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(20).copyWith(),
+                padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [
                     ClipRRect(
@@ -126,13 +128,11 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          _audioPlayer.currentIndex != null
-                              ? '${'audio'.localize(context)} ${_audioPlayer.currentIndex! + 1}'
-                              : 'audio'.localize(context),
+                          'audio'.localize(context),
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
-                              .copyWith(fontSize: 16),
+                              .copyWith(fontSize: Fontsize.big),
                         ),
                         const SizedBox(height: 15),
                         Row(
@@ -144,11 +144,11 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                               color: AppColors.black,
                             ),
                             Text(
-                              ' ${widget.date}',
+                              ' ${widget.date}'.toArabic(),
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(fontSize: 12),
+                                  .copyWith(fontSize: Fontsize.large),
                             ),
                           ],
                         ),
@@ -165,7 +165,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
-                                  .copyWith(fontSize: 12),
+                                  .copyWith(fontSize: Fontsize.large),
                             ),
                           ],
                         ),
@@ -174,9 +174,9 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
+              const Spacer(),
               SizedBox(
-                height: 12,
+                height: 10,
                 child: Directionality(
                   textDirection: TextDirection.ltr,
                   child: StreamBuilder(
@@ -186,13 +186,8 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                       stream: _audioPlayer.positionStream,
                       builder: (context, positionSnapshot) => StreamBuilder(
                         stream: _audioPlayer.bufferedPositionStream,
-                        builder: (context, bufferedSnapshot) => Slider(
-                          secondaryActiveColor: AppColors.grey600,
+                        builder: (context, bufferSnapshot) => Slider(
                           inactiveColor: AppColors.grey200,
-                          activeColor: AppColors.blue,
-                          overlayColor: MaterialStatePropertyAll(
-                            AppColors.blue.withOpacity(0.1),
-                          ),
                           min: 0,
                           max: durationSnapshot.data?.inMilliseconds
                                   .roundToDouble() ??
@@ -200,8 +195,10 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                           value: positionSnapshot.data?.inMilliseconds
                                   .roundToDouble() ??
                               0,
-                          secondaryTrackValue:
-                              bufferedSnapshot.data?.inMilliseconds.toDouble(),
+                          secondaryTrackValue: bufferSnapshot
+                                  .data?.inMilliseconds
+                                  .roundToDouble() ??
+                              0,
                           onChanged: (value) => _audioPlayer
                               .seek(Duration(milliseconds: value.toInt())),
                           onChangeEnd: (value) => _audioPlayer
@@ -213,7 +210,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 23),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -225,7 +222,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                     ),
                     StreamBuilder(
@@ -236,39 +233,41 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
-                            .copyWith(fontSize: 12),
+                            .copyWith(fontSize: Fontsize.large),
                       ),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20, left: 5, bottom: 10),
+                padding: const EdgeInsets.only(right: 10, left: 5),
                 child: Row(
                   children: [
-                    IconBtn(
-                      onTap: () {
-                        _audioPlayer.speed == 1.0
-                            ? _audioPlayer.setSpeed(1.25)
-                            : _audioPlayer.speed == 1.25
-                                ? _audioPlayer.setSpeed(1.5)
-                                : _audioPlayer.speed == 1.5
-                                    ? _audioPlayer.setSpeed(1.75)
-                                    : _audioPlayer.speed == 1.75
-                                        ? _audioPlayer.setSpeed(2.0)
-                                        : _audioPlayer.setSpeed(1.0);
-                      },
-                      padding: 5,
-                      child: StreamBuilder(
-                        stream: _audioPlayer.speedStream,
-                        initialData: 1.0,
-                        builder: (context, snapshot) => Text(
-                          '${snapshot.data} X',
-                          textDirection: TextDirection.ltr,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(fontSize: 12),
+                    SizedBox(
+                      width: 50,
+                      child: IconBtn(
+                        onTap: () {
+                          _audioPlayer.speed == 1.0
+                              ? _audioPlayer.setSpeed(1.25)
+                              : _audioPlayer.speed == 1.25
+                                  ? _audioPlayer.setSpeed(1.5)
+                                  : _audioPlayer.speed == 1.5
+                                      ? _audioPlayer.setSpeed(1.75)
+                                      : _audioPlayer.speed == 1.75
+                                          ? _audioPlayer.setSpeed(2.0)
+                                          : _audioPlayer.setSpeed(1.0);
+                        },
+                        child: StreamBuilder(
+                          stream: _audioPlayer.speedStream,
+                          initialData: 1.0,
+                          builder: (context, snapshot) => Text(
+                            '${snapshot.data} X',
+                            textDirection: TextDirection.ltr,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontSize: Fontsize.large),
+                          ),
                         ),
                       ),
                     ),
@@ -333,6 +332,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                     const Spacer(),
                     IconBtn(
                       onTap: () => _audioPlayer.seek(Duration.zero),
+                      padding: 10,
                       child: const Icon(
                         Icons.refresh_rounded,
                         color: AppColors.grey,
@@ -341,6 +341,7 @@ class _AudioArticlePlayerState extends State<AudioArticlePlayer>
                   ],
                 ),
               ),
+              const Spacer(),
             ],
           ),
         ),

@@ -1,8 +1,9 @@
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/pages/live/live_page.dart';
-import 'package:al_qamar/utils/anim/fade_page_trans.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/icon_btn_appbar.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +34,10 @@ class AppbarLeading extends StatelessWidget {
         IconBtnAppbar(
           onTap: () => Navigator.push(
             context,
-            fadePageTran(child: const LivePage()),
+            pageRoute(child: const LivePage()),
           ),
           child: const AppIcon(
-            icon: AppIcons.live,
+            icon: AppIcons.program,
             color: AppColors.red,
           ),
         ),
@@ -48,8 +49,8 @@ class AppbarLeading extends StatelessWidget {
               'liveBroadcast'.localize(context),
               style: Theme.of(context)
                   .textTheme
-                  .headlineMedium!
-                  .copyWith(fontSize: 12),
+                  .headlineLarge!
+                  .copyWith(fontSize: Fontsize.large),
             ),
           ),
         ),

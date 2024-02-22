@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldAuth extends StatelessWidget {
@@ -10,6 +11,7 @@ class TextFieldAuth extends StatelessWidget {
     required this.inputAction,
     required this.controller,
     this.obsecure = false,
+    this.enabled = true,
     this.suffixIcon,
   });
 
@@ -19,6 +21,7 @@ class TextFieldAuth extends StatelessWidget {
   final TextInputAction inputAction;
   final TextEditingController controller;
   final bool obsecure;
+  final bool enabled;
   final Widget? suffixIcon;
 
   @override
@@ -26,19 +29,25 @@ class TextFieldAuth extends StatelessWidget {
     return TextFormField(
       controller: controller,
       textInputAction: inputAction,
+      enabled: enabled,
       obscureText: obsecure,
       validator: (value) => validate(value!),
       cursorColor: AppColors.blue,
       textAlignVertical: TextAlignVertical.bottom,
-      style: Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 14),
+      style: Theme.of(context)
+          .textTheme
+          .displayMedium!
+          .copyWith(fontSize: Fontsize.huge),
       decoration: InputDecoration(
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.blue,
           ),
         ),
-        hintStyle:
-            Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
+        hintStyle: Theme.of(context)
+            .textTheme
+            .titleMedium!
+            .copyWith(fontSize: Fontsize.large),
         hintText: hint,
         suffixIcon: suffixIcon,
       ),

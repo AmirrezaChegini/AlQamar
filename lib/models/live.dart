@@ -5,6 +5,7 @@ class Live {
   final String? _name;
   final String? _url;
   final String? _type;
+  final String? _image;
   final Map<String, dynamic>? programsMap;
   List<Program>? _programList;
 
@@ -13,10 +14,11 @@ class Live {
     this._name,
     this._url,
     this._type,
+    this._image,
     this.programsMap,
   ) {
     _programList = programsMap?.entries
-        .map<Program>((e) => Program(e.key, e.value))
+        .map<Program>((e) => Program(e.key, DateTime.parse(e.value)))
         .toList();
   }
 
@@ -26,6 +28,7 @@ class Live {
       jsonObject['name'],
       jsonObject['url'],
       jsonObject['type'],
+      jsonObject['image'],
       jsonObject['list_programs'],
     );
   }
@@ -34,5 +37,6 @@ class Live {
   String get name => _name ?? '';
   String get url => _url ?? '';
   String get type => _type ?? '';
+  String get image => _image ?? '';
   List<Program> get programList => _programList ?? [];
 }

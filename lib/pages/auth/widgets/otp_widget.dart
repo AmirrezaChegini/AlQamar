@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_event.dart';
 import 'package:al_qamar/config/localize.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
@@ -58,8 +59,10 @@ class _OtpWidgetState extends State<OtpWidget> {
       children: [
         Text(
           'enterCode'.localize(context),
-          style:
-              Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontSize: Fontsize.large),
         ),
         Directionality(
           textDirection: TextDirection.ltr,
@@ -87,8 +90,24 @@ class _OtpWidgetState extends State<OtpWidget> {
           },
           builder: (context, state) => Text(
             '${'resendCode'.localize(context)} $state ${'second'.localize(context)}',
-            style:
-                Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14),
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(fontSize: Fontsize.large),
+          ),
+        ),
+        TextButton(
+          onPressed: () =>
+              BlocProvider.of<AuthBloc>(context).add(ChangeInfoEvent()),
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.all(0),
+            textStyle: Theme.of(context)
+                .textTheme
+                .displayMedium!
+                .copyWith(fontSize: Fontsize.large),
+          ),
+          child: Text(
+            'changeInfo'.localize(context),
           ),
         ),
         const Spacer(),

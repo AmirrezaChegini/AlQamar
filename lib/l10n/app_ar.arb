@@ -1,4 +1,5 @@
 {
+    "@@locale": "ar",
     "liveBroadcast": "البث المباشر",
     "latestNews": "أحدث الأخبار",
     "news": "خبر",
@@ -36,7 +37,7 @@
     "preyers": "صلوات",
     "aboutUs": "معلومات عنا",
     "live": "يعيش",
-    "editProfile": "تعديل الملف الشخصي",
+    "editProfile": "عرض الصفحة الشخصية",
     "reset": "إلغاء",
     "save": "يحفظ",
     "sentenceOne": "أنت تستخدم البرنامج كضيف",
@@ -67,7 +68,18 @@
     "sentenceFour": "يمكنك تعديل ملف التعريف الخاص بك هنا",
     "successProfile": "تم تحديث ملفك الشخصي",
     "logout": "تسجيل خروج",
-    "cancel": "يلغي",
     "logoutSuccess": "تم تسجيل الخروج بنجاح",
-    "remove": "يزيل"
+    "logoutMessage": "هل تريد تسجيل الخروج من حسابك؟",
+    "remove": "يزيل",
+    "noContent": "لا يوجد محتوى ليتم عرضه",
+    "changeInfo": "تغيير المعلومات",
+    "otherNews": "أخبار أخرى",
+    "camera": "آلة تصوير",
+    "gallery": "صالة عرض",
+    "removePhoto": "إزالة الصورة",
+    "sizePhoto": "يجب أن يكون حجم الصورة أقل من 2 ميجابايت",
+    "openSite": "موقع مفتوح",
+    "privacyPolicy": "سياسة الخصوصية",
+    "yes": "نعم",
+    "cancel": "یلغی"
 }

@@ -11,9 +11,9 @@ abstract class UserDatasource {
   Future<Response> getUser();
   Future<Response> updateUser({
     required int id,
-    String? firstName,
-    String? lastName,
-    String? bio,
+    required String firstName,
+    required String lastName,
+    required String bio,
   });
 }
 
@@ -61,15 +61,35 @@ class UserRemote implements UserDatasource {
   @override
   Future<Response> updateUser({
     required int id,
-    String? firstName,
-    String? lastName,
-    String? bio,
+    required String firstName,
+    required String lastName,
+    required String bio,
   }) async {
+    // FormData formData;
+
+    // if (avatar != null) {
+    //   formData = FormData.fromMap({
+    //     'first_name': firstName,
+    //     'last_name': lastName,
+    //     'avatar': await MultipartFile.fromFile(
+    //       File(avatar.path).path,
+    //       filename: avatar.name,
+    //     ),
+    //     'bio': bio,
+    //   });
+    // } else {
+    //   formData = FormData.fromMap({
+    //     'first_name': firstName,
+    //     'last_name': lastName,
+    //     'bio': bio,
+    //   });
+    // }
+
     try {
       Response response = await _dio.put(
         '${Api.profile}/$id',
         options: Options(headers: {'requiredToken': true}),
-        data: {
+        queryParameters: {
           'first_name': firstName,
           'last_name': lastName,
           'bio': bio,

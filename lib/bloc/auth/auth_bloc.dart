@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_event.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/data/repositories/auth_repository.dart';
+import 'package:al_qamar/utils/api_model.dart';
 import 'package:al_qamar/utils/storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,68 +16,70 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         Storage.saveString(key: 'firstName', value: event.firstName),
         Storage.saveString(key: 'lastName', value: event.lastName),
       ]);
-      var either = await _repository.register(
+      ApiModel<String, String> either = await _repository.register(
         name: '${event.firstName} ${event.lastName}',
         email: event.email,
         password: event.password,
       );
 
-      either.fold((erroMessage) {
-        emit(FailAuthState(erroMessage));
-      }, (message) {
-        emit(CompleteRegisterState(message));
+      either.fold((data) {
+        emit(CompleteRegisterState(data));
+      }, (error) {
+        emit(FailAuthState(error));
       });
     });
 
     on<LoginAuthEvent>((event, emit) async {
       emit(LoadingAuthState());
-      var either = await _repository.login(
+      ApiModel<String, String> either = await _repository.login(
         email: event.email,
         password: event.password,
       );
 
-      either.fold((erroMessage) {
-        emit(FailAuthState(erroMessage));
-      }, (message) {
-        emit(CompleteLoginState(message));
+      either.fold((data) {
+        emit(CompleteLoginState(data));
+      }, (error) {
+        emit(FailAuthState(error));
       });
     });
 
     on<VerifyAuthEvent>((event, emit) async {
       emit(LoadingVerifyState());
       String email = await Storage.getString(key: 'email');
-      var either = await _repository.verify(
+      ApiModel<String, String> either = await _repository.verify(
         email: email,
         otp: event.otp,
       );
 
-      either.fold((erroMessage) {
-        emit(FailVerifyState(erroMessage));
-      }, (message) async {
-        emit(CompleteVerifyState(message));
+      either.fold((data) {
+        emit(CompleteVerifyState(data));
+      }, (error) async {
+        emit(FailVerifyState(error));
       });
     });
 
     on<ResendCodeEvent>((event, emit) async {
       emit(LoadingVerifyState());
-      var either = await _repository.resendOtp(email: event.email);
-      either.fold((erroMessage) {
-        emit(FailVerifyState(erroMessage));
-      }, (message) {
-        emit(CompleteResendCodeState(message));
+      ApiModel<String, String> either =
+          await _repository.resendOtp(email: event.email);
+
+      either.fold((data) {
+        emit(CompleteResendCodeState(data));
+      }, (error) {
+        emit(FailVerifyState(error));
       });
     });
 
     on<LogoutAuthEvent>((event, emit) async {
       emit(LoadingAuthState());
-      var either = await _repository.logout();
-      either.fold((erroMessage) {
-        emit(FailAuthState(erroMessage));
-      }, (message) {
+      ApiModel<String, String> either = await _repository.logout();
+
+      either.fold((data) {
         Storage.clearAll();
-        emit(InitAuthState());
+        emit(CompleteLogoutState());
+      }, (error) {
+        emit(FailAuthState(error));
       });
-      Storage.removeKey(key: 'token');
     });
 
     on<CheckEmailEvent>((event, emit) async {
@@ -86,6 +89,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         emit(InitAuthState());
       }
+    });
+
+    on<ChangeInfoEvent>((event, emit) async {
+      await Future.wait([
+        Storage.removeKey(key: 'email'),
+        Storage.removeKey(key: 'firstName'),
+        Storage.removeKey(key: 'lastName'),
+      ]);
+      emit(InitAuthState());
     });
   }
 }

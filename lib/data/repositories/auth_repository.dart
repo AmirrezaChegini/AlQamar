@@ -1,26 +1,25 @@
 import 'package:al_qamar/data/datasources/auth_datasource.dart';
+import 'package:al_qamar/utils/api_model.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/storage.dart';
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 abstract class IAuthRepository {
-  Future<Either<String, String>> login({
+  Future<ApiModel<String, String>> login({
     required String email,
     required String password,
   });
-  Future<Either<String, String>> register({
+  Future<ApiModel<String, String>> register({
     required String name,
     required String email,
     required String password,
   });
-  Future<Either<String, String>> verify({
+  Future<ApiModel<String, String>> verify({
     required String email,
     required String otp,
   });
-  Future<Either<String, String>> logout();
-
-  Future<Either<String, String>> resendOtp({required String email});
+  Future<ApiModel<String, String>> logout();
+  Future<ApiModel<String, String>> resendOtp({required String email});
 }
 
 class AuthRepositoryImpl implements IAuthRepository {
@@ -29,7 +28,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl(this._datasource);
 
   @override
-  Future<Either<String, String>> login(
+  Future<ApiModel<String, String>> login(
       {required String email, required String password}) async {
     try {
       Response response =
@@ -40,27 +39,27 @@ class AuthRepositoryImpl implements IAuthRepository {
 
       await Storage.saveString(key: 'token', value: token);
 
-      return right(message);
+      return ApiModel.success(message);
     } on AppExceptions catch (e) {
-      return left(e.message);
+      return ApiModel.error(e.message);
     }
   }
 
   @override
-  Future<Either<String, String>> logout() async {
+  Future<ApiModel<String, String>> logout() async {
     try {
       Response response = await _datasource.logout();
 
       Storage.removeKey(key: 'token');
 
-      return right(response.data['message']);
+      return ApiModel.success(response.data['message']);
     } on AppExceptions catch (e) {
-      return left(e.message);
+      return ApiModel.error(e.message);
     }
   }
 
   @override
-  Future<Either<String, String>> register(
+  Future<ApiModel<String, String>> register(
       {required String name,
       required String email,
       required String password}) async {
@@ -70,14 +69,14 @@ class AuthRepositoryImpl implements IAuthRepository {
 
       String message = response.data['message'];
 
-      return right(message);
+      return ApiModel.success(message);
     } on AppExceptions catch (e) {
-      return left(e.message);
+      return ApiModel.error(e.message);
     }
   }
 
   @override
-  Future<Either<String, String>> verify(
+  Future<ApiModel<String, String>> verify(
       {required String email, required String otp}) async {
     try {
       Response response = await _datasource.verify(email: email, otp: otp);
@@ -87,22 +86,22 @@ class AuthRepositoryImpl implements IAuthRepository {
 
       await Storage.saveString(key: 'token', value: token);
 
-      return right(message);
+      return ApiModel.success(message);
     } on AppExceptions catch (e) {
-      return left(e.message);
+      return ApiModel.error(e.message);
     }
   }
 
   @override
-  Future<Either<String, String>> resendOtp({required String email}) async {
+  Future<ApiModel<String, String>> resendOtp({required String email}) async {
     try {
       Response response = await _datasource.resendOtp(email: email);
 
       String message = response.data['message'];
 
-      return right(message);
+      return ApiModel.success(message);
     } on AppExceptions catch (e) {
-      return left(e.message);
+      return ApiModel.error(e.message);
     }
   }
 }

@@ -7,26 +7,10 @@ class BookmarkCubit extends Cubit<bool> {
 
   BookmarkCubit(this._repository) : super(false);
 
-  bool bookmark = false;
+  void isBookmark(Article article) {
+    List<Article> findBookmark =
+        _repository.getAllBookmarks().where((e) => e.id == article.id).toList();
 
-  void isBookmarked(int articleID) async {
-    var either = await _repository.getBookmarks();
-
-    either.fold((l) {}, (r) {
-      List<Article> article = r.where((e) => e.id == articleID).toList();
-
-      if (article.isNotEmpty) {
-        bookmark = true;
-        emit(bookmark);
-      } else {
-        bookmark = false;
-        emit(bookmark);
-      }
-    });
-  }
-
-  void changeBookmark() {
-    bookmark = !bookmark;
-    emit(bookmark);
+    findBookmark.isNotEmpty ? emit(true) : emit(false);
   }
 }

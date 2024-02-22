@@ -1,17 +1,23 @@
 import 'dart:async';
 
+import 'package:al_qamar/bloc/azan/azan_bloc.dart';
+import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/home/home_event.dart';
 import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/config/localize.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/cubit/bottomnav_cubit.dart';
+import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
 import 'package:al_qamar/pages/home/widgets/force_news.dart';
 import 'package:al_qamar/pages/home/widgets/page_view_item.dart';
+import 'package:al_qamar/pages/news/news_page.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
+import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
+import 'package:al_qamar/widgets/azan_widget.dart';
 import 'package:al_qamar/widgets/error_state.dart';
 import 'package:al_qamar/widgets/loading_state.dart';
 import 'package:al_qamar/widgets/title_widget.dart';
@@ -37,7 +43,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    changeArticlesAuto();
+  }
+
+  void changeArticlesAuto() {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       if (_pageCtrl.page == 2) {
         _pageCtrl.animateToPage(
           0,
@@ -86,12 +96,27 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height / 3.5,
                   child: PageView.builder(
-                    itemCount: 3,
+                    itemCount: state.lastArticleList.length < 3
+                        ? state.lastArticleList.length
+                        : 3,
                     controller: _pageCtrl,
                     itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child:
-                          PageViewItem(article: state.lastArticleList[index]),
+                      padding: const EdgeInsets.all(10).copyWith(top: 0),
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          pageRoute(
+                            child: ArticlePage(
+                              article: state.lastArticleList[index],
+                            ),
+                          ),
+                        ),
+                        onLongPressStart: (details) => _timer?.cancel(),
+                        onLongPressEnd: (details) => changeArticlesAuto(),
+                        child: PageViewItem(
+                          article: state.lastArticleList[index],
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -101,6 +126,31 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(10),
                   child: CalenderWidget(tabController: widget.tabController),
                 ),
+              ),
+              BlocBuilder<AzanBloc, AzanState>(
+                builder: (context, state) {
+                  if (state is CompletedAzanState) {
+                    return SliverToBoxAdapter(
+                      child: Column(
+                        children: List.generate(
+                          state.azanTimeList.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            child: AzanWidget(
+                              city: index == 0
+                                  ? 'najaf'.localize(context)
+                                  : 'london'.localize(context),
+                              azanTime: state.azanTimeList[index],
+                              elevation: 4,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return const SliverToBoxAdapter();
+                },
               ),
               SliverToBoxAdapter(
                 child: Row(
@@ -115,21 +165,23 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     TxtBtn(
-                      onTap: () {
-                        widget.tabController.animateTo(3);
-                        BlocProvider.of<BottomnavCubit>(context).changeIndex(3);
-                      },
+                      onTap: () => Navigator.push(
+                        context,
+                        pageRoute(child: const NewsPage()),
+                      ),
                       title: 'readMore'.localize(context),
                       icon: AppIcons.leftArrow,
                       textDecoration: CheckDirect.isRTL(context)
                           ? TextDirection.ltr
                           : TextDirection.rtl,
+                      fontSize: Fontsize.large,
+                      iconSize: 20,
                     ),
                   ],
                 ),
               ),
               SliverPadding(
-                padding: const EdgeInsets.only(bottom: 100),
+                padding: const EdgeInsets.only(bottom: 110),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     childCount: state.lastArticleList.length - 3,

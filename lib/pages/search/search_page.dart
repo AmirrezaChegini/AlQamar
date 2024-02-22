@@ -2,6 +2,7 @@ import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/search/search_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/search/widgets/textfield_search.dart';
 import 'package:al_qamar/widgets/article_widget.dart';
@@ -21,8 +22,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  List<Article> articleList = [];
   final TextEditingController _edtCtrl = TextEditingController();
+  List<Article> articleList = [];
 
   @override
   void dispose() {
@@ -36,17 +37,25 @@ class _SearchPageState extends State<SearchPage> {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20)
           .copyWith(bottom: 0),
       decoration: const BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.grey200,
       ),
       child: BlocConsumer<SearchBloc, SearchState>(
         listener: (context, state) {
           if (state is CompleteSearchState) {
             articleList = state.articleList;
           }
+
+          if (state is InitSearchState) {
+            articleList.clear();
+          }
+
+          if (state is FailSearchState) {
+            articleList.clear();
+          }
         },
         builder: (context, state) => Column(
           children: [
-            const SizedBox(height: 15),
+            const SizedBox(height: 34),
             TextfielfSearch(edtCtrl: _edtCtrl),
             const SizedBox(height: 10),
             Row(
@@ -63,14 +72,14 @@ class _SearchPageState extends State<SearchPage> {
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
-                          .copyWith(fontSize: 12),
+                          .copyWith(fontSize: Fontsize.large),
                       children: [
                         TextSpan(
                           text: ' "${_edtCtrl.text}"',
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
-                              .copyWith(fontSize: 12),
+                              .copyWith(fontSize: Fontsize.large),
                         ),
                       ]),
                 ),
@@ -88,7 +97,7 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ArticleWidget(
                     article: articleList[index],
-                    backgroundColor: AppColors.grey200,
+                    // backgroundColor: AppColors.grey200,
                   ),
                 ),
               ),

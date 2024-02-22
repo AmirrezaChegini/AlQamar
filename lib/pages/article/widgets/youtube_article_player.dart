@@ -1,50 +1,57 @@
+import 'package:al_qamar/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:pod_player/pod_player.dart';
 
 class YoutubeArticlePlayer extends StatefulWidget {
   const YoutubeArticlePlayer({
     super.key,
-    this.youtubeID,
+    required this.youtubeID,
   });
-  final String? youtubeID;
+  final String youtubeID;
 
   @override
   State<YoutubeArticlePlayer> createState() => _YoutubeArticlePlayerState();
 }
 
-class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer>
-    with AutomaticKeepAliveClientMixin {
-  late final YoutubePlayerController _youtubeCtrl;
+class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer> {
+  late final PodPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    _youtubeCtrl = YoutubePlayerController(
-      initialVideoId: widget.youtubeID ?? '',
-      flags: const YoutubePlayerFlags(autoPlay: false),
-    );
+    _controller = PodPlayerController(
+      playVideoFrom: PlayVideoFrom.youtube(widget.youtubeID),
+    )..initialise();
   }
 
   @override
   void dispose() {
-    _youtubeCtrl.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Container(
       margin: const EdgeInsets.all(10),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: YoutubePlayer(
-          controller: _youtubeCtrl,
+        child: ColoredBox(
+          color: AppColors.black,
+          child: PodVideoPlayer(
+            controller: _controller,
+            podProgressBarConfig: const PodProgressBarConfig(
+              padding: EdgeInsets.only(top: 0, right: 15, left: 15, bottom: 4),
+              height: 2,
+            ),
+          ),
         ),
+        // child: YoutubePlayer(
+        //   controller: _playerCtrl,
+        //   aspectRatio: 16 / 9,
+        //   backgroundColor: AppColors.transparent,
+        // ),
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

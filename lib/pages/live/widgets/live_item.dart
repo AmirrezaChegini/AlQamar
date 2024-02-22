@@ -1,15 +1,17 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/models/live.dart';
+import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:flutter/material.dart';
 
 class LiveItem extends StatelessWidget {
   const LiveItem({
     super.key,
-    required this.title,
+    required this.live,
     required this.color,
     this.onTap,
   });
 
-  final String title;
+  final Live live;
   final Color color;
   final Function()? onTap;
 
@@ -29,11 +31,20 @@ class LiveItem extends StatelessWidget {
             color: AppColors.grey600,
           ),
         ),
-        child: Text(
-          title,
-          maxLines: 1,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 13),
+        child: CacheImage(
+          imageUrl: live.image,
+          width: 80,
         ),
+        // child: Image.asset(image),
+        // child: Text(
+        //   live.name,
+        //   maxLines: 1,
+        //   textAlign: TextAlign.center,
+        //   style: Theme.of(context)
+        //       .textTheme
+        //       .bodyMedium!
+        //       .copyWith(fontSize: Fontsize.huge),
+        // ),
       ),
     );
   }

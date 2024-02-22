@@ -1,8 +1,7 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
-import 'package:al_qamar/pages/article/article_page.dart';
-import 'package:al_qamar/utils/anim/fade_page_trans.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
@@ -19,11 +18,25 @@ class PageViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        fadePageTran(child: ArticlePage(article: article)),
+    return Card(
+      color: AppColors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: CheckDirect.isRTL(context)
+            ? const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(60),
+              )
+            : const BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(20),
+                bottomLeft: Radius.circular(60),
+                bottomRight: Radius.circular(8),
+              ),
       ),
+      elevation: 4,
+      margin: const EdgeInsets.all(0),
       child: ClipRRect(
         borderRadius: CheckDirect.isRTL(context)
             ? const BorderRadius.only(
@@ -67,15 +80,16 @@ class PageViewItem extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(fontSize: 14),
+                        .copyWith(fontSize: Fontsize.large),
                   ),
                   const SizedBox(height: 10),
                   Container(
                     height: 1,
-                    color: AppColors.white,
+                    color: AppColors.white.withOpacity(0.7),
                   ),
                   const SizedBox(height: 10),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       const Spacer(),
                       const AppIcon(
@@ -85,11 +99,10 @@ class PageViewItem extends StatelessWidget {
                         color: AppColors.white,
                       ),
                       Text(
-                        ' ${article.updateAt}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .copyWith(fontSize: 12),
+                        ' ${article.updateAt.toArabic()}',
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                            fontSize: Fontsize.large,
+                            color: AppColors.white.withOpacity(0.7)),
                       ),
                       const SizedBox(width: 30),
                       const AppIcon(
@@ -105,8 +118,10 @@ class PageViewItem extends StatelessWidget {
                           softWrap: false,
                           style: Theme.of(context)
                               .textTheme
-                              .labelMedium!
-                              .copyWith(fontSize: 12),
+                              .labelSmall!
+                              .copyWith(
+                                  fontSize: Fontsize.large,
+                                  color: AppColors.white.withOpacity(0.7)),
                         ),
                       ),
                     ],

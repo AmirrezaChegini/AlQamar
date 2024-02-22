@@ -1,14 +1,13 @@
 name: al_qamar
-description: A new Flutter project.
+description: An arabic news app.
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
   bloc: ^8.1.2
-  dartz: ^0.10.1
   dio: ^5.3.2
   flutter:
     sdk: flutter
@@ -22,11 +21,9 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   table_calendar: ^3.0.9
-  syncfusion_flutter_datepicker: ^23.1.36
   smooth_page_indicator: ^1.1.0
   just_audio: ^0.9.35
   video_player: ^2.7.2
-  youtube_player_flutter: ^8.1.2
   syncfusion_flutter_pdfviewer: ^23.1.39
   cached_network_image: ^3.3.0
   lottie: ^2.6.0
@@ -37,14 +34,23 @@ dependencies:
   flutter_widget_from_html: ^0.14.5
   share_plus: ^7.2.1
   rxdart: ^0.27.7
+  flutter_svg: ^2.0.9
+  marqueer: ^1.4.3
+  grouped_list: ^5.1.2
+  path_provider: ^2.1.1
+  permission_handler: ^11.1.0
+  url_launcher: ^6.2.2
+  pod_player: ^0.2.1
+  syncfusion_flutter_datepicker: ^23.2.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
   build_runner: ^2.4.6
   hive_generator: ^2.0.1
   device_preview: ^1.1.0
+  change_app_package_name: ^1.1.0
 
 flutter:
   uses-material-design: true
@@ -54,13 +60,12 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/video/
+    - assets/docs/
 
   fonts:
-    - family: iranyekanmed
+    - family: majalla
       fonts:
-        - asset: assets/fonts/IRANYekanBold.ttf
+        - asset: assets/fonts/majallab.ttf
           weight: 900
-        - asset: assets/fonts/IRANYekanMedium.ttf
+        - asset: assets/fonts/majalla.ttf
           weight: 500
-        - asset: assets/fonts/IRANYekanRegular.ttf
-          weight: 400

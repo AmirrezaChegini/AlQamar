@@ -1,6 +1,7 @@
 import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/search/search_event.dart';
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/icon_btn.dart';
@@ -27,7 +28,7 @@ class _TextfielfSearchState extends State<TextfielfSearch> {
   void initState() {
     super.initState();
     final debouncedSearch =
-        searchText.debounceTime(const Duration(seconds: 1)).distinct();
+        searchText.debounceTime(const Duration(milliseconds: 500)).distinct();
 
     debouncedSearch.listen((event) {
       BlocProvider.of<SearchBloc>(context).add(SearchArticleEvent(event));
@@ -39,7 +40,10 @@ class _TextfielfSearchState extends State<TextfielfSearch> {
     return TextField(
       controller: widget.edtCtrl,
       keyboardType: TextInputType.text,
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 14),
+      style: Theme.of(context)
+          .textTheme
+          .bodyMedium!
+          .copyWith(fontSize: Fontsize.huge),
       onChanged: (value) {
         searchText.add(value);
       },
@@ -58,7 +62,10 @@ class _TextfielfSearchState extends State<TextfielfSearch> {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         suffixIcon: IconBtn(
-          onTap: () => widget.edtCtrl.clear(),
+          onTap: () {
+            widget.edtCtrl.clear();
+            searchText.add('');
+          },
           child: const AppIcon(
             icon: AppIcons.close,
             width: 20,

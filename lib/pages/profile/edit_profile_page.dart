@@ -3,7 +3,6 @@ import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
-import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/widgets/btn_auth.dart';
 import 'package:al_qamar/pages/auth/widgets/textfield_auth.dart';
@@ -15,10 +14,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({
     super.key,
-    this.user,
+    required this.user,
   });
 
-  final User? user;
+  final User user;
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -28,14 +27,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late final TextEditingController _firstNameCtrl;
   late final TextEditingController _lastNameCtrl;
   late final TextEditingController _bioCtrl;
+  // late final TextEditingController _emailCtrl;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _firstNameCtrl = TextEditingController(text: widget.user?.firstName ?? '');
-    _lastNameCtrl = TextEditingController(text: widget.user?.lastName ?? '');
-    _bioCtrl = TextEditingController(text: widget.user?.bio ?? '');
+    _firstNameCtrl = TextEditingController(text: widget.user.firstName);
+    _lastNameCtrl = TextEditingController(text: widget.user.lastName);
+    _bioCtrl = TextEditingController(text: widget.user.bio);
+    // _emailCtrl = TextEditingController(text: widget.user.email);
   }
 
   @override
@@ -43,6 +44,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _firstNameCtrl.dispose();
     _lastNameCtrl.dispose();
     _bioCtrl.dispose();
+    // _emailCtrl.dispose();
     super.dispose();
   }
 
@@ -52,16 +54,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
       resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10)
-            .copyWith(top: 40),
+        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10)
+            .copyWith(top: 54),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(15),
-          image: const DecorationImage(
-            image: AssetImage(AppImages.authBackground),
-            fit: BoxFit.cover,
-            opacity: 0.5,
-          ),
         ),
         child: BlocListener<UserBloc, UserState>(
           listener: (context, state) {
@@ -74,11 +71,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             }
 
             if (state is CompleteUserState) {
-              showMessage(
-                context: context,
-                content: 'successProfile'.localize(context),
-                horizontalMargin: 20,
-              );
+              Navigator.maybePop(context);
             }
           },
           child: Column(
@@ -132,6 +125,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             validate: (p0) {},
                           ),
                         ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10),
+                        //   child: TextFieldAuth(
+                        //     controller: _emailCtrl,
+                        //     hint: 'email'.localize(context),
+                        //     inputAction: TextInputAction.done,
+                        //     inputType: TextInputType.text,
+                        //     enabled: false,
+                        //     validate: (p0) {},
+                        //   ),
+                        // ),
                         const Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(10),
@@ -140,10 +144,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               if (_globalKey.currentState!.validate()) {
                                 BlocProvider.of<UserBloc>(context).add(
                                   UpdateUserEvent(
-                                    widget.user!.id,
-                                    _firstNameCtrl.text,
-                                    _lastNameCtrl.text,
-                                    _bioCtrl.text,
+                                    id: widget.user.id,
+                                    firstName: _firstNameCtrl.text,
+                                    lastName: _lastNameCtrl.text,
+                                    bio: _bioCtrl.text,
                                   ),
                                 );
                               }

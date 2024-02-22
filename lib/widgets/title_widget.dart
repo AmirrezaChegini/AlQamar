@@ -1,4 +1,5 @@
 import 'package:al_qamar/constants/colors.dart';
+import 'package:al_qamar/constants/fontsize.dart';
 import 'package:flutter/material.dart';
 
 class TitleWidget extends StatelessWidget {
@@ -30,12 +31,12 @@ class TitleWidget extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
-                    .copyWith(fontSize: 14),
+                    .copyWith(fontSize: Fontsize.large),
               ),
               if (showDivider) ...{
                 const SizedBox(height: 6),
                 Container(
-                  height: 1,
+                  height: 1.25,
                   width: dividerWidth,
                   color: AppColors.blue,
                 ),

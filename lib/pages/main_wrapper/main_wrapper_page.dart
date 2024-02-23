@@ -7,7 +7,6 @@ import 'package:al_qamar/bloc/category/category_event.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
-import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/pages/calender/calender_page.dart';
@@ -88,7 +87,6 @@ class _MainWrapperPageState extends State<MainWrapperPage>
       child: Scaffold(
         key: _scaffoldKey,
         bottomNavigationBar: BottomNavbar(tabController: _tabCtrl),
-        backgroundColor: AppColors.grey200,
         resizeToAvoidBottomInset: false,
         extendBody: true,
         appBar: MainAppbar(

@@ -42,7 +42,6 @@ class _ProgramsPageState extends State<ProgramsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.grey200,
       appBar: MainAppbar(
         title: 'programs'.localize(context),
         appbarLeading: BackButton(

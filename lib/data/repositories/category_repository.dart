@@ -16,18 +16,20 @@ class CategoryRepositoryImpl implements ICategoryRepository {
   @override
   Future<ApiModel<List<Category>, String>> getAllCategories() async {
     try {
-      Response response = await _datasource.getAllCategories();
-      return ApiModel.success(await compute(categoryList, response));
+      return ApiModel.success(
+        await compute(
+          _categories,
+          await _datasource.getAllCategories(),
+        ),
+      );
     } on AppExceptions catch (e) {
       return ApiModel.error(e.message);
     }
   }
 }
 
-List<Category> categoryList(Response response) {
-  List<Category> categories = response.data['data']['data']
+List<Category> _categories(Response response) {
+  return response.data['items']
       .map<Category>((e) => Category.fromMapJson(e))
       .toList();
-
-  return categories;
 }

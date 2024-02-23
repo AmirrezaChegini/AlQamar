@@ -1,6 +1,8 @@
+import 'package:al_qamar/bloc/article/article_bloc.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
@@ -11,6 +13,7 @@ import 'package:al_qamar/widgets/image_mask.dart';
 import 'package:al_qamar/widgets/marqueer_title.dart';
 import 'package:al_qamar/widgets/remove_bookmark_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marqueer/marqueer.dart';
 
 class ArticleWidget extends StatefulWidget {
@@ -37,7 +40,12 @@ class _ArticleWidgetState extends State<ArticleWidget> {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        pageRoute(child: ArticlePage(article: widget.article)),
+        pageRoute(
+          child: BlocProvider(
+            create: (context) => ArticleBloc(locator.get()),
+            child: ArticlePage(articleID: widget.article.id),
+          ),
+        ),
       ),
       onLongPress: () async {
         if (marqueerController.isAnimating) {
@@ -117,7 +125,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                           color: AppColors.grey,
                         ),
                         Text(
-                          ' ${widget.article.updateAt}'.toArabic(),
+                          ' ${widget.article.updated}'.toArabic(),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -133,7 +141,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                         Flexible(
                           flex: 3,
                           child: Text(
-                            ' ${widget.article.writer}',
+                            ' ${widget.article.writer.name}',
                             softWrap: false,
                             style: Theme.of(context)
                                 .textTheme

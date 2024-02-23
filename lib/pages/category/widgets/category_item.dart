@@ -32,7 +32,7 @@ class CategoryItem extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CacheImage(
-                imageUrl: category.photo,
+                imageUrl: category.image,
                 height: 80,
                 width: 80,
               ),

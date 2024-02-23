@@ -2,8 +2,9 @@ class Api {
   Api._();
 
   //base url
-  static const String baseUrl = 'https://yadme.com';
+  static const String baseUrl = 'https://amirrezagu.liara.run';
   static const String baseUrlSite = 'https://alghamar-vercel.vercel.app';
+  static const int perPage = 10;
 
   //auth
   static const String login = '/auth/login';
@@ -15,11 +16,12 @@ class Api {
   //user
   static const String profile = '/profile';
 
+  //category
+  static const String category = '/api/collections/category/records';
+
   //articles
-  static const String articles = '/article';
-  static const String lastArticles = '/article/last';
-  static const String searchArticles = '/article/search';
-  static const String forceArticles = '/article/force-news';
+  static const String articles = '/api/collections/article/records';
+  static const String forceArticles = '/api/collections/forceArticle/records';
 
   //calender
   static const String calender = '/calendar';
@@ -28,8 +30,6 @@ class Api {
   static const String video = '/live/video';
   static const String audio = '/live/audio';
 
-  //category
-  static const String category = '/category';
   //azan
   static const String azan = 'https://api.aladhan.com/v1/timingsByCity';
 }

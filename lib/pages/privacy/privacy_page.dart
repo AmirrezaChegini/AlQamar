@@ -23,7 +23,6 @@ class PrivacyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.grey200,
       appBar: MainAppbar(
         title: 'privacyPolicy'.localize(context),
         appbarLeading: const BackButton(

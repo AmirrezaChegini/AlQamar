@@ -52,7 +52,6 @@ class _CalenderDataPageState extends State<CalenderDataPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.grey200,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () async =>
@@ -109,7 +108,7 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                       const YoutubeArticlePlayer(youtubeID: ''),
                       AudioArticlePlayer(
                         audios: widget.calender.audios,
-                        date: widget.calender.updateAt,
+                        date: DateTime.parse(widget.calender.updateAt),
                         image: widget.calender.images.isNotEmpty
                             ? widget.calender.images[0]
                             : AppImages.error,

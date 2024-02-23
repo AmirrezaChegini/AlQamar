@@ -14,9 +14,7 @@ class CategoryRemote implements CategoryDatasource {
   @override
   Future<Response> getAllCategories() async {
     try {
-      Response response = await _dio.get(Api.category);
-
-      return response;
+      return await _dio.get(Api.category);
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

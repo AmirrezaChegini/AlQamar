@@ -8,7 +8,7 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     fontFamily: 'majalla',
     useMaterial3: false,
-    scaffoldBackgroundColor: AppColors.transparent,
+    scaffoldBackgroundColor: AppColors.grey200,
     sliderTheme: SliderThemeData(
       trackShape: const GradientRectSliderTrackShape(),
       secondaryActiveTrackColor: AppColors.grey600,

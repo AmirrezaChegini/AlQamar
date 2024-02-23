@@ -71,7 +71,6 @@ class _LivePageState extends State<LivePage>
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       },
       child: Scaffold(
-        backgroundColor: AppColors.grey200,
         appBar: MainAppbar(
           title: 'live'.localize(context),
           appbarLeading: BackButton(

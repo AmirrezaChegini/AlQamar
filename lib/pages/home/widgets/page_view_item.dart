@@ -99,7 +99,7 @@ class PageViewItem extends StatelessWidget {
                         color: AppColors.white,
                       ),
                       Text(
-                        ' ${article.updateAt.toArabic()}',
+                        ' ${article.updated}'.toArabic(),
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             fontSize: Fontsize.large,
                             color: AppColors.white.withOpacity(0.7)),

@@ -97,7 +97,6 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ArticleWidget(
                     article: articleList[index],
-                    // backgroundColor: AppColors.grey200,
                   ),
                 ),
               ),

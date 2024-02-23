@@ -28,7 +28,7 @@ class AudioArticlePlayer extends StatefulWidget {
 
   final List<dynamic> audios;
   final String image;
-  final String date;
+  final DateTime date;
   final String writer;
 
   @override

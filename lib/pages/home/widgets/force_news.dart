@@ -1,16 +1,19 @@
 import 'dart:async';
 
+import 'package:al_qamar/bloc/article/article_bloc.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/models/article.dart';
+import 'package:al_qamar/di.dart';
+import 'package:al_qamar/models/force_article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/anim/page_route.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForceNews extends StatefulWidget {
   const ForceNews({
@@ -18,7 +21,7 @@ class ForceNews extends StatefulWidget {
     required this.articleList,
   });
 
-  final List<Article> articleList;
+  final List<ForceArticle> articleList;
 
   @override
   State<ForceNews> createState() => _ForceNewsState();
@@ -53,7 +56,12 @@ class _ForceNewsState extends State<ForceNews> {
       onTap: () => Navigator.push(
         context,
         pageRoute(
-          child: ArticlePage(article: widget.articleList[index]),
+          child: BlocProvider(
+            create: (context) => ArticleBloc(locator.get()),
+            child: ArticlePage(
+              articleID: widget.articleList[index].id,
+            ),
+          ),
         ),
       ),
       child: Card(

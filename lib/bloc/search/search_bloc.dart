@@ -17,6 +17,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         (data) {
           if (data.isEmpty) {
             emit(InitSearchState());
+          } else if (event.searchText.isEmpty) {
+            emit(InitSearchState());
           } else {
             emit(CompleteSearchState(data));
           }

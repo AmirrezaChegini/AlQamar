@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:al_qamar/bloc/article/article_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_state.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:al_qamar/bloc/home/home_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
 import 'package:al_qamar/pages/calender/widgets/txt_btn.dart';
 import 'package:al_qamar/pages/home/widgets/calender_widget.dart';
@@ -96,8 +98,8 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height / 3.5,
                   child: PageView.builder(
-                    itemCount: state.lastArticleList.length < 3
-                        ? state.lastArticleList.length
+                    itemCount: state.articleList.length < 3
+                        ? state.articleList.length
                         : 3,
                     controller: _pageCtrl,
                     itemBuilder: (context, index) => Padding(
@@ -106,15 +108,18 @@ class _HomePageState extends State<HomePage> {
                         onTap: () => Navigator.push(
                           context,
                           pageRoute(
-                            child: ArticlePage(
-                              article: state.lastArticleList[index],
+                            child: BlocProvider(
+                              create: (context) => ArticleBloc(locator.get()),
+                              child: ArticlePage(
+                                articleID: state.articleList[index].id,
+                              ),
                             ),
                           ),
                         ),
                         onLongPressStart: (details) => _timer?.cancel(),
                         onLongPressEnd: (details) => changeArticlesAuto(),
                         child: PageViewItem(
-                          article: state.lastArticleList[index],
+                          article: state.articleList[index],
                         ),
                       ),
                     ),
@@ -184,12 +189,12 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(bottom: 110),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    childCount: state.lastArticleList.length - 3,
+                    childCount: state.articleList.length - 3,
                     (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 8),
-                      child: ArticleWidget(
-                          article: state.lastArticleList[index + 3]),
+                      child:
+                          ArticleWidget(article: state.articleList[index + 3]),
                     ),
                   ),
                 ),

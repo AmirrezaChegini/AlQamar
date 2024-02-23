@@ -1,19 +1,12 @@
-import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
-import 'package:al_qamar/bloc/bookmark/bookmark_event.dart';
-import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
-import 'package:al_qamar/bloc/favorite/favorite_event.dart';
-import 'package:al_qamar/bloc/favorite/favorite_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
-import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/share.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ActionArticle extends StatelessWidget {
   const ActionArticle({
@@ -33,44 +26,23 @@ class ActionArticle extends StatelessWidget {
         children: [
           Row(
             children: [
-              BlocBuilder<FavoriteBloc, FavoriteState>(
-                builder: (context, state) {
-                  return ActionItem(
-                    onTap: () {
-                      state is TrueFavoriteState
-                          ? BlocProvider.of<FavoriteBloc>(context)
-                              .add(RemoveFavorite(article))
-                          : BlocProvider.of<FavoriteBloc>(context)
-                              .add(AddFavorite(article));
-                    },
-                    icon: state is TrueFavoriteState
-                        ? AppIcons.favoriteFill
-                        : AppIcons.favorite,
-                    color: AppColors.red,
-                  );
-                },
+              ActionItem(
+                onTap: () {},
+                icon: AppIcons.favorite,
+                color: AppColors.red,
               ),
               const SizedBox(width: 8),
               ActionItem(
-                onTap: () async => await ShareData.shareUrl(article.id),
+                onTap: () async =>
+                    await ShareData.shareText(article.content.htmlToString()),
                 icon: AppIcons.share,
                 color: AppColors.blue,
               ),
               const SizedBox(width: 8),
-              BlocBuilder<BookmarkCubit, bool>(
-                builder: (context, state) {
-                  return ActionItem(
-                    onTap: () {
-                      state
-                          ? BlocProvider.of<BookmarkBloc>(context)
-                              .add(Removebookmark(article))
-                          : BlocProvider.of<BookmarkBloc>(context)
-                              .add(AddBookmark(article));
-                    },
-                    icon: state ? AppIcons.bookmarkFill : AppIcons.bookmark,
-                    color: AppColors.blue,
-                  );
-                },
+              ActionItem(
+                onTap: () {},
+                icon: AppIcons.bookmark,
+                color: AppColors.blue,
               ),
               const Spacer(),
               Column(
@@ -86,7 +58,7 @@ class ActionArticle extends StatelessWidget {
                         color: AppColors.black,
                       ),
                       Text(
-                        ' ${article.updateAt}'.toArabic(),
+                        ' ${article.updated}'.toArabic(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!

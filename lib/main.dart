@@ -1,9 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/azan/azan_bloc.dart';
-import 'package:al_qamar/bloc/bookmark/bookmark_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/category/category_bloc.dart';
-import 'package:al_qamar/bloc/favorite/favorite_bloc.dart';
 import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
@@ -13,7 +11,6 @@ import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/config/theme.dart';
 import 'package:al_qamar/cubit/article_cubit.dart';
 import 'package:al_qamar/cubit/audio_cubit.dart';
-import 'package:al_qamar/cubit/bookmark_cubit.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
 import 'package:al_qamar/cubit/btn_verify_cubit.dart';
 import 'package:al_qamar/cubit/calender_cubit.dart';
@@ -23,7 +20,6 @@ import 'package:al_qamar/cubit/localize_cubit.dart';
 import 'package:al_qamar/cubit/password_cubit.dart';
 import 'package:al_qamar/cubit/pdf_cubit.dart';
 import 'package:al_qamar/cubit/timer_cubit.dart';
-import 'package:al_qamar/db.dart';
 import 'package:al_qamar/di.dart';
 import 'package:al_qamar/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +33,6 @@ import 'package:just_audio_background/just_audio_background.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  await initDB();
   await initLocator();
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
@@ -66,7 +61,6 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<PdfCubit>()),
         BlocProvider(create: (context) => locator.get<PasswordCubit>()),
         BlocProvider(create: (context) => locator.get<LiveCubit>()),
-        BlocProvider(create: (context) => locator.get<BookmarkCubit>()),
         BlocProvider(create: (context) => locator.get<CalenderCubit>()),
         BlocProvider(create: (context) => locator.get<HideFabeCubit>()),
         BlocProvider(create: (context) => locator.get<AzanBloc>()),
@@ -77,8 +71,6 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (context) => locator.get<SearchBloc>()),
         BlocProvider(create: (context) => locator.get<CalenderBloc>()),
         BlocProvider(create: (context) => locator.get<LiveBloc>()),
-        BlocProvider(create: (context) => locator.get<FavoriteBloc>()),
-        BlocProvider(create: (context) => locator.get<BookmarkBloc>()),
         BlocProvider(create: (context) => locator.get<OtherArticleBloc>()),
         BlocProvider(create: (context) => locator.get<CategoryBloc>()),
       ],

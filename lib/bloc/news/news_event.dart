@@ -6,7 +6,7 @@ class GetAllArticlesEvent extends NewsEvent {
 }
 
 class GetArticleByCategoryEVent extends NewsEvent {
-  final int categoryID;
+  final String categoryID;
   final int page;
   GetArticleByCategoryEVent(this.categoryID, this.page);
 }

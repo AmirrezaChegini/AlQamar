@@ -8,40 +8,46 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   final IUserRepository _repository;
 
+  User? user;
+
   UserBloc(this._repository) : super(InitUserState()) {
     on<GetUserEvent>((event, emit) async {
-      ApiModel<User, String> either = await _repository.getUser();
+      ApiModel<User, String> eitehr = await _repository.getUser();
 
-      either.fold(
-        (data) => emit(CompleteUserState(data)),
-        (error) => emit(InitUserState()),
+      eitehr.fold(
+        (data) {
+          user = data;
+          emit(CompleteUserState());
+        },
+        (error) => emit(FailedUserState(error)),
       );
     });
-
-    on<CreateUserEvent>((event, emit) async {
-      ApiModel<String, String> either = await _repository.createUser(
-        firstName: event.firstName,
-        lastName: event.lastName,
-      );
-
-      either.fold(
-        (data) => add(GetUserEvent()),
-        (error) => emit(InitUserState()),
-      );
-    });
-
     on<UpdateUserEvent>((event, emit) async {
-      ApiModel<String, String> either = await _repository.updateUser(
-        id: event.id,
+      emit(LoadingUserState());
+      ApiModel<User, String> eitehr = await _repository.updateUser(
+        userID: event.userID,
         firstName: event.firstName,
         lastName: event.lastName,
         bio: event.bio,
+        image: event.image,
       );
 
-      either.fold(
-        (data) => add(GetUserEvent()),
-        (error) => emit(InitUserState()),
+      eitehr.fold(
+        (data) {
+          user = data;
+          emit(CompleteUserState());
+        },
+        (error) => emit(FailedUserState(error)),
       );
+    });
+
+    on<SetUserEvent>((event, emit) {
+      user = event.user;
+      emit(CompleteUserState());
+    });
+    on<LogoutUserEvent>((event, emit) {
+      user = null;
+      emit(InitUserState());
     });
   }
 }

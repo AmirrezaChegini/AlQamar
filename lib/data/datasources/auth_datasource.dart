@@ -9,17 +9,11 @@ abstract class AuthDatasource {
     required String password,
   });
   Future<Response> register({
-    required String name,
     required String email,
     required String password,
+    required String firstName,
+    required String lastName,
   });
-  Future<Response> verify({
-    required String email,
-    required String otp,
-  });
-  Future<Response> logout();
-
-  Future<Response> resendOtp({required String email});
 }
 
 class AuthRemote implements AuthDatasource {
@@ -28,34 +22,18 @@ class AuthRemote implements AuthDatasource {
   AuthRemote(this._dio);
 
   @override
-  Future<Response> login(
-      {required String email, required String password}) async {
+  Future<Response> login({
+    required String email,
+    required String password,
+  }) async {
     try {
-      Response response = await _dio.post(
+      return await _dio.post(
         Api.login,
         data: {
-          'email': email,
+          'identity': email,
           'password': password,
         },
       );
-
-      return response;
-    } on DioException catch (e) {
-      e.response == null
-          ? throw FetchDataEx()
-          : throw CheckExceptions.validate(e.response!);
-    }
-  }
-
-  @override
-  Future<Response> logout() async {
-    try {
-      Response response = await _dio.post(
-        Api.logout,
-        options: Options(headers: {'requiredToken': true}),
-      );
-
-      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -65,56 +43,23 @@ class AuthRemote implements AuthDatasource {
 
   @override
   Future<Response> register({
-    required String name,
     required String email,
     required String password,
+    required String firstName,
+    required String lastName,
   }) async {
     try {
-      Response response = await _dio.post(
+      return await _dio.post(
         Api.register,
         data: {
-          'name': name,
           'email': email,
+          'emailVisibility': true,
           'password': password,
+          'passwordConfirm': password,
+          'firstName': firstName,
+          'lastName': lastName,
         },
       );
-
-      return response;
-    } on DioException catch (e) {
-      e.response == null
-          ? throw FetchDataEx()
-          : throw CheckExceptions.validate(e.response!);
-    }
-  }
-
-  @override
-  Future<Response> verify({required String email, required String otp}) async {
-    try {
-      Response response = await _dio.post(
-        Api.verify,
-        data: {
-          'email': email,
-          'otp': otp,
-        },
-      );
-
-      return response;
-    } on DioException catch (e) {
-      e.response == null
-          ? throw FetchDataEx()
-          : throw CheckExceptions.validate(e.response!);
-    }
-  }
-
-  @override
-  Future<Response> resendOtp({required String email}) async {
-    try {
-      Response response = await _dio.post(
-        Api.resendOtp,
-        data: {'email': email},
-      );
-
-      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

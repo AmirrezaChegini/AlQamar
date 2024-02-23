@@ -2,6 +2,7 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
@@ -99,7 +100,7 @@ class PageViewItem extends StatelessWidget {
                         color: AppColors.white,
                       ),
                       Text(
-                        ' ${article.updated}'.toArabic(),
+                        '  ${article.updated.getFormatDate()}'.toArabic(),
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             fontSize: Fontsize.large,
                             color: AppColors.white.withOpacity(0.7)),
@@ -114,7 +115,7 @@ class PageViewItem extends StatelessWidget {
                       Flexible(
                         flex: 3,
                         child: Text(
-                          ' ${article.writer}',
+                          ' ${article.writer.name}',
                           softWrap: false,
                           style: Theme.of(context)
                               .textTheme

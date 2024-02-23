@@ -8,8 +8,7 @@ class AppInterceptors implements Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     if (options.headers['requiredToken'] != null &&
         options.headers['requiredToken']) {
-      options.headers['Authorization'] =
-          'Bearer ${await Storage.getString(key: 'token')}';
+      options.headers['Authorization'] = await Storage.getString(key: 'token');
     }
     options.headers['Accept'] = 'application/json';
     handler.next(options);

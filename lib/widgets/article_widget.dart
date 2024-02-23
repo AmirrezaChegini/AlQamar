@@ -5,6 +5,7 @@ import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/article_page.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/rtl_direct.dart';
 import 'package:al_qamar/widgets/anim/page_route.dart';
@@ -125,7 +126,8 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                           color: AppColors.grey,
                         ),
                         Text(
-                          ' ${widget.article.updated}'.toArabic(),
+                          '  ${widget.article.updated.getFormatDate()}'
+                              .toArabic(),
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!

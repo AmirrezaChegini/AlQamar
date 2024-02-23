@@ -1,24 +1,28 @@
-abstract class UserEvent {}
+import 'package:al_qamar/models/user.dart';
 
-class CreateUserEvent extends UserEvent {
-  final String firstName;
-  final String lastName;
-
-  CreateUserEvent(this.firstName, this.lastName);
-}
+sealed class UserEvent {}
 
 class GetUserEvent extends UserEvent {}
 
 class UpdateUserEvent extends UserEvent {
-  final int id;
-  final String firstName;
-  final String lastName;
-  final String bio;
+  final String userID;
+  final String? firstName;
+  final String? lastName;
+  final String? bio;
+  final String? image;
 
   UpdateUserEvent({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.bio,
+    required this.userID,
+    this.firstName,
+    this.lastName,
+    this.bio,
+    this.image,
   });
 }
+
+class SetUserEvent extends UserEvent {
+  final User user;
+  SetUserEvent(this.user);
+}
+
+class LogoutUserEvent extends UserEvent {}

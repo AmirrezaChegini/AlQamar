@@ -1,6 +1,6 @@
 import 'package:al_qamar/models/azan_time.dart';
 
-abstract class AzanState {}
+sealed class AzanState {}
 
 class InitAzanState extends AzanState {}
 

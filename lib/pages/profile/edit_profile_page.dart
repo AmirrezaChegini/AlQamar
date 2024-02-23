@@ -27,7 +27,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late final TextEditingController _firstNameCtrl;
   late final TextEditingController _lastNameCtrl;
   late final TextEditingController _bioCtrl;
-  // late final TextEditingController _emailCtrl;
+  late final TextEditingController _emailCtrl;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   @override
@@ -36,7 +36,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _firstNameCtrl = TextEditingController(text: widget.user.firstName);
     _lastNameCtrl = TextEditingController(text: widget.user.lastName);
     _bioCtrl = TextEditingController(text: widget.user.bio);
-    // _emailCtrl = TextEditingController(text: widget.user.email);
+    _emailCtrl = TextEditingController(text: widget.user.email);
   }
 
   @override
@@ -44,7 +44,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _firstNameCtrl.dispose();
     _lastNameCtrl.dispose();
     _bioCtrl.dispose();
-    // _emailCtrl.dispose();
+    _emailCtrl.dispose();
     super.dispose();
   }
 
@@ -61,11 +61,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
           borderRadius: BorderRadius.circular(15),
         ),
         child: BlocListener<UserBloc, UserState>(
-          listener: (context, state) {
-            if (state is InitUserState) {
+          listener: (context, state) async {
+            if (state is FailedUserState) {
               showMessage(
                 context: context,
-                content: 'noInternetConnection'.localize(context),
+                content: state.errorMessage,
                 horizontalMargin: 20,
               );
             }
@@ -125,17 +125,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             validate: (p0) {},
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(10),
-                        //   child: TextFieldAuth(
-                        //     controller: _emailCtrl,
-                        //     hint: 'email'.localize(context),
-                        //     inputAction: TextInputAction.done,
-                        //     inputType: TextInputType.text,
-                        //     enabled: false,
-                        //     validate: (p0) {},
-                        //   ),
-                        // ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: TextFieldAuth(
+                            controller: _emailCtrl,
+                            hint: 'email'.localize(context),
+                            inputAction: TextInputAction.done,
+                            inputType: TextInputType.text,
+                            enabled: false,
+                            validate: (p0) {},
+                          ),
+                        ),
                         const Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(10),
@@ -144,7 +144,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               if (_globalKey.currentState!.validate()) {
                                 BlocProvider.of<UserBloc>(context).add(
                                   UpdateUserEvent(
-                                    id: widget.user.id,
+                                    userID: widget.user.id,
                                     firstName: _firstNameCtrl.text,
                                     lastName: _lastNameCtrl.text,
                                     bio: _bioCtrl.text,

@@ -1,5 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_state.dart';
+import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_state.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
@@ -42,24 +44,26 @@ class BtnAuth extends StatelessWidget {
             endIndent: 8,
           ),
           const Spacer(),
-          BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) =>
-                state is LoadingAuthState || state is LoadingVerifyState
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
+          BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) => BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, innerState) =>
+                  innerState is LoadingAuthState || state is LoadingUserState
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            color: AppColors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : const AppIcon(
+                          icon: AppIcons.rightArrow,
                           color: AppColors.white,
-                          strokeWidth: 2,
+                          height: 20,
+                          width: 20,
+                          matchDirection: true,
                         ),
-                      )
-                    : const AppIcon(
-                        icon: AppIcons.rightArrow,
-                        color: AppColors.white,
-                        height: 20,
-                        width: 20,
-                        matchDirection: true,
-                      ),
+            ),
           ),
         ],
       ),

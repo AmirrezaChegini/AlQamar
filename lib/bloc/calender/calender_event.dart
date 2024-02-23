@@ -1,4 +1,4 @@
-abstract class CalenderEvent {}
+sealed class CalenderEvent {}
 
 class GetCalenderEvent extends CalenderEvent {
   final String day;

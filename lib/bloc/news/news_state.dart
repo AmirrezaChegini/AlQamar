@@ -1,6 +1,6 @@
 import 'package:al_qamar/models/article.dart';
 
-abstract class NewsState {}
+sealed class NewsState {}
 
 class InitNewsState extends NewsState {}
 

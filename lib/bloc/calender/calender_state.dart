@@ -1,6 +1,6 @@
 import 'package:al_qamar/models/calender.dart';
 
-abstract class CalenderState {}
+sealed class CalenderState {}
 
 class InitCalenderState extends CalenderState {}
 

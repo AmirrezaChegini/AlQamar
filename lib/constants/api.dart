@@ -7,14 +7,11 @@ class Api {
   static const int perPage = 10;
 
   //auth
-  static const String login = '/auth/login';
-  static const String register = '/auth/register';
-  static const String verify = '/auth/verify';
-  static const String logout = '/auth/logout';
-  static const String resendOtp = '/auth/resend-otp';
+  static const String login = '/api/collections/user/auth-with-password';
+  static const String register = '/api/collections/user/records';
 
   //user
-  static const String profile = '/profile';
+  static const String user = '/api/collections/user/records/';
 
   //category
   static const String category = '/api/collections/category/records';

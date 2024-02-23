@@ -107,17 +107,6 @@ class ProfilePage extends StatelessWidget {
                                         title: 'aboutUs'.localize(context),
                                       ),
                                     ),
-                                    // Expanded(
-                                    //   child: ItemWidget(
-                                    //     image: AppIcons.salavat,
-                                    //     color: AppColors.grey600,
-                                    //     title: 'preyers'.localize(context),
-                                    //     onTap: () => Navigator.push(
-                                    //       context,
-                                    //       pageRoute(child: const SalavatPage()),
-                                    //     ),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -188,7 +177,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return const SizedBox();
+                  return const SizedBox.shrink();
                 }
               },
             )

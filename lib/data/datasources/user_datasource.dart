@@ -1,19 +1,17 @@
 import 'package:al_qamar/constants/api.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
+import 'package:al_qamar/utils/storage.dart';
 import 'package:dio/dio.dart';
 
 abstract class UserDatasource {
-  Future<Response> createUser({
-    required String firstName,
-    required String lastName,
-  });
   Future<Response> getUser();
   Future<Response> updateUser({
-    required int id,
-    required String firstName,
-    required String lastName,
-    required String bio,
+    required String userID,
+    String? firstName,
+    String? lastName,
+    String? bio,
+    String? image,
   });
 }
 
@@ -22,35 +20,13 @@ class UserRemote implements UserDatasource {
   UserRemote(this._dio);
 
   @override
-  Future<Response> createUser(
-      {required String firstName, required String lastName}) async {
-    try {
-      Response response = await _dio.post(
-        Api.profile,
-        options: Options(headers: {'requiredToken': true}),
-        data: {
-          'first_name': firstName,
-          'last_name': lastName,
-        },
-      );
-
-      return response;
-    } on DioException catch (e) {
-      e.response == null
-          ? throw FetchDataEx()
-          : throw CheckExceptions.validate(e.response!);
-    }
-  }
-
-  @override
   Future<Response> getUser() async {
     try {
-      Response response = await _dio.get(
-        Api.profile,
+      String userID = await Storage.getString(key: 'userID');
+      return await _dio.get(
+        '${Api.user}/$userID',
         options: Options(headers: {'requiredToken': true}),
       );
-
-      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -60,42 +36,23 @@ class UserRemote implements UserDatasource {
 
   @override
   Future<Response> updateUser({
-    required int id,
-    required String firstName,
-    required String lastName,
-    required String bio,
+    required String userID,
+    String? firstName,
+    String? lastName,
+    String? bio,
+    String? image,
   }) async {
-    // FormData formData;
-
-    // if (avatar != null) {
-    //   formData = FormData.fromMap({
-    //     'first_name': firstName,
-    //     'last_name': lastName,
-    //     'avatar': await MultipartFile.fromFile(
-    //       File(avatar.path).path,
-    //       filename: avatar.name,
-    //     ),
-    //     'bio': bio,
-    //   });
-    // } else {
-    //   formData = FormData.fromMap({
-    //     'first_name': firstName,
-    //     'last_name': lastName,
-    //     'bio': bio,
-    //   });
-    // }
-
     try {
-      Response response = await _dio.put(
-        '${Api.profile}/$id',
+      return await _dio.patch(
+        '${Api.user}/$userID',
         options: Options(headers: {'requiredToken': true}),
-        queryParameters: {
-          'first_name': firstName,
-          'last_name': lastName,
+        data: {
+          'firstName': firstName,
+          'lastName': lastName,
           'bio': bio,
+          'image': image,
         },
       );
-      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

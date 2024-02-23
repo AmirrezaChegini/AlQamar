@@ -1,11 +1,7 @@
-import 'package:al_qamar/bloc/auth/auth_bloc.dart';
-import 'package:al_qamar/bloc/auth/auth_state.dart';
 import 'package:al_qamar/bloc/calender/calender_bloc.dart';
 import 'package:al_qamar/bloc/calender/calender_event.dart';
 import 'package:al_qamar/bloc/category/category_bloc.dart';
 import 'package:al_qamar/bloc/category/category_event.dart';
-import 'package:al_qamar/bloc/user/user_bloc.dart';
-import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/images.dart';
 import 'package:al_qamar/cubit/bottomnav_cubit.dart';
@@ -43,7 +39,6 @@ class _MainWrapperPageState extends State<MainWrapperPage>
     BlocProvider.of<BottomnavCubit>(context).changeIndex(0);
     BlocProvider.of<CalenderBloc>(context)
         .add(GetCalenderEvent(HijriCalendar.now().getHijri()));
-
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 0);
   }
 
@@ -94,33 +89,16 @@ class _MainWrapperPageState extends State<MainWrapperPage>
           appbarLeading: const AppbarLeading(),
         ),
         drawer: ProfilePage(tabController: _tabCtrl),
-        body: BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is CompleteLogoutState) {
-              Navigator.maybePop(context);
-              _scaffoldKey.currentState?.closeDrawer();
-              showMessage(
-                context: context,
-                content: 'logoutSuccess'.localize(context),
-                horizontalMargin: 10,
-                verticalMargin: 0,
-                isError: false,
-              );
-
-              BlocProvider.of<UserBloc>(context).add(GetUserEvent());
-            }
-          },
-          child: TabBarView(
-            controller: _tabCtrl,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              HomePage(tabController: _tabCtrl),
-              const CategoryPage(),
-              const SizedBox(),
-              Center(child: Image.asset(AppImages.comingSoon)),
-              const CalenderPage(),
-            ],
-          ),
+        body: TabBarView(
+          controller: _tabCtrl,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            HomePage(tabController: _tabCtrl),
+            const CategoryPage(),
+            const SizedBox(),
+            Center(child: Image.asset(AppImages.comingSoon)),
+            const CalenderPage(),
+          ],
         ),
       ),
     );

@@ -1,25 +1,22 @@
 import 'package:al_qamar/data/datasources/auth_datasource.dart';
+import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/utils/api_model.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/storage.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class IAuthRepository {
-  Future<ApiModel<String, String>> login({
+  Future<ApiModel<User, String>> login({
     required String email,
     required String password,
   });
-  Future<ApiModel<String, String>> register({
-    required String name,
+  Future<ApiModel<User, String>> register({
     required String email,
     required String password,
+    required String firstName,
+    required String lastName,
   });
-  Future<ApiModel<String, String>> verify({
-    required String email,
-    required String otp,
-  });
-  Future<ApiModel<String, String>> logout();
-  Future<ApiModel<String, String>> resendOtp({required String email});
 }
 
 class AuthRepositoryImpl implements IAuthRepository {
@@ -28,80 +25,55 @@ class AuthRepositoryImpl implements IAuthRepository {
   AuthRepositoryImpl(this._datasource);
 
   @override
-  Future<ApiModel<String, String>> login(
+  Future<ApiModel<User, String>> login(
       {required String email, required String password}) async {
     try {
       Response response =
           await _datasource.login(email: email, password: password);
+      await Future.wait([
+        Storage.saveString(key: 'token', value: response.data['token']),
+        Storage.saveString(key: 'userID', value: response.data['record']['id']),
+      ]);
 
-      String token = response.data['data'];
-      String message = response.data['message'];
-
-      await Storage.saveString(key: 'token', value: token);
-
-      return ApiModel.success(message);
+      return ApiModel.success(
+        await compute(
+          _loginUser,
+          response,
+        ),
+      );
     } on AppExceptions catch (e) {
       return ApiModel.error(e.message);
     }
   }
 
   @override
-  Future<ApiModel<String, String>> logout() async {
+  Future<ApiModel<User, String>> register(
+      {required String email,
+      required String password,
+      required String firstName,
+      required String lastName}) async {
     try {
-      Response response = await _datasource.logout();
-
-      Storage.removeKey(key: 'token');
-
-      return ApiModel.success(response.data['message']);
+      return ApiModel.success(
+        await compute(
+          _user,
+          await _datasource.register(
+            email: email,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+          ),
+        ),
+      );
     } on AppExceptions catch (e) {
       return ApiModel.error(e.message);
     }
   }
+}
 
-  @override
-  Future<ApiModel<String, String>> register(
-      {required String name,
-      required String email,
-      required String password}) async {
-    try {
-      Response response = await _datasource.register(
-          name: name, email: email, password: password);
+User _loginUser(Response response) {
+  return User.fromMapJson(response.data['record']);
+}
 
-      String message = response.data['message'];
-
-      return ApiModel.success(message);
-    } on AppExceptions catch (e) {
-      return ApiModel.error(e.message);
-    }
-  }
-
-  @override
-  Future<ApiModel<String, String>> verify(
-      {required String email, required String otp}) async {
-    try {
-      Response response = await _datasource.verify(email: email, otp: otp);
-
-      String token = response.data['data']['token'];
-      String message = response.data['message'];
-
-      await Storage.saveString(key: 'token', value: token);
-
-      return ApiModel.success(message);
-    } on AppExceptions catch (e) {
-      return ApiModel.error(e.message);
-    }
-  }
-
-  @override
-  Future<ApiModel<String, String>> resendOtp({required String email}) async {
-    try {
-      Response response = await _datasource.resendOtp(email: email);
-
-      String message = response.data['message'];
-
-      return ApiModel.success(message);
-    } on AppExceptions catch (e) {
-      return ApiModel.error(e.message);
-    }
-  }
+User _user(Response response) {
+  return User.fromMapJson(response.data);
 }

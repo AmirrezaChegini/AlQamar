@@ -1,3 +1,3 @@
-abstract class HomeEvent {}
+sealed class HomeEvent {}
 
 class GetHomeEvent extends HomeEvent {}

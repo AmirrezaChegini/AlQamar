@@ -5,10 +5,10 @@ import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/constants/images.dart';
+import 'package:al_qamar/di.dart';
 import 'package:al_qamar/models/user.dart';
 import 'package:al_qamar/pages/auth/auth_page.dart';
 import 'package:al_qamar/pages/profile/edit_profile_page.dart';
-import 'package:al_qamar/utils/storage.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
 import 'package:al_qamar/widgets/cache_image.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +24,8 @@ class HeaderProfile extends StatefulWidget {
 }
 
 class _HeaderProfileState extends State<HeaderProfile> {
+  UserBloc userBloc = locator.get();
+
   Future<void> authenticate() async {
     showModalBottomSheet(
       context: context,
@@ -83,30 +85,13 @@ class _HeaderProfileState extends State<HeaderProfile> {
               ),
             ),
           ),
-          BlocConsumer<UserBloc, UserState>(
-            listener: (context, state) async {
-              if (state is CompleteUserState) {
-                await Future.wait([
-                  Storage.removeKey(key: 'email'),
-                  Storage.removeKey(key: 'firstName'),
-                  Storage.removeKey(key: 'lastName'),
-                ]);
-              }
-            },
+          BlocBuilder<UserBloc, UserState>(
             builder: (context, state) => Positioned.fill(
               top: 40,
               right: 20,
               child: Row(
                 children: [
                   GestureDetector(
-                    // onTap: () => state is CompleteUserState
-                    //     ? showDialog(
-                    //         context: context,
-                    //         builder: (context) =>
-                    //             CameraDialog(user: state.user),
-                    //         barrierColor: AppColors.grey200.withOpacity(0.3),
-                    //       )
-                    //     : null,
                     child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -115,12 +100,12 @@ class _HeaderProfileState extends State<HeaderProfile> {
                       margin: const EdgeInsets.all(0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: state is CompleteUserState &&
-                                state.user.avatar.isNotEmpty
+                        child: userBloc.user != null &&
+                                userBloc.user!.image.isNotEmpty
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: CacheImage(
-                                  imageUrl: state.user.avatar,
+                                  imageUrl: userBloc.user?.image ?? '',
                                   height: 80,
                                   width: 80,
                                 ),
@@ -147,7 +132,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        state is CompleteUserState
+                        userBloc.user != null
                             ? 'welcome'.localize(context)
                             : 'personalAccount'.localize(context),
                         style: Theme.of(context)
@@ -159,13 +144,13 @@ class _HeaderProfileState extends State<HeaderProfile> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              if (state is InitUserState) {
+                              if (userBloc.user == null) {
                                 authenticate();
                               }
                             },
                             child: Text(
-                              state is CompleteUserState
-                                  ? '${state.user.firstName} | '
+                              userBloc.user != null
+                                  ? '${userBloc.user?.firstName} | '
                                   : '${'createProfile'.localize(context)}  |  ',
                               style: Theme.of(context)
                                   .textTheme
@@ -175,14 +160,14 @@ class _HeaderProfileState extends State<HeaderProfile> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              if (state is CompleteUserState) {
-                                editProfile(state.user);
+                              if (userBloc.user != null) {
+                                editProfile(userBloc.user!);
                               } else {
                                 authenticate();
                               }
                             },
                             child: Text(
-                              state is CompleteUserState
+                              userBloc.user != null
                                   ? 'editProfile'.localize(context)
                                   : 'login'.localize(context),
                               style: Theme.of(context)
@@ -193,7 +178,7 @@ class _HeaderProfileState extends State<HeaderProfile> {
                           ),
                         ],
                       ),
-                      const SizedBox(),
+                      const SizedBox.shrink(),
                     ],
                   ),
                 ],

@@ -1,5 +1,7 @@
 import 'package:al_qamar/bloc/auth/auth_bloc.dart';
 import 'package:al_qamar/bloc/auth/auth_event.dart';
+import 'package:al_qamar/bloc/user/user_bloc.dart';
+import 'package:al_qamar/bloc/user/user_event.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,9 @@ class LogoutDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             BlocProvider.of<AuthBloc>(context).add(LogoutAuthEvent());
+            BlocProvider.of<UserBloc>(context).add(LogoutUserEvent());
+            Navigator.pop(context);
+            Navigator.maybePop(context);
           },
           style: TextButton.styleFrom(
             foregroundColor: AppColors.blue,

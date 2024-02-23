@@ -1,4 +1,4 @@
-abstract class AuthEvent {}
+sealed class AuthEvent {}
 
 class LoginAuthEvent extends AuthEvent {
   final String email;
@@ -16,20 +16,4 @@ class RegisterAuthEvent extends AuthEvent {
   RegisterAuthEvent(this.firstName, this.lastName, this.email, this.password);
 }
 
-class VerifyAuthEvent extends AuthEvent {
-  final String otp;
-
-  VerifyAuthEvent(this.otp);
-}
-
-class ResendCodeEvent extends AuthEvent {
-  final String email;
-
-  ResendCodeEvent(this.email);
-}
-
 class LogoutAuthEvent extends AuthEvent {}
-
-class CheckEmailEvent extends AuthEvent {}
-
-class ChangeInfoEvent extends AuthEvent {}

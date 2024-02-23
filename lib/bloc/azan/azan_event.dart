@@ -1,3 +1,3 @@
-abstract class AzanEvent {}
+sealed class AzanEvent {}
 
 class GetAzanTimeEvent extends AzanEvent {}

@@ -3,6 +3,7 @@ import 'package:al_qamar/constants/fontsize.dart';
 import 'package:al_qamar/constants/icons.dart';
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/pages/article/widgets/action_item.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:al_qamar/utils/extensions/string.dart';
 import 'package:al_qamar/utils/share.dart';
 import 'package:al_qamar/widgets/app_icon.dart';
@@ -58,7 +59,7 @@ class ActionArticle extends StatelessWidget {
                         color: AppColors.black,
                       ),
                       Text(
-                        ' ${article.updated}'.toArabic(),
+                        '  ${article.updated.getFormatDate()}'.toArabic(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -76,7 +77,7 @@ class ActionArticle extends StatelessWidget {
                         color: AppColors.black,
                       ),
                       Text(
-                        ' ${article.writer}',
+                        ' ${article.writer.name}',
                         softWrap: false,
                         style: Theme.of(context)
                             .textTheme

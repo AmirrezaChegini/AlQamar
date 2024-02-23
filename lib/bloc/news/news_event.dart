@@ -1,4 +1,4 @@
-abstract class NewsEvent {}
+sealed class NewsEvent {}
 
 class GetAllArticlesEvent extends NewsEvent {
   final int page;

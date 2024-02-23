@@ -1,7 +1,7 @@
 import 'package:al_qamar/models/article.dart';
 import 'package:al_qamar/models/force_article.dart';
 
-abstract class HomeState {}
+sealed class HomeState {}
 
 class InitHomeState extends HomeState {}
 

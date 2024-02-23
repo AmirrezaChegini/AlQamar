@@ -1,6 +1,6 @@
 import 'package:al_qamar/models/live.dart';
 
-abstract class LiveState {}
+sealed class LiveState {}
 
 class InitLiveState extends LiveState {}
 

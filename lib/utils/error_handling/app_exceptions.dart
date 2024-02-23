@@ -9,38 +9,21 @@ class FetchDataEx extends AppExceptions {
 }
 
 class ServerEx extends AppExceptions {
-  ServerEx({String? message}) : super(message ?? 'There Is A Server Error');
+  ServerEx({String? message}) : super(message ?? 'thereIsAServerError');
 }
 
 class NotFoundEx extends AppExceptions {
-  NotFoundEx({String? message}) : super(message ?? 'Not Found');
-}
-
-class AuthEx extends AppExceptions {
-  AuthEx({String? message})
-      : super(message ?? 'Email Or Password Is Incorrect');
+  NotFoundEx({String? message}) : super(message ?? 'notFound');
 }
 
 class BadReqEx extends AppExceptions {
-  BadReqEx({String? message}) : super(message ?? 'Wrong Format');
+  BadReqEx({String? message}) : super(message ?? 'badRequest');
 }
 
 class UnAuthorizedEx extends AppExceptions {
-  UnAuthorizedEx({String? message})
-      : super(message?.toLowerCase().substring(0, message.length - 1) ??
-            'unauthenticated');
+  UnAuthorizedEx({String? message}) : super(message ?? 'unAuthorized');
 }
 
 class ForbiddenEx extends AppExceptions {
-  ForbiddenEx({String? message})
-      : super(message ?? 'Please verify your account');
-}
-
-class AlreadyEx extends AppExceptions {
-  AlreadyEx({String? message})
-      : super(message ?? 'There is an account with this email');
-}
-
-class SomethingWrongEx extends AppExceptions {
-  SomethingWrongEx({String? message}) : super(message ?? 'Something wrong');
+  ForbiddenEx({String? message}) : super(message ?? 'youAreNotAllowed');
 }

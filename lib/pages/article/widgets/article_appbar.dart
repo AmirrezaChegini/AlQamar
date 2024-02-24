@@ -38,7 +38,8 @@ class ArticleAppbar extends StatelessWidget implements PreferredSizeWidget {
         videos:
             article != null ? article?.videos ?? [] : calender?.videos ?? [],
         pdfs: article != null ? article?.pdfs ?? [] : calender?.pdfs ?? [],
-        youtube: article?.youtube ?? '',
+        youtube:
+            article != null ? article?.youtube ?? '' : calender?.youtube ?? '',
       ),
     );
   }

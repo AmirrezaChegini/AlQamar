@@ -6,7 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class ICalenderRepository {
-  Future<ApiModel<List<Calender>, String>> getCalender({required String day});
+  Future<ApiModel<List<Calender>, String>> getAllCalender(
+      {required DateTime day});
 }
 
 class CalenderRepositoryImpl implements ICalenderRepository {
@@ -14,26 +15,23 @@ class CalenderRepositoryImpl implements ICalenderRepository {
   CalenderRepositoryImpl(this._datasource);
 
   @override
-  Future<ApiModel<List<Calender>, String>> getCalender(
-      {required String day}) async {
+  Future<ApiModel<List<Calender>, String>> getAllCalender(
+      {required DateTime day}) async {
     try {
-      Response response = await _datasource.getCalender(day: day);
-
-      return ApiModel.success(await compute(_calender, response));
+      return ApiModel.success(
+        await compute(
+          _calenders,
+          await _datasource.getAllCalender(day: day),
+        ),
+      );
     } on AppExceptions catch (e) {
       return ApiModel.error(e.message);
     }
   }
 }
 
-List<Calender> _calender(Response response) {
-  try {
-    List<Calender> calenderList = response.data['data']
-        .map<Calender>((e) => Calender.fromMapJson(e))
-        .toList();
-
-    return calenderList;
-  } catch (e) {
-    return [];
-  }
+List<Calender> _calenders(Response response) {
+  return response.data['items']
+      .map<Calender>((e) => Calender.fromMapJson(e))
+      .toList();
 }

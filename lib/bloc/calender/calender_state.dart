@@ -13,11 +13,10 @@ class EmptyCalenderState extends CalenderState {
 
 class CompleteCalenderState extends CalenderState {
   final List<Calender> calenderList;
-
   CompleteCalenderState(this.calenderList);
 }
 
-class FailCalenderState extends CalenderState {
+class FailedCalenderState extends CalenderState {
   final String errorMessage;
-  FailCalenderState(this.errorMessage);
+  FailedCalenderState(this.errorMessage);
 }

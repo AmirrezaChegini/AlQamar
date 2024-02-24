@@ -59,7 +59,7 @@ class FourActions extends StatelessWidget {
             Expanded(
               child: BlocConsumer<CalenderBloc, CalenderState>(
                 listener: (context, state) {
-                  if (state is FailCalenderState) {
+                  if (state is FailedCalenderState) {
                     showMessage(
                       context: context,
                       content: state.errorMessage.localize(context),
@@ -103,7 +103,7 @@ class FourActions extends StatelessWidget {
                     return const LoadingState();
                   }
 
-                  if (state is FailCalenderState) {
+                  if (state is FailedCalenderState) {
                     return Center(
                       child: Text(
                         state.errorMessage.localize(context),

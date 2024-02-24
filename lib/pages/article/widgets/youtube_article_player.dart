@@ -46,11 +46,6 @@ class _YoutubeArticlePlayerState extends State<YoutubeArticlePlayer> {
             ),
           ),
         ),
-        // child: YoutubePlayer(
-        //   controller: _playerCtrl,
-        //   aspectRatio: 16 / 9,
-        //   backgroundColor: AppColors.transparent,
-        // ),
       ),
     );
   }

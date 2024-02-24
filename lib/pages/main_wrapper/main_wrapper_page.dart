@@ -10,14 +10,12 @@ import 'package:al_qamar/pages/category/category_page.dart';
 import 'package:al_qamar/pages/home/home_page.dart';
 import 'package:al_qamar/pages/main_wrapper/widgets/bottom_navbar.dart';
 import 'package:al_qamar/pages/profile/profile_page.dart';
-import 'package:al_qamar/utils/extensions/hijri_calender.dart';
 import 'package:al_qamar/widgets/app_snackbar.dart';
 import 'package:al_qamar/widgets/appbar_leading.dart';
 import 'package:al_qamar/widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hijri/hijri_calendar.dart';
 
 class MainWrapperPage extends StatefulWidget {
   const MainWrapperPage({super.key});
@@ -38,7 +36,7 @@ class _MainWrapperPageState extends State<MainWrapperPage>
     BlocProvider.of<CategoryBloc>(context).add(GetAllCategoryEvent());
     BlocProvider.of<BottomnavCubit>(context).changeIndex(0);
     BlocProvider.of<CalenderBloc>(context)
-        .add(GetCalenderEvent(HijriCalendar.now().getHijri()));
+        .add(GetAllCalenderEvent(DateTime.now()));
     _tabCtrl = TabController(length: 5, vsync: this, initialIndex: 0);
   }
 

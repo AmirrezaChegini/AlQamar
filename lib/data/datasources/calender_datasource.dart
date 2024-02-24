@@ -1,10 +1,11 @@
 import 'package:al_qamar/constants/api.dart';
 import 'package:al_qamar/utils/error_handling/app_exceptions.dart';
 import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
+import 'package:al_qamar/utils/extensions/datetime.dart';
 import 'package:dio/dio.dart';
 
 abstract class CalenderDatasource {
-  Future<Response> getCalender({required String day});
+  Future<Response> getAllCalender({required DateTime day});
 }
 
 class CalenderRemote implements CalenderDatasource {
@@ -12,15 +13,15 @@ class CalenderRemote implements CalenderDatasource {
   CalenderRemote(this._dio);
 
   @override
-  Future<Response> getCalender({required String day}) async {
+  Future<Response> getAllCalender({required DateTime day}) async {
     try {
-      Response response = await _dio.post(
+      return await _dio.get(
         Api.calender,
         options: Options(headers: {'requiredToken': true}),
-        data: {'day': day},
+        queryParameters: {
+          'filter': '(choosingDate~"${day.getFormatDate()}")',
+        },
       );
-
-      return response;
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

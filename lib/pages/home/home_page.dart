@@ -189,7 +189,9 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(bottom: 110),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    childCount: state.articleList.length - 3,
+                    childCount: state.articleList.length - 3 > 5
+                        ? 5
+                        : state.articleList.length - 3,
                     (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 8),

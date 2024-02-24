@@ -1,6 +1,6 @@
 sealed class CalenderEvent {}
 
-class GetCalenderEvent extends CalenderEvent {
-  final String day;
-  GetCalenderEvent(this.day);
+class GetAllCalenderEvent extends CalenderEvent {
+  final DateTime day;
+  GetAllCalenderEvent(this.day);
 }

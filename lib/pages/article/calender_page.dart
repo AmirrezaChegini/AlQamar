@@ -105,10 +105,10 @@ class _CalenderDataPageState extends State<CalenderDataPage>
                             ? widget.calender.videos
                             : [],
                       ),
-                      const YoutubeArticlePlayer(youtubeID: ''),
+                      YoutubeArticlePlayer(youtubeID: widget.calender.youtube),
                       AudioArticlePlayer(
                         audios: widget.calender.audios,
-                        date: DateTime.parse(widget.calender.updateAt),
+                        date: widget.calender.updated,
                         image: widget.calender.images.isNotEmpty
                             ? widget.calender.images[0]
                             : AppImages.error,

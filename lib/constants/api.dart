@@ -21,7 +21,7 @@ class Api {
   static const String forceArticles = '/api/collections/forceArticle/records';
 
   //calender
-  static const String calender = '/calendar';
+  static const String calender = '/api/collections/calender/records';
 
   //live
   static const String video = '/live/video';

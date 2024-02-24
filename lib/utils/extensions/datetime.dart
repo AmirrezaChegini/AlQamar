@@ -33,7 +33,7 @@ extension DatatimeExt on DateTime {
   }
 
   String getFormatDate() {
-    return DateFormat('MM/dd/yyyy').format(this);
+    return DateFormat('yyyy-MM-dd').format(this);
   }
 
   String getGeregorianMonth() {

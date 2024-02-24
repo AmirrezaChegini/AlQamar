@@ -26,8 +26,7 @@ class Programs extends StatelessWidget {
           child: Text('.' * 300, maxLines: 1),
         ),
         Text(
-          // DateFormat('HH:mm').format(program.time).toArabic(),
-          DateFormat('HH:mm').format(program.time),
+          DateFormat('HH:mm').format(program.date),
           style: Theme.of(context)
               .textTheme
               .bodyMedium!

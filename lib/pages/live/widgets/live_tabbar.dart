@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class LiveTabbar extends StatelessWidget {
   const LiveTabbar({
     super.key,
-    required TabController tabCtrl,
-  }) : _tabCtrl = tabCtrl;
+    required this.tabCtrl,
+  });
 
-  final TabController _tabCtrl;
+  final TabController tabCtrl;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class LiveTabbar extends StatelessWidget {
           color: AppColors.grey600,
         ),
         TabBar(
-          controller: _tabCtrl,
+          controller: tabCtrl,
           unselectedLabelColor: AppColors.grey600,
           labelColor: AppColors.blue,
           labelStyle: Theme.of(context)

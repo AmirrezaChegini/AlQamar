@@ -1,6 +1,6 @@
-import 'package:al_qamar/bloc/live/live_bloc.dart';
-import 'package:al_qamar/bloc/live/live_event.dart';
-import 'package:al_qamar/bloc/live/live_state.dart';
+import 'package:al_qamar/bloc/program/program_bloc.dart';
+import 'package:al_qamar/bloc/program/program_event.dart';
+import 'package:al_qamar/bloc/program/program_state.dart';
 import 'package:al_qamar/config/localize.dart';
 import 'package:al_qamar/constants/colors.dart';
 import 'package:al_qamar/constants/fontsize.dart';
@@ -35,7 +35,7 @@ class _ProgramsPageState extends State<ProgramsPage>
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<LiveBloc>(context).add(GetLiveEvent());
+    BlocProvider.of<ProgramBloc>(context).add(GetProgramEvent());
     _tabCtrl = TabController(length: 2, vsync: this);
   }
 
@@ -49,9 +49,9 @@ class _ProgramsPageState extends State<ProgramsPage>
           color: AppColors.red,
         ),
       ),
-      body: BlocBuilder<LiveBloc, LiveState>(
+      body: BlocBuilder<ProgramBloc, ProgramState>(
         builder: (context, state) {
-          if (state is CompleteLiveState) {
+          if (state is CompleteProgramState) {
             return ListView(
               children: [
                 Container(
@@ -77,16 +77,16 @@ class _ProgramsPageState extends State<ProgramsPage>
                             crossAxisAlignment: WrapCrossAlignment.center,
                             runAlignment: WrapAlignment.center,
                             spacing: 5,
+                            runSpacing: 5,
                             children: List.generate(
-                              state.videoList.length,
+                              state.videoProgramList.length,
                               (index) => LiveItem(
                                 onTap: () {
                                   setState(() {
                                     videoIndex = index;
                                   });
                                 },
-                                // image: state.videoList[index].image,
-                                live: state.videoList[index],
+                                live: state.videoProgramList[index].live,
                                 color: videoIndex == index
                                     ? AppColors.grey600
                                     : AppColors.transparent,
@@ -96,11 +96,12 @@ class _ProgramsPageState extends State<ProgramsPage>
                           const SizedBox(height: 10),
                           Expanded(
                             child: GroupedListView<Program, DateTime>(
-                              elements: state.videoList[videoIndex].programList,
+                              elements:
+                                  state.videoProgramList[videoIndex].program,
                               groupBy: (e) => DateTime(
-                                e.time.year,
-                                e.time.month,
-                                e.time.day,
+                                e.date.year,
+                                e.date.month,
+                                e.date.day,
                               ),
                               order: GroupedListOrder.ASC,
                               itemBuilder: (context, program) => Padding(
@@ -155,16 +156,16 @@ class _ProgramsPageState extends State<ProgramsPage>
                             runAlignment: WrapAlignment.center,
                             crossAxisAlignment: WrapCrossAlignment.center,
                             spacing: 5,
+                            runSpacing: 5,
                             children: List.generate(
-                              state.audioList.length,
+                              state.audioProgramList.length,
                               (index) => LiveItem(
                                 onTap: () {
                                   setState(() {
                                     audioIndex = index;
                                   });
                                 },
-                                // image: state.audioList[index].image,
-                                live: state.audioList[index],
+                                live: state.audioProgramList[index].live,
                                 color: audioIndex == index
                                     ? AppColors.grey600
                                     : AppColors.transparent,
@@ -172,56 +173,58 @@ class _ProgramsPageState extends State<ProgramsPage>
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Expanded(
-                            child: GroupedListView<Program, DateTime>(
-                              elements: state.audioList[audioIndex].programList,
-                              groupBy: (e) => DateTime(
-                                e.time.year,
-                                e.time.month,
-                                e.time.day,
-                              ),
-                              itemBuilder: (context, program) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15)
-                                        .copyWith(bottom: 10),
-                                child: Programs(program: program),
-                              ),
-                              groupSeparatorBuilder: (time) => Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 15,
+                          if (state.audioProgramList.isNotEmpty)
+                            Expanded(
+                              child: GroupedListView<Program, DateTime>(
+                                elements:
+                                    state.audioProgramList[audioIndex].program,
+                                groupBy: (e) => DateTime(
+                                  e.date.year,
+                                  e.date.month,
+                                  e.date.day,
                                 ),
-                                margin: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    bottomLeft: Radius.circular(60),
-                                  ),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: [
-                                      AppColors.red.withOpacity(0.4),
-                                      AppColors.grey200,
-                                    ],
-                                  ),
+                                itemBuilder: (context, program) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 15)
+                                          .copyWith(bottom: 10),
+                                  child: Programs(program: program),
                                 ),
-                                child: Text(
-                                  CheckDirect.isRTL(context)
-                                      ? '${HijriCalendar.fromDate(time)}'
-                                          .toArabic()
-                                      : DateFormat('dd/MM/yyy')
-                                          .format(time)
-                                          .toArabic(),
-                                  maxLines: 3,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge!
-                                      .copyWith(fontSize: Fontsize.large),
+                                groupSeparatorBuilder: (time) => Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 15,
+                                  ),
+                                  margin: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      bottomLeft: Radius.circular(60),
+                                    ),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        AppColors.red.withOpacity(0.4),
+                                        AppColors.grey200,
+                                      ],
+                                    ),
+                                  ),
+                                  child: Text(
+                                    CheckDirect.isRTL(context)
+                                        ? '${HijriCalendar.fromDate(time)}'
+                                            .toArabic()
+                                        : DateFormat('dd/MM/yyy')
+                                            .format(time)
+                                            .toArabic(),
+                                    maxLines: 3,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge!
+                                        .copyWith(fontSize: Fontsize.large),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                     ],
@@ -231,22 +234,22 @@ class _ProgramsPageState extends State<ProgramsPage>
             );
           }
 
-          if (state is LoadingLiveState) {
+          if (state is LoadingProgramState) {
             return const LoadingState();
           }
 
-          if (state is FailLiveState) {
+          if (state is FailedProgramState) {
             return Center(
               child: ErrorState(
-                onTap: () =>
-                    BlocProvider.of<LiveBloc>(context).add(GetLiveEvent()),
+                onTap: () => BlocProvider.of<ProgramBloc>(context)
+                    .add(GetProgramEvent()),
                 bottomMargin: 0,
                 errorMessage: state.errorMessage,
               ),
             );
           }
 
-          return const SizedBox();
+          return const SizedBox.shrink();
         },
       ),
     );

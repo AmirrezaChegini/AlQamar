@@ -4,8 +4,8 @@ import 'package:al_qamar/utils/error_handling/check_exceptions.dart';
 import 'package:dio/dio.dart';
 
 abstract class LiveDatasource {
-  Future<Response> getVideo();
-  Future<Response> getAudio();
+  Future<Response> getLive();
+  Future<Response> getprogram();
 }
 
 class LiveRemote implements LiveDatasource {
@@ -14,11 +14,9 @@ class LiveRemote implements LiveDatasource {
   LiveRemote(this._dio);
 
   @override
-  Future<Response> getAudio() async {
+  Future<Response> getLive() async {
     try {
-      Response response = await _dio.get(Api.audio);
-
-      return response;
+      return await _dio.get(Api.live);
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()
@@ -27,11 +25,12 @@ class LiveRemote implements LiveDatasource {
   }
 
   @override
-  Future<Response> getVideo() async {
+  Future<Response> getprogram() async {
     try {
-      Response response = await _dio.get(Api.video);
-
-      return response;
+      return await _dio.get(
+        Api.program,
+        queryParameters: {'expand': 'live, program'},
+      );
     } on DioException catch (e) {
       e.response == null
           ? throw FetchDataEx()

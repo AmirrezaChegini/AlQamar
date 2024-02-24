@@ -1,42 +1,51 @@
-import 'package:al_qamar/models/program.dart';
+import 'package:al_qamar/constants/api.dart';
+
+enum LiveType { video, audio }
 
 class Live {
-  final int _id;
-  final String? _name;
+  final String? _collectionId;
+  final String? _collectionName;
+  final String? _id;
+  final LiveType? _type;
   final String? _url;
-  final String? _type;
+  final String? _name;
   final String? _image;
-  final Map<String, dynamic>? programsMap;
-  List<Program>? _programList;
+  final DateTime? _created;
+  final DateTime? _updated;
 
   Live(
+    this._collectionId,
+    this._collectionName,
     this._id,
-    this._name,
-    this._url,
     this._type,
+    this._url,
+    this._name,
     this._image,
-    this.programsMap,
-  ) {
-    _programList = programsMap?.entries
-        .map<Program>((e) => Program(e.key, DateTime.parse(e.value)))
-        .toList();
-  }
+    this._created,
+    this._updated,
+  );
 
   factory Live.fromMapJson(Map<String, dynamic> jsonObject) {
     return Live(
+      jsonObject['collectionId'],
+      jsonObject['collectionName'],
       jsonObject['id'],
-      jsonObject['name'],
+      jsonObject['type'] == 'video' ? LiveType.video : LiveType.audio,
       jsonObject['url'],
-      jsonObject['type'],
-      jsonObject['image'],
-      jsonObject['list_programs'],
+      jsonObject['name'],
+      '${Api.baseUrl}/api/files/${jsonObject['collectionId']}/${jsonObject['id']}/${jsonObject['image']}',
+      DateTime.parse(jsonObject['created']),
+      DateTime.parse(jsonObject['updated']),
     );
   }
 
-  int get id => _id;
-  String get name => _name ?? '';
+  String get collectionId => _collectionId ?? '';
+  String get collectionName => _collectionName ?? '';
+  String get id => _id ?? '';
+  LiveType get type => _type ?? LiveType.video;
   String get url => _url ?? '';
-  String get type => _type ?? '';
+  String get name => _name ?? '';
   String get image => _image ?? '';
-  List<Program> get programList => _programList ?? [];
+  DateTime get created => _created ?? DateTime.now();
+  DateTime get updated => _updated ?? DateTime.now();
 }

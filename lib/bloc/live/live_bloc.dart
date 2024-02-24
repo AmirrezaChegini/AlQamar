@@ -15,16 +15,13 @@ class LiveBloc extends Bloc<LiveEvent, LiveState> {
       List<Live> videoList = [];
       String errorMessage = '';
 
-      ApiModel<List<Live>, String> videoEither = await _repository.getVideo();
-      ApiModel<List<Live>, String> audioEither = await _repository.getAudio();
+      ApiModel<List<Live>, String> either = await _repository.getLive();
 
-      videoEither.fold(
-        (data) => videoList = data,
-        (error) => errorMessage = error,
-      );
-
-      audioEither.fold(
-        (data) => audioList = data,
+      either.fold(
+        (data) {
+          audioList = data.where((e) => e.type == LiveType.audio).toList();
+          videoList = data.where((e) => e.type == LiveType.video).toList();
+        },
         (error) => errorMessage = error,
       );
 

@@ -7,6 +7,7 @@ import 'package:al_qamar/bloc/home/home_bloc.dart';
 import 'package:al_qamar/bloc/live/live_bloc.dart';
 import 'package:al_qamar/bloc/news/news_bloc.dart';
 import 'package:al_qamar/bloc/other_article/other_article_bloc.dart';
+import 'package:al_qamar/bloc/program/program_bloc.dart';
 import 'package:al_qamar/bloc/search/search_bloc.dart';
 import 'package:al_qamar/bloc/user/user_bloc.dart';
 import 'package:al_qamar/constants/api.dart';
@@ -128,4 +129,5 @@ Future<void> initLocator() async {
   locator.registerFactory<DownloadPdfBloc>(
       () => DownloadPdfBloc(locator.get(), locator.get()));
   locator.registerFactory<CategoryBloc>(() => CategoryBloc(locator.get()));
+  locator.registerFactory<ProgramBloc>(() => ProgramBloc(locator.get()));
 }

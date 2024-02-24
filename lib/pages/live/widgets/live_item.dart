@@ -35,16 +35,6 @@ class LiveItem extends StatelessWidget {
           imageUrl: live.image,
           width: 80,
         ),
-        // child: Image.asset(image),
-        // child: Text(
-        //   live.name,
-        //   maxLines: 1,
-        //   textAlign: TextAlign.center,
-        //   style: Theme.of(context)
-        //       .textTheme
-        //       .bodyMedium!
-        //       .copyWith(fontSize: Fontsize.huge),
-        // ),
       ),
     );
   }

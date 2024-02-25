@@ -81,5 +81,6 @@
     "openSite": "موقع مفتوح",
     "privacyPolicy": "سياسة الخصوصية",
     "yes": "نعم",
-    "cancel": "یلغی"
+    "cancel": "یلغی",
+    "serverError": "خطأ في الخادم"
 }

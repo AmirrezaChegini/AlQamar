@@ -81,5 +81,6 @@
     "openSite": "Open site",
     "privacyPolicy": "Privacy Policy",
     "yes": "Yes",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "serverError": "Server Error"
 }

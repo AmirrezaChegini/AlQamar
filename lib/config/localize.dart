@@ -169,6 +169,8 @@ extension LocalizeExt on String {
         return AppLocalizations.of(context)!.yes;
       case 'cancel':
         return AppLocalizations.of(context)!.cancel;
+      case 'serverError':
+        return AppLocalizations.of(context)!.serverError;
       default:
         return '';
     }

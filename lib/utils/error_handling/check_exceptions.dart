@@ -16,6 +16,8 @@ class CheckExceptions {
         throw NotFoundEx(message: response.data['message']);
       case 500:
         throw ServerEx(message: response.statusMessage);
+      case 502:
+        throw ServerEx(message: null);
       default:
         throw FetchDataEx(message: response.statusMessage);
     }

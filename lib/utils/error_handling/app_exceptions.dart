@@ -9,7 +9,7 @@ class FetchDataEx extends AppExceptions {
 }
 
 class ServerEx extends AppExceptions {
-  ServerEx({String? message}) : super(message ?? 'thereIsAServerError');
+  ServerEx({String? message}) : super(message ?? 'serverError');
 }
 
 class NotFoundEx extends AppExceptions {
